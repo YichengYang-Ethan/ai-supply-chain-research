@@ -1,0 +1,691 @@
+{
+ "sector_id": "04_packaging",
+ "sector_name_en": "Advanced Packaging",
+ "sector_name_zh": "先进封装",
+ "tagline_en": "Transistors kept shrinking but IO didn't — packaging is where broken Moore's Law economics get repaired. Hybrid bonding is the biggest manufacturing shift since EUV, and it moves the whole game from OSATs into the fab.",
+ "tagline_zh": "晶体管还在缩，IO 却停了——先进封装就是修复摩尔定律经济学的地方。混合键合是 EUV 以来最大的制造范式转移，并把整个封装游戏从 OSAT 手里搬进了晶圆厂。",
+ "overview_en": "SemiAnalysis's throughline across this bucket: transistor density doubled every ~2 years while chip IO data rates doubled only every ~4, so designs became pad-limited just as cost-per-transistor stopped falling (N7 ~$9.5k vs N5 ~$16k wafers). Chiplets fix yield but not IO — and aren't even always cheaper (reticle utilization can inflate wafer cost 26%; Intel re-aggregated Emerald Rapids back to 2 big dies). The escape is packaging density: from 150-200µm flip-chip bumps to fanout (~8x IO density), 2.5D interposers (~16x), 36µm micro-bump 3D (31x), 17µm hybrid-bonded V-Cache (138x) and Sony's 6.3µm image sensors (567x). Hybrid bonding — bumpless Cu-Cu at sub-10µm pitch with a roadmap to hundreds of nanometers — is 'the most transformative innovation since EUV', but it demands ISO 1-3 cleanrooms and fab tools (CVD/PVD/ECD/CMP), structurally excluding OSATs and handing the market to TSMC, Intel and front-end equipment vendors. The battlegrounds: wafer-on-wafer (sub-50nm alignment, but no known-good-die sorting) vs die-to-wafer (KGD, but dirty and slow — Besi's claimed 2,000 dies/hr collapses below 1,000 at 1µm accuracy); Intel's curious ~300-tool TCB fleet; fanout/bridges/coreless ABF eating silicon interposers from below; and hyperscalers (Graviton3, Dojo, AmpereOne) using packaging to commoditize incumbents' CPUs.",
+ "overview_zh": "SemiAnalysis 贯穿本桶的主线：晶体管密度约每 2 年翻倍，而芯片 IO 数据速率每 4 年才翻倍，设计纷纷变成 pad-limited（管脚受限），同时每晶体管成本停止下降（N7 晶圆约 $9,500，N5 约 $16,000）。Chiplet 解决良率却解决不了 IO——甚至未必更便宜（光罩利用率能把晶圆成本抬高 26%；Intel 的 Emerald Rapids 干脆聚合回 2 颗大 die）。出路是封装密度阶梯：从 150-200µm 倒装凸点，到扇出（IO 密度约 8 倍）、2.5D 中介层（约 16 倍）、36µm 微凸点 3D（31 倍）、17µm 混合键合 V-Cache（138 倍）、索尼 6.3µm 图像传感器（567 倍）。混合键合——无凸点 Cu-Cu 直连、间距进入亚 10µm 并有路线图走向数百纳米——是「EUV 以来最具变革性的创新」，但它要求 ISO 1-3 级洁净室与晶圆厂前道设备（CVD/PVD/ECD/CMP），结构性地把 OSAT 排除在外，将市场交给台积电、Intel 与前道设备商。主战场：W2W（对准 <50nm 但无法筛选良品 die）对 D2W（可筛 KGD 但又脏又慢——Besi 宣称 2,000 die/小时，到 1µm 精度实际掉到 1,000 以下）；Intel 约 300 台 TCB 的奇特押注；扇出/桥接/无芯 ABF 自下而上蚕食硅中介层；以及超大规模厂商（Graviton3、Dojo、AmpereOne）用封装把在位者的 CPU 商品化。",
+ "core_knowledge": [
+  {
+   "term_en": "Advanced packaging (the <100µm definition) & the pitch ladder",
+   "term_zh": "先进封装（<100µm 定义）与间距阶梯",
+   "explain_en": "SemiAnalysis defines 'advanced' as any packaging with bump pitch below 100µm (tool vendors calling all flip chip 'advanced' are ignored). The ladder vs standard flip chip (150-200µm): fanout at 90-60µm ≈8x IO density, 2.5D at 55-50µm ≈16x, 36µm micro-bump 3D ≈31x, 17µm hybrid-bonded TSVs ≈138x, Sony's 6.3µm CIS ≈567x. Each rung is a step-function in interconnect density and energy-per-bit.",
+   "explain_zh": "SemiAnalysis 把「先进」定义为凸点间距小于 100µm 的封装（设备商把所有倒装都叫先进封装的说法不予采纳）。相对标准倒装（150-200µm）的阶梯：扇出 90-60µm 约 8 倍 IO 密度，2.5D 55-50µm 约 16 倍，36µm 微凸点 3D 约 31 倍，17µm 混合键合 TSV 约 138 倍，索尼 6.3µm 图像传感器约 567 倍。每上一级都是互连密度与每比特能耗的阶跃。"
+  },
+  {
+   "term_en": "Pad-limited design (the IO wall)",
+   "term_zh": "Pad-limited 设计（IO 墙）",
+   "explain_en": "Transistors scaled 2x/2yr but IO data rates only 2x/4yr, and flip-chip bump pitch barely moved since the 1990s (AMD 200µm→130µm = only 2.35x more IO; Intel →100µm = 4x). Old designs ported to new nodes can't shrink because pads set the floor on die area — which is also why Gelsinger's 'move automotive chips to Intel 16' pitch fails on unit economics.",
+   "explain_zh": "晶体管每 2 年翻倍，IO 速率每 4 年才翻倍，而倒装凸点间距自 90 年代几乎没动（AMD 200µm→130µm 只带来 2.35 倍 IO；Intel →100µm 也才 4 倍）。老设计迁到新节点缩不下去，因为 pad 数决定了 die 面积下限——这也是 Gelsinger「把车规芯片搬到 Intel 16」在单位经济学上不成立的原因。"
+  },
+  {
+   "term_en": "Chiplets & Known Good Die (KGD)",
+   "term_zh": "Chiplet 与已知良品裸片（KGD）",
+   "explain_en": "Splitting big chips beats defect math (a 2,000-step process at six-sigma per step still gives D0≈0.678 — semis are 'way better than six sigma'). AMD covers a huge market with 3 tape-outs vs Intel's 5. But chiplets add interface area, packaging yield risk, and power; the whole 3D-stacking economics question reduces to whether you can test and bond only known-good dies.",
+   "explain_zh": "把大芯片拆小是在跟缺陷数学作战（一个 2,000 步、每步六西格玛的工艺 D0 仍高达 0.678——半导体业「远好于六西格玛」）。AMD 用 3 个 tape-out 覆盖 Intel 需要 5 个的市场。但 chiplet 增加接口面积、封装良率风险与功耗；3D 堆叠经济学的全部关键，归结为你能否只测试并键合已知良品的 die。"
+  },
+  {
+   "term_en": "Hybrid bonding (bumpless Cu-Cu)",
+   "term_zh": "混合键合（无凸点 Cu-Cu 直连）",
+   "explain_en": "Dielectric-to-dielectric plus direct copper-to-copper bonding with no solder: pads recessed ~5nm below a SiCN/SiO surface, pressed flush, then annealed. Scales below 10µm pitch with a roadmap into hundreds of nanometers; kills solder resistance so energy/bit plummets. Requires 0.5nm dielectric / 1nm copper surface roughness, multiple precision CMP passes, and via-middle TSVs to feed power and signal through the stack.",
+   "explain_zh": "介质对介质 + 铜对铜直接键合、完全不用焊料：铜垫先凹陷在 SiCN/SiO 表面下约 5nm，两面贴平后退火互连。间距可缩到 10µm 以下、路线图直指数百纳米；去掉焊料电阻后每比特能耗骤降。要求介质表面粗糙度 0.5nm、铜垫 1nm，多道精密 CMP，并靠 via-middle TSV 给堆叠内供电与传信号。"
+  },
+  {
+   "term_en": "W2W vs D2W (wafer-on-wafer vs die-to-wafer)",
+   "term_zh": "W2W 对 D2W（晶圆对晶圆 vs 裸片对晶圆）",
+   "explain_en": "W2W bonds two whole wafers: sub-50nm alignment, cleaner, cheap, mature (Sony CIS, YMTC NAND, Graphcore Bow) — but both dies must be the same size and you stack defective dies onto good ones, so it loses on large low-yield logic. D2W picks and places known good dies: wins on big dies but is slower, dirtier (singulation particles), and less accurate. Collective D2W and self-assembly try to square the circle.",
+   "explain_zh": "W2W 整片对整片键合：对准 <50nm、更干净、便宜且成熟（索尼 CIS、长存 NAND、Graphcore Bow）——但上下 die 必须等大，且会把坏 die 压在好 die 上，大尺寸低良率逻辑芯片就输了。D2W 逐颗拾放已知良品 die：大 die 时占优，但更慢、更脏（切割颗粒）、精度更差。Collective D2W 与自组装试图两全。"
+  },
+  {
+   "term_en": "TCB (thermocompression bonding)",
+   "term_zh": "TCB（热压键合）",
+   "explain_en": "One tool places each die, applies force + heat (+ vibration) to reflow solder in place — eliminating batch-oven CTE warpage, gap variation and tilt. It packages ultra-thin dies (HBM stacks; SK Hynix 12-hi HBM3 dies thinned to 30µm) and mixed pitches on one package. The catch: ~$1.25M per tool at 500-1,000 dies/hr vs ~$450k flip-chip placers at 3,000-10,000/hr.",
+   "explain_zh": "由一台设备逐颗放置 die，加压加热（可加振动）就地回流焊料——消除批量回流炉的 CTE 翘曲、间隙不均与倾斜。能封超薄 die（HBM 堆叠；海力士 12 层 HBM3 die 减薄到 30µm）以及同一封装内的混合间距。代价：单台约 $125 万、每小时 500-1,000 颗，对比约 $45 万、每小时 3,000-10,000 颗的倒装贴片机。"
+  },
+  {
+   "term_en": "2.5D: silicon interposers (CoWoS) vs bridges (EMIB)",
+   "term_zh": "2.5D：硅中介层（CoWoS）对硅桥（EMIB）",
+   "explain_en": "2.5D stacks active silicon on a passive routing die at 55-50µm pitch — Nvidia GPUs + HBM on TSMC CoWoS-S is the volume case. Interposers are expensive (TSV-heavy), so the industry substitutes: EMIB embeds a small silicon bridge in the ABF substrate; CoWoS-R uses organic RDL (R+ adds high-density IPD capacitors to carry 6.4Gbps HBM3, with a roadmap to 45x reticle vs CoWoS-S extending to only 4x).",
+   "explain_zh": "2.5D 是把有源硅堆在只做布线的无源硅上，间距 55-50µm——英伟达 GPU + HBM 走台积电 CoWoS-S 是最大批量场景。中介层贵（TSV 密集），业界于是替代：EMIB 把小硅桥嵌进 ABF 基板；CoWoS-R 改用有机 RDL（R+ 再加高密度 IPD 电容以支撑 6.4Gbps HBM3，路线图达 45 倍光罩面积，而 CoWoS-S 只延到 4 倍）。"
+  },
+  {
+   "term_en": "Fanout RDL & ABF build-up substrate",
+   "term_zh": "扇出 RDL 与 ABF 增层基板",
+   "explain_en": "Fanout re-spreads a die's IO across a reconstituted wafer/panel (TSMC InFO in every Apple A/M chip; wafer-scale InFO_SoW in Tesla Dojo). ABF build-up substrate (Ajinomoto film) is the base of nearly everything — 'hybrid substrates'. The L/S race: ABF 10µm, Cisco coreless 6µm, Unimicron coreless 3µm, EMIB 5µm→2µm, advanced fanouts 2µm, Amkor SLIM 0.4µm — improving ABF keeps cannibalizing fanout from below.",
+   "explain_zh": "扇出把 die 的 IO 摊到重构晶圆/面板上（台积电 InFO 用于所有苹果 A/M 芯片；晶圆级 InFO_SoW 用于特斯拉 Dojo）。ABF 增层基板（味之素膜）是几乎一切的底座——所谓「混合基板」。线宽/线距竞赛：ABF 10µm、思科无芯 6µm、欣兴无芯 3µm、EMIB 5µm→2µm、先进扇出 2µm、Amkor SLIM 0.4µm——不断进步的 ABF 持续自下而上蚕食扇出。"
+  },
+  {
+   "term_en": "Reticle limit & reticle utilization",
+   "term_zh": "光罩极限与光罩利用率",
+   "explain_en": "A scanner exposes a 26mm x 33mm field (mask 104x132mm at 4x reduction); Nvidia/Intel datacenter dies have sat near this limit for 5+ years. Less obvious: lithography is ~1/3 of processed-wafer cost, and a chiplet that tiles the field badly forces more scan passes — SemiAnalysis's example needs 1.875x the steps, repricing the wafer from $17,000 to $21,364, shrinking the chiplet's silicon saving to just $26 — and very likely making the 'cheaper' chiplet dearer than monolithic once packaging costs are added.",
+   "explain_zh": "光刻机单次曝光 26mm x 33mm 视场（掩膜 104x132mm，4 倍缩小）；英伟达/Intel 的数据中心 die 已贴着这个极限超过 5 年。更隐蔽的是：光刻约占加工晶圆成本的 1/3，chiplet 若不能整齐铺满视场就要多扫——SemiAnalysis 的算例需要 1.875 倍步进次数，晶圆报价从 $17,000 抬到 $21,364，chiplet 的硅片省额缩到只剩 $26——一旦算上封装成本，「更便宜」的 chiplet 很可能反而贵过单片。"
+  }
+ ],
+ "value_chain": [
+  {
+   "stage_en": "Front-end packaging foundries & IDMs",
+   "stage_zh": "前道化封装的晶圆厂与 IDM",
+   "players": "TSMC (SoIC, CoWoS-S/R/L, InFO/InFO_SoW), Intel (Foveros/Omni, EMIB, TCB fleet), Samsung",
+   "role_en": "Hybrid bonding's fab-grade cleanliness and toolset pulled leading-edge packaging inside the foundry. TSMC monetizes every rung (Apple InFO, Nvidia CoWoS, AMD SoIC, Tesla InFO_SoW); Intel counters with EMIB bridges, Foveros and a decade of co-developed TCB.",
+   "role_zh": "混合键合的晶圆厂级洁净度与设备组合，把最先进封装拉进了晶圆厂内部。台积电在每一级都收钱（苹果 InFO、英伟达 CoWoS、AMD SoIC、特斯拉 InFO_SoW）；Intel 以 EMIB 硅桥、Foveros 和十年共研的 TCB 应对。"
+  },
+  {
+   "stage_en": "OSATs (outsourced assembly & test)",
+   "stage_zh": "OSAT（委外封测）",
+   "players": "ASE/SPIL (FoCoS, NTI), Amkor (WLFO, SLIM), JCET, Fabrinet (optics)",
+   "role_en": "Own bump, flip-chip, fanout and some TCB — but hybrid bonding needs ISO 1-3 cleanrooms plus CVD/etch/PVD/ECD/CMP experience they lack, so the highest-value new layer is structurally out of reach. ASE probing co-packaged optics threatens optics specialists like Fabrinet.",
+   "role_zh": "手握凸点、倒装、扇出和部分 TCB——但混合键合需要 ISO 1-3 洁净室加上他们缺乏的 CVD/刻蚀/PVD/ECD/CMP 经验，最高价值的新环节结构性地够不着。ASE 试水共封装光学，则威胁 Fabrinet 这类光学专业户。"
+  },
+  {
+   "stage_en": "Bonder & die-placement tool vendors",
+   "stage_zh": "键合与贴片设备商",
+   "players": "Besi (D2W HB, 8800 Ultra), ASMPT, Kulicke & Soffa (TCB niches), EV Group (dominant W2W, SmartView), SUSS Microtec, SET, Shibaura, Shinkawa, TEL (W2W win at TSMC)",
+   "role_en": "The choke tools. EVG dominates W2W alignment (sub-50nm); Besi is the de-facto D2W hybrid bonder at TSMC but real accuracy runs ~0.5µm at half rated throughput — SemiAnalysis holds 'a very non-consensus view on BESI'. TCB demand splits across ASMPT/K&S/Besi niches, with Intel the largest buyer.",
+   "role_zh": "卡脖子设备。EVG 统治 W2W 对准（<50nm）；Besi 是台积电事实上的 D2W 混合键合机供应商，但实际精度约 0.5µm 且只有额定吞吐一半——SemiAnalysis 自称「对 BESI 持非常非共识的观点」。TCB 需求在 ASMPT/K&S/Besi 各自的细分间分配，Intel 是最大买家。"
+  },
+  {
+   "stage_en": "Front-end equipment pulled into packaging",
+   "stage_zh": "被拉进封装的前道设备商",
+   "players": "Applied Materials, Tokyo Electron, Lam (dep/etch/CMP), Disco (dicing/grinding), ACM Research (megasonic clean), EVG/SUSS (activation)",
+   "role_en": "Hybrid bonding is built from fab steps: PECVD SiCN, damascene copper, multi-pass CMP, plasma activation, DI-water megasonic cleans, laser/plasma dicing. Disco leads clean dicing ('their stock has more than tripled since we wrote about them'); every HB wafer means more front-end tool spend.",
+   "role_zh": "混合键合由前道工序拼成：PECVD SiCN、大马士革铜、多道 CMP、等离子活化、去离子水兆声清洗、激光/等离子切割。Disco 领跑洁净切割（「自我们写过之后股价已涨逾三倍」）；每一片 HB 晶圆都意味着更多前道设备开支。"
+  },
+  {
+   "stage_en": "Substrates & materials",
+   "stage_zh": "基板与材料",
+   "players": "Ajinomoto (ABF film), Unimicron, Ibiden, Shinko, Samsung EM",
+   "role_en": "ABF build-up substrate is the base of nearly every advanced package. Coreless ABF (Cisco 6µm L/S, 10 layers; Unimicron 3µm L/S on panels) is climbing into fanout's territory with the killer logistics advantage of shippable known-good substrates.",
+   "role_zh": "ABF 增层基板是几乎所有先进封装的底座。无芯 ABF（思科 6µm 线宽线距、10 层；欣兴面板级 3µm）正爬进扇出的地盘，且自带可交付「已知良品基板」的致命物流优势。"
+  },
+  {
+   "stage_en": "Designers & vanguard adopters",
+   "stage_zh": "设计方与先锋采用者",
+   "players": "AMD (3D V-Cache, MI250X/MI300X), Sony (CIS, 1µm pitch leader), Graphcore (first W2W logic), Apple, Nvidia, Amazon/Annapurna, Tesla, Ampere, SK Hynix/Samsung/Micron (HBM), Adeia/Xperi (DBI IP)",
+   "role_en": "Adoption is led by whoever's economics break first: AMD stacked SRAM when it got cheaper than shrinking it; Sony stacks pixels; hyperscalers use packaging to ship DDR5/PCIe5 six months before x86 incumbents. Adeia licenses the underlying DBI hybrid-bonding IP.",
+   "role_zh": "谁的经济学先崩，谁就先采用：AMD 在堆 SRAM 比缩 SRAM 便宜时开始堆叠；索尼堆像素；超大规模厂商用封装比 x86 在位者早半年出货 DDR5/PCIe5。Adeia 则收底层 DBI 混合键合 IP 的授权费。"
+  }
+ ],
+ "theses": [
+  {
+   "claim_en": "The root cause: IO scaling runs at half the pace of transistor scaling, so the industry hit a pad-limited wall that only packaging can fix.",
+   "claim_zh": "根因：IO 微缩速度只有晶体管的一半，全行业撞上只有封装才能解决的 pad-limited 墙。",
+   "rationale_en": "Density of real chips grew ~2x/3yr against 2x/yr transistor density partly because IO, power delivery and SRAM stalled. Flip chip stayed ~150-200µm from 2000 to 2021; AMD's move to 130µm bought just 2.35x more IO against orders-of-magnitude more transistors. Designers first coped by bloating dies with cache (Infinity Cache cut a 384-bit GDDR6 bus to 256-bit) — but Nvidia and Intel have been at reticle limit for 5+ years. Packaging density is the only lever left.",
+   "rationale_zh": "真实芯片密度只有约每 3 年翻倍（对比每年翻倍的晶体管密度），部分原因就是 IO、供电与 SRAM 停滞。倒装从 2000 到 2021 年一直停在约 150-200µm；AMD 到 130µm 只换来 2.35 倍 IO，而晶体管涨了几个数量级。设计者先用塞缓存硬扛（Infinity Cache 把 384 位 GDDR6 总线砍到 256 位）——但英伟达和 Intel 已经贴着光罩极限走了 5 年多。封装密度是仅剩的杠杆。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!UU0J!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fd52a255f-a15e-4ace-9a45-3a3b786ec61f_1024x554.png",
+    "shows_en": "The decades-long divergence between transistor density (2x/2yr) and chip IO data rates (2x/4yr) that makes designs pad-limited.",
+    "shows_zh": "晶体管密度（每 2 年翻倍）与芯片 IO 速率（每 4 年翻倍）数十年的剪刀差——pad-limited 的根源。"
+   },
+   "quote": {
+    "text": "Moore's law has had the industry increasing transistor densities roughly 2x every 2 years, but the rate of IO data rates have only been 2x every 4 years.",
+    "source_title": "Advanced Packaging Part 1 – Pad Limited Designs",
+    "date": "2021-12-15"
+   }
+  },
+  {
+   "claim_en": "Cost per transistor is rising, not falling — the deflationary engine of the industry broke at 7nm/5nm, and that reversal is what funds the packaging renaissance.",
+   "claim_zh": "每晶体管成本在涨而不是在降——行业的通缩引擎在 7nm/5nm 熄火，而这场反转正是封装复兴的资金来源。",
+   "rationale_en": "AMD's own data shows cost per yielded mm2 inflecting sharply at 7nm/5nm. SemiAnalysis's receipts: N7 wafers ~$9,500 vs N5 ~$16,000 while Apple's die size barely fell — and they mock Morgan Stanley's TSMC downgrade chart claiming 5nm transistors were cheaper than 7nm. When shrink no longer buys cost, heterogeneous integration and packaging become the only route to more capability per dollar.",
+   "rationale_zh": "AMD 自己的数据显示每良率 mm2 成本在 7nm/5nm 处急剧上折。SemiAnalysis 给出的实据：N7 晶圆约 $9,500、N5 约 $16,000，而苹果 die 面积几乎没缩——他们还嘲讽大摩下调台积电时那张「5nm 每晶体管比 7nm 便宜」的可笑图表。当微缩买不来成本时，异构集成与封装成了每美元换更多能力的唯一路径。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!5zL-!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fc3c50db3-49e5-48b4-ae4f-dafec5de3c8a_1024x578.png",
+    "shows_en": "AMD's 'morbid' chart: cost per yielded mm2 rising sharply at 7nm and 5nm despite similar density gains per node.",
+    "shows_zh": "AMD 那张「阴森」的图：尽管各节点密度增益相近，7nm/5nm 的每良率 mm2 成本急剧上升。"
+   },
+   "quote": {
+    "text": "Cost per transistor stalled with the introduction of FinFET nodes, 7nm completely plateaued, and with 5nm they are higher than ever before.",
+    "source_title": "Advanced Packaging Part 1 – Pad Limited Designs",
+    "date": "2021-12-15"
+   }
+  },
+  {
+   "claim_en": "Hybrid bonding is the biggest paradigm shift in packaging since flip chip — SemiAnalysis rates it above EUV in design impact.",
+   "claim_zh": "混合键合是倒装以来封装最大的范式转移——SemiAnalysis 认为其对设计的影响甚至超过 EUV。",
+   "rationale_en": "Everything from wire bond to TCB still uses solder bumps, which bottom out around 20µm pitch. Hybrid bonding is bumpless Cu-Cu: sub-10µm today, a roadmap into the hundreds of nanometers, lower resistance, latency 'in some cases shorter than global routing on chip'. It reshapes IP ecosystems, cell design and manufacturing flows — designers must start thinking in 3D. In 2024 it shipped only in AMD chips, CMOS sensors and some 3D NAND, which is exactly the opportunity.",
+   "rationale_zh": "从引线键合到 TCB 都还在用焊料凸点，物理极限约 20µm 间距。混合键合是无凸点 Cu-Cu：如今已进亚 10µm、路线图直指数百纳米，电阻更低、延迟「某些情况下比片上全局布线还短」。它将重塑 IP 生态、单元设计与制造流程——设计师必须开始三维思考。2024 年它只出现在 AMD 芯片、CMOS 传感器和部分 3D NAND 里，而这正是机会所在。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!pmat!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb1adb147-cacc-48f2-87c1-ccb0571bcea8_1632x881.png",
+    "shows_en": "Packaging history: wire bond → flip chip → solder-based incremental scaling → the hybrid-bonding paradigm shift to bumpless interconnects.",
+    "shows_zh": "封装史：引线键合 → 倒装 → 基于焊料的渐进微缩 → 走向无凸点互连的混合键合范式转移。"
+   },
+   "quote": {
+    "text": "Hybrid bonding is going to be the most transformative innovation to semiconductor manufacturing since EUV.",
+    "source_title": "Hybrid Bonding Process Flow - Advanced Packaging Part 5",
+    "date": "2024-02-09"
+   }
+  },
+  {
+   "claim_en": "Hybrid bonding is a front-end process — its cleanliness physics structurally lock OSATs out and hand packaging to TSMC, Intel and fab-tool vendors.",
+   "claim_zh": "混合键合是前道工艺——其洁净度物理学把 OSAT 结构性锁在门外，将封装交给台积电、Intel 与前道设备商。",
+   "rationale_en": "A particle just 1µm tall creates a 10mm bond void; surface roughness must stay within 0.5nm (dielectric) / 1nm (copper). That demands ISO 3 / class 1 cleanrooms or better — TSMC and Intel are going to ISO 2 or ISO 1 — plus fab tools OSATs barely own: CVD, PVD, ECD, CMP, plasma activation, megasonic cleans. ASE and Amkor would need to build new fab-grade cleanrooms; TSMC and Intel just reuse old fabs. The margin pool migrates accordingly.",
+   "rationale_zh": "一颗仅 1µm 高的颗粒就会造成直径 10mm 的键合空洞；表面粗糙度必须控制在介质 0.5nm、铜 1nm 以内。这要求 ISO 3 / 1 级洁净室或更高——台积电和 Intel 直接上 ISO 2 甚至 ISO 1——外加 OSAT 几乎不具备的前道设备：CVD、PVD、ECD、CMP、等离子活化、兆声清洗。ASE、Amkor 得新建晶圆厂级洁净室，而台积电、Intel 改造旧厂即可。利润池随之迁移。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!miJQ!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa75c9d2e-61fd-494f-bf1b-b3288118cfbb_2340x753.png",
+    "shows_en": "Cleanroom class requirements: hybrid bonding needs ISO 3/class 1 or better, far beyond other advanced packaging — fab territory, not OSAT territory.",
+    "shows_zh": "洁净室等级要求：混合键合需要 ISO 3/1 级或更高，远超其他先进封装——这是晶圆厂的地盘，不是 OSAT 的。"
+   },
+   "quote": {
+    "text": "It is very difficult for OSATs to pursue hybrid bonding given this upgrade in cleanliness requirement.",
+    "source_title": "Hybrid Bonding Process Flow - Advanced Packaging Part 5",
+    "date": "2024-02-09"
+   }
+  },
+  {
+   "claim_en": "W2W vs D2W is decided by one variable: known good die. W2W is cheaper and more accurate until die size and yield losses flip the curve.",
+   "claim_zh": "W2W 对 D2W 由一个变量决定：已知良品 die。W2W 更便宜更精准，直到 die 尺寸与良率损失让成本曲线翻转。",
+   "rationale_en": "W2W separates alignment from bonding, achieves sub-50nm accuracy, and dominates high-yield small-die volume (CIS, NAND). But it cannot sort dies, so defective dies get bonded to good ones — its cost curve steepens brutally with die size, while D2W (5 bond steps per AMD V-Cache part) stays flat by only placing KGD. That's why AMD's D2W V-Cache was first to productize big-die stacking while W2W logic waited for a cheap top die (Graphcore's passive capacitor wafer).",
+   "rationale_zh": "W2W 把对准与键合分开，精度达 50nm 以下，统治高良率小 die 的量产（CIS、NAND）。但它不能筛 die，坏 die 会被键合到好 die 上——成本曲线随 die 尺寸急剧变陡；而 D2W（每颗 AMD V-Cache 要 5 次键合）只放 KGD，曲线平缓。这就是为什么大 die 堆叠由 AMD 的 D2W V-Cache 率先产品化，而 W2W 逻辑应用得等一片便宜的顶层 die（Graphcore 的无源电容晶圆）。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!6rhr!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fec88cc70-a729-49ee-bc51-7501d0fe91a2_902x623.png",
+    "shows_en": "Cost vs chip area for W2W and D2W hybrid bonding: W2W cheaper on small dies, exploding on large ones as good silicon gets wasted on defective partners.",
+    "shows_zh": "W2W 与 D2W 成本对 die 面积的曲线：小 die 时 W2W 更便宜，大 die 时因好硅被坏 die 拖累而成本爆炸。"
+   },
+   "quote": {
+    "text": "The ability to test and bond only known good die (KGD), instead of risking defects stacking and wasting good silicon, is critical and why die-on-wafer (D2W) is the first to be productized.",
+    "source_title": "Hybrid Bonding Process Flow - Advanced Packaging Part 5",
+    "date": "2024-02-09"
+   }
+  },
+  {
+   "claim_en": "Intel's ~300-tool TCB bet looks economically irrational and is actually a moat: in high-margin silicon, yield beats tool amortization.",
+   "claim_zh": "Intel 约 300 台 TCB 的押注看似经济上不理性，实为护城河：在高毛利芯片上，良率碾压设备摊销。",
+   "rationale_en": "A TCB tool costs ~$1.25M and places 500-1,000 dies/hr vs ~$450k and 3,000-10,000/hr for flip-chip — yet Intel owns nearly 300 TCB tools and its $7B Malaysia facility will double that, using TCB even where flip chip would do. TCB kills CTE warpage, gap variation and tilt, enables 30µm-thin HBM dies and mixed 55µm/100µm pitches on one Sapphire Rapids package, and a decade of co-development means TSMC and Samsung can't instantly follow into Foveros-Omni-class assembly.",
+   "rationale_zh": "TCB 单台约 $125 万、每小时 500-1,000 颗，对比倒装约 $45 万、3,000-10,000 颗——但 Intel 拥有近 300 台 TCB，$70 亿马来西亚封装厂还要翻倍，连倒装够用的场景也用 TCB。TCB 消灭 CTE 翘曲、间隙不均与倾斜，能封 30µm 薄的 HBM die、在一颗 Sapphire Rapids 上混用 55µm/100µm 间距；十年共研意味着台积电、三星无法立刻跟进 Foveros Omni 级的组装。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!cBxa!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fcdda7718-da87-4cb4-8492-78be03844380_1024x761.png",
+    "shows_en": "der8auer's Sapphire Rapids cross-section: 55µm-pitch EMIB regions coexisting with 100µm standard pitch on one package — the flexibility TCB buys.",
+    "shows_zh": "der8auer 的 Sapphire Rapids 剖面：同一封装上 55µm 间距的 EMIB 区与 100µm 标准间距共存——这就是 TCB 买来的灵活性。"
+   },
+   "quote": {
+    "text": "Given Intel's heavy share in high power and high margin applications, the yield loss and reliability concerns far outweigh the miniscule, amortized cost of the tool per unit packaged.",
+    "source_title": "Advanced Packaging Part 3 – Intel's Curious Bet on Thermocompression Bonding",
+    "date": "2022-01-19"
+   }
+  },
+  {
+   "claim_en": "Chiplets aren't automatically cheaper — reticle utilization and Intel's Emerald Rapids re-aggregation both prove packaging intensity is a knob that turns both ways.",
+   "claim_zh": "Chiplet 并不天然更便宜——光罩利用率与 Intel Emerald Rapids 的「聚合回退」都证明封装强度是个可以双向拧的旋钮。",
+   "rationale_en": "Two SemiAnalysis counterexamples to chiplet dogma. (1) Lithography is ~1/3 of wafer cost and scanners expose fixed 26x33mm fields: a 2-chiplet design that tiles the field badly needs 1.875x the scan steps, repricing the wafer $17,000→$21,364 and cutting the chiplet's saving from $136 to $26 — very likely more expensive than the 800mm2 monolithic die once packaging costs are counted. (2) Emerald Rapids went from four 394mm2 dies back to two 763mm2 dies: interface silicon fell 16.2%→5.8% of die area, EMIBs 10→3, core-area utilization 50.7%→62.7% — yet EMR still costs more per CPU than SPR (34 vs 37 CPUs/wafer) because big rectangles tile round wafers badly.",
+   "rationale_zh": "SemiAnalysis 给 chiplet 教条的两个反例。（1）光刻约占晶圆成本 1/3、光刻机按固定 26x33mm 视场曝光：铺不满视场的双 chiplet 设计要多扫 1.875 倍，晶圆从 $17,000 重定价到 $21,364，chiplet 的省额从 $136 砍到只剩 $26——一旦算上封装成本，很可能比 800mm2 单片更贵。（2）Emerald Rapids 从四颗 394mm2 die 退回两颗 763mm2：接口硅占比 16.2%→5.8%、EMIB 10→3 条、核心面积利用率 50.7%→62.7%——但 EMR 每颗 CPU 仍比 SPR 贵（每片 34 对 37 颗），因为大矩形铺不满圆晶圆。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!R3Mg!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fe70ca358-e3b4-43e4-9bdb-4308d92d9bb9_1024x543.png",
+    "shows_en": "Wafer cost breakdown with lithography repriced for poor reticle utilization: +$2,174 per wafer for the chiplet design.",
+    "shows_zh": "按低光罩利用率重算光刻后的晶圆成本拆分：chiplet 设计每片晶圆贵 $2,174。"
+   },
+   "quote": {
+    "text": "If your yields are good, why waste area on redundant IO and chiplet interconnects when you can just use fewer, larger dies?",
+    "source_title": "Intel Emerald Rapids Backtracks on Chiplets",
+    "date": "2023-05-03"
+   }
+  },
+  {
+   "claim_en": "Graphcore Bow showed hybrid bonding is 'free' performance: +40% clocks from a capacitor wafer, with zero architecture, node or software change.",
+   "claim_zh": "Graphcore Bow 证明混合键合是「白捡」的性能：一片电容晶圆换来 +40% 频率，架构、节点、软件零改动。",
+   "rationale_en": "TSMC's first W2W SoIC product bonded a deep-trench-capacitor wafer under the same 7nm IPU: smoothing transient spikes lifted clocks from 1.325GHz to 1.85GHz (+40%) at +16% perf/W and equal cost. W2W TSVs run ~1/10th the pitch of chip-on-wafer — 10,000 connections where D2W fits 100. The same physics later let TSMC's CoWoS-R+ IPDs carry 6.4Gbps HBM3. Power delivery, not logic, is often the binding constraint 3D stacking relaxes first.",
+   "rationale_zh": "台积电首个 W2W SoIC 产品把一片深沟槽电容晶圆键合在同一颗 7nm IPU 之下：抹平瞬态尖峰后频率从 1.325GHz 拉到 1.85GHz（+40%），每瓦性能 +16%、成本持平。W2W 的 TSV 间距约为 chip-on-wafer 的 1/10——D2W 放 100 个连接的面积它放 10,000 个。同样的物理后来让 CoWoS-R+ 的 IPD 撑起 6.4Gbps HBM3。3D 堆叠最先松绑的往往是供电而非逻辑。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!TnPp!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F2b5e9f7b-3ec8-41ac-9084-31328a18d6c2_640x608.png",
+    "shows_en": "Bow's W2W-bonded deep trench capacitor die: the power-delivery layer that bought +40% clocks on an unchanged 7nm design.",
+    "shows_zh": "Bow 以 W2W 键合的深沟槽电容 die：这层供电结构在 7nm 设计不变的前提下买来 +40% 频率。"
+   },
+   "quote": {
+    "text": "In the area that chip-on-wafer hybrid bonding is able to offer 100 TSVs, the wafer-on-wafer technology can offer 10,000.",
+    "source_title": "Graphcore Announces World's First 3D Wafer On Wafer Hybrid Bond Processor",
+    "date": "2022-03-03"
+   }
+  },
+  {
+   "claim_en": "Packaging is the hyperscalers' commoditization weapon: Graviton3 shipped 55µm micro-bump chiplets, DDR5 and PCIe 5.0 before Intel or AMD.",
+   "claim_zh": "封装是超大规模厂商的商品化武器：Graviton3 抢在 Intel/AMD 之前用上 55µm 微凸点 chiplet、DDR5 和 PCIe 5.0。",
+   "rationale_en": "Amazon's 7-die design (282mm2 compute + tiny DDR5/PCIe tiles) used ≤55µm bumps while every x86 CPU sat at ≥100µm, avoided AMD's ~100W IO-die power tax, dropped sockets for BGA to pack 3 CPUs per NIC per 1U — and SemiAnalysis exclusively identified the packaging vendor as 'a certain blue company' (Intel). AmpereOne extends the pattern: chiplets under a full carrier-wafer of structural silicon acting as CTE-matched heat spreader with direct-die cooling. System-level packaging choices, not core IPC, are what terrify merchant silicon.",
+   "rationale_zh": "亚马逊的 7-die 设计（282mm2 计算 die + 迷你 DDR5/PCIe tile）用 ≤55µm 凸点，而所有 x86 CPU 还在 ≥100µm；避开了 AMD IO die 约 100W 的功耗税；弃插槽改 BGA，一个 1U 里塞 3 颗 CPU 共享一张 NIC——SemiAnalysis 独家披露其封装供应商是「某蓝色公司」（Intel）。AmpereOne 延续该模式：chiplet 顶上盖一整片载体晶圆作 CTE 匹配的均热结构硅并直触散热。让传统芯片商恐惧的是系统级封装选择，而非核心 IPC。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!Jsqh!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F0ce40a8d-e103-4101-9d3e-4b2ceb3e3d83_1024x768.jpeg",
+    "shows_en": "Graviton3's package: one monolithic 64-core die surrounded by disaggregated DDR5 and PCIe 5.0 tiles on 55µm micro-bumps.",
+    "shows_zh": "Graviton3 封装：一颗 64 核单片 die，四周是以 55µm 微凸点互连、拆分出来的 DDR5 与 PCIe 5.0 tile。"
+   },
+   "quote": {
+    "text": "The size of the micro-bumps connecting each die are <=55um whereas every CPU from Intel and AMD is still at >=100um.",
+    "source_title": "Amazon Graviton 3 Uses Chiplets & Advanced Packaging To Commoditize High Performance CPUs",
+    "date": "2021-12-02"
+   }
+  },
+  {
+   "claim_en": "Tesla Dojo made the package the unit of scale: a wafer-scale InFO_SoW tile with 36TB/s off-tile bandwidth and vertical 15kW power delivery.",
+   "claim_zh": "特斯拉 Dojo 把封装变成了扩展单元：晶圆级 InFO_SoW tile，36TB/s 出 tile 带宽加 15kW 垂直供电。",
+   "rationale_en": "25 known-good D1 dies (645mm2, 400W each) are packaged into one fanout training tile — SemiAnalysis called the TSMC InFO_SoW packaging before Tesla's announcement. Each tile: 9 PFLOPS BF16, 36TB/s off-tile via a proprietary connector, ~10kW of silicon inside a ~15kW tile, with custom voltage regulators reflowed directly onto the fanout wafer so power enters vertically from below while heat exits above. It beat Cerebras on off-wafer bandwidth and previewed today's system-in-package direction for AI.",
+   "rationale_zh": "25 颗已知良品 D1 die（各 645mm2、400W）封进一个扇出训练 tile——SemiAnalysis 在特斯拉官宣前就点名了 TSMC InFO_SoW 封装。每 tile：9 PFLOPS BF16、经自研连接器 36TB/s 出 tile 带宽、约 15kW 的 tile 内含约 10kW 硅片功耗，定制稳压模块直接回流焊在扇出晶圆上，电从底部垂直进、热从顶部走。其出晶圆带宽胜过 Cerebras，预演了今日 AI 的系统级封装方向。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!p5u3!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fba113e8e-ed3d-4887-ab7a-337a61039820_1024x752.png",
+    "shows_en": "The Dojo training tile: 25 D1 dies on a wafer-scale fanout with 9 PFLOPS and 36TB/s off-tile bandwidth.",
+    "shows_zh": "Dojo 训练 tile：25 颗 D1 die 封在晶圆级扇出上，9 PFLOPS 算力、36TB/s 出 tile 带宽。"
+   },
+   "quote": {
+    "text": "This tile far surpasses anything from Nvidia, Graphcore, Cerebras, Groq, Tenstorrent, SambaNova, or any other AI training geared start up in per unit performance and scale up capabilities.",
+    "source_title": "Tesla Dojo - Unique Packaging and Chip Design",
+    "date": "2021-08-20"
+   }
+  },
+  {
+   "claim_en": "The 2.1D-2.5D lines are blurring: bridges, chip-last fanout and coreless ABF are eating the expensive silicon interposer from below.",
+   "claim_zh": "2.1D-2.5D 的边界在模糊：硅桥、chip-last 扇出与无芯 ABF 正自下而上蚕食昂贵的硅中介层。",
+   "rationale_en": "EMIB and fanout-embedded bridges (MI250X, M1 Ultra) deliver most interposer benefits without full TSV-laden silicon; TSMC's CoWoS-R reaches 3x reticle with a 45x roadmap while CoWoS-S extends to just 4x. The supply chain logic favors chip-last flows that ship testable known-good substrates. Meanwhile ABF keeps densifying — 10µm L/S standard, 6µm Cisco coreless, 3µm Unimicron on panels, versus 2µm advanced fanout and 0.4-0.5µm Amkor SLIM/ASE NTI first layers. Nothing here is a stable monopoly except the substrate base itself.",
+   "rationale_zh": "EMIB 与嵌桥扇出（MI250X、M1 Ultra）用不着满是 TSV 的整片硅就能拿到中介层的多数好处；台积电 CoWoS-R 已到 3 倍光罩、路线图 45 倍，而 CoWoS-S 只延展到 4 倍。供应链逻辑偏爱能交付可测「已知良品基板」的 chip-last 流程。同时 ABF 不断致密——标准 10µm 线宽线距、思科无芯 6µm、欣兴面板级 3µm，对比先进扇出 2µm 与 Amkor SLIM/ASE NTI 首层 0.4-0.5µm。这里除了基板底座本身，没有一个环节是稳定垄断。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!2uPe!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F444bc464-2149-44d0-b4e5-8ef166fead08_2022x1348.png",
+    "shows_en": "The taxonomy of 2.1D/2.3D/2.5D package permutations — interposers, bridges, fanout RDL and hybrid substrates blurring into each other.",
+    "shows_zh": "2.1D/2.3D/2.5D 封装排列组合的分类图——中介层、硅桥、扇出 RDL 与混合基板彼此渗透。"
+   },
+   "quote": {
+    "text": "ABF substrates are catching up and surpassing fanout RDLs for many use cases.",
+    "source_title": "The Future Of Packaging Gets Blurry – Advanced Packaging Part 4",
+    "date": "2022-11-01"
+   }
+  },
+  {
+   "claim_en": "The bonder market runs on a throughput-vs-accuracy lie: rated specs halve in the real world, and that gap is SemiAnalysis's 'very non-consensus view on BESI'.",
+   "claim_zh": "键合机市场活在「吞吐对精度」的水分里：额定规格在现实中打对折——这正是 SemiAnalysis「对 BESI 非常非共识观点」的落点。",
+   "rationale_en": "TSMC's 3µm-pitch SoIC data: 98% bond yield below 0.5µm misalignment, resistance blowing out from 0.5-1µm, and 60% yield beyond 1µm. Besi's 8800 Ultra claims <200nm accuracy, but SemiAnalysis hears ~0.5µm with wide variance even at half rated throughput; a claimed 2,000 dies/hr drops under 1,000 at 1µm accuracy. Meanwhile Intel/CEA-LETI's capillary self-alignment hit 150nm mean misalignment with faster placement — a technology that could reset the D2W tool landscape entirely.",
+   "rationale_zh": "台积电 3µm 间距 SoIC 数据：错位 <0.5µm 时键合良率 98%，0.5-1µm 区间电阻急剧恶化，>1µm 良率只剩 60%。Besi 8800 Ultra 宣称 <200nm 精度，但 SemiAnalysis 听到的是约 0.5µm 且方差很大——还是在只跑一半额定吞吐时；宣称的 2,000 die/小时到 1µm 精度就掉破 1,000。与此同时 Intel/CEA-LETI 的水滴毛细自对准做到 150nm 平均错位且放片更快——一项可能彻底重置 D2W 设备格局的技术。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!wq88!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F3a0b07eb-ad66-4fd6-a2b6-711122e2ca2e_1024x650.png",
+    "shows_en": "TSMC SoIC gen-4 data: bond yield and daisy-chain resistance vs misalignment — 98% below 0.5µm, collapsing to 60% beyond 1µm.",
+    "shows_zh": "台积电第四代 SoIC 数据：键合良率与菊链电阻对错位量——0.5µm 内 98%，超 1µm 崩到 60%。"
+   },
+   "quote": {
+    "text": "Despite Besi's claims of 2,000 dies placed per hour, to reach even 1-micron accuracy, the throughput drops below 1,000 dies placed per hour.",
+    "source_title": "Packaging Developments From ECTC 2022",
+    "date": "2022-06-08"
+   }
+  },
+  {
+   "claim_en": "TSV formation is the hidden gate on the AI supply chain — it bottlenecks both HBM and CoWoS, and avoiding TSVs is itself a product strategy.",
+   "claim_zh": "TSV 制程是 AI 供应链的隐形闸门——同时卡住 HBM 与 CoWoS，「绕开 TSV」本身就成了产品策略。",
+   "rationale_en": "Via-middle TSVs need deep reactive ion etch, insulation/barrier CVD, seed PVD, copper ECD fill and backside reveal — slow, tool-intensive steps. SemiAnalysis reports TSV formation bottlenecking HBM and CoWoS output, and notes customers switching from silicon interposers to CoWoS-R specifically to skip interposer TSV cost. Stacking economics compound: HBM dies thin to 30µm at 12-hi, forcing TCB today and pushing SK Hynix toward W2W hybrid bonding at 16-hi.",
+   "rationale_zh": "Via-middle TSV 需要深反应离子刻蚀、绝缘/阻挡层 CVD、种子层 PVD、铜 ECD 填充与背面显露——步步慢、台台贵。SemiAnalysis 报道 TSV 制程正卡住 HBM 与 CoWoS 产出，并指出有客户专为绕开中介层 TSV 成本而从硅中介层转向 CoWoS-R。堆叠经济学层层加码：12 层 HBM 的 die 减薄到 30µm，今天逼出 TCB，16 层则把海力士推向 W2W 混合键合。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!KZX4!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fa7080a7a-82fc-436b-acbd-b5eb34238048_846x1024.png",
+    "shows_en": "An HBM stack cross-section: the ultra-thin TSV-laced DRAM dies whose thinning and via formation force TCB and gate supply.",
+    "shows_zh": "HBM 堆叠剖面：布满 TSV 的超薄 DRAM die——其减薄与通孔制程逼出 TCB 并卡住供给。"
+   },
+   "quote": {
+    "text": "We understand that TSV formation is a step that is bottlenecking HBM and CoWoS production.",
+    "source_title": "Hybrid Bonding Process Flow - Advanced Packaging Part 5",
+    "date": "2024-02-09"
+   }
+  },
+  {
+   "claim_en": "The endgame beyond copper: optical interposers (Lightmatter Passage) promise 768Tbps per tile — but SemiAnalysis flags it may be vaporware.",
+   "claim_zh": "铜之后的终局：光学中介层（Lightmatter Passage）承诺每 tile 768Tbps——但 SemiAnalysis 提示可能是 vaporware。",
+   "rationale_en": "Passage 3D-packages up to 48 customer ASICs on a wafer-scale photonic interposer (GF Fotonix 45CLO), stitching waveguides across reticles at 0.004dB loss per crossing, reconfiguring the whole fabric in <1ms with 2ns max chip-to-chip latency, and feeding 700W per tile through TSVs. It's ~40x the interconnect density of fiber-attach co-packaged optics. SemiAnalysis's caveats: the MZI fabric is one-in-one-out (much of the 768Tbps idles), and customers must trust an unproven partner with their most expensive silicon.",
+   "rationale_zh": "Passage 把最多 48 颗客户 ASIC 3D 封装在晶圆级光子中介层上（GF Fotonix 45CLO），跨光罩缝合波导、每次穿越仅 0.004dB 损耗，整个互连网络 <1ms 重构、任意芯片间延迟上限 2ns，还经 TSV 给每 tile 供 700W。互连密度约为光纤直插式共封装光学的 40 倍。SemiAnalysis 的保留意见：MZI 网络一进一出（768Tbps 大半闲置），且客户得把最贵的硅押给一个未经验证的伙伴。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!aRh4!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fc91688a0-3fc0-4099-8579-6e179e3bcac8_3058x1628.jpeg",
+    "shows_en": "The five generations of optical IO — from pluggables to co-packaged optics to Lightmatter's Gen 4/5 optical interposer.",
+    "shows_zh": "光 IO 的五代演进——从可插拔、共封装光学到 Lightmatter 直奔的第 4/5 代光学中介层。"
+   },
+   "quote": {
+    "text": "This could just be vaporware, or it could be the future for high-end leading edge disaggregated server designs.",
+    "source_title": "Beyond Advanced Packaging: Lightmatter Passage Chiplets Co-Packaged On Optical Interposer",
+    "date": "2022-08-22"
+   }
+  }
+ ],
+ "key_data": [
+  {
+   "metric_en": "Transistor vs IO scaling",
+   "metric_zh": "晶体管对 IO 微缩",
+   "value": "Transistor density 2x every 2 years; IO data rates 2x every 4 years",
+   "note_en": "The decades-long divergence that created pad-limited designs and the entire advanced-packaging market.",
+   "note_zh": "数十年剪刀差催生了 pad-limited 设计与整个先进封装市场。"
+  },
+  {
+   "metric_en": "Advanced packaging definition",
+   "metric_zh": "先进封装定义",
+   "value": "Bump pitch < 100µm (standard flip chip = 150-200µm, essentially unchanged 2000→2021)",
+   "note_en": "SemiAnalysis's line in the sand; tool vendors calling all flip chip 'advanced' are ignored.",
+   "note_zh": "SemiAnalysis 划下的分界线；设备商把所有倒装都叫「先进」的说法不予采纳。"
+  },
+  {
+   "metric_en": "IO density ladder vs standard flip chip",
+   "metric_zh": "对标准倒装的 IO 密度阶梯",
+   "value": "Fanout (90-60µm) ~8x → 2.5D (55-50µm) ~16x → 3D µbump (36µm) 31x → HB V-Cache (17µm TSV) 138x → Sony CIS (6.3µm) 567x",
+   "note_en": "Each packaging generation is a step-function in interconnect density; hybrid bonding roadmap extends to 100s of nm.",
+   "note_zh": "每代封装都是互连密度的阶跃；混合键合路线图直指数百纳米。"
+  },
+  {
+   "metric_en": "Wafer prices, N7 vs N5",
+   "metric_zh": "N7 对 N5 晶圆价格",
+   "value": "~$9,500 (N7) vs ~$16,000 (N5)",
+   "note_en": "Evidence cost-per-transistor is rising; SemiAnalysis's rebuttal to Morgan Stanley's TSMC downgrade.",
+   "note_zh": "每晶体管成本上升的实据；SemiAnalysis 反驳大摩下调台积电的弹药。"
+  },
+  {
+   "metric_en": "Hybrid bonding particle sensitivity",
+   "metric_zh": "混合键合颗粒敏感度",
+   "value": "A 1µm-tall particle → ~10mm-diameter bond void",
+   "note_en": "Why HB requires ISO 3/class 1 cleanrooms or better (TSMC/Intel going ISO 2-1) — and why OSATs are locked out.",
+   "note_zh": "为何 HB 需要 ISO 3/1 级以上洁净室（台积电/Intel 上到 ISO 2-1）——也是 OSAT 被锁在门外的原因。"
+  },
+  {
+   "metric_en": "HB surface-roughness spec",
+   "metric_zh": "HB 表面粗糙度规格",
+   "value": "≤0.5nm dielectric, ≤1nm copper pads; Cu recessed ~5nm pre-anneal",
+   "note_en": "Maintained through the whole flow via multi-pass CMP; even wafer-sort probing must be polished out afterwards.",
+   "note_zh": "靠多道 CMP 全程维持；连晶圆测试探针的压痕都要事后抛掉。"
+  },
+  {
+   "metric_en": "Bond alignment accuracy, W2W vs D2W",
+   "metric_zh": "键合对准精度：W2W 对 D2W",
+   "value": "W2W sub-50nm; Besi 8800 Ultra claims <200nm but 'more like 0.5µm with wide variance' at half rated throughput",
+   "note_en": "The spec-vs-reality gap behind SemiAnalysis's non-consensus BESI view.",
+   "note_zh": "规格与现实的落差——SemiAnalysis 非共识 BESI 观点的核心。"
+  },
+  {
+   "metric_en": "TSMC SoIC gen-4 (3µm pitch) bond yield",
+   "metric_zh": "台积电第四代 SoIC（3µm 间距）键合良率",
+   "value": "100,000 pads/mm2; 98% yield <0.5µm misalignment, 60% beyond 1µm",
+   "note_en": "Defines the accuracy bar every D2W bonder must clear as pitches shrink from 9µm to 3µm.",
+   "note_zh": "定义了间距从 9µm 缩到 3µm 时所有 D2W 键合机必须跨过的精度门槛。"
+  },
+  {
+   "metric_en": "D2W bonder throughput cliff",
+   "metric_zh": "D2W 键合机吞吐悬崖",
+   "value": "Claimed 2,000 dies/hr → <1,000/hr at 1µm accuracy",
+   "note_en": "Throughput-accuracy tradeoff is the central battle of the hybrid-bonding tool market.",
+   "note_zh": "吞吐-精度权衡是混合键合设备市场的中心战役。"
+  },
+  {
+   "metric_en": "TCB vs flip-chip tool economics",
+   "metric_zh": "TCB 对倒装设备经济学",
+   "value": "TCB: ~$1.25M, 500-1,000 dies/hr. Flip-chip placer: ~$450k, 3,000-10,000 dies/hr",
+   "note_en": "6-20x throughput gap at ~1/3 the price — yet Intel chooses TCB for yield/reliability in high-margin parts.",
+   "note_zh": "吞吐差 6-20 倍、价格只有约 1/3——Intel 却为高毛利产品的良率/可靠性选 TCB。"
+  },
+  {
+   "metric_en": "Intel TCB fleet",
+   "metric_zh": "Intel TCB 机队",
+   "value": "~300 tools, doubling with the $7B Malaysia packaging facility",
+   "note_en": "Far exceeds Intel's advanced-packaging needs; a decade of co-development = a hard-to-copy moat.",
+   "note_zh": "远超 Intel 先进封装的当期需求；十年共研 = 难以复制的护城河。"
+  },
+  {
+   "metric_en": "Reticle utilization cost penalty",
+   "metric_zh": "光罩利用率成本罚金",
+   "value": "Bad field tiling → 1.875x scan steps → wafer repriced $17,000 → $21,364 (litho ≈ 1/3 of wafer cost)",
+   "note_en": "The worked example where the 2-chiplet design's silicon advantage collapses from $136 to $26 ($541 vs $567) — and very likely flips to a loss once packaging costs are included.",
+   "note_zh": "该算例中双 chiplet 设计的硅片优势从 $136 塌缩到只剩 $26（$541 对 $567）——一旦算上封装成本，很可能翻成劣势。"
+  },
+  {
+   "metric_en": "Emerald Rapids re-aggregation",
+   "metric_zh": "Emerald Rapids 聚合回退",
+   "value": "4 dies → 2; chiplet interface 16.2% → 5.8% of die area; EMIBs 10 → 3; core-area utilization 50.7% → 62.7%; but 37 → 34 CPUs/wafer",
+   "note_en": "Fewer chiplets bought back area yet still raised cost per CPU — big rectangles tile round wafers badly.",
+   "note_zh": "减少 chiplet 赢回面积却仍抬高单 CPU 成本——大矩形铺不满圆晶圆。"
+  },
+  {
+   "metric_en": "Graphcore Bow uplift from W2W hybrid bonding",
+   "metric_zh": "Graphcore Bow 的 W2W 混合键合增益",
+   "value": "+40% clocks (1.325 → 1.85GHz), +16% perf/W, same node/architecture/cost; W2W TSV pitch ~1/10th of chip-on-wafer",
+   "note_en": "First 3D W2W-bonded logic processor; the top die is just deep-trench capacitors for power delivery.",
+   "note_zh": "首个 3D W2W 键合逻辑处理器；顶层 die 只是用于供电的深沟槽电容。"
+  },
+  {
+   "metric_en": "AMD 3D V-Cache production reality",
+   "metric_zh": "AMD 3D V-Cache 量产实况",
+   "value": "17µm production pitch (TechInsights) vs the 9µm AMD used in marketing comparisons; 5 bond steps per chip; a 5th structural support die on top",
+   "note_en": "First and (through early 2024) only D2W hybrid-bonded logic product; claimed 3x interconnect efficiency and 16x density vs 36µm µbump.",
+   "note_zh": "首个且（截至 2024 年初）唯一的 D2W 混合键合逻辑产品；对 36µm 微凸点宣称 3 倍互连能效、16 倍密度。"
+  },
+  {
+   "metric_en": "HBM die thinning",
+   "metric_zh": "HBM 减薄",
+   "value": "30µm per die in SK Hynix 12-hi HBM3 (< half a human hair)",
+   "note_en": "Forces TCB today; SK Hynix presented W2W hybrid bonding for 16-hi HBM at ECTC 2022; TSV formation bottlenecks HBM & CoWoS.",
+   "note_zh": "如今逼出 TCB；海力士在 ECTC 2022 展示了 16 层 HBM 的 W2W 混合键合；TSV 制程卡住 HBM 与 CoWoS。"
+  },
+  {
+   "metric_en": "Substrate/RDL line-space race (L/S)",
+   "metric_zh": "基板/RDL 线宽线距竞赛",
+   "value": "ABF 10µm → Cisco coreless 6µm → Unimicron coreless 3µm (panel) | EMIB 5µm → 2µm | advanced fanout 2µm | Amkor SLIM 0.4µm / ASE NTI 0.5µm (first layer)",
+   "note_en": "Cheaper organic technologies keep climbing into silicon-interposer territory; CoWoS-R roadmap = 45x reticle vs CoWoS-S 4x.",
+   "note_zh": "更便宜的有机技术不断爬进硅中介层地盘；CoWoS-R 路线图 45 倍光罩，CoWoS-S 只有 4 倍。"
+  },
+  {
+   "metric_en": "Samsung's packaging-overhead study (450mm2 HPC design)",
+   "metric_zh": "三星封装开销研究（450mm2 HPC 设计）",
+   "value": "vs monolithic: MCM +2.1% power/+5.6% area; 2.5D +1.1%/+2.4%; 3D +0.04% power/+2.4% area",
+   "note_en": "Ideal-case numbers, but they quantify why 3D stacking is the endgame: near-zero power overhead.",
+   "note_zh": "虽是理想值，却量化了 3D 堆叠为何是终局：功耗开销近乎为零。"
+  }
+ ],
+ "deep_dives": [
+  {
+   "article_title": "Hybrid Bonding Process Flow - Advanced Packaging Part 5",
+   "date": "2024-02-09",
+   "summary_en": "The definitive process-flow primer. Walks TSV formation (via-middle DRIE + CVD/PVD/ECD + backside reveal, currently bottlenecking HBM/CoWoS), hybrid-bond layer fabrication (PECVD SiCN, damascene copper, ~5nm pad recess, multi-slurry CMP), probing/singulation particle management (laser/plasma over blade dicing — Disco), N2 plasma activation, and megasonic DI cleans. Frames the W2W vs D2W cost crossover around known good die, details collective D2W (AMD V-Cache = 5 bond steps) and Intel's QMC reconstituted W2W, and lists the full tool ecosystem (Besi, EVG, TEL, AMAT, ASMPT, SUSS, SET, Shibaura) with a teased 'very non-consensus view on BESI' and firm-level adoption modeling through 2030.",
+   "summary_zh": "工艺流程的权威入门。走完 TSV 制程（via-middle 深刻蚀 + CVD/PVD/ECD + 背面显露，当下正卡 HBM/CoWoS）、混合键合层制备（PECVD SiCN、大马士革铜、铜垫凹陷约 5nm、多浆料 CMP）、探测/切割的颗粒管理（激光/等离子切割优于刀片——Disco）、N2 等离子活化与兆声去离子清洗。以已知良品 die 为轴讲清 W2W 对 D2W 的成本交叉，细述 collective D2W（AMD V-Cache = 5 次键合）与 Intel 的 QMC 重构 W2W，并列全设备生态（Besi、EVG、TEL、AMAT、ASMPT、SUSS、SET、Shibaura），预告「对 BESI 非常非共识的观点」及到 2030 年的公司级采用建模。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!DA7E!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ffeabbdd0-b5ab-4c56-aacb-b9dbb3c1606e_1794x1821.png",
+    "shows_en": "AMD 3D V-Cache collective D2W flow: both top and bottom KGD reconstituted on carrier wafers, then joined W2W — 5 bond steps per chip.",
+    "shows_zh": "AMD 3D V-Cache 的 collective D2W 流程：上下 KGD 各自重构到载体晶圆再 W2W 合体——每颗芯片 5 次键合。"
+   }
+  },
+  {
+   "article_title": "Packaging Developments From ECTC 2022",
+   "date": "2022-06-08",
+   "summary_en": "The conference distillation that quantified the frontier: TSMC gen-4 SoIC at 3µm pitch (100k pads/mm2, 98% yield <0.5µm misalignment); Sony's 1µm-pitch hybrid bond with a contrarian protruding-copper CMP process delivering orders-of-magnitude better contact resistance; Intel/CEA-LETI water-droplet self-alignment (150nm mean misalignment, 98% bond yield) as a possible D2W disruptor; SK Hynix W2W hybrid bonding aimed at 16-hi HBM; Samsung's MCM/2.5D/3D power-area overhead study; AMD V-Cache's hidden 5th support die and its 17µm production pitch (vs 9µm marketing); plus ASE probing co-packaged optics and CoWoS-R+ carrying 6.4Gbps HBM3 via high-density IPDs.",
+   "summary_zh": "量化前沿的会议蒸馏：台积电第四代 SoIC 3µm 间距（10 万垫/mm2，<0.5µm 错位良率 98%）；索尼 1µm 间距混合键合用反直觉的「铜凸出」CMP 工艺换来数量级更优的接触电阻；Intel/CEA-LETI 水滴毛细自对准（平均错位 150nm、键合良率 98%）可能颠覆 D2W；海力士瞄准 16 层 HBM 的 W2W 混合键合；三星 MCM/2.5D/3D 功耗-面积开销研究；AMD V-Cache 隐藏的第 5 片支撑硅与 17µm 量产间距（对 9µm 营销口径）；外加 ASE 试水共封装光学、CoWoS-R+ 靠高密度 IPD 撑起 6.4Gbps HBM3。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!RNWm!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fc870bdc1-4aca-42a1-8d52-682fb32ec1b7_820x1024.png",
+    "shows_en": "Intel/CEA-LETI self-aligning collective D2W: water-droplet capillary forces snap dies into place at 150nm mean misalignment after a fast, coarse pick-and-place.",
+    "shows_zh": "Intel/CEA-LETI 自对准 collective D2W：快速粗放片后，水滴毛细力把 die「吸」到位，平均错位 150nm。"
+   }
+  },
+  {
+   "article_title": "Advanced Packaging Part 1 – Pad Limited Designs, Breakdown Of Economic Semiconductor Scaling, Heterogeneous Compute, and Chiplets",
+   "date": "2021-12-15",
+   "summary_en": "The series manifesto. Chains the argument: real chip density lags transistor density (SRAM death, power, IO); flip-chip pitch stagnated for 20 years creating pad-limited designs (why Gelsinger's 'port automotive chips to Intel 16' fails); cost-per-transistor now rises (N7 $9.5k vs N5 $16k wafers); die sizes hit reticle limit; chiplets fix defect math (AMD's 3 tape-outs vs Intel's 5; a 2,000-step six-sigma process would still yield D0=0.678) but not IO. Conclusion: 'we are in the midst of the semiconductor design renaissance which is being pushed forward by advanced packaging.'",
+   "summary_zh": "系列纲领。论证链条：真实芯片密度落后于晶体管密度（SRAM 之死、功耗、IO）；倒装间距停滞 20 年造就 pad-limited 设计（Gelsinger「车规芯片搬 Intel 16」因此不成立）；每晶体管成本转升（N7 $9,500 对 N5 $16,000 晶圆）；die 尺寸顶到光罩极限；chiplet 能修缺陷数学（AMD 3 个 tape-out 打 Intel 5 个；2,000 步六西格玛工艺 D0 仍高达 0.678）却修不了 IO。结论：「我们正处于由先进封装推动的半导体设计文艺复兴之中。」",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!6gvn!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F45b8546f-dd0c-45a1-a01a-25a93539f037_1024x542.png",
+    "shows_en": "AMD chiplet vs Intel monolithic yield table: how splitting cores across 8 chiplets beats larger dies on cost per good CPU core.",
+    "shows_zh": "AMD chiplet 对 Intel 单片的良率表：把核心拆到 8 颗 chiplet 如何在每好核成本上击败大 die。"
+   }
+  },
+  {
+   "article_title": "Advanced Packaging Part 3 – Intel's Curious Bet on Thermocompression Bonding, ASM Pacific, Kulicke and Soffa, and Besi TCB Tool Landscape",
+   "date": "2022-01-19",
+   "summary_en": "Explains why TCB exists (batch reflow's CTE warpage, gap variation, tilt — AMD Fiji's field failures) and why Intel bought ~300 tools despite brutal economics ($1.25M/500-1,000 dph vs $450k/3,000-10,000 dph): in high-margin, high-power silicon, yield and reliability dwarf tool amortization, and one tool platform covers standard, 2.5D and 3D packages (SPR's mixed 55µm EMIB + 100µm pitches; Foveros Omni at 130/100/36µm is 'nigh on impossible' with standard flip chip). HBM's 30µm-thin 12-hi stacks make TCB mandatory for Samsung/SK Hynix/Micron. ASMPT, K&S and Besi each hold distinct niches; Intel's co-developed platforms are the largest orders.",
+   "summary_zh": "解释 TCB 为何存在（批量回流的 CTE 翘曲、间隙不均、倾斜——AMD Fiji 的现场故障史），以及 Intel 为何顶着残酷经济学买了约 300 台（$125 万/500-1,000 颗每小时对 $45 万/3,000-10,000 颗）：在高毛利高功率芯片上，良率与可靠性远大于设备摊销，且一个平台通吃标准、2.5D 与 3D 封装（SPR 的 55µm EMIB + 100µm 混合间距；Foveros Omni 的 130/100/36µm 用标准倒装「几乎不可能」）。HBM 12 层 30µm 薄堆叠让三星/海力士/美光必须用 TCB。ASMPT、K&S、Besi 各守一个细分；Intel 共研平台是最大订单来源。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!rveJ!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fcba2ad29-3390-474e-a9f8-ee0aa1b1ce27_1024x632.png",
+    "shows_en": "The TCB process: per-die force + local heat (+ vibration) reflowing solder in place, eliminating batch-oven warpage and tilt.",
+    "shows_zh": "TCB 工艺：逐颗施力 + 局部加热（可加振动）就地回流焊料，消除批量回流炉的翘曲与倾斜。"
+   }
+  },
+  {
+   "article_title": "The Future Of Packaging Gets Blurry – Fanouts, ABF, Organic Interposers, Embedded Bridges – Advanced Packaging Part 4",
+   "date": "2022-11-01",
+   "summary_en": "Maps the 2.1D-2.5D middle ground where most volume will live. Four base classes (3D, 2.5D, fanout RDL, ABF build-up) blur via hybrid substrates: EMIB bridges in ABF cavities, MI250X's fanout-embedded bridges atop ABF, chip-first vs chip-last flows. Key supply-chain insight: the PC/DC industry runs on matching known-good substrates with known-good dies, so chip-last (testable substrate before die attach) is preferred if cost allows. The L/S race (ABF 10µm, coreless 6µm/3µm, EMIB 5→2µm, fanout 2µm, SLIM 0.4µm) means improving ABF keeps cannibalizing fanout — no packaging technology's moat is safe below the silicon interposer.",
+   "summary_zh": "描绘未来大部分量产将栖身的 2.1D-2.5D 中间地带。四大基类（3D、2.5D、扇出 RDL、ABF 增层）经混合基板互相渗透：EMIB 桥嵌进 ABF 腔体、MI250X 的嵌桥扇出叠在 ABF 上、chip-first 对 chip-last 流程。关键供应链洞见：PC/数据中心产业靠「已知良品基板配已知良品 die」运转，成本允许时 chip-last（贴 die 前基板可测）是首选。线宽线距竞赛（ABF 10µm、无芯 6µm/3µm、EMIB 5→2µm、扇出 2µm、SLIM 0.4µm）意味着不断进步的 ABF 持续蚕食扇出——硅中介层以下没有任何封装技术的护城河是安全的。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!Wl1w!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F23801996-c530-4ace-ad58-0839701d22d6_1003x897.png",
+    "shows_en": "Annotated AMD MI250X: silicon bridges between GPU and each HBM inside fanout RDL assemblies, all on a big ABF substrate — multiple packaging types in one product.",
+    "shows_zh": "AMD MI250X 标注图：GPU 与每颗 HBM 之间的硅桥嵌在扇出 RDL 组件里，再整体落在大 ABF 基板上——一个产品叠用多种封装。"
+   }
+  },
+  {
+   "article_title": "Die Size And Reticle Conundrum – Cost Model With Lithography Scanner Throughput",
+   "date": "2022-06-19",
+   "summary_en": "The free-article cost model that punctures chiplet dogma. Because a scanner exposes fixed 26x33mm fields (mask 104x132mm, 4x reduction) and lithography is ~1/3 of processed-wafer cost, a chiplet that tiles the field poorly forces 1.875x the scan steps; a margin-preserving foundry reprices the wafer from $17,000 to $21,364, shrinking the chiplet's silicon saving from $136 to just $26 per product ($541 vs $567); once packaging costs are added, the monolithic die is very likely cheaper. Caveats acknowledged (most real chiplet architectures improve utilization; High-NA halves the scan), but the discipline stands: die-size choice must be co-optimized with the reticle grid.",
+   "summary_zh": "戳破 chiplet 教条的免费成本模型。因为光刻机按固定 26x33mm 视场曝光（掩膜 104x132mm、4 倍缩小），且光刻约占加工晶圆成本 1/3，铺不满视场的 chiplet 要多扫 1.875 倍；守毛利的晶圆厂会把晶圆从 $17,000 重定价到 $21,364，chiplet 每产品的硅片省额从 $136 缩到只剩 $26（$541 对 $567）——一旦算上封装成本，单片 die 很可能反而更便宜。文中也认账（多数真实 chiplet 架构其实会改善利用率；High-NA 会把扫描减半），但纪律成立：die 尺寸必须与光罩网格协同优化。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!9ap0!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F75d8c7fa-2567-46d4-89cb-b541b92d5a16_1024x392.png",
+    "shows_en": "Reticle-utilization visualization: how a 13.5x32mm chiplet fits only one per 26x33mm field while smaller dies pack four.",
+    "shows_zh": "光罩利用率示意：13.5x32mm 的 chiplet 每个 26x33mm 视场只能放一颗，而更小的 die 能放四颗。"
+   }
+  }
+ ],
+ "investment": {
+  "winners": [
+   {
+    "name": "TSMC",
+    "why_en": "Owns every rung of the ladder — InFO (Apple), CoWoS-S/R/R+ (Nvidia, roadmap to 45x reticle), SoIC CoW (AMD V-Cache/MI300) and SoIC WoW (Graphcore) — and hybrid bonding's fab-grade requirements pull even more of the package into its fabs. Vanguard customers de-risk each new flow before volume.",
+    "why_zh": "封装阶梯的每一级都在它手里——InFO（苹果）、CoWoS-S/R/R+（英伟达，路线图 45 倍光罩）、SoIC CoW（AMD V-Cache/MI300）与 SoIC WoW（Graphcore）——而混合键合的晶圆厂级门槛把更多封装环节拉进其厂内。先锋客户替每条新产线先趟雷。"
+   },
+   {
+    "name": "EV Group (EVG)",
+    "why_en": "Dominant in W2W fusion/hybrid bonding with patented SmartView alignment (sub-50nm). W2W is the mature, high-volume path (every Sony CIS, YMTC NAND, Graphcore Bow) and the likely vehicle for 16-hi HBM hybrid bonding.",
+    "why_zh": "以专利 SmartView 对准（<50nm）统治 W2W 熔合/混合键合。W2W 是成熟的大批量路径（索尼 CIS、长存 NAND、Graphcore Bow 全在用），也是 16 层 HBM 混合键合的最可能载体。"
+   },
+   {
+    "name": "Besi (with a caveat)",
+    "why_en": "De-facto D2W hybrid-bonding bonder at TSMC (8800 Ultra picks and places every V-Cache die). But SemiAnalysis repeatedly flags real accuracy ~0.5µm at half rated throughput and holds 'a very non-consensus view' — the D2W moat may be narrower than the consensus multiple assumes, especially if collective/self-assembly flows mature.",
+    "why_zh": "台积电事实上的 D2W 混合键合机供应商（每颗 V-Cache 都由 8800 Ultra 拾放）。但 SemiAnalysis 反复点出实际精度约 0.5µm、吞吐只有额定一半，并自称持「非常非共识的观点」——若 collective/自组装流程成熟，D2W 护城河可能远窄于共识估值所假设。"
+   },
+   {
+    "name": "Front-end tool & process incumbents (AMAT, TEL, Disco, ACM)",
+    "why_en": "Hybrid bonding converts packaging capex into front-end tool spend: PECVD, PVD/ECD, precision CMP, plasma dicing, megasonic cleans. TEL won TSMC's W2W bonder socket (the Graphcore flow); Disco leads clean dicing and 'has more than tripled' since SemiAnalysis's write-up.",
+    "why_zh": "混合键合把封装资本开支变成前道设备开支：PECVD、PVD/ECD、精密 CMP、等离子切割、兆声清洗。TEL 拿下台积电 W2W 键合机（Graphcore 流程）；Disco 领跑洁净切割，自 SemiAnalysis 撰文以来「股价已涨逾三倍」。"
+   },
+   {
+    "name": "Intel (packaging franchise)",
+    "why_en": "The one area where Intel is genuinely differentiated: a decade of co-developed TCB (~300 tools, $7B Malaysia doubling), EMIB bridges at 55µm ramping in every Xeon, Foveros/Omni bringing 36µm 3D to mass-market client chips, and QMC research pointing at reconstituted W2W. Packaging is Intel's credible foundry hook.",
+    "why_zh": "Intel 真正有差异化的领域：十年共研 TCB（约 300 台、$70 亿马来西亚厂翻倍）、55µm EMIB 桥随每代 Xeon 放量、Foveros/Omni 把 36µm 3D 带进大众客户端芯片、QMC 研究指向重构 W2W。封装是 Intel 代工故事里最可信的钩子。"
+   },
+   {
+    "name": "ASMPT & Kulicke and Soffa",
+    "why_en": "The TCB order book rises structurally with HBM stack heights (30µm dies leave no alternative) and with OSAT/mobile adoption; each of the three TCB vendors 'excels in different areas' and owns a defensible niche.",
+    "why_zh": "TCB 订单随 HBM 层高结构性上升（30µm 薄 die 别无选择），叠加 OSAT/手机端采用；三家 TCB 厂商「各擅胜场」，各守一个可防御的细分。"
+   }
+  ],
+  "bottlenecks": [
+   {
+    "en": "TSV formation — the deep-etch/CVD/ECD sequence bottlenecking both HBM and CoWoS output; customers switch to CoWoS-R partly to dodge interposer TSV cost.",
+    "zh": "TSV 制程——深刻蚀/CVD/ECD 工序同时卡住 HBM 与 CoWoS 产出；客户转向 CoWoS-R 部分就是为了绕开中介层 TSV 成本。"
+   },
+   {
+    "en": "D2W bonder throughput-vs-accuracy: 2,000 dies/hr claims collapse below 1,000 at 1µm accuracy, while 3µm pitches demand <0.5µm placement for 98% yield.",
+    "zh": "D2W 键合机的吞吐对精度：宣称 2,000 die/小时到 1µm 精度就跌破 1,000，而 3µm 间距要 98% 良率必须 <0.5µm 放置精度。"
+   },
+   {
+    "en": "ISO 1-3 cleanroom + front-end toolset capacity — hybrid-bonding supply can't come from OSAT brownfield; it must be built to fab standards.",
+    "zh": "ISO 1-3 洁净室加前道设备产能——混合键合供给无法来自 OSAT 旧厂改造，必须按晶圆厂标准新建。"
+   },
+   {
+    "en": "KGD testing without wrecking the bond surface: probe marks violate the 1nm roughness spec, forcing extra CMP passes and constraining wafer-sort strategies.",
+    "zh": "在不毁键合面的前提下测 KGD：探针压痕破坏 1nm 粗糙度规格，被迫追加 CMP 并束缚晶圆测试策略。"
+   }
+  ],
+  "risks": [
+   {
+    "en": "The chiplet cost fallacy cuts both ways: reticle utilization and Emerald Rapids show packaging-intensive designs can lose to monolithic — advanced-packaging TAM is not a one-way ratchet.",
+    "zh": "Chiplet 成本谬误是双向的：光罩利用率与 Emerald Rapids 都证明重封装设计可能输给单片——先进封装 TAM 不是单向棘轮。"
+   },
+   {
+    "en": "Hybrid-bonding adoption slippage: through early 2024 AMD remained the only D2W logic adopter; the cost barrier is real and each pitch shrink resets the yield learning curve.",
+    "zh": "混合键合采用不及预期：到 2024 年初 AMD 仍是唯一 D2W 逻辑采用者；成本门槛真实存在，且每次间距缩小都要重爬良率学习曲线。"
+   },
+   {
+    "en": "OSAT disintermediation: as value migrates to fab-grade processes, ASE/Amkor risk being stuck with commoditizing bump/fanout while foundries take the premium layers.",
+    "zh": "OSAT 被去中介化：价值向晶圆厂级工艺迁移，ASE/Amkor 可能被困在日益商品化的凸点/扇出，而晶圆厂拿走高端环节。"
+   },
+   {
+    "en": "Reliability/CTE physics: warpage and thermal cycling killed early interposer products (AMD Fiji); chip-first fanout still burns known-good dies on packaging yield; every new hybrid substrate re-opens these failure modes.",
+    "zh": "可靠性/CTE 物理学：翘曲与热循环曾杀死早期中介层产品（AMD Fiji）；chip-first 扇出仍会把良品 die 烧在封装良率上；每种新混合基板都会重新打开这些失效模式。"
+   }
+  ],
+  "catalysts": [
+   {
+    "en": "Hybrid bonding breaking out beyond V-Cache: MI300-class D2W volume, SK Hynix W2W for 16-hi HBM, and TSMC N2-era customer-specific SoIC flows would inflect the whole tool chain.",
+    "zh": "混合键合冲出 V-Cache：MI300 级 D2W 放量、海力士 16 层 HBM 的 W2W、台积电 N2 世代客制 SoIC 流程，都会让整条设备链上折。"
+   },
+   {
+    "en": "CoWoS/HBM capacity expansions and the CoWoS-R/R+ substitution wave (45x-reticle roadmap) as AI package sizes balloon into the kilowatt range.",
+    "zh": "CoWoS/HBM 扩产与 CoWoS-R/R+ 替代浪潮（45 倍光罩路线图）——AI 封装功率正膨胀进入千瓦级。"
+   },
+   {
+    "en": "Intel's packaging ramp: $7B Malaysia facility, EMR/Meteor-Arrow Lake EMIB+Foveros volume, and TCB fleet doubling — a read-through for ASMPT/K&S/Besi order books.",
+    "zh": "Intel 封装放量：$70 亿马来西亚厂、EMR/Meteor-Arrow Lake 的 EMIB+Foveros 上量、TCB 机队翻倍——直接映射 ASMPT/K&S/Besi 订单。"
+   },
+   {
+    "en": "Panel-level fanout and coreless ABF hitting cost crossover; co-packaged optics / optical interposers (Lightmatter Passage, Ayar Labs) getting a first volume design win.",
+    "zh": "面板级扇出与无芯 ABF 到达成本交叉点；共封装光学/光学中介层（Lightmatter Passage、Ayar Labs）拿下第一个量产设计。"
+   }
+  ]
+ },
+ "open_questions": [
+  {
+   "en": "When does D2W hybrid bonding get cheap enough to spread beyond AMD — into mobile, client PCs and AI accelerators? SemiAnalysis's adoption model runs to 2030, but through early 2024 the answer was 'one customer'.",
+   "zh": "D2W 混合键合何时便宜到能冲出 AMD——进入手机、PC 与 AI 加速器？SemiAnalysis 的采用模型排到 2030 年，但截至 2024 年初答案仍是「一个客户」。"
+  },
+  {
+   "en": "Can pick-and-place bonders economically reach sub-200nm accuracy, or do collective flows and capillary self-assembly (Intel/CEA-LETI's 150nm) reset the tool landscape — and with it Besi's presumed moat?",
+   "zh": "拾放式键合机能否经济地做到 200nm 以下精度？还是 collective 流程与毛细自组装（Intel/CEA-LETI 的 150nm）会重置设备格局——连带 Besi 被默认的护城河？"
+  },
+  {
+   "en": "Do OSATs ever climb into hybrid bonding, or is leading-edge packaging permanently annexed by TSMC and Intel, leaving ASE/Amkor the commoditizing layers?",
+   "zh": "OSAT 究竟能否爬进混合键合？还是最先进封装被台积电与 Intel 永久兼并，只给 ASE/Amkor 留下日益商品化的环节？"
+  },
+  {
+   "en": "In HBM, when does hybrid bonding displace TCB? 16-hi stacks with 30µm dies strain solder physics, yet TCB keeps being extended — the crossover timing moves billions in tool orders.",
+   "zh": "HBM 里混合键合何时取代 TCB？16 层、30µm 薄 die 已逼近焊料物理极限，但 TCB 一再被续命——交叉点的时点牵动数十亿美元设备订单。"
+  },
+  {
+   "en": "Where is the true chiplet/monolithic frontier once reticle utilization, interface overhead and packaging yield are all priced — will more designs 'do an Emerald Rapids' and re-aggregate as nodes mature?",
+   "zh": "把光罩利用率、接口开销与封装良率全部计价后，chiplet/单片的真实边界在哪？随节点成熟，会不会有更多设计像 Emerald Rapids 一样「聚合回去」？"
+  }
+ ],
+ "sources": [
+  {
+   "title": "Hybrid Bonding Process Flow - Advanced Packaging Part 5",
+   "date": "2024-02-09"
+  },
+  {
+   "title": "Sound The Siryn: AmpereOne 192-Core CPU",
+   "date": "2023-05-18"
+  },
+  {
+   "title": "Intel Emerald Rapids Backtracks on Chiplets – Design, Performance & Cost",
+   "date": "2023-05-03"
+  },
+  {
+   "title": "The Future Of Packaging Gets Blurry – Fanouts, ABF, Organic Interposers, Embedded Bridges – Advanced Packaging Part 4",
+   "date": "2022-11-01"
+  },
+  {
+   "title": "Beyond Advanced Packaging: Lightmatter Passage Chiplets Co-Packaged On Optical Interposer",
+   "date": "2022-08-22"
+  },
+  {
+   "title": "Die Size And Reticle Conundrum – Cost Model With Lithography Scanner Throughput",
+   "date": "2022-06-19"
+  },
+  {
+   "title": "Packaging Developments From ECTC 2022",
+   "date": "2022-06-08"
+  },
+  {
+   "title": "Graphcore Announces World's First 3D Wafer On Wafer Hybrid Bond Processor",
+   "date": "2022-03-03"
+  },
+  {
+   "title": "Advanced Packaging Part 3 – Intel's Curious Bet on Thermocompression Bonding, ASM Pacific, Kulicke and Soffa, and Besi TCB Tool Landscape",
+   "date": "2022-01-19"
+  },
+  {
+   "title": "Advanced Packaging Part 1 – Pad Limited Designs, Breakdown Of Economic Semiconductor Scaling, Heterogeneous Compute, and Chiplets",
+   "date": "2021-12-15"
+  },
+  {
+   "title": "Amazon Graviton 3 Uses Chiplets & Advanced Packaging To Commoditize High Performance CPUs",
+   "date": "2021-12-02"
+  },
+  {
+   "title": "Tesla Dojo - Unique Packaging and Chip Design Allow An Order Magnitude Advantage Over Competing AI Hardware",
+   "date": "2021-08-20"
+  }
+ ]
+}

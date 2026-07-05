@@ -1,0 +1,696 @@
+{
+ "sector_id": "01_accelerators",
+ "sector_name_en": "AI Accelerators (GPU / ASIC)",
+ "sector_name_zh": "AI 加速器（GPU / ASIC）",
+ "tagline_en": "Nvidia is still King of the Jungle, but for the first time three credible challengers — Google TPU, AWS Trainium, and AMD MI450X — have arrived at once, and the real battlefield has moved from chip specs to rack-scale systems, software, and performance-per-TCO.",
+ "tagline_zh": "英伟达仍是丛林之王，但历史上首次同时出现三个可信的挑战者——谷歌 TPU、亚马逊 Trainium 与 AMD MI450X；真正的战场也从单颗芯片规格，转向机架级系统、软件生态与「每单位 TCO 性能」。",
+ "overview_en": "SemiAnalysis's coverage frames the accelerator sector as a systems war, not a chip war. Its recurring thesis — 'systems matter more than microarchitecture' — explains why Nvidia's GB200/GB300 NVL72 rack (72-GPU NVLink scale-up domain) and its 4-million-developer CUDA moat let it keep ~75% gross margins even as Google's TPUv7 Ironwood, AWS Trainium3, and AMD's MI450X close the raw-silicon gap. The firm's edge is empirical: it runs its own benchmarks (InferenceX/InferenceMAX across ~1,000 GPUs, MI300X-vs-H100 training), rates every GPU cloud (ClusterMAX), models the full bill-of-materials and TCO, and tracks GPU rental prices and per-accelerator HBM supply. Three structural facts dominate. First, the CUDA moat is real but is being eroded on the ASIC flank: Gemini 3 was trained entirely on TPUs, Claude Opus 4.5 was trained on multiple hardware types including TPUs (the majority of Anthropic's training and inference infrastructure sits on Google TPUs and Amazon Trainium), Anthropic committed to ~1M TPUs (~$10B of Broadcom racks plus ~$42B of GCP RPO), and OpenAI cut ~30% off its Nvidia fleet cost merely by threatening to buy TPUs. Second, inference has fractured into prefill vs decode phases, spawning specialized silicon (Rubin CPX, the Groq LPU that Nvidia bought for $20B) and disaggregated serving. Third, the 2026 market is supply-constrained: H100 1-year rentals rose ~40% off their October-2025 low, and all rental capacity through ~September 2026 is booked. The winners are those who own the system — the rack, the scale-up fabric, the compiler, and the developer ecosystem — not just the die.",
+ "overview_zh": "SemiAnalysis 对加速器板块的核心判断是：这是一场「系统战」，而非「芯片战」。其反复强调的命题——「系统比微架构更重要」——解释了为什么英伟达能靠 GB200/GB300 NVL72 机架（72 卡 NVLink scale-up 域）与 400 万开发者构筑的 CUDA 护城河，在对手逼近其硅片规格之际，仍守住约 75% 的毛利率。SemiAnalysis 的优势在于「亲自动手」：跑自研基准（InferenceX/InferenceMAX 跨约 1000 张 GPU、MI300X vs H100 训练对拉）、给每一家 GPU 云评级（ClusterMAX）、逐项建 BOM 与 TCO 模型、并追踪 GPU 租金与每颗加速器的 HBM 供给。三条结构性事实主导全局：其一，CUDA 护城河真实存在，但正被 ASIC 侧蚕食——Gemini 3 全程在 TPU 上训练，Claude Opus 4.5 则在包括 TPU 在内的多种硬件上训练（Anthropic 训练与推理基础设施的大头落在谷歌 TPU 与亚马逊 Trainium 上），Anthropic 锁定约 100 万颗 TPU（约 100 亿美元的博通机架 + 约 420 亿美元的 GCP 剩余履约义务），而 OpenAI 仅凭「威胁采购 TPU」就把英伟达机队成本砍了约 30%。其二，推理已裂解为 prefill 与 decode 两个阶段，催生专用硅片（Rubin CPX、被英伟达以 200 亿美元收编的 Groq LPU）与分离式服务。其三，2026 年是供给受限市场：H100 一年期租金较 2025 年 10 月低点上涨约 40%，且截至约 2026 年 9 月上线的所有租赁产能均已被订满。赢家是拥有整个「系统」的玩家——机架、scale-up 互连、编译器与开发者生态——而不仅仅是那颗裸片。",
+ "core_knowledge": [
+  {
+   "term_en": "Scale-up world size (NVLink / ICI / NeuronLink / UALink)",
+   "term_zh": "Scale-up 世界规模（NVLink / ICI / NeuronLink / UALink）",
+   "explain_en": "The number of accelerators wired into one all-to-all, high-bandwidth coherent domain. It is the single most decisive competitive metric today. Nvidia's GB200 NVL72 = 72 GPUs; TPUv7 Ironwood scales via ICI to a 9,216-chip 3D-torus pod; AMD's MI355X is still stuck at 8, which is why SemiAnalysis says it cannot compete head-to-head with GB200 NVL72 on frontier MoE reasoning inference.",
+   "explain_zh": "指被连进单一「全互联、高带宽、缓存一致」域内的加速器数量，是当今最具决定性的竞争指标。英伟达 GB200 NVL72 = 72 卡；TPUv7 Ironwood 通过 ICI 可扩展到 9216 芯片的 3D 环面 pod；而 AMD MI355X 仍只有 8 卡——这正是 SemiAnalysis 判断它无法在前沿 MoE 推理上与 GB200 NVL72 正面硬刚的原因。"
+  },
+  {
+   "term_en": "Prefill vs Decode (disaggregated serving)",
+   "term_zh": "Prefill 与 Decode（分离式服务）",
+   "explain_en": "LLM inference has two phases with opposite hardware needs. Prefill processes the whole prompt in parallel — compute-bound, hungry for FLOPS. Decode emits one token at a time, reloading the KV cache from HBM each step — memory-bandwidth-bound. Running them on the same GPU means prefill batches constantly disrupt decode. 'Disagg' splits them onto separate GPU pools, each tuned independently — the technique used in production at OpenAI, Anthropic, xAI, DeepSeek.",
+   "explain_zh": "大模型推理分两个硬件需求相反的阶段。Prefill 并行处理整段提示词——算力受限、渴求 FLOPS；Decode 逐字生成，每步都要从 HBM 重新加载 KV cache——内存带宽受限。二者放同一张 GPU 上，prefill 批次会不断打断 decode。「分离式（disagg）」把它们拆到各自独立、单独调优的 GPU 池——这正是 OpenAI、Anthropic、xAI、DeepSeek 生产环境采用的技术。"
+  },
+  {
+   "term_en": "Performance per TCO",
+   "term_zh": "每单位 TCO 性能",
+   "explain_en": "SemiAnalysis's core yardstick: not FLOPS or price/chip, but realized throughput divided by all-in total cost of ownership (capex + power + reliability downtime + engineering time). It is why on-paper specs mislead: the GB200 NVL72 has ~1.6x the TCO of an H100 cluster, so it must be ≥1.6x faster just to break even on perf-per-TCO. 'The hardware you cannot use has infinite TCO.'",
+   "explain_zh": "SemiAnalysis 的核心标尺：不是 FLOPS，也不是芯片单价，而是「实测吞吐 ÷ 全口径 TCO（资本开支 + 电费 + 可靠性宕机 + 工程师时间）」。这解释了为何纸面规格会骗人：GB200 NVL72 的 TCO 约为 H100 集群的 1.6 倍，因此它必须快至少 1.6 倍才能在「每 TCO 性能」上打平。「你用不上的硬件，其 TCO 是无穷大。」"
+  },
+  {
+   "term_en": "CUDA moat",
+   "term_zh": "CUDA 护城河",
+   "explain_en": "Nvidia's durable advantage isn't the chip — it's the ~4 million external developers who write kernels, file bugs, and ship day-one CUDA implementations (FlashAttention, Mamba, vLLM all launched CUDA-first). SemiAnalysis's sharp framing: the moat isn't dug by Nvidia's engineers but by the millions of outside developers. AMD's RCCL/ROCm libraries are largely forks of Nvidia's, so every NCCL refactor forces AMD to burn engineering hours just to keep pace.",
+   "explain_zh": "英伟达的持久优势不在芯片，而在约 400 万外部开发者——他们写 kernel、报 bug、并在新算法出现当天就交出 CUDA 实现（FlashAttention、Mamba、vLLM 全部 CUDA 优先）。SemiAnalysis 的犀利表述：护城河不是英伟达工程师挖的，而是数百万外部开发者挖的。AMD 的 RCCL/ROCm 库大多是英伟达库的 fork，因此每次 NCCL 重构都逼得 AMD 烧工程师工时去追平。"
+  },
+  {
+   "term_en": "Systolic array / Tensor Core / MXU",
+   "term_zh": "脉动阵列 / Tensor Core / MXU",
+   "explain_en": "The matrix-multiply engine at the heart of every AI chip. Nvidia's Tensor Core (introduced in Volta 2017) does a fused matrix-multiply-accumulate to amortize instruction overhead — a plain FP op costs ~1.5pJ but issuing the instruction costs ~30pJ, a 20x overhead. Google's TPU uses a systolic array; for Trillium (TPUv6) Google quadrupled the array from 128x128 to 256x256 tiles, doubling FLOPS on the same N5 node.",
+   "explain_zh": "每颗 AI 芯片的核心——矩阵乘引擎。英伟达 Tensor Core（2017 年 Volta 首发）用融合的「乘加累积」指令来摊薄指令开销：一次普通浮点运算约耗 1.5pJ，而发射一条指令约耗 30pJ，开销高达 20 倍。谷歌 TPU 用脉动阵列；Trillium（TPUv6）把阵列从 128×128 扩到 256×256 tile，在同一 N5 制程上把 FLOPS 翻倍。"
+  },
+  {
+   "term_en": "Number formats: FP8, FP4, MXFP, NVFP4",
+   "term_zh": "数值格式：FP8、FP4、MXFP、NVFP4",
+   "explain_en": "Lower-precision formats trade numerical range/mantissa for throughput and memory. Each generation adds a narrower format: Blackwell added FP4, which roughly doubles throughput vs FP8. Microscaling formats (MXFP8/MXFP4, and Nvidia's NVFP4) attach a shared scale to blocks of values to preserve accuracy. InferenceX shows GB300 delivering up to 100x on FP8-vs-FP4 relative to an H100 baseline — most of Blackwell's inference gain is the format, not just the silicon.",
+   "explain_zh": "低精度格式用「数值范围/尾数」换吞吐与内存。每一代都新增更窄的格式：Blackwell 加入 FP4，吞吐较 FP8 约翻倍。微缩放格式（MXFP8/MXFP4，以及英伟达的 NVFP4）给一小块数值附加共享缩放因子以保住精度。InferenceX 显示 GB300 相对 H100 基线在 FP8-对-FP4 上最高可达 100 倍——Blackwell 推理增益的大头来自格式，而非仅靠硅片。"
+  },
+  {
+   "term_en": "Optical Circuit Switch (OCS) scale-up",
+   "term_zh": "光路交换（OCS）scale-up",
+   "explain_en": "Google's alternative to electrical packet switches. An OCS is a reconfigurable mirror-based 'patch panel' that routes whole optical fibers with near-zero latency and no optical-electrical-optical conversion, making it lower-power. It lets Google carve arbitrary 3D-torus slices out of a 9,216-TPU pod, route around faults, and give complete cube 'fungibility.' Building the max world size needs 48 144x144 OCSs. This is the backbone of Nvidia's only real scale-up rival.",
+   "explain_zh": "谷歌用来替代电分组交换的方案。OCS 是一个可重构的「镜面配线架」，以近零延迟整根光纤路由、无需光-电-光转换，因而更省电。它让谷歌能从 9216 卡的 TPU pod 中切出任意 3D 环面切片、绕过故障节点、并让每个「立方体」完全可互换（fungible）。构建最大世界规模需 48 台 144×144 OCS。这是英伟达唯一真正的 scale-up 对手的骨架。"
+  },
+  {
+   "term_en": "Neocloud / ClusterMAX",
+   "term_zh": "Neocloud / ClusterMAX",
+   "explain_en": "Neoclouds are GPU-focused clouds (CoreWeave, Nebius, Crusoe, Lambda) that rent GPUs to labs. ClusterMAX is SemiAnalysis's independent rating system (Platinum→Underperforming) grading 84 providers on 10 criteria (security, orchestration, storage, networking, reliability, monitoring, pricing…). CoreWeave is the sole Platinum. The rating has teeth: top-rated neoclouds have booked ~$400B in RPO since v1.0.",
+   "explain_zh": "Neocloud 是专注 GPU 的云（CoreWeave、Nebius、Crusoe、Lambda），把 GPU 租给各大实验室。ClusterMAX 是 SemiAnalysis 的独立评级体系（Platinum→Underperforming），依 10 大维度（安全、编排、存储、网络、可靠性、监控、定价……）为 84 家供应商打分。CoreWeave 是唯一的 Platinum 级。该评级很有分量：自 v1.0 以来，高评级 Neocloud 累计签下约 4000 亿美元的 RPO（剩余履约义务）。"
+  },
+  {
+   "term_en": "HBM as % of BOM / the memory wall",
+   "term_zh": "HBM 占 BOM 比例 / 内存墙",
+   "explain_en": "High-Bandwidth Memory has gone from 80GB/3.4TB/s (H100) to 288GB/8TB/s (GB300) in under three years and is now the single largest component of the GB300 package BOM. Because prefill wastes HBM's expensive bandwidth, Nvidia built Rubin CPX with cheap GDDR7 (>50% lower cost/GB) instead — a direct attack on the memory-cost wall.",
+   "explain_zh": "高带宽内存在不到三年里从 80GB/3.4TB/s（H100）跃升到 288GB/8TB/s（GB300），如今已是 GB300 封装 BOM 中最大的单一成本项。由于 prefill 浪费了 HBM 昂贵的带宽，英伟达干脆用便宜的 GDDR7（每 GB 成本低 50% 以上）造了 Rubin CPX——这是对「内存成本墙」的正面进攻。"
+  }
+ ],
+ "value_chain": [
+  {
+   "stage_en": "Merchant GPU / accelerator design",
+   "stage_zh": "商用 GPU / 加速器设计",
+   "players": "Nvidia, AMD, Intel (Gaudi), Cerebras, Groq (→Nvidia), Tenstorrent",
+   "role_en": "Design the silicon + increasingly the full rack. Nvidia leads with ~75% gross margin, ~4x markup; AMD is the #2 GPU; Cerebras/Groq are specialized inference challengers.",
+   "role_zh": "设计芯片，并日益承包整个机架。英伟达以约 75% 毛利、约 4 倍加价领跑；AMD 是二号 GPU；Cerebras/Groq 是专用推理挑战者。"
+  },
+  {
+   "stage_en": "Hyperscaler custom ASIC (in-house silicon)",
+   "stage_zh": "超大厂自研 ASIC（内部硅片）",
+   "players": "Google TPU, AWS Trainium/Inferentia, Meta MTIA, Microsoft Maia",
+   "role_en": "Vertically-integrated accelerators to escape Nvidia's margin. Google TPU + AWS Trainium are the only ASICs that have trained/served frontier models at scale; Microsoft's Maia program is 'struggling.'",
+   "role_zh": "垂直整合的加速器，以摆脱英伟达的加价。谷歌 TPU + 亚马逊 Trainium 是仅有的两个能大规模训练/服务前沿模型的 ASIC；微软 Maia 项目「举步维艰」。"
+  },
+  {
+   "stage_en": "ASIC design partners / IP",
+   "stage_zh": "ASIC 设计伙伴 / IP",
+   "players": "Broadcom, Marvell, Alchip, Synopsys, Cadence, Annapurna (AWS in-house)",
+   "role_en": "Co-design hyperscaler ASICs and supply SerDes/interface IP. Broadcom earns fat margins co-designing the TPU (largest BOM item); Alchip beat Marvell for the Trainium3 backend socket.",
+   "role_zh": "与超大厂合作设计 ASIC 并供应 SerDes/接口 IP。博通靠合作设计 TPU（BOM 最大项）赚取厚利；Alchip 在 Trainium3 后端设计争夺中击败了 Marvell。"
+  },
+  {
+   "stage_en": "Scale-up / scale-out interconnect",
+   "stage_zh": "scale-up / scale-out 互连",
+   "players": "Nvidia NVLink/NVSwitch, Google ICI+OCS, AMD/UALink consortium, Broadcom/Arista Ethernet, Astera Labs (retimers/PCIe switches)",
+   "role_en": "The fabric that binds chips into a rack and racks into a pod — now the decisive moat. Astera Labs (ALAB) supplies PCIe retimers/switches to AWS Trainium and gets equity 'rebates.'",
+   "role_zh": "把芯片连成机架、把机架连成 pod 的互连——如今已是决定性护城河。Astera Labs（ALAB）向 AWS Trainium 供应 PCIe retimer/交换机，并拿到股权形式的「返点」。"
+  },
+  {
+   "stage_en": "Foundry + advanced packaging + HBM",
+   "stage_zh": "晶圆代工 + 先进封装 + HBM",
+   "players": "TSMC (N3P/N5, CoWoS-R/-L), SK Hynix, Micron, Samsung (HBM)",
+   "role_en": "The physical bottleneck. TSMC N3 capacity and HBM supply cap total accelerator output; Trainium3 moves to N3P (defect-density issues), and AWS switched HBM from sub-par Samsung to Hynix/Micron for a 70% bandwidth gain.",
+   "role_zh": "物理瓶颈所在。TSMC N3 产能与 HBM 供给共同封顶了加速器总产量；Trainium3 转向 N3P（存在缺陷密度问题），且 AWS 把 HBM 从表现欠佳的三星换成海力士/美光，换来 70% 带宽提升。"
+  },
+  {
+   "stage_en": "GPU clouds (Neoclouds) + hyperscalers",
+   "stage_zh": "GPU 云（Neocloud）+ 超大厂",
+   "players": "CoreWeave, Nebius, Oracle, Crusoe, Lambda, Fluidstack, Nscale; AWS/Azure/GCP; crypto-miner pivots (IREN, Terawulf, Cipher)",
+   "role_en": "Buy accelerators and rent them to labs. CoreWeave alone signed $22.4B with OpenAI + $14.2B with Meta; ex-Bitcoin miners are pivoting into AI hosting via 'hyperscaler backstop' financing.",
+   "role_zh": "采购加速器再租给实验室。仅 CoreWeave 就与 OpenAI 签下 224 亿、与 Meta 签下 142 亿美元；前比特币矿工正借「超大厂兜底」融资模式转型做 AI 托管。"
+  },
+  {
+   "stage_en": "Software / compiler / inference stack",
+   "stage_zh": "软件 / 编译器 / 推理栈",
+   "players": "CUDA/cuDNN/NCCL/TensorRT-LLM/Dynamo (Nvidia), ROCm/RCCL (AMD), XLA/JAX (Google), NKI/Neuron (AWS); vLLM, SGLang, PyTorch",
+   "role_en": "Where the moat lives. Open engines vLLM & SGLang are CUDA-first; challengers are racing to open-source their compilers (AWS open-sourcing NKI; Google pressured to open XLA:TPU) to seed an external developer ecosystem.",
+   "role_zh": "护城河的真正所在。开源引擎 vLLM 与 SGLang 都是 CUDA 优先；挑战者们正竞相开源自家编译器（AWS 开源 NKI；谷歌被施压开源 XLA:TPU），以播种外部开发者生态。"
+  }
+ ],
+ "theses": [
+  {
+   "claim_en": "Systems, not chips, decide the war — and Nvidia's GB200/GB300 NVL72 rack opened a canyon-sized gap in scale-up.",
+   "claim_zh": "决定这场战争的是系统而非芯片——英伟达的 GB200/GB300 NVL72 机架在 scale-up 上拉开了「峡谷级」的差距。",
+   "rationale_en": "SemiAnalysis's founding thesis is that a strong system beats a strong die: even when TPU silicon lagged Nvidia on paper, Google's system engineering matched Nvidia on perf and cost. The GB200 NVL72's 72-GPU NVLink domain is why AMD's 8-GPU MI355X 'cannot compete head on' on frontier MoE reasoning; competitors only reach a 72-class rack a year later (MI450X, Trainium3).",
+   "rationale_zh": "SemiAnalysis 的立身命题是「好系统胜过好裸片」：即便 TPU 硅片纸面落后英伟达，谷歌的系统工程也能在性能与成本上打平。GB200 NVL72 的 72 卡 NVLink 域，正是 AMD 8 卡 MI355X「无法正面竞争」前沿 MoE 推理的原因；对手要一年后才追到 72 卡级机架（MI450X、Trainium3）。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!FOKg!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb1c9096c-e855-47e2-ae5b-7f74f1f00dc1_1334x784.png",
+    "shows_en": "Per-chip spec comparison: TPUv7 Ironwood vs Nvidia GB200/GB300 on FLOPS, HBM capacity and bandwidth",
+    "shows_zh": "单芯片规格对比：TPUv7 Ironwood 对 英伟达 GB200/GB300 的 FLOPS、HBM 容量与带宽"
+   },
+   "quote": {
+    "text": "AMD and custom silicon competitors may have made a small step forward in emulating Nvidia's 72-GPU rack scale design, but Nvidia has just made another Giant Leap, again leaving competitors very distant objects in the rear-view mirror.",
+    "source_title": "Another Giant Leap: The Rubin CPX Specialized Accelerator & Rack",
+    "date": "2025-09-10"
+   }
+  },
+  {
+   "claim_en": "The CUDA moat is real and still widening on training — AMD's software, not its hardware, is the problem.",
+   "claim_zh": "CUDA 护城河真实存在，且在训练侧仍在加宽——AMD 的问题在软件，而非硬件。",
+   "rationale_en": "After a five-month benchmarking quest, SemiAnalysis found the MI300X's on-paper spec advantage evaporated: out-of-box AMD PyTorch training was 'impossible' without workarounds, and public-release performance trailed H100/H200 despite lower TCO. Because RCCL is a fork of NCCL, every Nvidia refactor forces AMD to burn thousands of engineer-hours just to sync. The takeaway: the moat isn't the chip — it's the ~4M external developers.",
+   "rationale_zh": "经过五个月的基准长征，SemiAnalysis 发现 MI300X 的纸面规格优势荡然无存：开箱即用的 AMD PyTorch 训练「不加变通根本跑不通」，公开发行版性能落后 H100/H200，尽管 TCO 更低。由于 RCCL 是 NCCL 的 fork，英伟达每次重构都逼 AMD 烧掉数千工程师工时去同步。结论：护城河不是芯片，而是约 400 万外部开发者。",
+   "figure": null,
+   "quote": {
+    "text": "As fast as AMD tries to fill in the CUDA moat, NVIDIA engineers are working overtime to deepen said moat with new features, libraries, and performance updates.",
+    "source_title": "MI300X vs H100 vs H200 Benchmark Part 1: Training - CUDA Moat Still Alive",
+    "date": "2024-12-22"
+   }
+  },
+  {
+   "claim_en": "Google's TPU is the most dangerous merchant challenger — and you get its benefit even before turning one on.",
+   "claim_zh": "谷歌 TPU 是最危险的商用挑战者——而且你还没开机就能享受到它带来的好处。",
+   "rationale_en": "Gemini 3 was trained entirely on TPUs; Claude Opus 4.5 was trained on multiple hardware types including TPUs — the majority of Anthropic's training/inference infrastructure runs on Google TPUs and Amazon Trainium. Anthropic committed to ≥1M TPUs (400k Ironwoods = ~$10B of Broadcom racks + 600k via ~$42B of GCP RPO). Meta, xAI, SSI and OpenAI are in the pipeline. Crucially, the mere competitive threat lets labs extract price cuts: 'OpenAI hasn't even deployed TPUs yet and they've already saved ~30% on their entire lab-wide NVIDIA fleet.'",
+   "rationale_zh": "Gemini 3 全程在 TPU 上训练；Claude Opus 4.5 则在包括 TPU 在内的多种硬件上训练——Anthropic 训练/推理基础设施的大头跑在谷歌 TPU 与亚马逊 Trainium 上。Anthropic 锁定 ≥100 万颗 TPU（40 万颗 Ironwood ≈ 100 亿美元博通机架 + 60 万颗经约 420 亿美元 GCP RPO 租用）。Meta、xAI、SSI 与 OpenAI 都在管线中。关键在于，单是这份竞争威胁就足以让实验室压价：「OpenAI 甚至还没部署 TPU，就已经把全实验室的英伟达机队成本砍了约 30%。」",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!20A7!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6c9a4819-b0ac-4113-ac86-4795bd100188_977x275.png",
+    "shows_en": "How frontier labs (OpenAI, Anthropic) lower Nvidia GPU TCO by buying — or threatening to buy — TPUs",
+    "shows_zh": "前沿实验室（OpenAI、Anthropic）如何通过采购（或威胁采购）TPU 来压低英伟达 GPU 的 TCO"
+   },
+   "quote": {
+    "text": "The more (TPU) you buy, the more (NVIDIA GPU capex) you save! OpenAI hasn't even deployed TPU yet and already increased perf per TCO by getting ~30% off their compute fleet due to competitive threats.",
+    "source_title": "TPUv7: Google Takes a Swing at the King",
+    "date": "2025-11-28"
+   }
+  },
+  {
+   "claim_en": "'Systems matter more than microarchitecture' — but TPU silicon has now nearly closed the gap too.",
+   "claim_zh": "「系统比微架构更重要」——但如今 TPU 的硅片也几乎追平了。",
+   "rationale_en": "Historically Google under-specced TPU FLOPS/memory versus Nvidia (prioritizing RAS/uptime, and because RecSys had low arithmetic intensity). That changed post-LLM: Trillium (TPUv6, same N5 node) doubled FLOPS by quadrupling the systolic array to 256x256; TPUv7 Ironwood nearly matches GB200 on FLOPS, bandwidth and 8-Hi HBM3E capacity — arriving only ~a year after Blackwell.",
+   "rationale_zh": "过去谷歌刻意压低 TPU 的 FLOPS/内存规格（优先 RAS/在线率，且推荐系统算术强度低）。进入 LLM 时代后转向：Trillium（TPUv6，同 N5 制程）把脉动阵列扩到 256×256、FLOPS 翻倍；TPUv7 Ironwood 在 FLOPS、带宽与 8 层 HBM3E 容量上几近追平 GB200——仅比 Blackwell 晚约一年落地。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!vv9d!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9582080e-9c38-4b5e-b964-ad512e9a9106_2034x1188.png",
+    "shows_en": "TPU generational compute throughput vs the contemporaneous Nvidia flagship — the gap narrows from TPUv4/v5 to v6 to v7",
+    "shows_zh": "历代 TPU 算力吞吐 对 同期英伟达旗舰——差距从 TPUv4/v5 到 v6 再到 v7 逐代收窄"
+   },
+   "quote": null
+  },
+  {
+   "claim_en": "AWS Trainium3 is a credible third front, built on an 'Amazon Basics' perf-per-TCO obsession.",
+   "claim_zh": "AWS Trainium3 是可信的第三条战线，其核心是「Amazon Basics 式」的每单位 TCO 性能执念。",
+   "rationale_en": "Trainium3 moves to N3P, doubles MXFP8 FLOPS, upgrades to 12-Hi HBM3E (144GB) and — by switching from sub-par Samsung to Hynix/Micron HBM — lifts bandwidth 70%. It adds an all-to-all switched scale-up fabric (Nvidia Oberon-like), making AWS the first outside Nvidia to ship a 72-class switched rack. AWS deliberately drives suppliers hard: 'Annapurna places greater emphasis on driving down the TCO denominator.'",
+   "rationale_zh": "Trainium3 转向 N3P，MXFP8 FLOPS 翻倍，升级到 12 层 HBM3E（144GB），并通过把 HBM 从欠佳的三星换成海力士/美光，带宽提升 70%。它新增了全互联交换式 scale-up 结构（类似英伟达 Oberon），使 AWS 成为英伟达之外首个量产 72 卡级交换机架的厂商。AWS 有意压榨供应商：「Annapurna 更看重压低 TCO 的分母。」",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!grs6!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F25d4e590-9255-4431-a235-7ffa428fe65f_1848x1230.png",
+    "shows_en": "Trainium3 vs Trainium2 spec deltas: doubled MXFP8 FLOPS, 12-Hi HBM3E 144GB, 70% higher bandwidth, PCIe Gen6 scale-up",
+    "shows_zh": "Trainium3 对 Trainium2 的规格增量：MXFP8 FLOPS 翻倍、12 层 HBM3E 144GB、带宽提升 70%、PCIe Gen6 scale-up"
+   },
+   "quote": null
+  },
+  {
+   "claim_en": "AMD is finally in 'wartime mode'; its real shot at Nvidia is the H2-2026 MI450X rack, not the MI355X.",
+   "claim_zh": "AMD 终于进入「战时状态」；它挑战英伟达的真正机会是 2026 下半年的 MI450X 机架，而非 MI355X。",
+   "rationale_en": "After the December-2024 article, Lisa Su personally engaged; AMD stood up devrel (Anush Elangovan), added MI300 to PyTorch CI/CD, and is launching a dev cloud. But the MI355X's 8-GPU world size relegates it to competing with air-cooled HGX B200/B300, not GB200 NVL72. SemiAnalysis's window: the rack-scale MI450X IF64/IF128 (UALink/Infinity-Fabric-over-Ethernet) could match Nvidia's VR200 NVL144 in H2 2026 — with 'sweetheart pricing' + OpenAI's equity rebate as sweeteners.",
+   "rationale_zh": "2024 年 12 月文章后，苏姿丰亲自介入；AMD 组建开发者关系团队（Anush Elangovan）、把 MI300 接入 PyTorch CI/CD、并推出开发者云。但 MI355X 只有 8 卡世界规模，只能对标风冷 HGX B200/B300，而非 GB200 NVL72。SemiAnalysis 给出的窗口：机架级 MI450X IF64/IF128（UALink / Infinity Fabric over Ethernet）有望在 2026 下半年对标英伟达 VR200 NVL144——再加「甜心价」与 OpenAI 股权返点助攻。",
+   "figure": null,
+   "quote": {
+    "text": "AMD needs to invest significantly more GPUs, they have less than 1/20th of Nvidia's total GPU count.",
+    "source_title": "AMD 2.0 - New Sense of Urgency | MI450X Chance to Beat Nvidia | Nvidia's New Moat",
+    "date": "2025-04-23"
+   }
+  },
+  {
+   "claim_en": "Inference has split into prefill and decode — spawning specialized silicon like Rubin CPX and the Groq LPU.",
+   "claim_zh": "推理已裂解为 prefill 与 decode——催生了 Rubin CPX 与 Groq LPU 这类专用硅片。",
+   "rationale_en": "Because prefill is compute-bound and decode is bandwidth-bound, running both on one HBM-rich GPU wastes expensive memory. Rubin CPX answers with 20 PFLOPS dense FP4 but only 128GB of cheap GDDR7 (2TB/s) — HBM-free, >50% lower memory cost/GB. SemiAnalysis calls this second only to the GB200 NVL72 in significance, and says it sends every competitor 'back to the drawing board' to build their own prefill chip.",
+   "rationale_zh": "由于 prefill 受算力约束、decode 受带宽约束，把两者放在同一张富 HBM 的 GPU 上就是在浪费昂贵内存。Rubin CPX 给出的答案是 20 PFLOPS 稠密 FP4，却只配 128GB 便宜 GDDR7（2TB/s）——无 HBM，每 GB 内存成本降 50% 以上。SemiAnalysis 称其重要性仅次于 GB200 NVL72，并说它把每个对手都逼回「重画路线图」去自研 prefill 芯片。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!O05Z!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8a405e7b-c078-4ad5-9969-49ebdc0c5eaa_2560x1138.png",
+    "shows_en": "Rubin CPX vs R200: FP4 compute, GDDR7 vs HBM memory, bandwidth — the compute-heavy, memory-light prefill chip",
+    "shows_zh": "Rubin CPX 对 R200：FP4 算力、GDDR7 对 HBM 内存、带宽——一颗「重算力、轻内存」的 prefill 专用芯片"
+   },
+   "quote": {
+    "text": "Only with hardware specialized to the very different phases of inference, prefill and decode, can disaggregated serving achieve its full potential.",
+    "source_title": "Another Giant Leap: The Rubin CPX Specialized Accelerator & Rack",
+    "date": "2025-09-10"
+   }
+  },
+  {
+   "claim_en": "On real inference, rack-scale Blackwell 'framemogs' Hopper — and Nvidia dominates energy efficiency.",
+   "claim_zh": "在真实推理上，机架级 Blackwell 把 Hopper「碾成渣」——且英伟达在能效上一骑绝尘。",
+   "rationale_en": "InferenceX v2 (formerly InferenceMAX) benchmarks ~1,000 GPUs across all SKUs from the past 4 years. GB300 NVL72 hits up to 100x FP8-vs-FP4 and 65x FP8-vs-FP8 over an H100 disagg+wideEP baseline; H100→GB200 NVL72 shows up to 55x at 75 tok/s/user. Jensen 'under-promised and over-delivered' on his GTC-2024 30x claim. AMD is competitive on subsets, but its weakness is composability — combining disagg+wideEP+FP4 breaks down.",
+   "rationale_zh": "InferenceX v2（前身 InferenceMAX）在过去 4 年全部 SKU、约 1000 张 GPU 上做基准。GB300 NVL72 相对 H100 disagg+wideEP 基线，FP8-对-FP4 最高 100 倍、FP8-对-FP8 达 65 倍；H100→GB200 NVL72 在 75 tok/s/user 下最高 55 倍。Jensen 在 GTC-2024 立下的 30 倍豪言反而「少说多做」。AMD 在子集上有竞争力，但短板是「可组合性」——同时开 disagg+wideEP+FP4 就崩。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!HfJD!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2ed3fe4a-93e9-4c47-8fb2-91f17da1b7c5_2392x1418.png",
+    "shows_en": "Realized inference throughput uplift GB300/GB200 NVL72 vs H100 baseline across the interactivity curve",
+    "shows_zh": "沿交互性曲线，GB300/GB200 NVL72 对 H100 基线的实测推理吞吐提升"
+   },
+   "quote": {
+    "text": "Rack scale Blackwell NVL72 is framemogging hopper and makes hopper looks like it is jestermaxxing.",
+    "source_title": "InferenceX v2: NVIDIA Blackwell Vs AMD vs Hopper",
+    "date": "2026-02-16"
+   }
+  },
+  {
+   "claim_en": "GB200 NVL72 costs ~1.6x an H100 cluster's TCO — and its rack-scale reliability is the hidden tax.",
+   "claim_zh": "GB200 NVL72 的 TCO 约为 H100 集群的 1.6 倍——而其机架级可靠性是隐藏的税负。",
+   "rationale_en": "Factoring capex + opex, GB200 NVL72 TCO is ~1.6x an H100 cluster, so it must be ≥1.6x faster to win on perf-per-TCO. The catch: with Blackwell the failure domain jumped from the node to the entire 72-GPU rack — a single faulty component can drain a whole rack. NVLink copper backplane and cross-rack ACC cables have persistent signal-integrity/reliability issues; top providers now offer 99% rack-level SLAs. Software also matters enormously: H100 MFU rose from 34%→54% in 12 months purely from CUDA-stack improvements.",
+   "rationale_zh": "计入资本开支 + 运营开支，GB200 NVL72 的 TCO 约为 H100 集群的 1.6 倍，因此它必须快至少 1.6 倍才能在「每 TCO 性能」上取胜。关键陷阱：到了 Blackwell，故障域从「节点」跃升为整个 72 卡机架——单个坏件就可能拖垮一整机架。NVLink 铜背板与跨机架 ACC 线缆存在持续的信号完整性/可靠性问题；头部厂商如今提供 99% 机架级 SLA。软件同样举足轻重：H100 的 MFU 在 12 个月内纯靠 CUDA 栈优化就从 34% 升到 54%。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!xXRL!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F38b36a55-66ef-44bc-97ee-c65336dd1998_1475x679.png",
+    "shows_en": "H100 BF16 MFU rising from 34% to 54% over 12 months from software (CUDA/cuDNN/NCCL) improvements alone",
+    "shows_zh": "仅靠软件（CUDA/cuDNN/NCCL）优化，H100 的 BF16 MFU 在 12 个月内从 34% 升至 54%"
+   },
+   "quote": {
+    "text": "TCO for the GB200 NVL72 is about 1.6x higher than TCO for the H100. This means that the GB200 NVL72 needs to be at least 1.6x faster than the H100 in order to have an performance per TCO advantage.",
+    "source_title": "H100 vs GB200 NVL72 Training Benchmarks",
+    "date": "2025-08-20"
+   }
+  },
+  {
+   "claim_en": "The 2026 GPU market is acutely supply-constrained: H100 rentals rose ~40% and everything through ~Sept-2026 is booked.",
+   "claim_zh": "2026 年 GPU 市场极度供不应求：H100 租金上涨约 40%，且截至约 2026 年 9 月上线的产能全部售罄。",
+   "rationale_en": "Contrary to the consensus that Hopper would collapse in price as Blackwell ramped, H100 1-year rental prices rose ~40% from a $1.70/hr low in Oct 2025 to $2.35/hr by March 2026. On-demand is sold out across every GPU type; AWS p6-b200 spot fetches $14/hr; all capacity online through Aug–Sept 2026 is booked. Drivers: open-weight model adoption, agentic/multi-step workloads (Claude Code), native media generation, and a memory-price spike (DDR5 ~5x YoY) that made OEMs reprice servers and withhold supply.",
+   "rationale_zh": "与「Blackwell 放量后 Hopper 价格必崩」的共识相反，H100 一年期租金从 2025 年 10 月的 1.70 美元/时低点，涨到 2026 年 3 月的 2.35 美元/时，涨幅约 40%。所有 GPU 型号的按需实例都售罄；AWS p6-b200 竞价高达 14 美元/时；截至 2026 年 8–9 月上线的全部产能已被订满。驱动因素：开源权重模型普及、智能体/多步工作流（Claude Code）、原生图像视频生成，以及内存价格飙升（DDR5 同比约 5 倍）逼得 OEM 重新给服务器定价并扣住供给。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!8k4U!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2425f27f-7411-46a2-ae85-96e169f134f6_977x561.png",
+    "shows_en": "H100 1-year rental price index rising ~40% from ~$1.70/hr (Oct 2025) to ~$2.35/hr (Mar 2026)",
+    "shows_zh": "H100 一年期租金指数从约 1.70 美元/时（2025 年 10 月）上涨约 40% 至约 2.35 美元/时（2026 年 3 月）"
+   },
+   "quote": {
+    "text": "Trying to find GPU compute in early 2026 has been like trying to book airplane tickets on the last flight out, high prices, and almost no availability.",
+    "source_title": "The Great GPU Shortage – Rental Capacity",
+    "date": "2026-04-02"
+   }
+  },
+  {
+   "claim_en": "Nvidia's $20B Groq deal is really about building an SRAM 'fast-token' front for disaggregated decode.",
+   "claim_zh": "英伟达 200 亿美元的 Groq 交易，本质是为分离式 decode 打造一条 SRAM「快 token」战线。",
+   "rationale_en": "Nvidia paid Groq $20B to license IP and hire the team (structured to dodge antitrust). Standalone, a Groq LPU is uneconomic at scale — its ~500MB SRAM saturates fast and leaves little for KV cache — but it serves tokens extremely fast, commanding a premium. Nvidia will fuse the LPU into Vera Rubin via Attention-FFN Disaggregation (AFD): latency-sensitive decode on the SRAM-heavy LPU, memory-hungry attention on GPUs. Bonus: the LPU runs on Samsung SF4, sidestepping constrained TSMC N3/HBM — 'true incremental revenue and capacity that no one else can access.'",
+   "rationale_zh": "英伟达付给 Groq 200 亿美元以授权 IP 并招走团队（交易结构刻意规避反垄断）。单独看，Groq LPU 在规模化时不经济——约 500MB SRAM 很快饱和，留给 KV cache 的空间寥寥——但它出 token 极快，可收取溢价。英伟达将通过「注意力-FFN 分离（AFD）」把 LPU 融进 Vera Rubin：延迟敏感的 decode 交给富 SRAM 的 LPU，吃内存的 attention 交给 GPU。附赠红利：LPU 跑在三星 SF4 上，避开受限的 TSMC N3/HBM——是「别人拿不到的真正增量收入与产能」。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!269y!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F05b555ed-9d4e-45db-ad03-cbc1cc261b17_3064x1497.jpeg",
+    "shows_en": "Attention-FFN Disaggregation (AFD): decode-latency work on Groq LPU, memory-heavy attention on GPU",
+    "shows_zh": "注意力-FFN 分离（AFD）：延迟敏感的 decode 交给 Groq LPU，吃内存的 attention 交给 GPU"
+   },
+   "quote": {
+    "text": "Nvidia paid Groq $20B to license their IP and hire most the team… if this transaction were structured as a full acquisition and were put to anti-trust review, such a transaction would likely not go through.",
+    "source_title": "Nvidia – The Inference Kingdom Expands",
+    "date": "2026-03-24"
+   }
+  },
+  {
+   "claim_en": "CoreWeave is the only 'Platinum' GPU cloud — and ClusterMAX ratings now steer hundreds of billions in compute contracts.",
+   "claim_zh": "CoreWeave 是唯一的「Platinum」级 GPU 云——而 ClusterMAX 评级如今在引导数千亿美元的算力合同。",
+   "rationale_en": "ClusterMAX 2.0 reviewed 84 providers (from 26); CoreWeave alone holds Platinum, the only cloud that can consistently command a pricing premium because its all-in TCO is better even at a higher $/GPU-hr. Its differentiator SUNK (Slurm-on-Kubernetes) is the only viable way to run Slurm and Kubernetes jobs on one cluster. CoreWeave signed $22.4B with OpenAI and a $14.2B/6-year Meta deal; ClusterMAX's top-rated clouds have collectively booked ~$400B in RPO.",
+   "rationale_zh": "ClusterMAX 2.0 评测了 84 家供应商（此前 26 家）；CoreWeave 独占 Platinum，是唯一能持续收取价格溢价的云——因为即便每 GPU-小时单价更高，其全口径 TCO 仍更优。其杀手锏 SUNK（Slurm-on-Kubernetes）是唯一能在同一集群上同时跑 Slurm 与 Kubernetes 作业的可行方案。CoreWeave 与 OpenAI 签下 224 亿、与 Meta 签下 142 亿美元/6 年的合同；ClusterMAX 高评级云累计签下约 4000 亿美元 RPO。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!OXF3!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc3e88b22-b4dd-46bf-b1d3-96e354e47e28_1738x873.png",
+    "shows_en": "ClusterMAX 2.0 rankings (Nov 2025): Platinum/Gold/Silver/Bronze tiers across 37 medallion providers",
+    "shows_zh": "ClusterMAX 2.0 排名（2025 年 11 月）：37 家获奖牌供应商的 Platinum/Gold/Silver/Bronze 分级"
+   },
+   "quote": {
+    "text": "CoreWeave retains top spot as the only member of the Platinum tier… the only cloud to consistently command premium pricing in our interviews with end users.",
+    "source_title": "ClusterMAX™ 2.0: The Industry Standard GPU Cloud Rating System",
+    "date": "2025-11-06"
+   }
+  },
+  {
+   "claim_en": "Nvidia's investments in AI startups are a margin-defense strategy, not a fake 'circular economy.'",
+   "claim_zh": "英伟达对 AI 初创公司的投资是「毛利防御」策略，而非虚假的「循环经济」。",
+   "rationale_en": "Skeptics claim Nvidia props up cash-burning startups to book revenue. SemiAnalysis disagrees: Nvidia offers equity investment rather than cutting prices, because a price cut would compress its ~75% gross margin and trigger investor panic. It's how Nvidia keeps foundation labs on GPUs while labs use the TPU/AMD threat to negotiate. The competitive pressure is real — hence Nvidia's own defensive PR and finance-team responses reproduced by SemiAnalysis.",
+   "rationale_zh": "质疑者称英伟达靠扶持烧钱初创来做收入。SemiAnalysis 不认同：英伟达宁可给股权投资也不降价，因为降价会压缩其约 75% 的毛利、引发投资者恐慌。这正是它把基础实验室锁在 GPU 上、而实验室又拿 TPU/AMD 威胁压价的博弈。竞争压力真实存在——所以英伟达才要发防御性 PR、财务团队才要出面回应（均被 SemiAnalysis 转载）。",
+   "figure": null,
+   "quote": {
+    "text": "Nvidia aims to protect its dominant position at the foundation labs by offering equity investment rather than cutting prices, which would lower Gross margins and cause widespread investor panic.",
+    "source_title": "TPUv7: Google Takes a Swing at the King",
+    "date": "2025-11-28"
+   }
+  }
+ ],
+ "key_data": [
+  {
+   "metric_en": "Nvidia gross margin / markup",
+   "metric_zh": "英伟达毛利率 / 加价",
+   "value": "~75% GM, ~4x markup",
+   "note_en": "The margin umbrella that leaves room to invest in labs rather than cut price; Broadcom takes a chunk on TPU BOM.",
+   "note_zh": "这层毛利伞让英伟达有空间去投资实验室而非降价；博通在 TPU BOM 上分走一块。"
+  },
+  {
+   "metric_en": "GB200 NVL72 scale-up world size",
+   "metric_zh": "GB200 NVL72scale-up 世界规模",
+   "value": "72 GPUs (NVLink)",
+   "note_en": "vs AMD MI355X's 8; the gap that keeps AMD off frontier MoE reasoning inference until MI450X.",
+   "note_zh": "对比 AMD MI355X 的 8 卡；正是这道差距把 AMD 挡在前沿 MoE 推理之外，直到 MI450X。"
+  },
+  {
+   "metric_en": "TPUv7 Ironwood max pod size",
+   "metric_zh": "TPUv7 Ironwood 最大 pod 规模",
+   "value": "9,216 TPUs (ICI 3D torus)",
+   "note_en": "Built from 144 4x4x4 cubes via 48 144x144 OCSs; ~8,000 is the practical training block due to slice availability.",
+   "note_zh": "由 144 个 4×4×4 立方体经 48 台 144×144 OCS 构成；受切片可用性限制，实用训练块约 8000 卡。"
+  },
+  {
+   "metric_en": "H100 1-year rental price",
+   "metric_zh": "H100 一年期租金",
+   "value": "$1.70→$2.35/hr/GPU (+~40%, Oct-25→Mar-26)",
+   "note_en": "Defied the consensus of a Hopper price collapse; on-demand sold out across all SKUs.",
+   "note_zh": "打破了「Hopper 价格必崩」的共识；所有型号按需实例售罄。"
+  },
+  {
+   "metric_en": "Cost to train GPT-3 175B (FP8, H100)",
+   "metric_zh": "训练 GPT-3 175B 成本（FP8, H100）",
+   "value": "72¢→54.2¢ per 1M tokens (2024, software gains)",
+   "note_en": "= $218k→$162k for a 300B-token run, purely from CUDA-stack MFU improvements at ~$1.42/hr/GPU.",
+   "note_zh": "= 3000 亿 token 训练从 21.8 万降到 16.2 万美元，纯靠 CUDA 栈 MFU 优化（约 1.42 美元/时/GPU）。"
+  },
+  {
+   "metric_en": "H100 MFU improvement (software only)",
+   "metric_zh": "H100 MFU 提升（纯软件）",
+   "value": "BF16 34%→54%, FP8 29.5%→39.5% in 12 mo",
+   "note_en": "+57% BF16 throughput from cuDNN/cuBLAS/NCCL kernels alone — the CUDA moat compounding.",
+   "note_zh": "仅靠 cuDNN/cuBLAS/NCCL kernel 就带来 +57% BF16 吞吐——CUDA 护城河的复利效应。"
+  },
+  {
+   "metric_en": "GB200 NVL72 vs H100 TCO",
+   "metric_zh": "GB200 NVL72 对 H100 的 TCO",
+   "value": "~1.6x higher",
+   "note_en": "Must be ≥1.6x faster to win perf-per-TCO; rack-level reliability is the hidden tax.",
+   "note_zh": "必须快至少 1.6 倍才能赢下「每 TCO 性能」；机架级可靠性是隐藏税负。"
+  },
+  {
+   "metric_en": "GB300 NVL72 inference uplift vs H100",
+   "metric_zh": "GB300 NVL72 对 H100 推理提升",
+   "value": "up to 100x (FP8→FP4), 65x (FP8→FP8)",
+   "note_en": "InferenceX v2 across ~1,000 GPUs; H100→GB200 shows up to 55x at 75 tok/s/user.",
+   "note_zh": "InferenceX v2 跨约 1000 张 GPU；H100→GB200 在 75 tok/s/user 下最高 55 倍。"
+  },
+  {
+   "metric_en": "Anthropic TPU commitment",
+   "metric_zh": "Anthropic TPU 承诺",
+   "value": "≥1M TPUs (400k Ironwood ≈ $10B racks + ~$42B GCP RPO)",
+   "note_en": "400k sold directly via Broadcom; 600k rented via GCP — most of GCP's $49B Q3 backlog jump.",
+   "note_zh": "40 万颗经博通直销；60 万颗经 GCP 租用——占 GCP Q3 积压激增 490 亿美元的大头。"
+  },
+  {
+   "metric_en": "OpenAI Nvidia-fleet cost cut from TPU threat",
+   "metric_zh": "OpenAI 因 TPU 威胁削减的英伟达机队成本",
+   "value": "~30%",
+   "note_en": "Achieved before deploying a single TPU — the perf-per-TCO threat alone extracts the discount.",
+   "note_zh": "在部署第一颗 TPU 之前就实现——单是「每 TCO 性能」威胁就足以拿到折扣。"
+  },
+  {
+   "metric_en": "Trainium3 spec deltas vs Trn2",
+   "metric_zh": "Trainium3 对 Trn2 规格增量",
+   "value": "2x MXFP8 FLOPS; 144GB 12-Hi HBM3E; +70% bandwidth",
+   "note_en": "On N3P; HBM switched from sub-par Samsung to Hynix/Micron (9.6Gbps pins, highest seen).",
+   "note_zh": "基于 N3P；HBM 从欠佳的三星换到海力士/美光（9.6Gbps 引脚速率，迄今最高）。"
+  },
+  {
+   "metric_en": "Rubin CPX prefill chip",
+   "metric_zh": "Rubin CPX prefill 芯片",
+   "value": "20 PFLOPS dense FP4, 128GB GDDR7, 2TB/s",
+   "note_en": "HBM-free, >50% lower memory cost/GB vs R200's 288GB HBM/20.5TB/s — attacks the memory-cost wall.",
+   "note_zh": "无 HBM，每 GB 内存成本较 R200（288GB HBM/20.5TB/s）低 50% 以上——直击内存成本墙。"
+  },
+  {
+   "metric_en": "Nvidia–Groq deal",
+   "metric_zh": "英伟达–Groq 交易",
+   "value": "$20B IP license + team hire",
+   "note_en": "Structured to dodge antitrust; LPU3 (LP30) has 500MB SRAM, 1.2 PFLOPS FP8, runs on Samsung SF4.",
+   "note_zh": "结构上规避反垄断；LPU3（LP30）配 500MB SRAM、1.2 PFLOPS FP8，跑在三星 SF4 上。"
+  },
+  {
+   "metric_en": "CoreWeave contract wins",
+   "metric_zh": "CoreWeave 合同斩获",
+   "value": "$22.4B OpenAI + $14.2B/6yr Meta; $9B Core Scientific",
+   "note_en": "IPO'd on NASDAQ ($CRWV), stock +200% in 6 months; acquired Core Scientific for 1.3GW of DC.",
+   "note_zh": "纳斯达克上市（$CRWV），半年涨 200%；以 90 亿美元收购 Core Scientific 换 1.3GW 数据中心。"
+  },
+  {
+   "metric_en": "ClusterMAX top-cloud RPO booked",
+   "metric_zh": "ClusterMAX 头部云已签 RPO",
+   "value": "~$400B since v1.0 (Mar 2025)",
+   "note_en": "84 providers reviewed; CoreWeave sole Platinum; AMD cloud offerings rated worse than same firm's Nvidia offering.",
+   "note_zh": "评测 84 家；CoreWeave 独占 Platinum；同一厂商的 AMD 云服务评分低于其 Nvidia 云服务。"
+  },
+  {
+   "metric_en": "Astera Labs (ALAB) equity 'rebate' to AWS",
+   "metric_zh": "Astera Labs（ALAB）给 AWS 的股权「返点」",
+   "value": "~23% effective discount (strike $20.34)",
+   "note_en": "AWS earns warrants for hitting PCIe-retimer purchase milestones on Trainium3 — a component 'rebate.'",
+   "note_zh": "AWS 在 Trainium3 上达成 PCIe retimer 采购里程碑即获认股权证——一种零部件「返点」。"
+  },
+  {
+   "metric_en": "Opus 4.6 fast-mode economics",
+   "metric_zh": "Opus 4.6 fast 模式经济性",
+   "value": "6x price for ~2.5x (now ~1.75x) interactivity",
+   "note_en": "Revealed preference for fast tokens over smart tokens; ~80% of SemiAnalysis's ~$10M AI spend was on it.",
+   "note_zh": "体现「快 token 优先于聪明 token」的偏好；SemiAnalysis 约 1000 万美元 AI 支出的约 80% 花在它上面。"
+  },
+  {
+   "metric_en": "Cerebras–OpenAI deal",
+   "metric_zh": "Cerebras–OpenAI 交易",
+   "value": "750MW compute (by 2028)",
+   "note_en": "WSE-3 wafer-scale chip wins on speed (fast tokens); Cerebras filed to IPO on the strength of it.",
+   "note_zh": "WSE-3 晶圆级芯片凭「速度（快 token）」取胜；Cerebras 借此提交 IPO。"
+  }
+ ],
+ "deep_dives": [
+  {
+   "article_title": "ClusterMAX™ 2.0: The Industry Standard GPU Cloud Rating System",
+   "date": "2025-11-06",
+   "summary_en": "The definitive 46,000-word GPU-cloud rating: 84 providers hands-on tested against 10 criteria, 209 tracked, 140+ end users interviewed. CoreWeave is the sole Platinum (its SUNK Slurm-on-Kubernetes and premium pricing power stand out); Nebius/Oracle/Azure lead Gold; Google/AWS lead Silver. Key trends: the shift to Slurm-on-Kubernetes, GB200 NVL72 rack-level failure domains forcing 99% rack-level SLAs, crypto-miners (IREN, Terawulf) pivoting to AI hosting, and — pointedly — that any given firm's AMD cloud offering is materially worse than its Nvidia one. Rating carries commercial weight: top clouds have booked ~$400B in RPO.",
+   "summary_zh": "这篇 4.6 万字的 GPU 云评级堪称定海神针：对 84 家供应商实测 10 大维度、追踪 209 家、访谈 140+ 终端用户。CoreWeave 独占 Platinum（其 SUNK「Slurm-on-Kubernetes」与溢价能力最突出）；Nebius/Oracle/Azure 领跑 Gold；Google/AWS 领跑 Silver。关键趋势：向 Slurm-on-Kubernetes 迁移、GB200 NVL72 机架级故障域逼出 99% 机架级 SLA、加密矿工（IREN、Terawulf）转型 AI 托管，以及一针见血的观察——同一家公司的 AMD 云服务明显逊于其 Nvidia 云服务。评级具商业分量：头部云已签约 4000 亿美元 RPO。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!OiQ6!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe19b49d3-ef75-4137-b024-caddfdcb412d_720x264.png",
+    "shows_en": "~$400B in Remaining Performance Obligations (RPO) booked by top-rated neoclouds since ClusterMAX 1.0",
+    "shows_zh": "自 ClusterMAX 1.0 以来，高评级 Neocloud 累计签下约 4000 亿美元剩余履约义务（RPO）"
+   }
+  },
+  {
+   "article_title": "TPUv7: Google Takes a Swing at the King",
+   "date": "2025-11-28",
+   "summary_en": "The 10K-word case that Google is Nvidia's most dangerous merchant challenger. Gemini 3 trained entirely on TPUs; Opus 4.5 trained on multiple hardware types including TPUs (most of Anthropic's training/inference infra sits on TPUs and Trainium); Anthropic committed ≥1M TPUs; Meta, xAI, SSI, OpenAI are lining up. Ironwood nearly closes the silicon gap to GB200 (FLOPS/bandwidth/HBM), and Google's real edge is the ICI 3D-torus + Optical Circuit Switch scale-up fabric — the only true NVLink rival — reaching a 9,216-TPU pod with reconfigurable, fungible slices. Google earns superior EBIT margins even after Broadcom's cut. The missing ingredient vs the CUDA moat: Google still won't open-source XLA:TPU, the runtime, and the MegaScaler multi-pod code.",
+   "summary_zh": "这篇万字长文论证谷歌是英伟达最危险的商用挑战者。Gemini 3 全程 TPU 训练；Opus 4.5 则在含 TPU 的多种硬件上训练（Anthropic 训练/推理基础设施大头在 TPU 与 Trainium）；Anthropic 锁定 ≥100 万颗 TPU；Meta、xAI、SSI、OpenAI 排队跟进。Ironwood 在硅片层面（FLOPS/带宽/HBM）几近追平 GB200，而谷歌的真正优势在 ICI 3D 环面 + 光路交换（OCS）scale-up 结构——英伟达 NVLink 唯一真正的对手——可达 9216 卡 pod，并支持可重构、可互换的切片。即便被博通分走一块，谷歌仍赚取更优的 EBIT 利润。相较 CUDA 护城河缺的那味药：谷歌仍不肯开源 XLA:TPU、运行时与 MegaScaler 多 pod 代码。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!vv9d!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9582080e-9c38-4b5e-b964-ad512e9a9106_2034x1188.png",
+    "shows_en": "TPU generational FLOPS closing the gap to the contemporaneous Nvidia flagship (v4/v5 → v6 → v7)",
+    "shows_zh": "历代 TPU 的 FLOPS 逐代逼近同期英伟达旗舰（v4/v5 → v6 → v7）"
+   }
+  },
+  {
+   "article_title": "AWS Trainium3 Deep Dive | A Potential Challenger Approaching",
+   "date": "2025-12-04",
+   "summary_en": "SemiAnalysis's most detailed accelerator teardown, covering silicon (N3P, CoWoS-R dual-die), the new all-to-all switched scale-up fabric (making AWS the first outside Nvidia to ship a 72-class switched rack), a 'don't decide' multi-vendor switch strategy, and software (open-sourcing NKI + a native PyTorch backend to seed a developer ecosystem). Trainium3 doubles MXFP8 FLOPS, moves to 144GB 12-Hi HBM3E with +70% bandwidth (Samsung→Hynix/Micron), and is architected for perf-per-TCO with cableless serviceability and redundant scale-up lanes. Alchip beat Marvell for the backend; Astera Labs gives AWS an equity 'rebate' (~23%) on PCIe retimers. Trainium4 splits into UALink and NVLink-fusion tracks.",
+   "summary_zh": "SemiAnalysis 迄今最细致的加速器拆解，覆盖硅片（N3P、CoWoS-R 双 die）、全新全互联交换式 scale-up 结构（使 AWS 成为英伟达之外首个量产 72 卡级交换机架的厂商）、「先不决定」的多供应商交换策略，以及软件（开源 NKI + 原生 PyTorch 后端以播种开发者生态）。Trainium3 把 MXFP8 FLOPS 翻倍、升级到 144GB 12 层 HBM3E 并带宽 +70%（三星→海力士/美光），且围绕「每 TCO 性能」设计——无线缆可维护、scale-up 冗余通道。后端设计 Alchip 击败 Marvell；Astera Labs 在 PCIe retimer 上给 AWS 约 23% 的股权「返点」。Trainium4 分裂为 UALink 与 NVLink-fusion 两条线。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!Vsir!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9f8ed36b-3e66-49f8-92ca-cbc3ffb2a5b3_1265x303.png",
+    "shows_en": "Rosetta-stone table decoding AWS branding vs supply-chain codenames for Trainium2/3 rack SKUs",
+    "shows_zh": "「罗塞塔石」对照表：破译 Trainium2/3 机架 SKU 的 AWS 品牌名 与 供应链代号"
+   }
+  },
+  {
+   "article_title": "InferenceX v2: NVIDIA Blackwell Vs AMD vs Hopper",
+   "date": "2026-02-16",
+   "summary_en": "The open-source (Apache 2.0) benchmark run across ~1,000 GPUs — every western Nvidia SKU of the past 4 years and every AMD SKU of the past 3 — measuring the full throughput-vs-interactivity Pareto frontier with production techniques (disagg prefill + wideEP + FP4/FP8). Results: rack-scale Blackwell dominates (GB300 up to 100x FP8→FP4 over H100), and Nvidia leads energy-per-token everywhere. AMD is competitive on subsets and doubled its DeepSeek-R1 FP4 throughput in <2 months, but its Achilles' heel is composability — stacking disagg+wideEP+FP4 breaks. Widely reproduced/validated by Google Cloud, Azure, Oracle, OpenAI.",
+   "summary_zh": "这套开源（Apache 2.0）基准跑遍约 1000 张 GPU——过去 4 年全部西方 Nvidia SKU、过去 3 年全部 AMD SKU——用生产级技术（分离式 prefill + wideEP + FP4/FP8）测出完整的「吞吐-交互性」帕累托前沿。结果：机架级 Blackwell 碾压（GB300 相对 H100 在 FP8→FP4 上最高 100 倍），且英伟达在「每 token 能耗」上处处领先。AMD 在子集上有竞争力，且在不到 2 个月内把 DeepSeek-R1 FP4 吞吐翻倍，但阿喀琉斯之踵是「可组合性」——把 disagg+wideEP+FP4 叠在一起就崩。该基准被 Google Cloud、Azure、Oracle、OpenAI 广泛复现/背书。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!HfJD!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2ed3fe4a-93e9-4c47-8fb2-91f17da1b7c5_2392x1418.png",
+    "shows_en": "Realized inference-throughput multiples: rack-scale Blackwell (GB200/GB300 NVL72) vs H100 baseline",
+    "shows_zh": "实测推理吞吐倍数：机架级 Blackwell（GB200/GB300 NVL72）对 H100 基线"
+   }
+  },
+  {
+   "article_title": "MI300X vs H100 vs H200 Benchmark Part 1: Training - CUDA Moat Still Alive",
+   "date": "2024-12-22",
+   "summary_en": "The five-month training-benchmark quest that reset the AMD narrative and triggered Lisa Su's personal response. Despite the MI300X's superior on-paper memory and lower TCO, out-of-box AMD PyTorch training was broken and needed workarounds; public-release performance trailed H100/H200. Root causes: weak QA culture, forked libraries (RCCL from NCCL), too few internal GPUs for CI/CD, and poor scale-out. SemiAnalysis open-sourced its benchmarks and issued a detailed roadmap to AMD leadership — the article that arguably kick-started AMD's 'wartime mode.'",
+   "summary_zh": "这场五个月的训练基准长征重塑了 AMD 叙事，并触发苏姿丰亲自回应。尽管 MI300X 纸面内存更强、TCO 更低，开箱即用的 AMD PyTorch 训练却是「坏的」、需各种变通；公开发行版性能落后 H100/H200。根因：QA 文化薄弱、库靠 fork（RCCL 抄 NCCL）、内部 GPU 太少喂不动 CI/CD、scale-out 差。SemiAnalysis 开源了基准并向 AMD 高层递交详尽路线图——这篇文章可以说点燃了 AMD 的「战时状态」。",
+   "figure": null
+  }
+ ],
+ "investment": {
+  "winners": [
+   {
+    "name": "Nvidia (NVDA)",
+    "why_en": "Still 'King of the Jungle': ~75% GM, the 72-GPU NVLink rack moat, the CUDA developer flywheel, and it keeps out-innovating (Rubin CPX, $20B Groq LPU, CPO). Even three simultaneous challengers only nibble at the flanks — as long as Jensen keeps accelerating.",
+    "why_zh": "仍是「丛林之王」：约 75% 毛利、72 卡 NVLink 机架护城河、CUDA 开发者飞轮，且持续领先创新（Rubin CPX、200 亿美元 Groq LPU、CPO）。即便三个挑战者同时上，也只是啃边——前提是 Jensen 继续加速。"
+   },
+   {
+    "name": "Broadcom (AVGO)",
+    "why_en": "Co-designs the TPU (largest BOM item, fat margin) and is central to the merchant-TPU externalization; the biggest beneficiary of the Google/Anthropic ASIC ramp and custom-silicon supercycle.",
+    "why_zh": "合作设计 TPU（BOM 最大项、厚利），并处于「商用 TPU 外部化」的核心；是 Google/Anthropic ASIC 放量与定制硅超级周期的最大受益者。"
+   },
+   {
+    "name": "TSMC",
+    "why_en": "Every leading accelerator (Nvidia, TPU, Trainium, MI450X, LPU4) is on N3-class + CoWoS. N3 capacity is the binding constraint on total industry output — pure toll-taker on the whole war.",
+    "why_zh": "每颗领先加速器（Nvidia、TPU、Trainium、MI450X、LPU4）都在 N3 级 + CoWoS。N3 产能是全行业总产量的硬约束——它是这场战争的收费站。"
+   },
+   {
+    "name": "CoreWeave (CRWV)",
+    "why_en": "Sole ClusterMAX Platinum, premium pricing power via SUNK; $22.4B OpenAI + $14.2B Meta contracts; +200% in 6 months post-IPO. The reference neocloud.",
+    "why_zh": "唯一的 ClusterMAX Platinum，靠 SUNK 拥有溢价能力；224 亿美元 OpenAI + 142 亿美元 Meta 合同；上市半年 +200%。标杆 Neocloud。"
+   },
+   {
+    "name": "AMD (AMD)",
+    "why_en": "The credible #2 — but the bet is on the H2-2026 MI450X rack matching VR200 NVL144, plus OpenAI's equity rebate and sweetheart pricing. Software (ROCm) execution is the swing factor; 'wartime mode' is real but Nvidia is still sprinting.",
+    "why_zh": "可信的二号——但赌注在 2026 下半年 MI450X 机架对标 VR200 NVL144，加上 OpenAI 股权返点与甜心价。软件（ROCm）执行力是胜负手；「战时状态」真实，但英伟达仍在冲刺。"
+   },
+   {
+    "name": "Astera Labs (ALAB) / interconnect suppliers",
+    "why_en": "PCIe retimers/switches into AWS Trainium (with equity 'rebate'); scale-up/scale-out connectivity is the new decisive layer — a rising tide across ASIC and GPU builds.",
+    "why_zh": "PCIe retimer/交换机进入 AWS Trainium（带股权「返点」）；scale-up/scale-out 连接是新的决定性层——ASIC 与 GPU 部署共同抬升的水位。"
+   },
+   {
+    "name": "Crypto-miner-to-AI pivots (IREN, Terawulf, Cipher)",
+    "why_en": "Own scarce power + PPAs; the 'hyperscaler backstop' financing template (Google's off-balance-sheet IOU) unlocks a NeoCloud growth wave; IREN scored a 200MW GB300 deal with Microsoft.",
+    "why_zh": "手握稀缺电力 + PPA；「超大厂兜底」融资模板（谷歌的表外 IOU）打开 Neocloud 增长浪潮；IREN 拿下与微软的 200MW GB300 合同。"
+   }
+  ],
+  "bottlenecks": [
+   {
+    "en": "TSMC N3 wafer capacity — caps total accelerator output; N3P defect density is improving slower than expected, forcing re-spins/queues.",
+    "zh": "TSMC N3 晶圆产能——封顶了加速器总产量；N3P 缺陷密度改善慢于预期，逼得厂商重做设计/排队。"
+   },
+   {
+    "en": "HBM supply — the largest single BOM item on GB300; constrained across Hynix/Micron/Samsung and repriced parabolically (DDR5 ~5x YoY).",
+    "zh": "HBM 供给——GB300 上最大单一 BOM 项；海力士/美光/三星全线吃紧，价格抛物线式上涨（DDR5 同比约 5 倍）。"
+   },
+   {
+    "en": "Power / datacenter capacity — Google's true bottleneck is power (3-yr MSA cycles); all rental capacity through ~Sept-2026 is booked.",
+    "zh": "电力 / 数据中心产能——谷歌真正的瓶颈是电力（MSA 谈判长达 3 年）；截至约 2026 年 9 月上线的租赁产能全被订满。"
+   },
+   {
+    "en": "Advanced packaging (CoWoS-R/-L) — the reticle-scale interposers and 20-layer ABF substrates that gate chiplet + HBM integration.",
+    "zh": "先进封装（CoWoS-R/-L）——决定 chiplet + HBM 集成的 reticle 级中介层与 20 层 ABF 基板。"
+   },
+   {
+    "en": "Software talent — AMD is uncompetitive on AI-software-engineer comp; ROCm/RCCL forever chasing NCCL refactors.",
+    "zh": "软件人才——AMD 在 AI 软件工程师薪酬上缺乏竞争力；ROCm/RCCL 永远在追赶 NCCL 的重构。"
+   }
+  ],
+  "risks": [
+   {
+    "en": "ASIC substitution accelerates: if Google open-sources XLA:TPU/runtime and AWS open-sources NKI, the CUDA moat erodes on the software flank faster than expected.",
+    "zh": "ASIC 替代加速：若谷歌开源 XLA:TPU/运行时、AWS 开源 NKI，CUDA 护城河在软件侧的侵蚀会快于预期。"
+   },
+   {
+    "en": "GB200/GB300 rack reliability: NVLink copper backplane + cross-rack ACC cables have persistent signal-integrity failures; the 72-GPU failure domain raises the hidden TCO tax.",
+    "zh": "GB200/GB300 机架可靠性：NVLink 铜背板 + 跨机架 ACC 线缆存在持续信号完整性故障；72 卡故障域抬高隐藏的 TCO 税。"
+   },
+   {
+    "en": "GPU terminal-value / rental-price reversal: the ~40% H100 rental rally could unwind if inference demand growth slows, hitting neocloud IRRs and 6-yr depreciation assumptions.",
+    "zh": "GPU 残值/租金反转：若推理需求增速放缓，约 40% 的 H100 租金反弹可能回吐，冲击 Neocloud 的 IRR 与 6 年折旧假设。"
+   },
+   {
+    "en": "'Circular economy' financing: Nvidia/hyperscaler equity investments and off-balance-sheet backstops concentrate counterparty risk if a marquee lab's demand disappoints.",
+    "zh": "「循环经济」融资：英伟达/超大厂的股权投资与表外兜底一旦某旗舰实验室需求不及预期，会集中放大交易对手风险。"
+   },
+   {
+    "en": "Duration mismatch: 4-5yr GPU life vs 15-yr datacenter leases (~8yr payback) — solved for now by the hyperscaler backstop, but a fragile structure.",
+    "zh": "久期错配：GPU 4–5 年寿命 对 数据中心 15 年租约（约 8 年回本）——目前靠超大厂兜底解决，但结构脆弱。"
+   }
+  ],
+  "catalysts": [
+   {
+    "en": "H2-2026 rack-scale showdown: AMD MI450X (IF64/IF128) and Nvidia VR200 NVL144 both hit production — the first apples-to-apples 72+ rack comparison.",
+    "zh": "2026 下半年机架级对决：AMD MI450X（IF64/IF128）与英伟达 VR200 NVL144 同期量产——首次真正同类可比的 72+ 卡机架对拉。"
+   },
+   {
+    "en": "TPUv7 Ironwood + Trainium3 added to InferenceX — the first independent, apples-to-apples ASIC-vs-GPU inference numbers.",
+    "zh": "TPUv7 Ironwood + Trainium3 加入 InferenceX——首批独立、同类可比的 ASIC 对 GPU 推理数据。"
+   },
+   {
+    "en": "More TPU externalization deals (Meta, xAI, SSI, OpenAI) + Cerebras IPO — re-rating the ASIC/merchant-challenger supply chain.",
+    "zh": "更多 TPU 外部化交易（Meta、xAI、SSI、OpenAI）+ Cerebras IPO——ASIC/商用挑战者供应链的重估。"
+   },
+   {
+    "en": "Rubin CPX / Vera Rubin ramp — validates prefill-decode specialization and disaggregated serving at scale.",
+    "zh": "Rubin CPX / Vera Rubin 放量——验证 prefill-decode 专用化与大规模分离式服务。"
+   },
+   {
+    "en": "GPU rental index inflection — SemiAnalysis's public H100 1yr index is the real-time barometer for the whole cycle.",
+    "zh": "GPU 租金指数拐点——SemiAnalysis 公开的 H100 一年期指数是整个周期的实时晴雨表。"
+   }
+  ]
+ },
+ "open_questions": [
+  {
+   "en": "Will Google open-source XLA:TPU, the runtime and MegaScaler? SemiAnalysis argues it's the single missing ingredient for TPU to threaten the CUDA moat at scale — but Google has resisted for years.",
+   "zh": "谷歌会开源 XLA:TPU、运行时与 MegaScaler 吗？SemiAnalysis 认为这是 TPU 大规模挑战 CUDA 护城河唯一缺的那味药——但谷歌已抗拒多年。"
+  },
+  {
+   "en": "Can AMD's MI450X rack actually match VR200 NVL144 in H2-2026, and — more importantly — will ROCm software composability be there? Hardware parity without software parity has failed before.",
+   "zh": "AMD MI450X 机架能否在 2026 下半年真正对标 VR200 NVL144，且更关键的——ROCm 软件的可组合性能否跟上？「硬件追平但软件不追平」此前已失败过。"
+  },
+  {
+   "en": "Is the ~40% H100 rental surge structural (insatiable inference/agentic demand) or a memory-price-driven supply squeeze that reverses once OEM server pricing normalizes?",
+   "zh": "约 40% 的 H100 租金飙升是结构性的（推理/智能体需求无止境），还是内存价格驱动的供给挤压——一旦 OEM 服务器定价正常化就会反转？"
+  },
+  {
+   "en": "Does prefill-decode specialization (Rubin CPX, LPU) become the dominant inference architecture, forcing every competitor to build two chip families — and can anyone match Nvidia's system integration to exploit it?",
+   "zh": "prefill-decode 专用化（Rubin CPX、LPU）会否成为主流推理架构，逼每个对手都造两套芯片家族——而有谁能匹敌英伟达的系统集成去用好它？"
+  },
+  {
+   "en": "How durable is the 'hyperscaler backstop' financing template that papers over the 4-5yr-GPU vs 15yr-lease duration mismatch if a frontier lab's demand or funding falters?",
+   "zh": "若某前沿实验室的需求或融资生变，那个用来掩盖「GPU 4–5 年 对 租约 15 年」久期错配的「超大厂兜底」融资模板，究竟有多耐用？"
+  }
+ ],
+ "sources": [
+  {
+   "title": "ClusterMAX™ 2.0: The Industry Standard GPU Cloud Rating System",
+   "date": "2025-11-06"
+  },
+  {
+   "title": "The GPU Cloud ClusterMAX™ Rating System | How to Rent GPUs",
+   "date": "2025-03-26"
+  },
+  {
+   "title": "AWS Trainium3 Deep Dive | A Potential Challenger Approaching",
+   "date": "2025-12-04"
+  },
+  {
+   "title": "AI Neocloud Playbook and Anatomy",
+   "date": "2024-10-03"
+  },
+  {
+   "title": "AMD 2.0 - New Sense of Urgency | MI450X Chance to Beat Nvidia | Nvidia's New Moat",
+   "date": "2025-04-23"
+  },
+  {
+   "title": "MI300X vs H100 vs H200 Benchmark Part 1: Training - CUDA Moat Still Alive",
+   "date": "2024-12-22"
+  },
+  {
+   "title": "InferenceX v2: NVIDIA Blackwell Vs AMD vs Hopper",
+   "date": "2026-02-16"
+  },
+  {
+   "title": "TPUv7: Google Takes a Swing at the King",
+   "date": "2025-11-28"
+  },
+  {
+   "title": "InferenceMAX™: Open Source Inference Benchmarking",
+   "date": "2025-10-09"
+  },
+  {
+   "title": "Cerebras — Faster Tokens Please",
+   "date": "2026-05-13"
+  },
+  {
+   "title": "AMD Advancing AI: MI350X and MI400 UALoE72, MI500 UAL256",
+   "date": "2025-06-13"
+  },
+  {
+   "title": "AMD vs NVIDIA Inference Benchmark: Who Wins? - Performance & Cost Per Million Tokens",
+   "date": "2025-05-23"
+  },
+  {
+   "title": "Nvidia – The Inference Kingdom Expands",
+   "date": "2026-03-24"
+  },
+  {
+   "title": "Another Giant Leap: The Rubin CPX Specialized Accelerator & Rack",
+   "date": "2025-09-10"
+  },
+  {
+   "title": "H100 vs GB200 NVL72 Training Benchmarks - Power, TCO, and Reliability Analysis",
+   "date": "2025-08-20"
+  },
+  {
+   "title": "NVIDIA Tensor Core Evolution: From Volta To Blackwell",
+   "date": "2025-06-23"
+  },
+  {
+   "title": "The Great GPU Shortage – Rental Capacity",
+   "date": "2026-04-02"
+  },
+  {
+   "title": "NVIDIA GTC 2025 - Built For Reasoning, Vera Rubin, Kyber, CPO, Dynamo Inference",
+   "date": "2025-03-19"
+  },
+  {
+   "title": "AI Dark Output: The Visible Cost of Invisible Output",
+   "date": "2026-05-29"
+  },
+  {
+   "title": "Nvidia's Christmas Present: GB300 & B300 - Reasoning Inference, Amazon, Memory",
+   "date": "2024-12-25"
+  }
+ ]
+}

@@ -1,0 +1,674 @@
+{
+ "sector_id": "02_foundry",
+ "sector_name_en": "Foundry & Advanced Process",
+ "sector_name_zh": "晶圆代工与先进制程",
+ "tagline_en": "One square mile in southern Taiwan makes the transistors the entire AI economy runs on — and the whole industry is now fighting over N3 wafers, backside power, and whether anyone can ever build a second TSMC.",
+ "tagline_zh": "台湾南部一平方英里的土地，制造着支撑整个 AI 经济的晶体管——如今全行业都在抢 N3 产能、押注背面供电，并追问：世界上能否再造出第二个台积电。",
+ "overview_en": "Leading-edge logic is the most concentrated critical industry on earth. TSMC holds >90% of advanced-node capacity, and by SemiAnalysis's count 8 of the 10 largest companies in the world depend on it — roughly 3% of US GDP riding on one square mile in Tainan. The AI buildout has turned this from a smartphone business into an HPC business: HPC rose from 36% of TSMC revenue in 2020 to 58% in 2025 while smartphone fell from 46% to 29%, and Nvidia is modeled to consume more N3 wafers than Apple by 4Q27. That collision has produced 'the great AI silicon shortage' — every AI accelerator family is converging on N3 in 2026, pushing effective N3 utilization above 100%, with AI taking ~60% of N3 output in 2026 and 86% by 2027. Underneath the economics sits a physics inflection: FinFET is dead, so 2nm-generation nodes must simultaneously adopt gate-all-around (GAA) transistors and backside power delivery (BSPDN) — the first interconnect paradigm shift since copper in 1997. The competitive field has thinned to TSMC (dominant), a process-competitive-but-broke Intel (first to GAA+BSPDN with 18A), a customer-starved Samsung, and Japanese startup Rapidus. China is a separate track: export controls froze SMIC out of EUV, yet its N+3 node reaches TSMC N6-class density (32.5nm metal pitch, tighter than Intel 18A's shipping 36nm) through brutal DUV multi-patterning — density it cannot translate into competitive power or cost. Cost-per-transistor scaling has nearly stopped (N3 delivered the weakest scaling in 50+ years), pushing value toward advanced packaging, chiplets, and DTCO, and inviting moonshots like X-ray lithography startup Substrate that could halve wafer cost if it works.",
+ "overview_zh": "先进逻辑制程是地球上集中度最高的关键产业。台积电掌握全球 90% 以上的先进节点产能；按 SemiAnalysis 的口径，全球市值前十的公司中有 8 家依赖它，约相当于美国 GDP 的 3% 押在台南一平方英里的土地上。AI 建设把这门生意从「手机业务」变成了「高性能计算（HPC）业务」：HPC 占台积电营收从 2020 年的 36% 升到 2025 年的 58%，智能手机从 46% 降到 29%；模型预测英伟达将在 2027 年四季度前消耗比苹果更多的 N3 晶圆。这场碰撞催生了「AI 硅荒」——2026 年所有 AI 加速器家族集体收敛到 N3，把 N3 有效稼动率推到 100% 以上，AI 在 2026 年吃掉约 60% 的 N3 产出、2027 年更达 86%。经济学之下是一次物理拐点：FinFET 已到尽头，2nm 世代必须同时上环栅（GAA）晶体管和背面供电（BSPDN）——这是自 1997 年铜互连以来互连领域的首次范式转变。竞争者已收窄为：台积电（绝对主导）、制程有竞争力但财务困窘的英特尔（18A 率先做出 GAA+BSPDN）、缺客户的三星、以及日本初创 Rapidus。中国是另一条赛道：出口管制把中芯冻结在 EUV 之外，但其 N+3 节点靠极端 DUV 多重曝光把密度做到台积电 N6 级别（32.5nm 金属间距，比英特尔 18A 量产的 36nm 还紧）——却无法把密度转化为有竞争力的功耗或成本。每晶体管成本的微缩已近乎停滞（N3 是 50 多年来最弱的一次微缩），价值因此转向先进封装、chiplet 与 DTCO，也召来了像 X 光光刻初创 Substrate 这样的登月项目——若成功，晶圆成本可腰斩。",
+ "core_knowledge": [
+  {
+   "term_en": "Process node (N5 / N3 / N2 / A16)",
+   "term_zh": "制程节点（N5 / N3 / N2 / A16）",
+   "explain_en": "A named generation of transistor manufacturing. Names ('3nm', '2nm', A16=1.6nm) are marketing, not physical dimensions; what matters is contacted gate pitch, metal pitch, cell height and resulting density/power/performance (PPA). Each family spawns many variants (N3B, N3E, N3P, N3X, N3S) tuned for cost, mobile, or HPC.",
+   "explain_zh": "晶体管制造的一代命名。名字（「3nm」「2nm」，A16=1.6nm）是营销而非物理尺寸；真正重要的是接触栅间距、金属间距、单元高度及由此决定的密度/功耗/性能（PPA）。每个家族会衍生多个变体（N3B、N3E、N3P、N3X、N3S），分别针对成本、移动或 HPC 调优。"
+  },
+  {
+   "term_en": "FinFET → GAA (Gate-All-Around)",
+   "term_zh": "FinFET → GAA（环栅晶体管）",
+   "explain_en": "FinFET (fins the gate wraps on 3 sides) has scaled since 22nm but can no longer improve. GAA stacks horizontal 'nanosheets' so the gate surrounds the channel on all 4 sides, boosting drive current. All 2nm-generation nodes (TSMC N2, Intel 18A, Samsung SF2) adopt GAA 2025+. Successors: forksheet (denser, worse electrostatics) and CFET (stacking N over P for ~1.5x scaling, but ~a decade from HVM).",
+   "explain_zh": "FinFET（栅极包裹三面的鳍）从 22nm 一路微缩，如今已无法再改进。GAA 用水平堆叠的「纳米片」让栅极四面包裹沟道，提升驱动电流。所有 2nm 世代节点（台积电 N2、英特尔 18A、三星 SF2）自 2025 年起采用 GAA。后继者：叉片（forksheet，更密但静电控制更差）与 CFET（N 叠 P，约 1.5 倍微缩，但距量产尚有约十年）。"
+  },
+  {
+   "term_en": "Backside Power Delivery (BSPDN)",
+   "term_zh": "背面供电网络（BSPDN）",
+   "explain_en": "Moving power wiring to the wafer backside, freeing the frontside entirely for signals — the first interconnect innovation since aluminum→copper (1997). Enables cells shorter than 6-track (~15% density) and cuts power ~15-20%. Three flavors: buried power rail (simplest, contamination risk, won't reach HVM), Intel's PowerVia (easier, less scaling), and direct backside contacts (highest risk/reward, ~25% cell shrink, needs <5nm post-bond overlay). TSMC calls its HPC version 'Super Power Rail.'",
+   "explain_zh": "把供电走线移到晶圆背面，正面完全让给信号——这是自铝→铜（1997）以来互连的首次创新。可实现低于 6 轨的单元（约 15% 密度增益），功耗降约 15-20%。三种路线：埋入式电源轨（最简单、有污染风险、进不了量产）、英特尔的 PowerVia（更易做、微缩收益小）、直接背面接触（风险与收益最高，单元缩约 25%，需键合后套刻 <5nm）。台积电的 HPC 版称「Super Power Rail」。"
+  },
+  {
+   "term_en": "EUV vs DUV multi-patterning",
+   "term_zh": "EUV 对 DUV 多重曝光",
+   "explain_en": "Extreme UV (13.5nm) prints tiny features in one shot; a single EUV tool costs $225M and can produce >$650M of wafers a year. Deep UV (193nm immersion) must use SADP/SAQP multi-patterning (2 or 4 passes) to hit the same pitch, adding masks, overlay error, complexity and cost. Export controls deny China EUV, forcing SMIC into aggressive DUV multi-patterning.",
+   "explain_zh": "极紫外（EUV，13.5nm）一次曝光即可打印极小图形；一台 EUV 光刻机售价 2.25 亿美元，一年可产出 6.5 亿美元以上的晶圆。深紫外（DUV，193nm 浸没）必须用 SADP/SAQP 多重曝光（2 次或 4 次）才能达到同样间距，增加掩模、套刻误差、复杂度与成本。出口管制禁止中国获得 EUV，迫使中芯走激进的 DUV 多重曝光路线。"
+  },
+  {
+   "term_en": "DTCO & the death of SRAM scaling",
+   "term_zh": "DTCO 与 SRAM 微缩之死",
+   "explain_en": "Design-Technology Co-Optimization: squeezing density from layout/design tricks (fin depopulation, contact-over-active-gate, single diffusion break) rather than raw lithography. Increasingly the main scaling lever because SRAM bitcells have barely shrunk since N5 — N3E's 6T cell (0.021µm²) is identical to N5's. Logic keeps scaling; cache does not, raising the importance of architecture and 3D stacking.",
+   "explain_zh": "设计-工艺协同优化：靠版图/设计技巧（减鳍、有源栅上接触 COAG、单扩散断开 SDB）而非纯光刻来挤密度。它日益成为主要微缩杠杆，因为 SRAM 位单元自 N5 起几乎不缩——N3E 的 6T 单元（0.021µm²）与 N5 完全一样。逻辑还在微缩，缓存却停滞，从而抬高了架构与 3D 堆叠的重要性。"
+  },
+  {
+   "term_en": "Anchor tenant / 'first and best' customer",
+   "term_zh": "锚定客户 / 「首个且最好」客户",
+   "explain_en": "A leading-edge fab needs one huge, deep-pocketed customer to pre-fund capacity and prove out yield/IP on each new node. Apple was TSMC's anchor for a decade (funded the learning curve, often >50% and near-100% of node launches). AI's cash now gives TSMC a second anchor in Nvidia. Intel Foundry's core problem: no anchor tenant to fill and de-risk its leading-edge fabs.",
+   "explain_zh": "先进 fab 需要一个体量巨大、财力雄厚的客户来预付产能、并在每个新节点上验证良率与 IP。苹果做了台积电十年的锚定客户（出资打通学习曲线，在节点首发常占 50% 以上乃至接近 100%）。AI 的现金流如今给了台积电第二个锚定客户——英伟达。英特尔代工的核心难题：没有锚定客户来填满并去风险其先进 fab。"
+  },
+  {
+   "term_en": "Cluster effect / 'one-hour ecosystem'",
+   "term_zh": "集群效应 / 「一小时生态」",
+   "explain_en": "TSMC's structural moat: Hsinchu/Taichung/Tainan science parks put semiconductor firms, suppliers and talent within an hour, so anything needed arrives fast and yield problems are solved 24/7. Over 90% of TSMC capacity and 87% of staff are in Taiwan. This cluster cannot be cheaply replicated abroad — the core reason Morris Chang called the Arizona fabs 'a very expensive exercise in futility.'",
+   "explain_zh": "台积电的结构性护城河：新竹/台中/台南科学园区把半导体公司、供应商和人才聚集在一小时车程内，任何所需都能快速到位、良率问题 24/7 解决。台积电 90% 以上产能与 87% 员工都在台湾。这个集群无法在海外廉价复制——这正是张忠谋称亚利桑那 fab 是「一场非常昂贵的徒劳」的核心原因。"
+  },
+  {
+   "term_en": "STCO / 3D stacking (Huawei's answer to no-EUV)",
+   "term_zh": "STCO / 3D 堆叠（华为对无 EUV 的答案）",
+   "explain_en": "System-Technology Co-Optimization: when you can't shrink transistors, shorten wires and stack active logic vertically. Huawei's 'τ (tau) scaling law' and 'LogicFolding' split a logic block across face-to-face bonded dies so the bond behaves like an extra metal layer, recovering frequency and density. Density claimed 'per package footprint' is not comparable to a foundry's per-mm² number.",
+   "explain_zh": "系统-工艺协同优化：当无法微缩晶体管时，就缩短走线、把有源逻辑垂直堆叠。华为的「τ（tau）缩放定律」与「LogicFolding」把一个逻辑块拆到面对面键合的多颗裸片上，让键合界面像一层额外金属层，从而找回频率与密度。这种按「封装占地面积」计的密度，与代工厂按每平方毫米计的数字不可直接比较。"
+  }
+ ],
+ "value_chain": [
+  {
+   "stage_en": "Leading-edge logic foundry",
+   "stage_zh": "先进逻辑代工",
+   "players": "TSMC (dominant), Samsung Foundry, Intel Foundry, Rapidus (startup), SMIC (China)",
+   "role_en": "Manufactures the most advanced digital logic (N5/N3/N2, 18A). TSMC holds >90% of advanced-node capacity; the others are customer-challenged or years behind. This is where the AI accelerator, CPU and networking silicon is physically made.",
+   "role_zh": "制造最先进的数字逻辑（N5/N3/N2、18A）。台积电占先进节点产能 90% 以上；其余各家或缺客户或落后数年。AI 加速器、CPU 和网络芯片都在这一层实际制造。"
+  },
+  {
+   "stage_en": "Fabless designers (anchor customers)",
+   "stage_zh": "无晶圆设计公司（锚定客户）",
+   "players": "Apple, Nvidia, AMD, Qualcomm, MediaTek, Broadcom, Google/AWS/Meta (custom ASIC), HiSilicon (China)",
+   "role_en": "Design chips and buy wafers; the largest fund each node's learning curve. Apple anchored TSMC for a decade; Nvidia is now a second anchor. Their node choices and prepayments (Nvidia alone >$3B) dictate what capacity TSMC builds.",
+   "role_zh": "设计芯片、采购晶圆；最大的客户为每个节点的学习曲线出资。苹果锚定台积电十年；英伟达如今是第二个锚。它们的节点选择与预付款（仅英伟达就 >30 亿美元）决定了台积电建什么产能。"
+  },
+  {
+   "stage_en": "Lithography & wafer fab equipment (WFE)",
+   "stage_zh": "光刻与晶圆制造设备（WFE）",
+   "players": "ASML (EUV/High-NA monopoly), Applied Materials, Lam Research, KLA, Tokyo Electron; challengers xLight, Substrate",
+   "role_en": "Supplies the tools. ASML's EUV monopoly ($225M/tool) is the choke point. Post-3nm, litho spend intensity plateaus and share shifts to deposition/etch/metrology and packaging tools. Startups (Substrate X-ray litho, xLight FEL source) aim to break the cost curve.",
+   "role_zh": "提供设备。ASML 的 EUV 垄断（2.25 亿美元/台）是咽喉。3nm 之后光刻支出强度见顶，份额转向沉积/刻蚀/量测与封装设备。初创公司（Substrate 的 X 光光刻、xLight 的自由电子激光光源）意图打破成本曲线。"
+  },
+  {
+   "stage_en": "Advanced packaging & 3D integration",
+   "stage_zh": "先进封装与 3D 集成",
+   "players": "TSMC (CoWoS, InFO, SoIC), Intel (EMIB, Foveros, EMIB-T), OSATs (ASE/SPIL, Amkor)",
+   "role_en": "As transistor scaling stalls, value migrates here. CoWoS ($9.6B in 2025, 2.5x InFO) enables Nvidia/AMD HBM integration; InFO powers Apple SoCs; SoIC/hybrid bonding is the 3D future. Now often the binding constraint on AI accelerator output alongside front-end wafers.",
+   "role_zh": "随晶体管微缩停滞，价值向此迁移。CoWoS（2025 年 96 亿美元，为 InFO 的 2.5 倍）支撑英伟达/AMD 的 HBM 集成；InFO 驱动苹果 SoC；SoIC/混合键合是 3D 未来。如今它常与前段晶圆一起成为 AI 加速器产出的约束瓶颈。"
+  },
+  {
+   "stage_en": "Specialty & mature nodes (the cash engine)",
+   "stage_zh": "特色与成熟节点（现金引擎）",
+   "players": "TSMC (N28, JASM/ESMC), GlobalFoundries (FD-SOI, silicon photonics, GaN), SMIC/Hua Hong (China)",
+   "role_en": "Fully-depreciated older fabs (equipment lasts far beyond the 5-year accounting life) throw off the cash that funds leading-edge expansion. GlobalFoundries exited Moore's Law but leads in FD-SOI, RF, GaN-on-Si and silicon photonics — a different kind of 'leading edge.'",
+   "role_zh": "完全折旧的老 fab（设备寿命远超 5 年会计年限）产生现金，为先进制程扩张出资。GlobalFoundries 退出摩尔定律，却在 FD-SOI、射频、GaN-on-Si 和硅光子领域领先——另一种意义上的「前沿」。"
+  }
+ ],
+ "theses": [
+  {
+   "claim_en": "One square mile in Taiwan carries ~3% of US GDP — the most extreme concentration risk in the global economy.",
+   "claim_zh": "台湾一平方英里承载着约 3% 的美国 GDP——全球经济中最极端的集中度风险。",
+   "rationale_en": "Over 90% of TSMC capacity and >90% of global advanced-node output sit in Taiwan. 8 of the world's 10 largest companies depend on TSMC (the 9th is TSMC), and more than a third of their combined $2T revenue rides on TSMC hardware. SemiAnalysis frames onshoring as a security imperative: the 2021 shortage of *mature* chips cost ~1% of US GDP ($240B); zeroing out advanced logic would be 'a 100-foot tsunami.'",
+   "rationale_zh": "台积电 90% 以上产能与全球 90% 以上先进节点产出都在台湾。全球市值前十的公司有 8 家依赖台积电（第 9 名就是台积电），它们合计 2 万亿美元营收中超三分之一押在台积电硬件上。SemiAnalysis 把在岸化定性为安全刚需：2021 年仅「成熟」芯片短缺就损失约 1% 的美国 GDP（2400 亿美元），若先进逻辑归零则是「一场 100 英尺高的海啸」。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!-Z1X!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F4294cea2-6397-405f-ba00-b4e86820e683_961x510.png",
+    "shows_en": "The world's largest companies and the share of their revenue dependent on TSMC hardware",
+    "shows_zh": "全球最大公司及其依赖台积电硬件的营收占比"
+   },
+   "quote": {
+    "text": "That alone is 3% of U.S. GDP dependent on 1 square mile in southern Taiwan… The world economy would grind to a halt without TSMC.",
+    "source_title": "TSMC Overseas Fabs – A Success?",
+    "date": "2025-12-01"
+   }
+  },
+  {
+   "claim_en": "AI turned TSMC from a smartphone company into an HPC company — and Nvidia will out-consume Apple at N3 by 4Q27.",
+   "claim_zh": "AI 把台积电从手机公司变成 HPC 公司——英伟达将在 2027 年四季度前于 N3 上消耗超过苹果。",
+   "rationale_en": "HPC revenue at TSMC rose from 36% (2020) to 58% (2025) while smartphone fell from 46% to 29%. Apple, TSMC's decade-long anchor, has been consistently >50% of node launches since 20nm (near-100% in some cases, e.g. N3) and funded the yield learning curve of every node; now Nvidia's AI cash makes it a second anchor. SemiAnalysis models Nvidia consuming more N3 wafers than Apple by 4Q27, and Apple's share of N2 dropping to 48% — the first time in a decade Apple isn't the dominant customer on a new node — because A16 is architected for HPC (backside power, GAA) and smartphones skip it.",
+   "rationale_zh": "台积电 HPC 营收从 2020 年的 36% 升至 2025 年的 58%，手机从 46% 降到 29%。苹果作为台积电十年锚定客户，自 20nm 起在节点首发持续占比超 50%（个别节点接近 100%，如 N3），为每个节点的良率学习曲线出资；如今英伟达的 AI 现金使其成为第二锚。SemiAnalysis 建模显示英伟达将在 2027 年四季度前消耗超过苹果的 N3 晶圆，且苹果在 N2 的份额降至 48%——十年来首次不是新节点的主导客户——因为 A16 为 HPC 而设计（背面供电、GAA），手机将跳过它。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!CVJM!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff3b95f45-de84-447b-90af-77247fc8c80f_2077x1421.png",
+    "shows_en": "TSMC customer mix shift: Apple's share vs rising HPC/Nvidia demand across nodes",
+    "shows_zh": "台积电客户结构转变：苹果份额对比各节点上升的 HPC/英伟达需求"
+   },
+   "quote": {
+    "text": "Our model shows Nvidia will consume more N3 wafers than Apple by 4Q27. Apple's share of N2 drops to 48%, the first time in a decade Apple is not the dominant customer on a new node.",
+    "source_title": "Apple-TSMC: The Partnership That Built Modern Semiconductors",
+    "date": "2026-01-08"
+   }
+  },
+  {
+   "claim_en": "The 'great AI silicon shortage' is now front-end wafers: every accelerator converges on N3 in 2026, pushing utilization past 100%.",
+   "claim_zh": "「AI 硅荒」如今是前段晶圆：2026 年所有加速器收敛到 N3，把稼动率推过 100%。",
+   "rationale_en": "After CoWoS and power were the binding constraints, TSMC N3 logic capacity is now the choke point. Nvidia (Blackwell→Rubin), AMD (MI350/MI400), Google TPU v7, AWS Trainium3 and Meta MTIA all move to N3 in 2026. AI takes just under 60% of N3 output in 2026 and 86% by 2027, nearly squeezing out all smartphone/CPU wafers. Effective N3 utilization exceeds 100% in 2H26; TSMC is constrained by cleanroom space, so gains for one customer mean another loses allocation.",
+   "rationale_zh": "在 CoWoS 与电力先后成为约束之后，台积电 N3 逻辑产能如今是咽喉。英伟达（Blackwell→Rubin）、AMD（MI350/MI400）、谷歌 TPU v7、AWS Trainium3 与 Meta MTIA 都在 2026 年迁往 N3。AI 在 2026 年吃掉近 60% 的 N3 产出、2027 年达 86%，几乎挤光所有手机/CPU 晶圆。2026 下半年 N3 有效稼动率超过 100%；台积电受制于洁净室空间，一个客户多拿产能就意味着另一个失去配额。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!bywn!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5b707af9-3845-4437-9c68-561f36658df4_1868x1104.png",
+    "shows_en": "N3 wafer demand by end-market: AI accelerators crowding out smartphone/CPU into 2027",
+    "shows_zh": "N3 晶圆需求按终端市场拆分：AI 加速器至 2027 年挤出手机/CPU"
+   },
+   "quote": {
+    "text": "We model AI demand to be 86% of 2027 N3 wafer output nearly entirely squeezing out smartphone and CPU wafers.",
+    "source_title": "The Great AI Silicon Shortage",
+    "date": "2026-03-12"
+   }
+  },
+  {
+   "claim_en": "2nm-generation logic requires two simultaneous paradigm shifts — GAA transistors and backside power — the biggest transition in decades.",
+   "claim_zh": "2nm 世代逻辑需要两次同步范式转变——GAA 晶体管与背面供电——数十年来最大的一次跃迁。",
+   "rationale_en": "FinFET cannot scale further and SRAM shrink is dead, so leading-edge logic must adopt GAA and BSPDN in 2-3 years. BSPDN is the first interconnect innovation since aluminum→copper in 1997; it delivers ~15-20% power improvement and enables sub-6T cells. Foundries diverge on aggressiveness: Intel 18A ships PowerVia first (easier, less scaling); TSMC A16 and Samsung SF2Z dive into higher-risk direct backside contacts. This inflection is the rare opening that could force Samsung or Intel out — or let in Rapidus.",
+   "rationale_zh": "FinFET 无法再微缩、SRAM 也已停滞，先进逻辑必须在 2-3 年内采用 GAA 与 BSPDN。BSPDN 是自 1997 年铝→铜以来互连的首次创新，带来约 15-20% 的功耗改善并使低于 6 轨的单元成为可能。各代工厂在激进程度上分野：英特尔 18A 率先上 PowerVia（更易做、微缩收益小）；台积电 A16 与三星 SF2Z 直接切入更高风险的直接背面接触。这一拐点是罕见的窗口，可能逼三星或英特尔出局——或放 Rapidus 进场。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!-6G1!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc18b8b8f-8449-4a4c-8ae8-d3d6a91f04b9_1673x968.png",
+    "shows_en": "Standard cell scaling: FinFET vs GAA + buried power rail cell-height reduction",
+    "shows_zh": "标准单元微缩：FinFET 对比 GAA + 埋入式电源轨的单元高度缩减"
+   },
+   "quote": {
+    "text": "Leading-edge logic must adopt two new paradigms in the next 2-3 years: gate all around (GAA) and backside power delivery.",
+    "source_title": "Clash of the Foundries: Gate All Around + Backside Power at 2nm",
+    "date": "2024-10-01"
+   }
+  },
+  {
+   "claim_en": "SMIC N+3 reaches TSMC N6-class density without EUV — but density it cannot turn into competitive power or cost.",
+   "claim_zh": "中芯 N+3 在无 EUV 下达到台积电 N6 级密度——但这密度无法转化为有竞争力的功耗或成本。",
+   "rationale_en": "SemiAnalysis's STEEL lab teardown of Huawei's Kirin 9030 measured a 32.5nm minimum metal pitch on SMIC N+3, ~10% tighter than the 36nm shipping in Intel 18A Panther Lake, and 113.4 MTr/mm² Bohr density (just above N6's 107.7). But it's achieved via SAQP quadruple-patterning DUV and DTCO, so it costs far more and yields less. The chip performs like a 3-year-old Android flagship: Apple's efficiency core delivers 20% more integer performance at 1W vs Huawei's prime core at 4.5W.",
+   "rationale_zh": "SemiAnalysis 的 STEEL 实验室对华为麒麟 9030 的拆解测得中芯 N+3 最小金属间距 32.5nm，比英特尔 18A Panther Lake 量产的 36nm 紧约 10%，Bohr 密度 113.4 MTr/mm²（略高于 N6 的 107.7）。但这是靠 SAQP 四重曝光 DUV 加 DTCO 实现的，成本高得多、良率低得多。该芯片性能只相当于三年前的安卓旗舰：苹果能效核在 1W 下整数性能高出 20%，而华为大核要 4.5W。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!vctv!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe64ef1ef-b398-45b0-8b9b-8d3c0219e569_1817x1222.png",
+    "shows_en": "Kirin 9030 CPU core performance/power vs Apple and Arm cores — the efficiency gap",
+    "shows_zh": "麒麟 9030 CPU 核性能/功耗对比苹果与 Arm 核——能效差距"
+   },
+   "quote": {
+    "text": "SMIC N+3 reaches TSMC N6-class logic density, but it requires far more aggressive DUV multi-patterning, so it does not match N6 on process maturity or cost.",
+    "source_title": "Is SMIC N+3's Metal Pitch Smaller than Intel 18A's?",
+    "date": "2026-06-14"
+   }
+  },
+  {
+   "claim_en": "Apple built TSMC as much as TSMC built Apple — a $10B 'bet the company' gamble that reshaped computing.",
+   "claim_zh": "苹果成就台积电，如台积电成就苹果——一场重塑计算的 100 亿美元「押上公司」豪赌。",
+   "rationale_en": "In 2013 Morris Chang committed $10B to 20nm on Apple's promise; the A8 (2014) proved it. Apple's TSMC spend grew from ~$2B (2014) to $24B (2025) — 12x in 12 years — going from 9% of TSMC revenue to a 25% peak, funding the yield learning curve of every node since 20nm. Intel's Otellini declined the same deal over margins: SemiAnalysis calls it 'the biggest misstep in the history of chip foundries.' Vertical integration paid off — Mac gross margin expanded ~11pp after dropping Intel.",
+   "rationale_zh": "2013 年张忠谋凭苹果的承诺押 100 亿美元上 20nm；A8（2014）验证了它。苹果对台积电的支出从约 20 亿美元（2014）增至 240 亿美元（2025）——12 年 12 倍——占台积电营收从 9% 升到峰值 25%，为 20nm 以来每个节点的良率学习曲线出资。英特尔的欧德宁因利润率拒绝了同一笔交易：SemiAnalysis 称之为「代工史上最大的失误」。垂直整合回报丰厚——甩掉英特尔后 Mac 毛利率扩张约 11 个百分点。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!PHO_!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F92bb7233-a323-461e-88e7-d88343c7eab1_2077x1421.png",
+    "shows_en": "Apple's annual spend at TSMC, 2014-2025: $2B to $24B (12x)",
+    "shows_zh": "苹果在台积电的年度支出，2014-2025：从 20 亿到 240 亿美元（12 倍）"
+   },
+   "quote": {
+    "text": "I bet the company, but I didn't think I would lose.",
+    "source_title": "Apple-TSMC: The Partnership That Built Modern Semiconductors",
+    "date": "2026-01-08"
+   }
+  },
+  {
+   "claim_en": "Cost-per-transistor scaling has nearly stopped: N3 delivered the weakest scaling in 50+ years.",
+   "claim_zh": "每晶体管成本微缩已近停滞：N3 是 50 多年来最弱的一次微缩。",
+   "rationale_en": "N3's total spend per wafer-start rose 38-55% vs N5 (N3E pricing ~35% above N5), with density up ~56% only in the best FinFlex config — an ~15% cost-per-transistor improvement, the weakest ever for a major node. Most designs get ~30% density, implying flat-to-negative cost scaling. N3B had ~25 EUV layers (nearly double N5); N3E cut that to 19 for cost. SRAM barely scaled (N3B 6T cell only 5% smaller vs the promised 20%). Result: an explosion of chiplets and advanced packaging.",
+   "rationale_zh": "N3 每晶圆启动总支出较 N5 上升 38-55%（N3E 定价约高于 N5 35%），仅在最优 FinFlex 配置下密度提升约 56%——每晶体管成本仅改善约 15%，是主要节点史上最弱。多数设计只得约 30% 密度，意味着成本微缩持平乃至转负。N3B 有约 25 层 EUV（近乎 N5 两倍）；N3E 为降成本砍到 19 层。SRAM 几乎不缩（N3B 的 6T 单元只缩 5%，远低于承诺的 20%）。结果：chiplet 与先进封装大爆发。",
+   "figure": null,
+   "quote": {
+    "text": "This results in an ~15% cost per transistor improvement, the weakest ever scaling for a major process technology in 50+ years.",
+    "source_title": "TSMC's 3nm Conundrum, Does It Even Make Sense?",
+    "date": "2022-12-21"
+   }
+  },
+  {
+   "claim_en": "Intel Foundry has the process (18A on track) but not the cash — it needs 150k+ wafers/month and can't self-fund the fabs.",
+   "claim_zh": "英特尔代工有制程（18A 进度正常）却没有现金——它需要 15 万+ 片/月产能，却无法用自身现金流建 fab。",
+   "rationale_en": "18A defect density is on-track and Intel will be first to market with GAA+BSPDN (PowerVia), a genuine bright spot. But Intel needs $25-30B capex per 10k wafers/week and 150k+ wafers/month to be competitive, at a time its core business is barely breakeven. TSMC's mature nodes throw off cash to fund the leading edge; Intel historically deprecated old nodes and has no such 'forever node' cash pool. It has ~$120B of capital to tap but may need more — 'we are not sure where they can get this cash from.'",
+   "rationale_zh": "18A 缺陷密度进度正常，英特尔将率先量产 GAA+BSPDN（PowerVia），是真正的亮点。但英特尔每 1 万片/周产能需 250-300 亿美元资本开支，需 15 万+ 片/月才有竞争力，而此时其核心业务勉强打平。台积电的成熟节点吐现金供养先进制程；英特尔历来淘汰老节点，没有这种「永续节点」现金池。它约有 1200 亿美元可动用资本，但可能还不够——「我们不确定这笔现金能从哪来」。",
+   "figure": null,
+   "quote": {
+    "text": "Building 150,000+ wafers a month of leading edge capacity requires a lot of investment… Today they cannot afford to build these fabs with their own cashflow.",
+    "source_title": "Is Intel Back? Foundry & Product Resurgence Measured",
+    "date": "2024-04-02"
+   }
+  },
+  {
+   "claim_en": "TSMC's overseas fabs are real but structurally costlier — Chang cites the 1996 WaferTech precedent, whose margins ran 20-25% below Taiwan.",
+   "claim_zh": "台积电海外 fab 是真的，但结构性更贵——张忠谋引 1996 年 WaferTech 为鉴：其利润率曾比台湾低 20-25%。",
+   "rationale_en": "Arizona, Japan (JASM) and Germany (ESMC) all yield wafers, but the cluster can't be replicated: 90%+ of TSMC capacity and 87% of staff remain in Taiwan; US permitting takes ~2x as long; the supply chain isn't there (a Linde gas outage caused a multi-million-dollar scrap event, cutting one quarter's AZ fab profit from $140M to $1.4M). The 1996 WaferTech venture ran 20-25% lower margin on identical products — a precedent Chang cites. Arizona remains a small single-digit share of leading-edge output and won't materially cut Taiwan dependence in the near term.",
+   "rationale_zh": "亚利桑那、日本（JASM）、德国（ESMC）都在产出晶圆，但集群无法复制：台积电 90% 以上产能与 87% 员工仍在台湾；美国许可耗时约为两倍；供应链尚未到位（一次林德气体故障导致数百万美元报废，使某季度亚利桑那 fab 利润从 1.4 亿骤降到 140 万美元）。1996 年的 WaferTech 在相同产品上利润率低 20-25%——张忠谋引以为鉴。亚利桑那在先进制程产出中仍只占很小的个位数份额，短期内无法实质降低对台湾的依赖。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!aEnI!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fff43c613-7399-48d5-a481-a52977ca7a80_1474x811.png",
+    "shows_en": "Permitting timeline comparison: Taiwan roughly twice as fast as the US",
+    "shows_zh": "许可时间对比：台湾约为美国的两倍速度"
+   },
+   "quote": {
+    "text": "I think it will be a very expensive exercise in futility.",
+    "source_title": "TSMC Overseas Fabs – A Success?",
+    "date": "2025-12-01"
+   }
+  },
+  {
+   "claim_en": "The next lithography war could be won outside ASML: X-ray litho startup Substrate claims 50% cheaper wafers.",
+   "claim_zh": "下一场光刻战争可能在 ASML 之外决出胜负：X 光光刻初创 Substrate 声称晶圆成本减半。",
+   "rationale_en": "The industry is ripe for disruption (ASML admits its own hyper-NA roadmap 'may not be economically viable'). Substrate's X-ray litho tool claims single-patterning at 2nm/1nm, high-NA-class resolution, 12nm features, <1.6nm overlay — at a tool cost ~$40M vs High-NA EUV's $400M. SemiAnalysis's model is skeptical of the full 50% claim (its own analysis shows ~25% cost reduction) but even that is 'massive.' Combined with xLight's free-electron-laser source, these are the first credible threats to on-shore the litho monopoly — with China running parallel efforts.",
+   "rationale_zh": "行业已成熟到可被颠覆（ASML 自己承认其 hyper-NA 路线图「可能不具经济可行性」）。Substrate 的 X 光光刻机声称可在 2nm/1nm 单次曝光、达 High-NA 级分辨率、12nm 特征、套刻 <1.6nm——而单机成本约 4000 万美元，对比 High-NA EUV 的 4 亿美元。SemiAnalysis 对完整的 50% 说法存疑（其自建模型仅显示约 25% 降本），但即便如此也「相当可观」。加上 xLight 的自由电子激光光源，这是首批可信的、在岸化光刻垄断的威胁——而中国正并行推进多个类似项目。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!FaK3!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F20632fb2-7ca5-44ce-a16c-690dc5a6a348_3114x1692.jpeg",
+    "shows_en": "Potential benefits of single-patterning at high-NA resolutions vs multi-patterning",
+    "shows_zh": "在 high-NA 分辨率下单次曝光相对多重曝光的潜在收益"
+   },
+   "quote": {
+    "text": "Substrate promises the same great taste but without $400M in calories.",
+    "source_title": "How to Kill 2 Monopolies with 1 Tool",
+    "date": "2025-10-29"
+   }
+  },
+  {
+   "claim_en": "Samsung Foundry's decline is cultural, not just technical — it lied about yields and lost its two biggest customers.",
+   "claim_zh": "三星代工的衰退是文化问题，不只是技术问题——它谎报良率并失去了两大客户。",
+   "rationale_en": "Samsung was technically first to GAA (SF3E, 2022) but only in a low-volume bitcoin/watch chip. Its 4LPE node yielded as low as ~20% (parametric), Exynos 2200 GPU clocks were cut from 1.69GHz to 1.29GHz, and Korean media reported the foundry lied about 5/4/3nm yields to customers and its own chairman. Qualcomm and Nvidia both fled to TSMC; both negotiated to pay per yielded die rather than per wafer. SemiAnalysis: TSMC N3's 30-40% yield problems don't mean Samsung can catch up — 'you are sorely mistaken.'",
+   "rationale_zh": "三星在技术上率先做出 GAA（SF3E，2022），但只用在小批量比特币/手表芯片上。其 4LPE 节点参数良率低至约 20%，Exynos 2200 的 GPU 频率从 1.69GHz 砍到 1.29GHz，韩媒报道代工厂就 5/4/3nm 良率对客户乃至自家会长撒谎。高通与英伟达双双投奔台积电；两者都谈成按良品裸片而非按晶圆付费。SemiAnalysis：台积电 N3 的 30-40% 良率问题不代表三星能追上——「你大错特错」。",
+   "figure": null,
+   "quote": {
+    "text": "The foundry is even allegedly lying about the yields… lied to customers and the Samsung chairman on 5nm, 4nm, and 3nm yields.",
+    "source_title": "Samsung Electronics Cultural Issues Are Causing Disasters In Samsung Foundry",
+    "date": "2022-04-17"
+   }
+  },
+  {
+   "claim_en": "China's chip choke point is shifting from one fab to an ecosystem — SMIC is being forced to license N+2/N+3 to peers.",
+   "claim_zh": "中国的芯片咽喉正从一家 fab 转向一个生态——中芯被迫向同行授权 N+2/N+3。",
+   "rationale_en": "Export controls changed China's optimization problem rather than ending it. SMIC is licensing N+2/N+3 to HLMC/Hua Hong at government direction, and the process learning could feed Ascend AI accelerators, Alibaba's T-Head, and Cambricon (a likely ByteDance supplier). Peking University even built a prototype EDA tool for Huawei's LogicFolding. Once manufacturing knowledge spreads, sanctions aimed at SMIC alone lose bite. 'If domestic chips become good enough for phones, inference, networking… they can matter strategically without matching TSMC.'",
+   "rationale_zh": "出口管制改变了中国的优化问题，而非终结它。中芯正按政府指令向华虹/HLMC 授权 N+2/N+3，其工艺经验可能反哺昇腾 AI 加速器、阿里平头哥与寒武纪（很可能供货字节跳动）。北京大学甚至为华为的 LogicFolding 造出原型 EDA 工具。一旦制造知识扩散，只针对中芯一家的制裁便失去效力。「若国产芯片对手机、推理、网络……足够好，它们无需追平台积电也能具备战略意义。」",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!cb_c!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F97decfee-0a5a-46d5-a730-3a3e7c6eab72_2328x1230.png",
+    "shows_en": "Density roadmap for SMIC, Huawei 3D LogicFolding, TSMC, Intel and Samsung",
+    "shows_zh": "中芯、华为 3D LogicFolding、台积电、英特尔与三星的密度路线图"
+   },
+   "quote": {
+    "text": "Sanctions aimed at SMIC alone become less effective once the manufacturing knowledge has spread to other fabs and design houses.",
+    "source_title": "Is SMIC N+3's Metal Pitch Smaller than Intel 18A's?",
+    "date": "2026-06-14"
+   }
+  },
+  {
+   "claim_en": "Advanced packaging, not lithography, is now where value and constraint migrate — CoWoS is 2.5x InFO and stacking is the future.",
+   "claim_zh": "先进封装而非光刻，如今是价值与约束迁移之处——CoWoS 是 InFO 的 2.5 倍，堆叠是未来。",
+   "rationale_en": "With cost-per-transistor scaling stalled, TSMC's packaging platforms carry the growth. CoWoS revenue hit $9.6B in 2025, 2.5x Apple's InFO ($3.5B+), fueled by Nvidia/AMD HBM. Apple (InFO-PoP) and Nvidia (CoWoS-L) don't compete for packaging lines today, but converge on 3D SoIC/hybrid bonding by AP6/AP7. WFE litho spend intensity plateaus after 3nm; share shifts to deposition, etch, metrology and packaging tools. SemiAnalysis: 'packaging is now a key avenue for driving compute scaling.'",
+   "rationale_zh": "随每晶体管成本微缩停滞，台积电的封装平台扛起增长。CoWoS 2025 年营收 96 亿美元，是苹果 InFO（35 亿+）的 2.5 倍，由英伟达/AMD 的 HBM 驱动。苹果（InFO-PoP）与英伟达（CoWoS-L）今日不争同一封装线，但到 AP6/AP7 会在 3D SoIC/混合键合上收敛。WFE 光刻支出强度在 3nm 后见顶，份额转向沉积、刻蚀、量测与封装设备。SemiAnalysis：「封装如今是驱动算力微缩的关键路径。」",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!3bJr!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb421a17a-6967-40f7-b81d-01cb526a084f_2074x1421.png",
+    "shows_en": "TSMC CoWoS vs InFO advanced-packaging revenue trajectory",
+    "shows_zh": "台积电 CoWoS 对比 InFO 先进封装营收轨迹"
+   },
+   "quote": {
+    "text": "CoWoS revenue hit $9.6B in 2025, 2.5x InFO, fueled by Nvidia and AMD demand.",
+    "source_title": "Apple-TSMC: The Partnership That Built Modern Semiconductors",
+    "date": "2026-01-08"
+   }
+  }
+ ],
+ "key_data": [
+  {
+   "metric_en": "TSMC share of global advanced-node capacity",
+   "metric_zh": "台积电占全球先进节点产能份额",
+   "value": ">90%",
+   "note_en": "Over 90% of TSMC capacity and 87% of staff are in Taiwan; supports >60% of world semiconductor output.",
+   "note_zh": "台积电 90% 以上产能与 87% 员工在台湾；支撑全球 60% 以上的半导体产出。"
+  },
+  {
+   "metric_en": "TSMC HPC vs smartphone revenue mix (2020→2025)",
+   "metric_zh": "台积电 HPC 对手机营收占比（2020→2025）",
+   "value": "HPC 36%→58%; smartphone 46%→29%",
+   "note_en": "The AI platform shift; Nvidia modeled to out-consume Apple at N3 by 4Q27.",
+   "note_zh": "AI 平台转变；预测英伟达在 2027 年四季度前于 N3 上消耗超过苹果。"
+  },
+  {
+   "metric_en": "AI share of TSMC N3 wafer output (2026→2027)",
+   "metric_zh": "AI 占台积电 N3 晶圆产出（2026→2027）",
+   "value": "~60% → 86%",
+   "note_en": "Effective N3 utilization exceeds 100% in 2H26; smartphone/CPU squeezed out.",
+   "note_zh": "2026 下半年 N3 有效稼动率超 100%；手机/CPU 被挤出。"
+  },
+  {
+   "metric_en": "Apple annual spend at TSMC (2014→2025)",
+   "metric_zh": "苹果在台积电年度支出（2014→2025）",
+   "value": "~$2B → $24B (12x)",
+   "note_en": "Apple went from 9% of TSMC revenue to a 25% peak; funded yield learning on every node since 20nm.",
+   "note_zh": "占台积电营收从 9% 升至峰值 25%；为 20nm 以来每个节点的良率学习出资。"
+  },
+  {
+   "metric_en": "SMIC N+3 minimum metal pitch vs Intel 18A",
+   "metric_zh": "中芯 N+3 最小金属间距对比英特尔 18A",
+   "value": "32.5nm vs 36nm (shipping)",
+   "note_en": "~10% tighter M0 than 18A Panther Lake, via SAQP DUV; 113.4 MTr/mm² Bohr density (>N6's 107.7).",
+   "note_zh": "M0 比 18A Panther Lake 紧约 10%，靠 SAQP DUV；Bohr 密度 113.4 MTr/mm²（高于 N6 的 107.7）。"
+  },
+  {
+   "metric_en": "N3 cost-per-transistor improvement vs N5",
+   "metric_zh": "N3 每晶体管成本较 N5 改善",
+   "value": "~15% (best case)",
+   "note_en": "Weakest scaling for a major node in 50+ years; wafer spend up 38-55%, most designs get ~30% density.",
+   "note_zh": "50 多年来主要节点最弱微缩；每晶圆支出升 38-55%，多数设计仅得约 30% 密度。"
+  },
+  {
+   "metric_en": "N3B EUV layers vs N3E",
+   "metric_zh": "N3B 对比 N3E 的 EUV 层数",
+   "value": "~25 → 19",
+   "note_en": "N3B nearly doubled N5's EUV count and yielded poorly; N3E relaxed pitches to cut cost, is the volume node.",
+   "note_zh": "N3B EUV 层数近乎 N5 两倍且良率差；N3E 放松间距降本，是量产节点。"
+  },
+  {
+   "metric_en": "SRAM bitcell size, N5 = N3E = Intel 18A (HD)",
+   "metric_zh": "SRAM 位单元尺寸，N5 = N3E = 英特尔 18A（HD）",
+   "value": "0.021 µm²",
+   "note_en": "SRAM scaling is dead: N3E's HD cell identical to N5's; 18A HD cell also 0.0210 µm² on par with N5/N3E.",
+   "note_zh": "SRAM 微缩已死：N3E 的 HD 单元与 N5 相同；18A 的 HD 单元也是 0.0210 µm²，与 N5/N3E 齐平。"
+  },
+  {
+   "metric_en": "Backside power delivery benefit",
+   "metric_zh": "背面供电收益",
+   "value": "~15-20% power; up to ~25% cell shrink (direct backside contacts)",
+   "note_en": "First interconnect paradigm shift since aluminum→copper (1997); Intel 18A PowerVia first to HVM.",
+   "note_zh": "自铝→铜（1997）以来互连的首次范式转变；英特尔 18A 的 PowerVia 率先量产。"
+  },
+  {
+   "metric_en": "EUV tool economics",
+   "metric_zh": "EUV 光刻机经济性",
+   "value": "$225M/tool → >$650M wafers/yr",
+   "note_en": "ASML monopoly; High-NA EUV EXE:5000 ~$400M. Substrate X-ray litho targets ~$40M/tool.",
+   "note_zh": "ASML 垄断；High-NA EUV EXE:5000 约 4 亿美元。Substrate X 光光刻目标约 4000 万美元/台。"
+  },
+  {
+   "metric_en": "TSMC 2022 capex 'gauntlet'",
+   "metric_zh": "台积电 2022 资本开支「战书」",
+   "value": "$40-44B (70-80% on 2/3/5/7nm)",
+   "note_en": "Set a ceiling on Intel/Samsung's $25B+ plans; 10% on masks/advanced packaging (CoWoS, SoIC, InFO).",
+   "note_zh": "给英特尔/三星 250 亿+ 计划设了天花板；10% 用于掩模/先进封装（CoWoS、SoIC、InFO）。"
+  },
+  {
+   "metric_en": "TSMC Arizona quarterly profit after Linde gas outage",
+   "metric_zh": "林德气体故障后台积电亚利桑那季度利润",
+   "value": "$140M → $1.4M",
+   "note_en": "Impure gas caused a multi-million-dollar scrap event; illustrates immature US supply-chain cluster.",
+   "note_zh": "不纯气体导致数百万美元报废；印证美国供应链集群不成熟。"
+  },
+  {
+   "metric_en": "TSMC N7 utilization trough (2023 downturn)",
+   "metric_zh": "台积电 N7 稼动率低谷（2023 下行）",
+   "value": "<60% (from 100%)",
+   "note_en": "Foundry cyclicality: N7 below 70% in Q1'23, below 60% in Q2; even best-in-class N5 fell to ~88%.",
+   "note_zh": "代工周期性：2023 一季度 N7 <70%，二季度 <60%；连最优的 N5 也降到约 88%。"
+  },
+  {
+   "metric_en": "HBM wafer intensity vs commodity DRAM",
+   "metric_zh": "HBM 晶圆强度对比普通 DRAM",
+   "value": "~3x → ~4x at HBM4 (2026), even larger at HBM4E",
+   "note_en": "HBM crowds out commodity DRAM per bit; the memory shortage runs parallel to the N3 logic shortage.",
+   "note_zh": "HBM 按比特挤出普通 DRAM；内存短缺与 N3 逻辑短缺并行。"
+  },
+  {
+   "metric_en": "Intel leading-edge fab capex requirement",
+   "metric_zh": "英特尔先进 fab 资本开支需求",
+   "value": "$25-30B per 10k wafers/week; needs 150k+/month",
+   "note_en": "TSMC quoted ~$42B per 10k wafers/week for Arizona 3nm; Intel core business ~breakeven, can't self-fund.",
+   "note_zh": "台积电亚利桑那 3nm 报约 420 亿美元/万片周；英特尔核心业务约打平，无法自筹。"
+  },
+  {
+   "metric_en": "TSMC advanced packaging CoWoS revenue (2025)",
+   "metric_zh": "台积电 CoWoS 先进封装营收（2025）",
+   "value": "$9.6B (2.5x InFO)",
+   "note_en": "CoWoS grew from $0.6B (2018) to $8.4-9.6B (2025), 14x; advanced packaging now >10% of TSMC revenue.",
+   "note_zh": "CoWoS 从 2018 年 6 亿增至 2025 年 84-96 亿美元，14 倍；先进封装现占台积电营收 >10%。"
+  },
+  {
+   "metric_en": "Huawei prime-core frequency roadmap (LogicFolding)",
+   "metric_zh": "华为大核频率路线图（LogicFolding）",
+   "value": "2.75 GHz (2025) → ~5 GHz (2031)",
+   "note_en": "Via 3D active-logic stacking, not planar scaling; claims '14A-equivalent' density per package footprint by 2031.",
+   "note_zh": "靠 3D 有源逻辑堆叠而非平面微缩；宣称到 2031 年按封装占地达「等效 14A」密度。"
+  }
+ ],
+ "deep_dives": [
+  {
+   "article_title": "Is SMIC N+3's Metal Pitch Smaller than Intel 18A's? (STEEL teardown of Huawei Kirin 9030)",
+   "date": "2026-06-14",
+   "summary_en": "The first public report from SemiAnalysis's own Oregon teardown lab (STEEL), physically reverse-engineering Huawei's Kirin 9030 on SMIC N+3 against a MediaTek Helio G99 on TSMC N6. Headline finding: SMIC N+3 hits a 32.5nm minimum metal pitch — ~10% tighter than Intel 18A Panther Lake's shipping 36nm M0 — and 113.4 MTr/mm² Bohr density, edging TSMC N6. But it's a cherry-picked metric: N+3 gets there via SAQP quadruple-patterning DUV (M0 below single-DUV resolution), COAG, single diffusion break and a 3:2 M1-to-gate ratio, all adding masks, overlay error and cost. Performance lags a 3-year-old flagship (Apple's efficiency core: +20% integer at 1W vs Huawei's prime at 4.5W). SMIC has scaling levers left (theoretical N+4 ~138 MTr/mm² = N5-class, N+5 via backside contacts ~164 = 18A-class) but each is harder and more expensive. Huawei's answer to no-EUV is the 'τ scaling law' / LogicFolding — 3D-stacked active logic targeting ~5GHz and '14A-equivalent' density by 2031, a packaging roadmap not a foundry one.",
+   "summary_zh": "SemiAnalysis 自建俄勒冈拆解实验室（STEEL）的首份公开报告，物理逆向华为麒麟 9030（中芯 N+3），对标联发科 Helio G99（台积电 N6）。头条结论：中芯 N+3 做到 32.5nm 最小金属间距——比英特尔 18A Panther Lake 量产的 36nm M0 紧约 10%——Bohr 密度 113.4 MTr/mm²，微超台积电 N6。但这是精挑的指标：N+3 靠 SAQP 四重曝光 DUV（M0 已低于单次 DUV 分辨率）、COAG、单扩散断开与 3:2 的 M1-栅比例达成，全都增加掩模、套刻误差与成本。性能落后于三年前旗舰（苹果能效核 1W 下整数 +20%，华为大核 4.5W）。中芯仍有微缩杠杆（理论 N+4 约 138 MTr/mm²=N5 级，N+5 靠背面接触约 164=18A 级），但每步更难更贵。华为对无 EUV 的答案是「τ 缩放定律」/LogicFolding——3D 堆叠有源逻辑，目标 2031 年约 5GHz 与「等效 14A」密度，这是一张封装路线图而非代工路线图。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!pUYb!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9bdf9cbd-902e-4930-b353-059f27eae8e7_5461x1642.png",
+    "shows_en": "Self-aligned double (SADP) vs quadruple (SAQP) patterning — how SMIC hits 32.5nm without EUV",
+    "shows_zh": "自对准双重（SADP）对比四重（SAQP）曝光——中芯如何在无 EUV 下做到 32.5nm"
+   }
+  },
+  {
+   "article_title": "Apple-TSMC: The Partnership That Built Modern Semiconductors",
+   "date": "2026-01-08",
+   "summary_en": "A five-phase history and forward model of the most consequential partnership in chips. Built on SemiAnalysis's proprietary Foundry and Apple Wafer Demand models: Apple's TSMC spend grew 12x ($2B→$24B) in 12 years — consistently >50% of node launches since 20nm (near-100% in some cases, e.g. N3), funding the yield learning curve of every node. TSMC itself grew 9.4x ($13B→$122B revenue), capex 7x, gross margin +13.5pp to 59%+. Phases run from Intel's 2010 rejection (Otellini's 'biggest misstep in foundry history') through mutual lock-in (Samsung 3nm yields 30-40% vs TSMC 80%+; switching cost $2-5B) to today's 'diversified dependence,' where Nvidia becomes TSMC's second anchor and Apple's N2 share drops to 48%. Also maps Apple's 5 transformational acquisitions ($278M P.A. Semi → A4; Intel modem $1B), 8,000+ engineers across 15 design centers, and the packaging bifurcation (Apple InFO vs Nvidia CoWoS, converging at 3D SoIC by AP6/AP7). Apple's real diversification isn't leading-edge — it's PMICs, display drivers, CIS (a new Samsung Austin deal), and a possible Intel 18A-P base-M-series qualification.",
+   "summary_zh": "对芯片史上最关键伙伴关系的五阶段回顾与前瞻模型，基于 SemiAnalysis 自有的代工模型与苹果晶圆需求模型：苹果对台积电支出 12 年增 12 倍（20 亿→240 亿美元），自 20nm 起在节点首发持续占比超 50%（个别接近 100%，如 N3），为每个节点的良率学习曲线出资。台积电自身营收增 9.4 倍（130 亿→1220 亿美元），资本开支增 7 倍，毛利率 +13.5 个百分点至 59%+。五阶段从英特尔 2010 年的拒绝（欧德宁「代工史上最大失误」），经相互锁定（三星 3nm 良率 30-40% 对台积电 80%+；转换成本 20-50 亿美元），到今日的「多元化依赖」——英伟达成为台积电第二锚、苹果 N2 份额降至 48%。文中还梳理苹果 5 桩变革性收购（2.78 亿美元收 P.A. Semi→A4；10 亿美元收英特尔基带）、15 个设计中心的 8000+ 工程师，以及封装分野（苹果 InFO 对英伟达 CoWoS，到 AP6/AP7 在 3D SoIC 收敛）。苹果真正的多元化不在先进制程，而在电源管理 IC、显示驱动、CMOS 图像传感器（新签三星奥斯汀协议），以及可能的英特尔 18A-P 基础 M 系列认证。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!0uZo!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F69fbfcbe-e7c8-4de6-899d-8cd0d36222ea_2058x769.png",
+    "shows_en": "The five phases of Apple-TSMC evolution, 2007-2027+",
+    "shows_zh": "苹果-台积电演进的五个阶段，2007-2027+"
+   }
+  },
+  {
+   "article_title": "Clash of the Foundries: Gate All Around + Backside Power at 2nm",
+   "date": "2024-10-01",
+   "summary_en": "The definitive technical primer on the 2nm-generation inflection. FinFET is exhausted and SRAM shrink is dead, so all four foundries must adopt GAA transistors and backside power delivery (BSPDN) in 2-3 years — the first interconnect paradigm shift since aluminum→copper (1997), worth ~15-20% power. Deep-dives the three BSPDN schemes: buried power rail (simplest but contaminates FEOL, won't reach HVM), Intel's PowerVia (easier, self-aligned, less scaling), and direct backside contacts (highest risk, ~25% cell shrink, needs <5nm post-bond overlay and ~50nm-pitch backside patterning). Roadmaps diverge: Intel 18A first to GAA+BSPDN (PowerVia) but at ~3nm-class density; TSMC N2 is GAA-only, A16 adds conservative backside contacts (7-10% density); Samsung SF2Z in 2027; Rapidus a heavily-subsidized long shot (IBM 2nm license, 25k wpm, no BSPDN, no signed volume customers). SRAM 'beating a dead horse' — the ~22% N2 gain is periphery, not bitcell.",
+   "summary_zh": "关于 2nm 世代拐点的权威技术入门。FinFET 已耗尽、SRAM 微缩已死，四大代工厂必须在 2-3 年内采用 GAA 晶体管与背面供电（BSPDN）——这是自铝→铜（1997）以来互连的首次范式转变，价值约 15-20% 功耗。深入拆解三种 BSPDN 方案：埋入式电源轨（最简单但污染 FEOL，进不了量产）、英特尔的 PowerVia（更易做、自对准、微缩收益小）、直接背面接触（风险最高、单元缩约 25%，需键合后套刻 <5nm 与约 50nm 间距背面图形）。路线图分野：英特尔 18A 率先做 GAA+BSPDN（PowerVia）但密度约 3nm 级；台积电 N2 仅 GAA，A16 加保守的背面接触（7-10% 密度）；三星 SF2Z 在 2027 年；Rapidus 是高度补贴的远射（IBM 2nm 授权、2.5 万片/月、无 BSPDN、无签约量产客户）。SRAM「鞭死马」——N2 约 22% 增益来自外围电路而非位单元。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!zA5F!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe604d5a6-f5ce-413a-8780-e150ce6d05b2_1595x899.jpeg",
+    "shows_en": "The three backside power delivery approaches: buried power rail, PowerVia, backside contact",
+    "shows_zh": "三种背面供电方案：埋入式电源轨、PowerVia、背面接触"
+   }
+  },
+  {
+   "article_title": "The Great AI Silicon Shortage",
+   "date": "2026-03-12",
+   "summary_en": "The constraint has moved down the stack: from CoWoS packaging, to datacenter power, and now to front-end wafers themselves. Every AI accelerator family converges on TSMC N3 in 2026 (Nvidia Blackwell→Rubin, AMD MI350/MI400, Google TPU v7, AWS Trainium3, Meta MTIA) plus Vera CPUs, NVLink6 and Tomahawk6 switches. AI takes just under 60% of N3 output in 2026, rising to 86% in 2027, nearly squeezing out smartphone/CPU. Effective N3 utilization exceeds 100% in 2H26; TSMC is gated by cleanroom space, so one customer's gain is another's loss — TSMC acts as 'kingmaker,' prioritizing high-ASP, multi-year-visibility AI over saturated mobile. Smartphones are the 'release valve': reallocating 25% of smartphone N3 starts could yield ~0.7M more Rubins or ~1.5M more TPU v7s. Memory is the parallel shortage: HBM consumes ~3x commodity DRAM wafers per bit, and DDR margins have surged to rival HBM, removing suppliers' incentive to add HBM capacity.",
+   "summary_zh": "约束已沿栈下移：从 CoWoS 封装，到数据中心电力，如今到前段晶圆本身。2026 年所有 AI 加速器家族收敛到台积电 N3（英伟达 Blackwell→Rubin、AMD MI350/MI400、谷歌 TPU v7、AWS Trainium3、Meta MTIA），加上 Vera CPU、NVLink6 与 Tomahawk6 交换机。AI 在 2026 年吃掉近 60% 的 N3 产出，2027 年升至 86%，几乎挤光手机/CPU。2026 下半年 N3 有效稼动率超 100%；台积电受洁净室空间制约，一个客户所得即另一个所失——台积电扮演「造王者」，优先高 ASP、多年可见度的 AI 而非饱和的手机。手机是「泄压阀」：把 25% 的手机 N3 启动重新分配可多产约 70 万颗 Rubin 或约 150 万颗 TPU v7。内存是并行短缺：HBM 按比特消耗约 3 倍普通 DRAM 晶圆，且 DDR 利润率已飙升到可与 HBM 匹敌，消除了供应商扩 HBM 产能的动力。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!F7JO!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0129d5ef-d8c3-46a8-a8f5-e69d5e4a84b5_1896x1180.png",
+    "shows_en": "Industry-wide convergence of AI accelerators onto TSMC N3 in 2026",
+    "shows_zh": "2026 年 AI 加速器全行业收敛到台积电 N3"
+   }
+  },
+  {
+   "article_title": "How to Kill 2 Monopolies with 1 Tool (Substrate X-ray lithography)",
+   "date": "2025-10-29",
+   "summary_en": "SemiAnalysis surfaces Substrate, a Bay Area startup building an X-ray lithography (XRL) tool that could break both ASML's litho monopoly and TSMC's foundry dominance. Claims: single-patterning at 2nm/1nm/beyond, high-NA-class resolution, 12nm features, <1.6nm overlay, 0.25nm CDU — at a tool cost ~$40M vs High-NA EUV's $400M, promising 50%-cheaper wafers. SemiAnalysis is rigorously skeptical (its own model shows ~25%, not 50%) but concludes external reports say 'the litho tool is legit.' If real, it opens process design flexibility, eliminates multi-patterning, and threatens a >$200B TSMC-share TAM by 2030. The article catalogs the monumental non-litho challenges (stochastic defects, secondary-electron blur, HAR etch, X-ray damage) and contrasts Substrate (novel exposure tool, own fab) with xLight (free-electron-laser source that plugs into existing EUV). Framed as a US strategic imperative — 'seven American mega-caps depend almost completely on TSMC Taiwan for nearly $2T' — with China running parallel FEL/synchrotron/XRL efforts.",
+   "summary_zh": "SemiAnalysis 起底 Substrate——一家湾区初创，正打造一款 X 光光刻（XRL）机，可能同时打破 ASML 的光刻垄断与台积电的代工主导。宣称：2nm/1nm 乃至更先进的单次曝光、High-NA 级分辨率、12nm 特征、套刻 <1.6nm、CDU 0.25nm——单机成本约 4000 万美元，对比 High-NA EUV 的 4 亿美元，承诺晶圆成本减半。SemiAnalysis 严格存疑（自建模型显示约 25% 而非 50%），但结论是外部反馈都说「这台光刻机是真的」。若成真，将打开工艺设计灵活度、消除多重曝光，并威胁到 2030 年 >2000 亿美元的台积电份额 TAM。文章罗列了光刻之外的巨大挑战（随机缺陷、二次电子模糊、高深宽比刻蚀、X 光损伤），并将 Substrate（新型曝光机、自建 fab）与 xLight（插入现有 EUV 的自由电子激光光源）对比。被定性为美国的战略刚需——「七家美国巨头几乎完全依赖台积电台湾，约 2 万亿美元」——而中国正并行推进 FEL/同步辐射/XRL 多个项目。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!B53F!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F79d26399-d6d9-42d6-8d23-4fdd99271130_10423x3505.png",
+    "shows_en": "Simplified process flow of common multipatterning schemes that single-exposure XRL could replace",
+    "shows_zh": "常见多重曝光流程的简化图——单次曝光 XRL 有望取代它们"
+   }
+  },
+  {
+   "article_title": "TSMC Overseas Fabs – A Success? (Arizona / Japan / Germany economics)",
+   "date": "2025-12-01",
+   "summary_en": "A candid audit of TSMC's three overseas ventures and why the Taiwan cluster is so hard to replicate. Over 90% of capacity and 87% of staff remain in Taiwan; the Hsinchu/Taichung/Tainan 'one-hour ecosystem' — TSMC can obtain anything it needs within an hour — is the structural moat. Arizona has ramped — early yield reportedly ~4pts above comparable Taiwan fabs — but on a mature 4nm process already optimized for 2+ years, with an easy high-yield product mix (AMD chiplets, Apple SoCs ~100mm² vs Nvidia ~800mm² reticle GPUs in Tainan). The supply chain isn't there: a Linde gas outage caused a scrap event that cut quarterly AZ profit from $140M to $1.4M; US permitting takes ~2x Taiwan's. The 1996 WaferTech precedent ran 20-25% lower margin ('a nightmare fulfilled,' per Chang). JASM (Japan, 28/16nm, Sony) and ESMC (Germany, 28/16nm, Bosch) are legacy-focused; a UAE fab was floated then killed over sovereign-control and IP-leak concerns. TSMC's $165B US commitment may reach 12 Arizona phases by the 2030s — the world's largest advanced fab — if the cluster can be built.",
+   "summary_zh": "对台积电三家海外合资的坦诚审视，以及台湾集群为何难以复制。90% 以上产能与 87% 员工仍在台湾；新竹/台中/台南的「一小时生态」——所需一切一小时内可得——是结构性护城河。亚利桑那已爬坡——早期良率据称比可比台湾 fab 高约 4 个百分点——但用的是已优化 2 年以上的成熟 4nm 工艺，且产品组合易出高良率（AMD chiplet、约 100mm² 的苹果 SoC，对比台南约 800mm² 的英伟达全掩模 GPU）。供应链尚未到位：一次林德气体故障导致报废，使亚利桑那季度利润从 1.4 亿降到 140 万美元；美国许可耗时约为台湾两倍。1996 年 WaferTech 先例利润率低 20-25%（张忠谋称「噩梦成真」）。JASM（日本，28/16nm，索尼）与 ESMC（德国，28/16nm，博世）聚焦传统制程；阿联酋 fab 曾被提出又因主权控制与 IP 泄漏担忧告吹。台积电 1650 亿美元的美国承诺，若集群能建成，到 2030 年代可能达 12 期——成为全球最大先进 fab。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!7BnH!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F358f33ab-f14f-4309-a010-a01dd4cfa5c6_644x839.png",
+    "shows_en": "TSMC's board composition and governance structure (7 of 10 independent directors)",
+    "shows_zh": "台积电董事会构成与治理结构（10 席中 7 席独立董事）"
+   }
+  }
+ ],
+ "investment": {
+  "winners": [
+   {
+    "name": "TSMC (TSM)",
+    "why_en": "The dominant leading-edge foundry (>90% advanced-node share), sole viable N3/N2 supplier during the AI silicon shortage, kingmaker over allocation with pricing power. Two anchor tenants now (Apple + Nvidia). Cluster moat and cash-generating mature nodes fund the roadmap. Concentration risk in Taiwan is the flip side.",
+    "why_zh": "绝对主导的先进代工（先进节点份额 >90%），AI 硅荒中唯一可行的 N3/N2 供应商，掌控配额且有定价权。如今有两个锚定客户（苹果+英伟达）。集群护城河与产生现金的成熟节点为路线图出资。台湾集中度风险是其反面。"
+   },
+   {
+    "name": "ASML",
+    "why_en": "EUV/High-NA monopoly; every leading-edge wafer needs its tools ($225M each, >$650M wafers/yr). Litho spend intensity plateaus post-3nm, but the installed base and High-NA transition sustain it. Tail risk: a working X-ray litho (Substrate) or FEL source (xLight) could eventually erode the monopoly.",
+    "why_zh": "EUV/High-NA 垄断；每片先进晶圆都需其设备（每台 2.25 亿美元，年产 >6.5 亿美元晶圆）。3nm 后光刻支出强度见顶，但装机基础与 High-NA 转型维系其地位。尾部风险：可用的 X 光光刻（Substrate）或 FEL 光源（xLight）最终可能侵蚀垄断。"
+   },
+   {
+    "name": "Deposition/etch/metrology WFE (Applied Materials, Lam, KLA, TEL)",
+    "why_en": "As litho intensity plateaus after 3nm, share shifts to deposition, etch, metrology and packaging tools — exactly what GAA, backside power (CMP, fusion bonding, TSV etch) and 3D stacking demand most. Beneficiaries of the paradigm shift regardless of which foundry wins.",
+    "why_zh": "3nm 后光刻强度见顶，份额转向沉积、刻蚀、量测与封装设备——正是 GAA、背面供电（CMP、熔融键合、TSV 刻蚀）与 3D 堆叠最需要的。无论哪家代工厂胜出，都是范式转变的受益者。"
+   },
+   {
+    "name": "Intel Foundry (INTC) — high-risk turnaround",
+    "why_en": "18A defect density on-track and first to market with GAA+BSPDN (PowerVia); US-government backing and onshoring tailwind (any AI-capacity diversification toward Intel earns 'brownie points'). But the capital wall (needs 150k+ wafers/month, can't self-fund) and lack of an anchor tenant make it a speculative bet, not a sure thing.",
+    "why_zh": "18A 缺陷密度进度正常，率先量产 GAA+BSPDN（PowerVia）；有美国政府背书与在岸化顺风（任何向英特尔分流 AI 产能都能「加分」）。但资本墙（需 15 万+ 片/月、无法自筹）与缺乏锚定客户，使其成为投机性押注而非确定机会。"
+   },
+   {
+    "name": "GlobalFoundries (GFS) — specialty niche",
+    "why_en": "Exited Moore's Law but leads in FD-SOI (22FDX/12FDX), RF/5G-6G, GaN-on-Si and silicon photonics — differentiated 'leading edge' insulated from the leading-edge capex arms race, with defense/US-industry partnerships. A structurally different, less capital-intensive profile.",
+    "why_zh": "退出摩尔定律，却在 FD-SOI（22FDX/12FDX）、射频/5G-6G、GaN-on-Si 与硅光子领先——差异化的「前沿」，避开先进制程资本开支军备竞赛，并有国防/美国工业伙伴关系。结构上不同、资本强度更低的画像。"
+   }
+  ],
+  "bottlenecks": [
+   {
+    "en": "TSMC N3 front-end wafer capacity — the single biggest constraint on AI accelerator output; utilization >100% in 2H26, gated by cleanroom construction lead time.",
+    "zh": "台积电 N3 前段晶圆产能——AI 加速器产出的最大单一约束；2026 下半年稼动率 >100%，受洁净室建设周期制约。"
+   },
+   {
+    "en": "EUV lithography tools — ASML production isn't scaling measurably; a hard ceiling on how fast any foundry can add leading-edge capacity.",
+    "zh": "EUV 光刻机——ASML 产能未见可测量地扩张；限制任何代工厂增加先进产能速度的硬天花板。"
+   },
+   {
+    "en": "HBM and advanced packaging (CoWoS/SoIC) — the co-requisite for AI accelerators; HBM eats ~3x DRAM wafers per bit, packaging capacity moves in lockstep with N3.",
+    "zh": "HBM 与先进封装（CoWoS/SoIC）——AI 加速器的共同必需；HBM 按比特吃约 3 倍 DRAM 晶圆，封装产能与 N3 同步。"
+   },
+   {
+    "en": "Taiwan engineering talent — only so many Taiwanese engineers exist to spin up foreign fabs, structurally capping the speed of onshoring.",
+    "zh": "台湾工程人才——能派去启动海外 fab 的台湾工程师有限，从结构上限制在岸化速度。"
+   }
+  ],
+  "risks": [
+   {
+    "en": "Taiwan concentration / cross-strait conflict — ~3% of US GDP and 8 of the 10 largest firms depend on one square mile; the tail risk that dwarfs all others.",
+    "zh": "台湾集中度/两岸冲突——约 3% 的美国 GDP 与前十大公司中 8 家依赖一平方英里；碾压其他一切的尾部风险。"
+   },
+   {
+    "en": "AI capex air-pocket — the N3 shortage is built on multi-year AI compute commitments; a demand reset would leave TSMC with the industry's most expensive idle capacity (see 2023: N7 utilization <60%).",
+    "zh": "AI 资本开支断档——N3 短缺建立在多年 AI 算力承诺之上；需求重置会给台积电留下全行业最贵的闲置产能（参见 2023 年 N7 稼动率 <60%）。"
+   },
+   {
+    "en": "Overseas-fab margin drag — Arizona/Japan/Germany are structurally costlier than Taiwan (the 1996 WaferTech precedent ran margins 20-25% lower); politically mandated capacity that dilutes returns.",
+    "zh": "海外 fab 的利润率拖累——亚利桑那/日本/德国结构性成本高于台湾（1996 年 WaferTech 先例利润率低 20-25%）；政治强制的产能稀释回报。"
+   },
+   {
+    "en": "China ecosystem diffusion — SMIC licensing N+2/N+3 to Hua Hong/HLMC spreads the choke point; domestic 'good-enough' chips for inference/networking matter strategically even without matching TSMC.",
+    "zh": "中国生态扩散——中芯向华虹/HLMC 授权 N+2/N+3 分散了咽喉；国产「够用」芯片用于推理/网络，即使不追平台积电也具战略意义。"
+   },
+   {
+    "en": "Lithography disruption — if Substrate's X-ray litho or xLight's FEL source industrializes, ASML's and TSMC's moats erode; low near-term probability, end-of-decade timeline.",
+    "zh": "光刻颠覆——若 Substrate 的 X 光光刻或 xLight 的 FEL 光源工业化，ASML 与台积电的护城河将被侵蚀；近期概率低，时间线在本十年末。"
+   }
+  ],
+  "catalysts": [
+   {
+    "en": "Intel 18A / 18A-P HVM ramp (late 2026) and first external anchor customer — the swing factor for whether Intel Foundry survives as a #2 option.",
+    "zh": "英特尔 18A / 18A-P 量产爬坡（2026 年末）与首个外部锚定客户——决定英特尔代工能否作为第二选项存活的关键变量。"
+   },
+   {
+    "en": "TSMC A16 (Super Power Rail) and N2 ramp — first GAA+backside-power volume for the leading pack; validates the 2nm paradigm.",
+    "zh": "台积电 A16（Super Power Rail）与 N2 爬坡——领先阵营首个 GAA+背面供电量产；验证 2nm 范式。"
+   },
+   {
+    "en": "Smartphone demand cuts freeing N3 for AI — a 25% reallocation could yield ~0.7M more Rubins / ~1.5M more TPU v7s.",
+    "zh": "手机需求下调为 AI 腾出 N3——25% 的重新分配可多产约 70 万颗 Rubin / 约 150 万颗 TPU v7。"
+   },
+   {
+    "en": "Samsung/Intel design wins (Tesla AI5/AI6, Nvidia supply-chain entry) — foundry diversification under capacity scarcity and US political pressure.",
+    "zh": "三星/英特尔的设计订单（特斯拉 AI5/AI6、进入英伟达供应链）——产能稀缺与美国政治压力下的代工多元化。"
+   },
+   {
+    "en": "Substrate XRL tape-outs (as soon as 2028) — milestones that would 'silence the skeptics' on a credible ASML/TSMC disruptor.",
+    "zh": "Substrate XRL 流片（最早 2028 年）——能「让质疑者闭嘴」的、对 ASML/台积电可信颠覆者的里程碑。"
+   }
+  ]
+ },
+ "open_questions": [
+  {
+   "en": "Can any second source (Intel 18A, Samsung SF2, Rapidus) become a real anchor-fundable leading-edge foundry, or does the capital + anchor-tenant + cluster trap keep TSMC a de facto monopoly through the decade?",
+   "zh": "是否有第二来源（英特尔 18A、三星 SF2、Rapidus）能成为真正可由锚定客户出资的先进代工，还是资本+锚定客户+集群的三重陷阱让台积电在本十年内实质保持垄断？"
+  },
+  {
+   "en": "How far can SMIC push DUV-only scaling before it hits a wall — is theoretical N+4 (~N5-class) / N+5 (backside contacts, ~18A-class) achievable at any usable yield and cost without EUV?",
+   "zh": "中芯仅靠 DUV 能把微缩推多远才撞墙——理论上的 N+4（约 N5 级）/ N+5（背面接触，约 18A 级）在无 EUV 下能否以可用良率与成本实现？"
+  },
+  {
+   "en": "Which backside-power scheme wins in volume — Intel's easier PowerVia or the higher-reward direct backside contacts of TSMC/Samsung — and does the post-bond overlay/thinning yield hold at scale?",
+   "zh": "哪种背面供电方案能在量产中胜出——英特尔更易的 PowerVia，还是台积电/三星更高回报的直接背面接触——键合后套刻/减薄良率能否在规模上稳住？"
+  },
+  {
+   "en": "Is the N3 shortage a durable structural constraint or an AI-capex bubble that reverses into the industry's most expensive idle capacity, as N7 did in 2023?",
+   "zh": "N3 短缺是持久的结构性约束，还是一个 AI 资本开支泡沫，会像 2023 年 N7 那样逆转为全行业最贵的闲置产能？"
+  },
+  {
+   "en": "Does a lithography disruptor (Substrate X-ray, xLight FEL) actually industrialize — and if so, does it on-shore the moat to the US or get replicated by China's parallel FEL/synchrotron efforts?",
+   "zh": "光刻颠覆者（Substrate X 光、xLight FEL）能否真正工业化——若能，它是把护城河在岸化到美国，还是被中国并行的 FEL/同步辐射项目复制？"
+  }
+ ],
+ "sources": [
+  {
+   "title": "Is SMIC N+3's Metal Pitch Smaller than Intel 18A's? (STEEL teardown)",
+   "date": "2026-06-14"
+  },
+  {
+   "title": "Apple-TSMC: The Partnership That Built Modern Semiconductors",
+   "date": "2026-01-08"
+  },
+  {
+   "title": "The Great AI Silicon Shortage",
+   "date": "2026-03-12"
+  },
+  {
+   "title": "TSMC Overseas Fabs – A Success?",
+   "date": "2025-12-01"
+  },
+  {
+   "title": "How to Kill 2 Monopolies with 1 Tool (Substrate X-ray lithography)",
+   "date": "2025-10-29"
+  },
+  {
+   "title": "Intel 18A Details & Cost, DRAM 4F2 vs 3D, Backside Power (VLSI 2025)",
+   "date": "2025-07-21"
+  },
+  {
+   "title": "TSMC N2 + Next-Gen SoIC, Intel EMIB-T, CFET, 2D Materials (IEDM 2024)",
+   "date": "2025-02-05"
+  },
+  {
+   "title": "Clash of the Foundries: Gate All Around + Backside Power at 2nm",
+   "date": "2024-10-01"
+  },
+  {
+   "title": "Is Intel Back? Foundry & Product Resurgence Measured",
+   "date": "2024-04-02"
+  },
+  {
+   "title": "TSMC's Heroic Assumption – Low Utilization, Fab Cancellation, 3nm Volumes",
+   "date": "2023-04-20"
+  },
+  {
+   "title": "Rebuilding Intel – Foundry vs IDM Decades of Inefficiencies",
+   "date": "2023-06-22"
+  },
+  {
+   "title": "The Future of the Transistor (GAA, CFET, 2D materials)",
+   "date": "2023-02-21"
+  },
+  {
+   "title": "TSMC 3nm FinFlex + Self-Aligned Contacts, Intel EMIB 3 + Foveros Direct (IEDM 2022)",
+   "date": "2023-02-02"
+  },
+  {
+   "title": "TSMC's 3nm Conundrum, Does It Even Make Sense? – N3 & N3E Cost Detailed",
+   "date": "2022-12-21"
+  },
+  {
+   "title": "Samsung Electronics Cultural Issues Are Causing Disasters In Samsung Foundry",
+   "date": "2022-04-17"
+  },
+  {
+   "title": "China's SMIC Is Shipping 7nm Foundry ASICs",
+   "date": "2022-07-20"
+  },
+  {
+   "title": "TSMC Throws Down a $40B-$44B Gauntlet, Far Surpassing Intel And Samsung",
+   "date": "2022-01-13"
+  },
+  {
+   "title": "GlobalFoundries Is A Leading-Edge Foundry Despite Claims Otherwise",
+   "date": "2021-06-21"
+  },
+  {
+   "title": "Semiconductor Roundup",
+   "date": "2022-02-10"
+  }
+ ]
+}

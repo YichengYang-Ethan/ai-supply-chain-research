@@ -1,0 +1,697 @@
+{
+ "sector_id": "08_hyperscalers_econ",
+ "sector_name_en": "Hyperscalers & AI Economics",
+ "sector_name_zh": "超大规模与 AI 经济学",
+ "tagline_en": "The trillion-dollar buildout, decoded: who pays for GPUs, who captures the margin, and why a token is now the unit of economic value.",
+ "tagline_zh": "万亿级 AI 基建的经济解剖：谁在为 GPU 买单、谁吃走了利润、以及为什么「token」已成为价值的计量单位。",
+ "overview_en": "SemiAnalysis treats the AI buildout not as a hardware story but as an economics story stacked on top of hardware. Their unifying frame is the 'AI Token Economic Stack' — Energy → Datacenter → Accelerator → Neocloud/Hyperscaler → Model Lab → Application — with a token as the atomic unit that ties watts to revenue. Two proprietary engines anchor almost every note: the Datacenter Industry Model (building-by-building MW tracking, the best leading indicator of capex) and the Tokenomics / AI Cloud TCO Model (every major compute contract, its cost, margin, ROIC and RPO). The core, repeated theses: (1) headline GPU $/hr is a bad proxy for true cost — real TCO is dominated by goodput (useful work), reliability, storage, networking, setup and debugging, which SemiAnalysis quantifies via ClusterMAX and a public Goodput calculator; (2) value capture has violently rotated — 2023-25 all the money went to infra (Nvidia, power, memory), but from ~December 2025 'agentic AI began to really work' and the model labs suddenly captured the value, with Anthropic inference gross margins going from 38% to >70% and ARR from $9B to $30-44B in months; (3) the hyperscalers diverge on business model — AWS's token-as-a-service (Bedrock) + vertical silicon (Trainium/Graviton) is structurally higher-margin than Azure's/GCP's IaaS mix, while Microsoft's 'Big Pause' handed Oracle ~$150B of OpenAI gross profit; (4) Nvidia and TSMC deliberately under-price to scarcity, acting as the 'central bank of AI' to keep the ecosystem expanding rather than extract maximum rent. Underneath sit older but foundational pieces (GPU cloud economics, the AWS 'cloud crisis', LLM search cost, DeepSeek tokenomics) that established the vocabulary the market now uses.",
+ "overview_zh": "SemiAnalysis 看待这轮 AI 基建，本质上不是硬件叙事，而是叠在硬件之上的经济学叙事。他们的统一框架是「AI Token 经济栈」——能源 → 数据中心 → 加速器 → Neocloud/超大规模云 → 模型实验室 → 应用——而 token 就是把「瓦特」与「营收」串起来的原子单位。几乎每篇报告背后都站着两台自研引擎：Datacenter Industry Model（逐栋楼追踪兆瓦，是 capex 最好的领先指标）与 Tokenomics / AI Cloud TCO Model（逐一拆解每一份大额算力合同的成本、利润率、ROIC 与 RPO）。反复出现的核心论点有四：(1) GPU 的表价 $/小时 是个糟糕的成本代理——真实 TCO 由 goodput（有效产出）、可靠性、存储、网络、部署与调试主导，SemiAnalysis 用 ClusterMAX 评级和一个公开的 Goodput 计算器把它量化；(2) 价值捕获发生了剧烈换位——2023-25 年钱都被基础设施层（英伟达、电力、内存）赚走，但从约 2025 年 12 月起「Agentic AI 真的开始能用了」，模型实验室突然吃到价值，Anthropic 推理毛利在几个月内从 38% 飙到 70%+、ARR 从 90 亿冲到 300-440 亿美元；(3) 超大规模云在商业模式上分道扬镳——AWS 的「token 即服务」（Bedrock）叠加自研芯片（Trainium/Graviton），结构性上比 Azure/GCP 偏 IaaS 的组合更高毛利，而微软的「大暂停」把约 1500 亿美元的 OpenAI 毛利拱手让给了甲骨文；(4) 英伟达与台积电刻意不按稀缺性顶格定价，扮演「AI 的央行」，宁愿让生态继续扩张也不榨干短期租金。这些之下还垫着一批更早但奠基性的文章（GPU 云经济、AWS「云危机」、LLM 搜索成本、DeepSeek tokenomics），正是它们定义了今天市场在用的词汇。",
+ "core_knowledge": [
+  {
+   "term_en": "AI Token Economic Stack",
+   "term_zh": "AI Token 经济栈",
+   "explain_en": "SemiAnalysis's master framework: Energy → Datacenter → Accelerator (GPU/ASIC) → IaaS (bare-metal rental) → PaaS/Token-as-a-Service → Models → Applications. A token is the atomic unit that flows through and lets you convert watts into dollars at every layer. Whoever controls the scarce layer at a given moment captures the margin.",
+   "explain_zh": "SemiAnalysis 的总框架：能源 → 数据中心 → 加速器（GPU/ASIC）→ IaaS（裸金属出租）→ PaaS/Token 即服务 → 模型 → 应用。token 是贯穿全栈的原子单位，让你在每一层都能把「瓦特」换算成「美元」。谁在某一时刻卡住了稀缺的那一层，谁就吃到利润。"
+  },
+  {
+   "term_en": "Goodput (vs Throughput)",
+   "term_zh": "Goodput（有效产出，区别于吞吐）",
+   "explain_en": "The share of raw GPU throughput that is actually useful work. A cluster can burn full power while producing garbage — GPU fell off the bus, NCCL stalled, an OOM at the next checkpoint, or a job restart eating 10-15 minutes plus all compute since the last checkpoint. 'Goodput expense' is the hidden % tax you pay for a less reliable provider; it dominates large-job TCO.",
+   "explain_zh": "原始 GPU 吞吐中真正转化为有效工作的比例。一个集群可以满功率运转却在产出垃圾——GPU 掉线、NCCL 卡死、下一次 checkpoint 时 OOM，或一次作业重启吃掉 10-15 分钟外加上次 checkpoint 以来的全部算力。「Goodput 费用」就是你为一个不够可靠的供应商付出的隐性百分比税，它主导大作业的 TCO。"
+  },
+  {
+   "term_en": "Cluster TCO ≠ GPU $/hr",
+   "term_zh": "集群 TCO ≠ GPU 每小时价",
+   "explain_en": "True cost = GPUs + Storage + Networking + Control Plane + Support uplift + Goodput expense + Setup expense + Debugging expense, with setup amortized over contract term. Two clouds at the same $/GPU-hr can differ 10-60% in TCO once you count EFA tuning weeks, poor storage tiers, and downtime.",
+   "explain_zh": "真实成本 = GPU + 存储 + 网络 + 控制面 + 支持加价 + goodput 费用 + 部署费用 + 调试费用，其中部署成本按合同期摊销。两家同为 $X/GPU-小时 的云，一旦算上数周的 EFA 调优、劣质存储层和停机，TCO 能相差 10-60%。"
+  },
+  {
+   "term_en": "Token-as-a-Service (TaaS) vs IaaS mix",
+   "term_zh": "Token 即服务（TaaS）vs IaaS 组合",
+   "explain_en": "Two ways a hyperscaler sells AI. IaaS = rent bare-metal GPUs on multi-year deals (Azure/GCP heavy). TaaS = sell tokens via a managed endpoint (AWS Bedrock, Azure Foundry, GCP Vertex/Gemini). When you distribute someone else's model (e.g. Claude on Bedrock) you earn both an infra fee AND a revenue-share/distribution fee — the mix that lifts margin.",
+   "explain_zh": "超大规模云卖 AI 的两条路。IaaS = 用多年合同出租裸金属 GPU（Azure/GCP 偏重此路）。TaaS = 通过托管端点直接卖 token（AWS Bedrock、Azure Foundry、GCP Vertex/Gemini）。当你分发别人的模型（如在 Bedrock 上卖 Claude），你既收基础设施费、又收分成/分发费——正是这个组合抬高了毛利。"
+  },
+  {
+   "term_en": "RPO / Pre-leasing as leading indicators",
+   "term_zh": "RPO / 预租作为领先指标",
+   "explain_en": "Remaining Performance Obligation (contracted-but-unbilled backlog) and datacenter pre-leasing MW are SemiAnalysis's earliest, hardest signals of a hyperscaler's true capex intent — visible quarters before the P&L. Microsoft's pre-leasing dwarfed all rivals combined in 2023-24; the collapse in that signal called the 'Big Pause'.",
+   "explain_zh": "RPO（已签约但未确认收入的积压订单）和数据中心预租兆瓦，是 SemiAnalysis 判断超大规模云真实 capex 意图的最早、最硬的信号——比损益表提前好几个季度。微软 2023-24 的预租量超过所有对手之和；而这个信号的塌陷，正好提前叫出了「大暂停」。"
+  },
+  {
+   "term_en": "Server depreciation / useful life",
+   "term_zh": "服务器折旧 / 使用年限",
+   "explain_en": "Hyperscalers extended assumed useful life from 3-5yr (2020) to 5-6yr, boosting reported earnings. Michael Burry called it artificial; SemiAnalysis disagrees, arguing HPC supercomputers (Summit ran 6.5yr, V100 still rented) prove GPUs stay economically useful far past the 2-3yr product cycle. AWS runs the shortest (5yr) yet still shows rising margins.",
+   "explain_zh": "超大规模云把假定使用年限从 2020 年的 3-5 年延长到 5-6 年，抬高了账面盈利。Michael Burry 称之为人为操纵；SemiAnalysis 不同意，认为 HPC 超算（Summit 跑了 6.5 年、V100 至今仍在出租）证明 GPU 的经济寿命远超 2-3 年的产品周期。AWS 折旧最短（5 年）却仍能做出上升的毛利。"
+  },
+  {
+   "term_en": "Tokenomics: price is an OUTPUT",
+   "term_zh": "Tokenomics：价格是「输出」而非「输入」",
+   "explain_en": "For any model, $/token is not fixed but solved for by tuning latency (TTFT), interactivity (tok/s/user), context window and batch size against your hardware. This is why DeepSeek's $0.55/$2.19 sticker didn't win share — third-party hosts served the same weights faster; and why 'blended' agentic prices (Opus at ~$0.99/MTok effective vs $5/$25 sticker) look nothing like the list price.",
+   "explain_zh": "对任一模型，$/token 都不是固定的，而是在你的硬件上，通过权衡延迟（首 token 时间）、交互性（每用户 tok/秒）、上下文窗口和 batch 大小「解」出来的。这就是为什么 DeepSeek 的 $0.55/$2.19 表价没能抢到份额——第三方托管把同样的权重跑得更快；也是为什么 agentic 场景的「混合」实际价（Opus 有效价约 $0.99/百万 token，而表价 $5/$25）跟表价完全不是一回事。"
+  },
+  {
+   "term_en": "Neocloud / ClusterMAX tiers",
+   "term_zh": "Neocloud / ClusterMAX 分级",
+   "explain_en": "'Neoclouds' are GPU-pure-play clouds (CoreWeave, Nebius, Crusoe, Lambda...). SemiAnalysis ranks all providers with ClusterMAX (Gold/Silver/Bronze) based on hands-on testing of 80+ clouds — networking, storage, reliability, support. Gold-tier commands a real price premium because its lower goodput/setup tax makes it cheaper on TCO even at higher $/hr.",
+   "explain_zh": "「Neocloud」是纯做 GPU 的云（CoreWeave、Nebius、Crusoe、Lambda 等）。SemiAnalysis 用 ClusterMAX（金/银/铜）对全部供应商评级，基于对 80+ 家云的实测——网络、存储、可靠性、支持。金级能收真实溢价，因为它更低的 goodput/部署税让它即便每小时更贵、在 TCO 上反而更便宜。"
+  },
+  {
+   "term_en": "Nvidia/TSMC as 'central bank of AI'",
+   "term_zh": "英伟达/台积电作为「AI 央行」",
+   "explain_en": "Despite controlling the scarcest layers (GPUs, N3 wafers) at full utilization, both deliberately hold pricing below scarcity-clearing levels. Motive: avoid antitrust attention, keep customers from diversifying, and let downstream labs/neoclouds stay profitable so total demand keeps expanding. They vent value downstream on purpose.",
+   "explain_zh": "尽管手握最稀缺的层（GPU、N3 晶圆）且满产满销，两家都刻意把价格压在稀缺出清水平之下。动机：避开反垄断视线、防止客户分散采购、让下游实验室/neocloud 有利可图，从而让总需求继续扩张。它们是故意把价值往下游「放水」。"
+  }
+ ],
+ "value_chain": [
+  {
+   "stage_en": "Energy & Power",
+   "stage_zh": "能源与电力",
+   "players": "Vistra, GE Vernova, Constellation, SB Energy, on-site turbines",
+   "role_en": "The first bottleneck. In 2024 power names (Vistra +265%, GE Vernova +146%) led the S&P as the market realized watts gate GPU deployment. Securing multi-GW PPAs is now a share-determining act.",
+   "role_zh": "第一个瓶颈。2024 年电力股（Vistra +265%、GE Vernova +146%）领涨标普，因为市场意识到「瓦特」卡住了 GPU 的部署。锁定多吉瓦级购电协议（PPA）如今直接决定市场份额。"
+  },
+  {
+   "stage_en": "Datacenter shells & construction",
+   "stage_zh": "数据中心壳体与建设",
+   "players": "QTS, Crusoe/Lancium, Vantage, Khazna, self-build hyperscaler teams",
+   "role_en": "MW of pre-leased and self-built capacity is the earliest capex signal. Microsoft's Fairwater sites (~300MW GPU buildings, planned 600MW+) are the largest on Earth; Abilene TX ('Stargate') anchors OpenAI/Oracle.",
+   "role_zh": "预租与自建的兆瓦数是最早的 capex 信号。微软 Fairwater 园区（约 300MW 的 GPU 楼、规划 600MW+）是地表最大；德州 Abilene（即「星际之门」）锚定 OpenAI/甲骨文。"
+  },
+  {
+   "stage_en": "Accelerators (merchant + custom)",
+   "stage_zh": "加速器（外购 + 自研）",
+   "players": "Nvidia (GB200/GB300/Rubin), AMD MI300X, AWS Trainium, Google TPU, Marvell/Broadcom ASICs",
+   "role_en": "The cost core: GPU capex dwarfs all hosting cost. Custom ASICs (Trainium, TPU) are the hyperscalers' lever to strip Nvidia margin — Trainium now powers >50% of Bedrock token usage.",
+   "role_zh": "成本核心：GPU capex 碾压一切托管成本。自研 ASIC（Trainium、TPU）是超大规模云剥离英伟达毛利的杠杆——Trainium 如今已承载超 50% 的 Bedrock token 用量。"
+  },
+  {
+   "stage_en": "Neoclouds & IaaS",
+   "stage_zh": "Neocloud 与 IaaS",
+   "players": "CoreWeave, Nebius, Crusoe, Fluidstack (Gold); Lambda, Together, Vultr, Voltage Park (Silver)",
+   "role_en": "Rent GPUs by the hour. Low software moat (capital is the barrier) but wide quality spread: Gold-tier's reliability/support makes it cheaper on TCO. Rental prices are surging (+40% off the Oct-2025 H100 bottom).",
+   "role_zh": "按小时出租 GPU。软件护城河很浅（资本才是壁垒），但质量差距极大：金级的可靠性/支持让它在 TCO 上更便宜。租赁价格正在飙升（相对 2025 年 10 月 H100 底部 +40%）。"
+  },
+  {
+   "stage_en": "Hyperscaler PaaS / TaaS",
+   "stage_zh": "超大规模云 PaaS / TaaS",
+   "players": "AWS Bedrock, Azure Foundry, Google Vertex/Gemini Enterprise",
+   "role_en": "Managed token endpoints. The margin battleground: distributing frontier models (Claude, GPT, Gemini) earns infra + revenue-share. Only AWS, Azure, Google can sell all three frontier families.",
+   "role_zh": "托管的 token 端点。利润率的主战场：分发前沿模型（Claude、GPT、Gemini）能同时赚基础设施费 + 分成。只有 AWS、Azure、谷歌能同时卖出三大前沿模型家族。"
+  },
+  {
+   "stage_en": "Model Labs",
+   "stage_zh": "模型实验室",
+   "players": "OpenAI, Anthropic, Google DeepMind, xAI, DeepSeek",
+   "role_en": "From value-destroyers (neg. gross margin in 2024) to value-captors. Frontier pricing power + compute scarcity means margins won't get competed away by open-source. Anthropic ARR $9B→$30-44B, inference GM 38%→70%+.",
+   "role_zh": "从价值毁灭者（2024 年负毛利）变成价值捕获者。前沿定价权 + 算力稀缺，意味着毛利不会被开源竞争掉。Anthropic ARR 从 90 亿冲到 300-440 亿，推理毛利从 38% 升到 70%+。"
+  },
+  {
+   "stage_en": "Applications & Enterprise spend",
+   "stage_zh": "应用与企业支出",
+   "players": "GitHub Copilot, Cursor, M365 Copilot, Claude Code, Codex, enterprise buyers",
+   "role_en": "Where tokens meet ROI. Agentic coding is the first mass vertical (>70% of OpenAI+Anthropic ARR). Enterprises now budget per-employee ($250–$4,000/mo caps) — the s-curve of adoption is early.",
+   "role_zh": "token 与 ROI 相遇之处。Agentic 编程是第一个规模化垂类（占 OpenAI+Anthropic ARR 超 70%）。企业开始按员工设预算（每月 $250–$4,000 上限）——采用曲线仍处早期。"
+  }
+ ],
+ "theses": [
+  {
+   "claim_en": "GPU $/hr is a trap: real cluster TCO is 10-60% higher once you count goodput, setup and storage.",
+   "claim_zh": "GPU 每小时价是陷阱：一旦算上 goodput、部署与存储，真实集群 TCO 会高出 10-60%。",
+   "rationale_en": "Holding GPU pricing equal, SemiAnalysis's TCO+Goodput calculators show a Gold-tier cloud is ~5-15% cheaper on TCO than Silver-tier across large training workloads, and Hyperscalers run >10% more expensive (support + EFA tuning). In a large LLM pretrain, goodput expense alone was 6.14% (Gold) vs 10.53% (Hyperscaler) vs 20.91% (Silver). But for fault-tolerant single-node inference the gap collapses to near zero — reliability only matters when your job is big relative to the cluster.",
+   "rationale_zh": "在 GPU 价格相同的前提下，SemiAnalysis 的 TCO+Goodput 计算器显示：在大型训练负载上，金级云的 TCO 比银级便宜约 5-15%，而超大规模云要贵 10% 以上（贵在支持费 + EFA 调优）。在一次大型 LLM 预训练中，仅 goodput 一项费用就是金级 6.14%、超大规模云 10.53%、银级 20.91%。但对容错的单节点推理，这个差距塌缩到近乎为零——只有当你的作业相对集群很大时，可靠性才重要。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!gLrG!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb5c164ad-c9ad-41c0-bb77-d6f9222735f6_713x730.png",
+    "shows_en": "Goodput Expense calculator: 6.14% / 10.53% / 20.91% for Gold / Hyperscaler / Silver tier in a large LLM pretrain scenario.",
+    "shows_zh": "Goodput 费用计算器：大型 LLM 预训练场景下，金级/超大规模云/银级分别为 6.14% / 10.53% / 20.91%。"
+   },
+   "quote": {
+    "text": "even in scenarios where pricing per GPU-hour is equal, there are always hidden costs across Storage, Network, Control Plane, Support, Goodput, Setup, and Debugging expenses.",
+    "source_title": "How Much Do GPU Clusters Really Cost?",
+    "date": "2026-04-20"
+   }
+  },
+  {
+   "claim_en": "Value capture violently rotated from infra to the model labs in December 2025 when agentic AI 'began to really work'.",
+   "claim_zh": "价值捕获在 2025 年 12 月剧烈换位——当 Agentic AI「真的开始能用」时，钱从基础设施流向了模型实验室。",
+   "rationale_en": "2023-25 all AI money went to infra (Nvidia +25% AH in May 2023; power names led 2024; memory led 2025). Then agentic AI crossed an inflection: tasks worth thousands of person-hours now cost a few dollars of tokens. Anthropic ARR exploded $9B→$44B and inference gross margins went 38%→>70% in the same window. The labs went from capturing almost none of the value to capturing all of it.",
+   "rationale_zh": "2023-25 年 AI 的钱都流向基础设施（2023 年 5 月英伟达盘后 +25%；2024 年电力股领涨；2025 年内存领涨）。随后 Agentic AI 跨过拐点：过去值几千工时、上千美元的任务，现在只需几美元的 token。同一窗口里 Anthropic ARR 从 90 亿冲到 440 亿、推理毛利从 38% 升到 70%+。实验室从几乎捕获不到价值，变成捕获了全部价值。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!I-sV!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9b051759-fe13-4077-a95e-e8d96ec14332_1505x905.png",
+    "shows_en": "'One Chart to Rule Them All': GPU rental economics splitting value between end users, neoclouds/hyperscalers and system suppliers.",
+    "shows_zh": "「一图统御全局」：GPU 租赁经济学如何在终端用户、neocloud/超大规模云与系统供应商之间切分价值。"
+   },
+   "quote": {
+    "text": "The age of low gross margins for frontier model providers is over. Real agentic AI has permanently increased the market-clearing price per token, and there's no going back.",
+    "source_title": "AI Value Capture - The Shift To Model Labs",
+    "date": "2026-05-01"
+   }
+  },
+  {
+   "claim_en": "Anthropic's Bedrock deal structure — not just volume — is what inflected AWS margins above every other CSP.",
+   "claim_zh": "让 AWS 毛利反超所有云厂商的，是 Anthropic 的 Bedrock 交易结构本身，而不只是量。",
+   "rationale_en": "On Bedrock, Anthropic is seller-of-record (books full token revenue) while AWS collects BOTH an infra fee AND a distribution/revenue-share fee — a margin stack IaaS can't match. AWS EBIT margins rose 213bp Q/Q while Oracle, CoreWeave and Azure margins fell, despite AWS running the shortest (5yr) depreciation. Bedrock is a ~$5.5B run-rate business (80-90% Anthropic) and 37% of AWS AI revenue vs IaaS still 80%+ of Azure/GCP AI.",
+   "rationale_zh": "在 Bedrock 上，Anthropic 是「记录销售方」（确认全部 token 收入），而 AWS 同时收取基础设施费 + 分发/分成费——这是 IaaS 学不来的利润叠层。尽管 AWS 折旧最短（5 年），其 EBIT 利润率环比 +213bp，而甲骨文、CoreWeave、Azure 的利润率都在下滑。Bedrock 是约 55 亿美元年化的生意（80-90% 用 Anthropic），占 AWS AI 收入 37%，而 IaaS 仍占 Azure/GCP AI 的 80%+。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!nUPm!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F08852472-083b-4d23-8dfa-1828e96af7ef_2367x1269.png",
+    "shows_en": "CSP operating margin trends: AWS EBIT margin inflecting up (+213bp Q/Q) while Oracle, CoreWeave, Azure lag.",
+    "shows_zh": "各云厂商经营利润率趋势：AWS EBIT 利润率拐头向上（环比 +213bp），而甲骨文、CoreWeave、Azure 掉队。"
+   },
+   "quote": {
+    "text": "Our AWS Trainium chips, designed in-house for AI workloads, now power more than 50% of Amazon Bedrock token usage.",
+    "source_title": "Anthropic Growth and Bedrock Mix Drive AWS Margins Higher While Peers Lag",
+    "date": "2026-05-27"
+   }
+  },
+  {
+   "claim_en": "Microsoft's 'Big Pause' handed Oracle ~$150B of OpenAI gross profit — a self-inflicted competitive gift.",
+   "claim_zh": "微软的「大暂停」把约 1500 亿美元的 OpenAI 毛利拱手让给甲骨文——一份自伤式的竞争礼物。",
+   "rationale_en": "Microsoft drove >60% of all new leased turnkey capacity Q1'23-Q2'24, then froze — walking away from >2GW of non-binding LOIs and 1.5GW of near-term self-build. OpenAI diversified to Oracle, CoreWeave, Nscale, Amazon, Google. Oracle signed >$420B of OpenAI contract value (~$150B gross profit); at ~$30B/yr that would have lifted Microsoft's $194B FY25 gross profit by >18%. SemiAnalysis frames it as partly deliberate (OpenAI would be ~50% of Azure at worse ROIC) but mostly a fumble.",
+   "rationale_zh": "微软在 2023Q1-2024Q2 驱动了全市场超 60% 的新增交钥匙租赁产能，随后急冻——放弃了超 2GW 的非约束性意向书和 1.5GW 的近期自建。OpenAI 转投甲骨文、CoreWeave、Nscale、亚马逊、谷歌。甲骨文签下超 4200 亿美元的 OpenAI 合同额（约 1500 亿毛利）；按约 300 亿/年计，本可让微软 FY25 的 1940 亿毛利再增长 18% 以上。SemiAnalysis 认为这一半是刻意（OpenAI 将占 Azure 约 50% 且 ROIC 更差），但大半是失误。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!ZwDg!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc0ec63c0-7eca-4789-b2d4-66c763b9d1ce_3318x1773.png",
+    "shows_en": "Datacenter pre-leasing by hyperscaler: Microsoft's 2023-24 activity dwarfing all rivals combined before the freeze.",
+    "shows_zh": "各超大规模云的数据中心预租量：微软 2023-24 的活动量在急冻前超过所有对手之和。"
+   },
+   "quote": {
+    "text": "They potentially have just allowed a competitor to fund their own entry into the AI factory business!",
+    "source_title": "Microsoft's AI Strategy Deconstructed - From Energy to Tokens",
+    "date": "2025-11-12"
+   }
+  },
+  {
+   "claim_en": "Nvidia and TSMC deliberately under-price to scarcity — acting as the 'central bank of AI'.",
+   "claim_zh": "英伟达与台积电刻意不按稀缺性顶格定价——扮演「AI 的央行」。",
+   "rationale_en": "With compute demand far above supply, both could reprice hard but don't. N3 is the tightest node (Nvidia, Broadcom, Annapurna, MediaTek, AMD all fighting for wafers) yet pricing is stable; Nvidia won't fully reprice Rubin to capture its performance/memory-cost gains. Motive: avoid antitrust scrutiny, prevent customer diversification, and keep downstream labs profitable so total demand keeps growing. They 'take the oxygen out of the room' to remain the protagonist.",
+   "rationale_zh": "在算力需求远超供给的情况下，两家本可狠狠涨价却没有。N3 是最紧的节点（英伟达、博通、Annapurna、联发科、AMD 都在抢晶圆），价格却稳定；英伟达不愿把 Rubin 完全按其性能/内存成本收益顶格定价。动机：避开反垄断、防止客户分散、让下游实验室有利可图，从而让总需求继续增长。它们「抽走屋里的氧气」，以保持自己是主角。",
+   "figure": null,
+   "quote": {
+    "text": "By taking the oxygen out of the room – Nvidia aims to ensure it remains the main protagonist in the AI era for the foreseeable future.",
+    "source_title": "AI Value Capture - The Shift To Model Labs",
+    "date": "2026-05-01"
+   }
+  },
+  {
+   "claim_en": "A Blackwell GB300 NVL72 delivers ~17x (FP8) to 32x (FP4) the throughput of an H100 for only ~70% more TCO — the real driver of falling token cost.",
+   "claim_zh": "Blackwell GB300 NVL72 在只多约 70% TCO 的情况下，吞吐达到 H100 的约 17 倍（FP8）到 32 倍（FP4）——这才是 token 成本下降的真正推手。",
+   "rationale_en": "Token production cost has plummeted because accelerator price increases are more than offset by throughput gains. On the same B300, software alone (wideEP + disagg + MTP) takes DeepSeek R1 from ~1k to ~14k tok/s/GPU — a 14x software-only swing. Stack hardware on top and GB300 NVL72 hits ~17x an H100 in FP8, 32x in FP4 (Hopper lacks native FP4), while costing only ~70% more per GPU. This is why labs can cut sticker prices (Opus 4.5 at $5/$25, down from $15/$75) and still expand margins.",
+   "rationale_zh": "token 生产成本暴跌，因为加速器涨价被吞吐提升远远抵消。在同一块 B300 上，仅靠软件（wideEP + disagg + MTP）就能把 DeepSeek R1 从约 1k 提升到约 14k tok/秒/GPU——纯软件 14 倍的摆动。再叠上硬件，GB300 NVL72 在 FP8 下达到 H100 的约 17 倍、FP4 下 32 倍（Hopper 无原生 FP4），而每 GPU 成本只多约 70%。这就是为什么实验室能砍表价（Opus 4.5 定 $5/$25，从 $15/$75 降下来）却仍在扩毛利。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!elYt!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa7826e90-f3b0-4749-8d85-ce18a07d3604_1531x940.png",
+    "shows_en": "Optimized GB300 NVL72 vs H100 throughput: ~17x in FP8, ~32x in FP4, at only ~70% higher TCO per GPU.",
+    "shows_zh": "优化后的 GB300 NVL72 对比 H100 吞吐：FP8 约 17 倍、FP4 约 32 倍，而每 GPU TCO 只高约 70%。"
+   },
+   "quote": {
+    "text": "One can 14x throughput with software improvements alone.",
+    "source_title": "AI Value Capture - The Shift To Model Labs",
+    "date": "2026-05-01"
+   }
+  },
+  {
+   "claim_en": "Sticker price per token is meaningless: blended agentic price is a fraction of it because of caching and input/output ratios.",
+   "claim_zh": "token 表价毫无意义：由于缓存与输入/输出比，agentic 场景的混合价只是表价的一小部分。",
+   "rationale_en": "SemiAnalysis estimates the true blended price for running Opus on agentic tasks at ~$0.99/MTok despite a $5/$25 sticker. Agentic workloads have ~300:1 input:output ratios and 90%+ cache hit rates; cached input costs only $0.50/MTok, so most tokens land in the cheapest tier. Analysts constantly get this wrong (I/O ratios, cached tokens, pricing). This is also why DeepSeek's cheap sticker ($0.55/$2.19) didn't commoditize the market — token price is an output of KPI tuning, not a fixed input.",
+   "rationale_zh": "SemiAnalysis 估计，跑 Opus 做 agentic 任务的真实混合价约 $0.99/百万 token，尽管表价是 $5/$25。Agentic 负载的输入:输出比约 300:1、缓存命中率 90%+；缓存输入只要 $0.50/百万 token，所以大部分 token 落在最便宜的档。分析师经常算错（输入输出比、缓存 token、定价）。这也是为什么 DeepSeek 的便宜表价（$0.55/$2.19）没能让市场商品化——token 价是 KPI 调优的「输出」，不是固定「输入」。",
+   "figure": null,
+   "quote": {
+    "text": "a model's price per token is an OUTPUT of these KPI decisions which can be tuned based on the model providers' hardware and model setup.",
+    "source_title": "DeepSeek Debrief: >128 Days Later",
+    "date": "2025-07-03"
+   }
+  },
+  {
+   "claim_en": "AWS's 'cloud crisis' (2023) and 'AI resurgence' (2025) are the same call: business-model, not chips, decides who wins the GPU cloud era.",
+   "claim_zh": "AWS 的「云危机」（2023）与「AI 复兴」（2025）是同一套判断：决定谁赢下 GPU 云时代的是商业模式，不是芯片。",
+   "rationale_en": "In 2023 SemiAnalysis warned AWS would lose the next compute wave despite owning the most servers — culture and business choices, not tech, would hamper it (Titan/Olympus models failed, Trainium1 uncompetitive). By Sept 2025 they made the out-of-consensus reversal: Anthropic (revenue 5x YTD to $5B annualized) + Trainium's best-perf/TCO-per-memory-bandwidth for inference/RL + token-as-a-service would reaccelerate AWS beyond 20% YoY. Both calls pivot on the same axis: does the provider have the model access and margin structure, not just the silicon?",
+   "rationale_zh": "2023 年 SemiAnalysis 警告：尽管 AWS 拥有最多服务器，它会输掉下一波算力浪潮——绊住它的是文化和商业选择，不是技术（Titan/Olympus 模型失败、Trainium1 不具竞争力）。到 2025 年 9 月他们做出反共识的反转：Anthropic（收入年内 5 倍至 50 亿年化）+ Trainium 在推理/RL 上最佳的「每内存带宽 perf/TCO」+ token 即服务，将让 AWS 重新加速到 20%+ 同比。两次判断都绕着同一根轴：这家供应商是否拥有模型接入与利润结构，而不只是芯片？",
+   "figure": null,
+   "quote": {
+    "text": "Technological prowess, culture, and/or business decisions will hamper them from capturing the next wave of cloud computing like they have the last two.",
+    "source_title": "Amazon's Cloud Crisis: How AWS Will Lose The Future Of Computing",
+    "date": "2023-03-20"
+   }
+  },
+  {
+   "claim_en": "Oracle out-competes on structural cost, not software: ~20% capex advantage from networking, ODM sourcing and investment-grade debt.",
+   "claim_zh": "甲骨文靠的是结构性成本、而非软件取胜：网络优化、ODM 直采与投资级债务带来约 20% 的 capex 优势。",
+   "rationale_en": "Oracle's OCI, latecomer to cloud, wins large GPU contracts via three cost levers: (1) optimized RoCEv2 networking (built on Sun/Mellanox HPC heritage) cutting cluster CapEx ~20% vs a neocloud giant; (2) buying servers ODM-direct from Foxconn, bypassing Dell/Supermicro margin; (3) the market's lowest cost of capital via investment-grade debt vs neoclouds' double-digit debt. The ByteDance relationship made Johor, Malaysia the world's #2 AI hub. Larry's >$130B booking / >$420B RPO surge validated SemiAnalysis's early capex ramp call.",
+   "rationale_zh": "作为云的后来者，甲骨文 OCI 靠三根成本杠杆赢下大额 GPU 合同：(1) 优化的 RoCEv2 网络（承自 Sun/Mellanox 的 HPC 血统），把集群 CapEx 比 neocloud 巨头砍约 20%；(2) 从富士康 ODM 直采服务器，绕开 Dell/Supermicro 的加价；(3) 靠投资级债务拿到市场最低资本成本，而 neocloud 是两位数债务成本。与字节跳动的关系让马来西亚柔佛成为全球第二大 AI 枢纽。Larry 超 1300 亿的签约 / 超 4200 亿的 RPO 激增，验证了 SemiAnalysis 早先的 capex 爬坡判断。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!zEMO!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F93faa91d-5cc5-47cd-8f2e-e04ce4fc9c00_2150x850.png",
+    "shows_en": "Oracle's optimized networking + cheaper ODM server price yielding a ~20% cluster CapEx advantage over a Neocloud Giant.",
+    "shows_zh": "甲骨文的优化网络 + 更便宜的 ODM 服务器价，带来相对 neocloud 巨头约 20% 的集群 CapEx 优势。"
+   },
+   "quote": null
+  },
+  {
+   "claim_en": "Trainium is a targeted weapon, not a Nvidia-killer: it wins on perf/TCO where memory bandwidth is king (high-batch inference, RL).",
+   "claim_zh": "Trainium 是一把定点武器，不是「英伟达杀手」：它只在内存带宽为王的场景（高 batch 推理、RL）赢在 perf/TCO。",
+   "rationale_en": "Trainium2 (~500W, 667 TFLOP/s BF16, 96GB HBM3e) course-corrected after uncompetitive Trainium1/Inferentia2. AWS's 400k-Trainium2 'Project Rainier' cluster for Anthropic is effectively funded by Amazon's own $4B+ Anthropic investment circling back. SemiAnalysis is blunt: Amazon is a 'distant second' to Google in custom silicon, Trainium is unproven for frontier training, and most volume will be inference. But its natural offtake via Bedrock (where hardware is abstracted, porting takes days) makes it structurally valuable.",
+   "rationale_zh": "Trainium2（约 500W、667 TFLOP/s BF16、96GB HBM3e）在不具竞争力的 Trainium1/Inferentia2 之后做了方向修正。AWS 为 Anthropic 建的 40 万片 Trainium2「Project Rainier」集群，实际上是亚马逊自己 40 亿美元+ 的 Anthropic 投资绕一圈回来买单。SemiAnalysis 说得很直白：在自研芯片上亚马逊是谷歌之后「遥远的第二」，Trainium 在前沿训练上未获证明，大部分量会用于推理。但它通过 Bedrock 的天然出货口（硬件被抽象、移植只需几天），使其具备结构性价值。",
+   "figure": null,
+   "quote": {
+    "text": "Amazon's new $4 billion investment in Anthropic is effectively going to find its way back into the Project Rainier 400k Trainium2 cluster, and there are no other major customers yet.",
+    "source_title": "Amazon's AI Self Sufficiency | Trainium2 Architecture & Networking",
+    "date": "2024-12-03"
+   }
+  },
+  {
+   "claim_en": "'Tokenmaxxing' headlines are overblown; enterprise token budgets are real but the adoption s-curve is still early.",
+   "claim_zh": "「Tokenmaxxing」头条被夸大；企业 token 预算确有其事，但采用曲线仍在早期。",
+   "rationale_en": "After Meta's leaderboard (60T+ tokens/30 days, top user ~280B) and Uber's $1,500/mo cap made news, SemiAnalysis talked to 50+ enterprises. Reality: even Meta (~$50k/yr/employee at list) is only a 3-5% Anthropic customer; the 90th+ percentile drives most revenue and is at little risk. Ramp data: 99th pct spends ~$90k/yr/employee, 90th ~$7,300, but the MEDIAN Ramp customer just $136 and the median Fortune 500 <$100. Budgets range wildly ($250 aerospace → $2,000 Stripe/Workday → tens of thousands). Coding is the first vertical (>70% of OpenAI+Anthropic ARR); cyber and white-collar are next.",
+   "rationale_zh": "在 Meta 的排行榜（30 天 60T+ token、榜首约 280B）和 Uber 的 $1,500/月上限上了新闻后，SemiAnalysis 与 50+ 家企业聊过。现实是：即便 Meta（按表价约 $5 万/年/员工）也只是 Anthropic 的 3-5% 客户；90 分位以上贡献了大部分收入且几乎没有削减风险。Ramp 数据：99 分位约 $9 万/年/员工、90 分位约 $7,300，但 Ramp 客户的中位数只有 $136、财富 500 中位数不到 $100。预算区间极宽（航空航天 $250 → Stripe/Workday $2,000 → 数万）。编程是第一个垂类（占 OpenAI+Anthropic ARR 超 70%）；网络安全和白领知识工作是下一波。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!Glcv!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe60590bd-4f37-4a0d-9194-b9eae8ca8349_2502x1310.png",
+    "shows_en": "Ramp AI spend distribution: 99th pct ~$90k/yr/employee, 90th ~$7,300, median just $136 — a steep power law.",
+    "shows_zh": "Ramp 的 AI 支出分布：99 分位约 $9 万/年/员工、90 分位约 $7,300、中位数仅 $136——陡峭的幂律。"
+   },
+   "quote": {
+    "text": "Even Meta, who was burning through 70T tokens per month in February... is only a 3-5% customer for Anthropic per our estimates.",
+    "source_title": "TokenBudgeting: Our Conversations with Enterprises on Token Spend",
+    "date": "2026-06-30"
+   }
+  },
+  {
+   "claim_en": "Extended server depreciation is defensible, not accounting fraud — GPUs stay economically useful past the product cycle.",
+   "claim_zh": "延长服务器折旧是站得住脚的，而非会计造假——GPU 的经济寿命超过产品周期。",
+   "rationale_en": "Michael Burry alleged hyperscalers boost earnings by stretching useful life from 3-5yr to 5-6yr on a 2-3yr Nvidia cycle. SemiAnalysis calls this a 'fatal flaw': supercomputers prove longevity (IBM Summit ran 6.5yr; Fugaku/Sierra still on Top500; V100 from 2017 still rented on AWS/Lambda). Warranties now extend 6-7yr; the driver is reliability + incentives, not fiction. Notably AWS runs the SHORTEST depreciation (5yr) of all CSPs yet shows the only rising margin trend — the opposite of what an earnings-management story would predict.",
+   "rationale_zh": "Michael Burry 指控超大规模云在 2-3 年的英伟达周期上，把使用年限从 3-5 年拉到 5-6 年来抬高盈利。SemiAnalysis 称这是「致命缺陷」：超算证明了长寿命（IBM Summit 跑了 6.5 年；Fugaku/Sierra 仍在 Top500；2017 年的 V100 仍在 AWS/Lambda 出租）。保修如今延到 6-7 年；驱动因素是可靠性 + 激励，而非虚构。值得注意的是，AWS 折旧最短（5 年），却是唯一利润率上升的——与「盈余操纵」叙事的预测正好相反。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!zqsg!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd7a299bc-dfad-41df-973c-f5cc27b3ace5_1476x700.png",
+    "shows_en": "Michael Burry's chart of hyperscalers extending IT-asset useful life from 3-5yr (2020) to 5-6yr (2025).",
+    "shows_zh": "Michael Burry 的图表：超大规模云把 IT 资产使用年限从 2020 年的 3-5 年延长到 2025 年的 5-6 年。"
+   },
+   "quote": {
+    "text": "Dr. Burry's claim is predicated on an assumption that the NVIDIA product cycle is now 2-3 years... We believe this is a fatal flaw in the argument.",
+    "source_title": "Microsoft's AI Strategy Deconstructed - From Energy to Tokens",
+    "date": "2025-11-12"
+   }
+  },
+  {
+   "claim_en": "Fault-tolerant training is a moat: it's a 'secret sauce' available only to frontier labs or those who pay for a software license.",
+   "claim_zh": "容错训练是一道护城河：它是「秘方」，只有前沿实验室或愿意付软件授权费的人才拿得到。",
+   "rationale_en": "At 1k+ GPU scale you can't rely on the provider to catch every failure; job restarts cost 10-15 min plus lost compute. The three fault-tolerant frameworks all carry tradeoffs: TorchFT (open, but GLOO comms cost >10% perf and whole-replica-group blast radius), AWS HyperPod Checkpointless (recovery in 1m45s vs 15min, but ~5% memory overhead, AWS/Megatron-only), Clockwork TorchPass (zero perf overhead but licensed + idle-node cost). Because none is both free and overhead-free, reliable large-scale training stays concentrated among well-resourced players.",
+   "rationale_zh": "在 1k+ GPU 规模上，你无法指望供应商接住每一次故障；作业重启要花 10-15 分钟外加损失的算力。三种容错框架各有取舍：TorchFT（开源，但 GLOO 通信拖慢 >10% 性能、爆炸半径是整个 replica group）、AWS HyperPod Checkpointless（恢复 1 分 45 秒 vs 15 分钟，但约 5% 内存开销、仅限 AWS/Megatron）、Clockwork TorchPass（零性能开销但需授权 + 空闲节点成本）。由于没有一个既免费又零开销，可靠的大规模训练仍集中在资源雄厚的玩家手里。",
+   "figure": null,
+   "quote": {
+    "text": "This leaves fault tolerant training as a secret sauce available to frontier labs or those willing to pay for a software license.",
+    "source_title": "How Much Do GPU Clusters Really Cost?",
+    "date": "2026-04-20"
+   }
+  },
+  {
+   "claim_en": "Selling enterprise tokens is still tiny and hard — even Google's flagship disclosure implies <0.5% of GCP.",
+   "claim_zh": "卖企业 token 仍然又小又难——连谷歌的旗舰披露也暗示这块不到 GCP 的 0.5%。",
+   "rationale_en": "Converting tokens to revenue is riddled with errors (I/O ratios, cached tokens, pricing). Sundar Pichai's Q3'25 flex — ~150 Google Cloud customers each processed ~1 trillion tokens over 12 months — actually implies Gemini token sales to those 150 enterprises are less than 0.5% of GCP. The TaaS enterprise business is nascent; the frontier-model access (Claude/GPT/Gemini) that AWS/Azure/Google monopolize matters far more than model-library breadth or headline throughput.",
+   "rationale_zh": "把 token 变成收入充满陷阱（输入输出比、缓存 token、定价）。Sundar Pichai 在 2025Q3 的「秀肌肉」——约 150 家 Google Cloud 客户在 12 个月里各处理约 1 万亿 token——实际上暗示卖给这 150 家企业的 Gemini token 收入不到 GCP 的 0.5%。TaaS 企业业务尚在萌芽；AWS/Azure/谷歌垄断的前沿模型接入（Claude/GPT/Gemini）远比模型库广度或表面吞吐重要。",
+   "figure": null,
+   "quote": {
+    "text": "This disclosure suggests that sales of Gemini tokens to these 150 enterprises is less than 0.5% of GCP's business.",
+    "source_title": "Microsoft's AI Strategy Deconstructed - From Energy to Tokens",
+    "date": "2025-11-12"
+   }
+  }
+ ],
+ "key_data": [
+  {
+   "metric_en": "Gold vs Silver-tier cluster TCO gap (equal $/GPU-hr)",
+   "metric_zh": "金级 vs 银级集群 TCO 差（同 $/GPU-小时）",
+   "value": "Silver ~15% more expensive (1.15x); Hyperscaler 1.10-1.61x",
+   "note_en": "Driven by goodput, setup, storage — not headline price.",
+   "note_zh": "由 goodput、部署、存储驱动，而非表价。"
+  },
+  {
+   "metric_en": "Goodput expense, large LLM pretrain (Gold/Hyperscaler/Silver)",
+   "metric_zh": "大型 LLM 预训练 goodput 费用（金/超大规模云/银）",
+   "value": "6.14% / 10.53% / 20.91%",
+   "note_en": "Collapses to 0.23-0.96% for many small jobs.",
+   "note_zh": "对众多小作业塌缩到 0.23-0.96%。"
+  },
+  {
+   "metric_en": "Anthropic ARR trajectory",
+   "metric_zh": "Anthropic ARR 轨迹",
+   "value": "$9B → $30B (added $21B net-new in 1Q26) → ~$44B YTD; model sees >$100B by year-end",
+   "note_en": "Driven by Claude Code / enterprise API (90%+ B2B).",
+   "note_zh": "由 Claude Code / 企业 API 驱动（90%+ B2B）。"
+  },
+  {
+   "metric_en": "Anthropic inference gross margin",
+   "metric_zh": "Anthropic 推理毛利率",
+   "value": "-94% (2024) → 38% (2025) → mid-60s / >70% (2026)",
+   "note_en": "WSJ: operating-income profitable in 2Q26 ex-SBC.",
+   "note_zh": "华尔街日报：2Q26 剔除股权激励后经营性盈利。"
+  },
+  {
+   "metric_en": "Oracle OpenAI contract value / gross profit",
+   "metric_zh": "甲骨文 OpenAI 合同额 / 毛利",
+   "value": ">$420B contracts → ~$150B gross profit",
+   "note_en": "~$30B/yr would have lifted MSFT FY25 gross profit >18%.",
+   "note_zh": "约 300 亿/年本可让微软 FY25 毛利再增 18%+。"
+  },
+  {
+   "metric_en": "AWS AI revenue mix & margin move",
+   "metric_zh": "AWS AI 收入占比与利润率变动",
+   "value": "AI = 10% of AWS (from 2% in 1Q24); EBIT margin +213bp Q/Q",
+   "note_en": "Bedrock now 37% of AWS AI vs GCP/Azure IaaS 80%+.",
+   "note_zh": "Bedrock 占 AWS AI 37%，而 GCP/Azure IaaS 仍 80%+。"
+  },
+  {
+   "metric_en": "Bedrock run-rate & growth",
+   "metric_zh": "Bedrock 年化规模与增速",
+   "value": "~$5.5B run-rate; +170% Q/Q (1Q26), +60% Q/Q (4Q25); 80-90% Anthropic",
+   "note_en": "Trainium powers >50% of Bedrock token usage.",
+   "note_zh": "Trainium 承载超 50% 的 Bedrock token 用量。"
+  },
+  {
+   "metric_en": "GB300 NVL72 vs H100 throughput / TCO",
+   "metric_zh": "GB300 NVL72 对 H100 吞吐 / TCO",
+   "value": "~17x (FP8) to 32x (FP4) throughput at only ~70% higher TCO/GPU",
+   "note_en": "Software alone can 14x B300 throughput (wideEP+disagg+MTP).",
+   "note_zh": "仅软件即可让 B300 吞吐提升 14 倍（wideEP+disagg+MTP）。"
+  },
+  {
+   "metric_en": "Opus effective blended token price",
+   "metric_zh": "Opus 有效混合 token 价",
+   "value": "~$0.99/MTok vs $5/$25 sticker",
+   "note_en": "~300:1 input:output, 90%+ cache hit, cached input $0.50/MTok.",
+   "note_zh": "约 300:1 输入输出比、90%+ 缓存命中、缓存输入 $0.50/百万。"
+  },
+  {
+   "metric_en": "SemiAnalysis's own token spend",
+   "metric_zh": "SemiAnalysis 自身 token 支出",
+   "value": "~30% of employee comp; ~5B tokens/mo/employee (5x Meta); peak $10.95M/yr on Claude",
+   "note_en": "Power-law: some staff run 100B+ tokens/mo.",
+   "note_zh": "幂律分布：部分员工每月跑 100B+ token。"
+  },
+  {
+   "metric_en": "Enterprise token budgets (per employee/mo)",
+   "metric_zh": "企业 token 预算（每员工/月）",
+   "value": "$250 (aerospace) / $500 (pharma) → ~$2,000 (Stripe/Workday) → tens of thousands",
+   "note_en": "No convergence; Uber capped at $1,500/mo after 4-month burn.",
+   "note_zh": "无收敛值；Uber 在 4 个月烧光后设 $1,500/月上限。"
+  },
+  {
+   "metric_en": "Ramp AI spend distribution",
+   "metric_zh": "Ramp AI 支出分布",
+   "value": "99th pct ~$90k/yr/emp; 90th ~$7,300; median $136",
+   "note_en": "Median Fortune 500 still <$100/employee.",
+   "note_zh": "财富 500 中位数仍 <$100/员工。"
+  },
+  {
+   "metric_en": "GPU vs CPU server TCO split",
+   "metric_zh": "GPU vs CPU 服务器 TCO 拆分",
+   "value": "GPU: $7,025 capital vs $1,871 hosting/mo; CPU: $301 vs $220",
+   "note_en": "GPU cloud is capital-dominated → capital is the only real barrier.",
+   "note_zh": "GPU 云由资本主导 → 资本是唯一真壁垒。"
+  },
+  {
+   "metric_en": "H100 all-in cost vs rental",
+   "metric_zh": "H100 全成本 vs 租价",
+   "value": "~$1.525/hr all-in (13% debt) vs ~$2/hr best deals, $3+ when fleeced",
+   "note_en": "1-yr H100 rentals +40% off Oct-2025 bottom.",
+   "note_zh": "1 年期 H100 租约相对 2025 年 10 月底部 +40%。"
+  },
+  {
+   "metric_en": "Microsoft datacenter freeze",
+   "metric_zh": "微软数据中心急冻",
+   "value": ">2GW non-binding LOIs dropped; 1.5GW near-term self-build frozen; ~5GW binding remains",
+   "note_en": "MSFT drove >60% of new leased turnkey capacity Q1'23-Q2'24.",
+   "note_zh": "微软在 2023Q1-2024Q2 驱动了超 60% 新增交钥匙租赁产能。"
+  },
+  {
+   "metric_en": "Microsoft Fairwater datacenter scale",
+   "metric_zh": "微软 Fairwater 数据中心规模",
+   "value": "~300MW GPU buildings (>150k GB200 each); 3rd phase 600MW+ buildings",
+   "note_en": "Largest individual datacenters on Earth if built on time.",
+   "note_zh": "若按期建成即为地表最大的单体数据中心。"
+  },
+  {
+   "metric_en": "Coding share of frontier-lab ARR",
+   "metric_zh": "编程占前沿实验室 ARR 份额",
+   "value": ">70% of OpenAI + Anthropic ARR",
+   "note_en": "Anthropic 90%+ B2B vs OpenAI ~60% consumer.",
+   "note_zh": "Anthropic 90%+ B2B，OpenAI 约 60% 消费者。"
+  },
+  {
+   "metric_en": "Project Rainier (Anthropic × AWS)",
+   "metric_zh": "Project Rainier（Anthropic × AWS）",
+   "value": "400k Trainium2 chips",
+   "note_en": "Funded by Amazon's $4B+ circular Anthropic investment.",
+   "note_zh": "由亚马逊 40 亿美元+ 循环式 Anthropic 投资买单。"
+  }
+ ],
+ "deep_dives": [
+  {
+   "article_title": "How Much Do GPU Clusters Really Cost?",
+   "date": "2026-04-20",
+   "summary_en": "SemiAnalysis's definitive methodology for cluster TCO, turning gut-feel into dollars. It decomposes cost into GPUs + Storage + Networking + Control Plane + Support + Goodput + Setup + Debugging, then introduces the 'Grand Unifying Theory of Goodput' — quantifying downtime as an implicit % tax that scales with job size / cluster MTBF. Across three scenarios (large LLM pretrain, multimodal RL, inference endpoints) with equal $/GPU-hr, Gold-tier is baseline, Hyperscaler runs 1.10-1.61x and Silver 1.15x. It benchmarks three fault-tolerant frameworks (TorchFT, AWS Checkpointless at 1m45s recovery, Clockwork TorchPass) and ships free public TCO/Goodput calculators, plus a ClusterMAX 2.1 tier update.",
+   "summary_zh": "SemiAnalysis 关于集群 TCO 的权威方法论，把「直觉」变成「美元」。它把成本拆成 GPU + 存储 + 网络 + 控制面 + 支持 + goodput + 部署 + 调试，再提出「Goodput 大统一理论」——把停机量化为一个随作业规模/集群 MTBF 放大的隐性百分比税。在三个场景（大型 LLM 预训练、多模态 RL、推理端点）且 $/GPU-小时 相同时，金级为基准、超大规模云 1.10-1.61 倍、银级 1.15 倍。文章还实测了三种容错框架（TorchFT、恢复仅 1 分 45 秒的 AWS Checkpointless、Clockwork TorchPass），并发布免费公开的 TCO/Goodput 计算器，附带 ClusterMAX 2.1 分级更新。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!wy3h!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6580e998-15cd-4ed3-8303-f8ae728257ac_1024x656.png",
+    "shows_en": "Cluster MTBF matrix: as node-failure rate rises (y) and cluster size grows (x), time between failures shrinks, driving goodput loss.",
+    "shows_zh": "集群 MTBF 矩阵：随节点故障率上升（纵轴）与集群规模增大（横轴），故障间隔缩短，推高 goodput 损失。"
+   }
+  },
+  {
+   "article_title": "Microsoft's AI Strategy Deconstructed - From Energy to Tokens",
+   "date": "2025-11-12",
+   "summary_en": "A full-stack teardown of Microsoft across the AI Token Economic Stack (Apps → Models → PaaS → IaaS → Chips). Narrative arc: 2023-24 all-in (Fairwater, world's largest DCs for OpenAI) → the 'Big Pause' → a 2025 return that finds MSFT out of near-term capacity and forced to rent from neoclouds and resell at thin margin. Key claims: MSFT stepped away from ~$150B of OpenAI gross profit (Oracle won it); Azure risks a ClusterMAX downgrade (weak CycleCloud/AKS for managed clusters); but MSFT still holds 100% of OpenAI API inference compute through 2032 and OpenAI IP rights via Foundry. Also defends extended depreciation against Michael Burry, and dissects GitHub Copilot's eroding moat and the struggling Maia ASIC.",
+   "summary_zh": "沿 AI Token 经济栈（应用 → 模型 → PaaS → IaaS → 芯片）对微软做的全栈拆解。叙事弧线：2023-24 全力押注（Fairwater、为 OpenAI 建地表最大数据中心）→「大暂停」→ 2025 年回归时发现近期产能已无，被迫向 neocloud 租 GPU 再以薄利转售。核心论点：微软放弃了约 1500 亿的 OpenAI 毛利（被甲骨文夺走）；Azure 有被 ClusterMAX 降级的风险（CycleCloud/AKS 的托管集群体验薄弱）；但微软仍握有到 2032 年的 100% OpenAI API 推理算力、以及通过 Foundry 的 OpenAI IP 权。文章还为延长折旧向 Michael Burry 辩护，并剖析 GitHub Copilot 被侵蚀的护城河与挣扎中的 Maia ASIC。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!mbw3!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fac16e0c8-3841-4efe-89f5-7a1c899fa813_1231x559.png",
+    "shows_en": "RPO share by hyperscaler: Microsoft's backlog share lagging rivals after underestimating XPU cloud demand (e.g. Meta).",
+    "shows_zh": "各超大规模云的 RPO 份额：在低估 XPU 云需求（如 Meta）后，微软的积压订单份额落后于对手。"
+   }
+  },
+  {
+   "article_title": "AI Value Capture - The Shift To Model Labs",
+   "date": "2026-05-01",
+   "summary_en": "The single most important framing piece: where AI profit pools sit and where they're rotating. 2023-25 infra captured everything; from Dec-2025 agentic AI works and the labs capture it. Anchored by two mechanisms — tokens getting cheaper to produce (GB300 ~17-32x an H100 at only ~70% more TCO; 14x from software alone) and rising market-clearing token value (Opus repriced down to $5/$25 yet margins UP by shifting volume to pricier SKUs like Mythos $25/$125). Argues profits won't be competed away (frontier pricing power + compute scarcity). Introduces 'Nvidia as the central bank of AI' — Nvidia/TSMC deliberately under-pricing scarcity — and the 'One Chart to Rule Them All' GPU-rental value-split framework built on the Vera Rubin VR NVL72 vs GB300 economics.",
+   "summary_zh": "最重要的定调之作：AI 利润池在哪里、又正在往哪里换位。2023-25 基础设施吃走一切；从 2025 年 12 月 Agentic AI 能用起，实验室开始捕获价值。由两条机制支撑——token 生产越来越便宜（GB300 是 H100 的约 17-32 倍，而 TCO 只多约 70%；仅软件就能 14 倍）与 token 出清价值上升（Opus 降价到 $5/$25，却靠把量转向更贵的 SKU（如 Mythos $25/$125）把毛利做上去）。文章论证利润不会被竞争掉（前沿定价权 + 算力稀缺）。提出「英伟达作为 AI 的央行」——英伟达/台积电刻意不按稀缺顶格定价——以及基于 Vera Rubin VR NVL72 对 GB300 经济学构建的「一图统御全局」GPU 租赁价值切分框架。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!G1n4!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8038e05b-1fd8-4145-a721-edcf0b22b037_2153x853.png",
+    "shows_en": "SemiAnalysis's own agentic workflows: token spend vs equivalent human-labor cost, showing the ROI that drives token demand.",
+    "shows_zh": "SemiAnalysis 自身的 agentic 工作流：token 支出 vs 等价人力成本，展示驱动 token 需求的 ROI。"
+   }
+  },
+  {
+   "article_title": "Anthropic Growth and Bedrock Mix Drive AWS Margins Higher While Peers Lag",
+   "date": "2026-05-27",
+   "summary_en": "The clearest case study of business-model-as-margin. Powered by the Tokenomics 2.0 model, it explains why AWS EBIT margin inflected +213bp Q/Q while Oracle, CoreWeave and Azure margins fell. Three levers: (1) Bedrock's token-as-a-service mix (vs 80%+ IaaS at GCP/Azure); (2) the Anthropic distribution deal where Anthropic is seller-of-record but AWS collects infra + revenue-share; (3) vertical silicon (Trainium >50% of Bedrock tokens, industry-leading Graviton4/5 CPUs). It also quantifies Anthropic's blowout ($21B net-new ARR in 1Q26 to $30B; inference GM mid-60s) and frames Google as the ultimate supply-constrained business trying to serve cloud + hardware + models + ads simultaneously.",
+   "summary_zh": "「商业模式即毛利」最清晰的案例研究。由 Tokenomics 2.0 模型驱动，解释了为什么 AWS 的 EBIT 利润率环比拐升 +213bp，而甲骨文、CoreWeave、Azure 的利润率都在下滑。三根杠杆：(1) Bedrock 的「token 即服务」组合（对比 GCP/Azure 的 80%+ IaaS）；(2) Anthropic 分发协议——Anthropic 是记录销售方，但 AWS 同时收基础设施费 + 分成；(3) 自研芯片（Trainium 占 Bedrock token 超 50%、业界领先的 Graviton4/5 CPU）。文章还量化了 Anthropic 的爆发（1Q26 净新增 ARR 210 亿至 300 亿；推理毛利 60 出头），并把谷歌刻画为终极的供给受限企业——要同时服务云 + 硬件 + 模型 + 广告。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!gMTW!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff6a73862-a5f6-401d-a907-4de5ab786211_936x679.png",
+    "shows_en": "Anthropic ARR ramp per SemiAnalysis Tokenomics Model, with the 1Q26 step-up toward $30B and a path to $100B+.",
+    "shows_zh": "SemiAnalysis Tokenomics 模型下的 Anthropic ARR 爬坡，1Q26 跃升至 300 亿并指向 1000 亿+ 的路径。"
+   }
+  },
+  {
+   "article_title": "TokenBudgeting: Our Conversations with Enterprises on Token Spend",
+   "date": "2026-06-30",
+   "summary_en": "Ground-truth from 50+ enterprise conversations (Databricks AI Summit, calls, Slack) that de-hypes the 'tokenmaxxing → budget wall' narrative. Findings: the Meta/Uber blowout stories stem from bad incentives not a broad slowdown; even Meta is only a 3-5% Anthropic customer; the 90th+ percentile drives most revenue at little risk. Budgets are now universal but with no convergent number ($250 to tens of thousands/mo). Companies conserve by downgrading defaults (Opus→Sonnet), turning off Fast-Mode, and employees gaming M365 Copilot allowances. Crucially: median Fortune 500 still spends <$100/employee — the adoption s-curve has enormous runway, with cyber and white-collar knowledge work the next verticals after coding.",
+   "summary_zh": "来自 50+ 家企业对话（Databricks AI 峰会、电话、Slack）的一手实况，为「tokenmaxxing → 预算墙」叙事去泡沫。发现：Meta/Uber 的爆表故事源于糟糕的激励而非普遍放缓；即便 Meta 也只是 Anthropic 的 3-5% 客户；90 分位以上贡献大部分收入且风险很小。预算如今普遍存在但无收敛值（$250 到每月数万）。企业靠降级默认模型（Opus→Sonnet）、关闭 Fast-Mode 来省钱，员工则在钻 M365 Copilot 额度的空子。关键在于：财富 500 中位数仍 <$100/员工——采用曲线还有巨大空间，编程之后的下一批垂类是网络安全与白领知识工作。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!pxCl!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb752149f-ce67-4fcd-9303-5c17396e839d_1597x792.png",
+    "shows_en": "Coding as >70% of OpenAI+Anthropic ARR, with the vertical explosion set to repeat in cyber and white-collar work.",
+    "shows_zh": "编程占 OpenAI+Anthropic ARR 超 70%，这一垂类爆发预计将在网络安全与白领工作中重演。"
+   }
+  },
+  {
+   "article_title": "How Oracle Is Winning the AI Compute Market",
+   "date": "2025-06-30",
+   "summary_en": "How a cloud latecomer became an AI-compute powerhouse by blending three archetypes: traditional US hyperscaler + AI-native neocloud + fast-moving Chinese developers. Oracle's edge is structural cost, not software: ~20% cluster CapEx advantage from optimized RoCEv2 networking (Sun/Mellanox HPC heritage), Foxconn ODM sourcing (bypassing Dell/Supermicro margin), and the market's lowest cost of capital via investment-grade debt. The most underappreciated growth engine is ByteDance (making Johor, Malaysia the #2 global AI hub), alongside the ~880MW Abilene 'Stargate' OpenAI campus already on Oracle's books. Validated by Larry's >$130B booking forecast and >100% RPO growth.",
+   "summary_zh": "一家云的后来者如何靠融合三种原型——传统美国超大规模云 + AI 原生 neocloud + 快节奏的中国开发商——成为 AI 算力强权。甲骨文的优势是结构性成本、而非软件：约 20% 的集群 CapEx 优势来自优化的 RoCEv2 网络（承自 Sun/Mellanox 的 HPC 血统）、富士康 ODM 直采（绕开 Dell/Supermicro 加价）、以及靠投资级债务拿到的市场最低资本成本。最被低估的增长引擎是字节跳动（让马来西亚柔佛成为全球第二大 AI 枢纽），加上已入账的约 880MW Abilene「星际之门」OpenAI 园区。Larry 超 1300 亿的签约预测与超 100% 的 RPO 增长予以验证。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!miIR!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9ab9d829-2b40-4bf6-b8c7-652550fe814c_1327x1123.png",
+    "shows_en": "Oracle's global datacenter footprint incl. the ByteDance-driven Johor, Malaysia hub and Abilene TX Stargate campus.",
+    "shows_zh": "甲骨文的全球数据中心版图，含字节跳动驱动的马来西亚柔佛枢纽与德州 Abilene 星际之门园区。"
+   }
+  }
+ ],
+ "investment": {
+  "winners": [
+   {
+    "name": "Amazon / AWS",
+    "why_en": "Only CSP with token-as-a-service (Bedrock) as its dominant AI mix + vertical silicon (Trainium >50% of Bedrock tokens, leading Graviton) — structurally highest margin. Anthropic offtake circular but real. Building more capacity than anyone in 2025-27.",
+    "why_zh": "唯一以「token 即服务」（Bedrock）为 AI 主导组合的云 + 自研芯片（Trainium 占 Bedrock token 超 50%、领先的 Graviton）——结构性最高毛利。Anthropic 出货虽循环但真实。2025-27 产能建设量全行业第一。"
+   },
+   {
+    "name": "Anthropic",
+    "why_en": "The purest value-capture play: ARR $9B→$30-44B, inference GM 38%→70%+, 90%+ B2B/API driven by Claude Code. Frontier pricing power means margins won't be competed away.",
+    "why_zh": "最纯粹的价值捕获标的：ARR 从 90 亿冲到 300-440 亿、推理毛利 38%→70%+、90%+ 为 B2B/API 且由 Claude Code 驱动。前沿定价权意味着毛利不会被竞争掉。"
+   },
+   {
+    "name": "Oracle",
+    "why_en": "~20% structural CapEx advantage (networking + ODM + IG debt), >$420B OpenAI backlog, ByteDance/Johor engine. But ROIC ~20% (below MSFT 35-40%) and margins disappointed the market.",
+    "why_zh": "约 20% 的结构性 CapEx 优势（网络 + ODM + 投资级债务）、超 4200 亿的 OpenAI 积压、字节跳动/柔佛引擎。但 ROIC 约 20%（低于微软 35-40%），且利润率让市场失望。"
+   },
+   {
+    "name": "Gold-tier neoclouds (CoreWeave, Nebius, Crusoe, Fluidstack)",
+    "why_en": "Reliability/support translates into a real TCO discount that commands price premium; rental prices +40% off Oct-2025 bottom lift returns.",
+    "why_zh": "可靠性/支持转化为真实的 TCO 折扣，能收取价格溢价；租价相对 2025 年 10 月底部 +40%，抬高回报。"
+   },
+   {
+    "name": "Nvidia & TSMC",
+    "why_en": "Still own the scarcest layers (GPUs, N3) and deliberately hold pricing below scarcity — dry powder to reprice later. GB300/Rubin step-change in perf/TCO keeps them indispensable.",
+    "why_zh": "仍掌握最稀缺的层（GPU、N3）且刻意把价格压在稀缺之下——留着日后涨价的余粮。GB300/Rubin 在 perf/TCO 上的阶跃让它们不可或缺。"
+   }
+  ],
+  "bottlenecks": [
+   {
+    "en": "Power / multi-GW PPAs — watts gate GPU deployment; securing power is now a share-determining act.",
+    "zh": "电力 / 多吉瓦级购电协议——瓦特卡住 GPU 部署；锁定电力如今直接决定份额。"
+   },
+   {
+    "en": "TSMC N3 wafer allocation — every accelerator roadmap converged on N3; tightest node in the system.",
+    "zh": "台积电 N3 晶圆分配——所有加速器路线图都收敛到 N3；系统中最紧的节点。"
+   },
+   {
+    "en": "HBM / memory — prices up ~6x in a year; a once-in-four-decades shortage.",
+    "zh": "HBM / 内存——一年内价格涨约 6 倍；四十年一遇的短缺。"
+   },
+   {
+    "en": "Fault-tolerant training software — no framework is both free and overhead-free; concentrates reliable scale training.",
+    "zh": "容错训练软件——没有框架既免费又零开销；把可靠的大规模训练集中在少数玩家手里。"
+   },
+   {
+    "en": "Frontier-model access — only AWS/Azure/Google can sell all three frontier families; a distribution moat.",
+    "zh": "前沿模型接入——只有 AWS/Azure/谷歌能同时卖出三大前沿模型家族；这是分发护城河。"
+   }
+  ],
+  "risks": [
+   {
+    "en": "Depreciation debate: if GPU useful life proves shorter than 5-6yr, hyperscaler earnings are overstated (Burry thesis).",
+    "zh": "折旧之争：若 GPU 使用寿命证明短于 5-6 年，超大规模云盈利被高估（Burry 论点）。"
+   },
+   {
+    "en": "Circular financing: Amazon/MSFT/Google invest in labs that then buy their compute — revenue that could reverse.",
+    "zh": "循环融资：亚马逊/微软/谷歌投资实验室，实验室再回购它们的算力——一旦逆转收入会缩水。"
+   },
+   {
+    "en": "Token budgets tightening: enterprise caps could slow API growth if the s-curve stalls (SemiAnalysis says overblown).",
+    "zh": "token 预算收紧：若采用曲线停滞，企业上限可能拖慢 API 增长（SemiAnalysis 认为被夸大）。"
+   },
+   {
+    "en": "Nvidia/TSMC repricing: 'central bank' restraint could end, venting margin away from labs/neoclouds.",
+    "zh": "英伟达/台积电涨价：「央行」的克制可能结束，把毛利从实验室/neocloud 抽走。"
+   },
+   {
+    "en": "Overbuild / ROIC: Oracle/neocloud AI ROIC (~20%) well below legacy cloud; a demand air-pocket compresses returns.",
+    "zh": "过度建设 / ROIC：甲骨文/neocloud 的 AI ROIC（约 20%）远低于传统云；需求断档会压缩回报。"
+   }
+  ],
+  "catalysts": [
+   {
+    "en": "New OpenAI–Microsoft deal reaccelerating Azure; 100% of OpenAI API inference through 2032.",
+    "zh": "新的 OpenAI–微软协议重新加速 Azure；到 2032 年 100% 的 OpenAI API 推理归 Azure。"
+   },
+   {
+    "en": "Vera Rubin (VR NVL72) ramp: step-jump in perf/TCO resetting the value-capture math.",
+    "zh": "Vera Rubin（VR NVL72）放量：perf/TCO 的阶跃将重置价值捕获的算式。"
+   },
+   {
+    "en": "Next enterprise verticals (cyber via Mythos re-release, white-collar via Cowork/Copilot/Codex).",
+    "zh": "下一批企业垂类（网络安全靠 Mythos 再发布，白领靠 Cowork/Copilot/Codex）。"
+   },
+   {
+    "en": "Trainium3 ramp + Project Rainier scaling as a proof point for hyperscaler ASIC economics.",
+    "zh": "Trainium3 放量 + Project Rainier 扩容，作为超大规模云 ASIC 经济学的验证点。"
+   },
+   {
+    "en": "ClusterMAX 3.0 (B300/GB300, 800Gb) re-rating neocloud tiers and TCO leadership.",
+    "zh": "ClusterMAX 3.0（B300/GB300、800Gb）重估 neocloud 分级与 TCO 领导地位。"
+   }
+  ]
+ },
+ "open_questions": [
+  {
+   "en": "Is the labs' margin capture durable, or does open-source (Kimi, DeepSeek) + a compute glut eventually compress frontier pricing?",
+   "zh": "实验室的毛利捕获是否持久，还是开源（Kimi、DeepSeek）+ 算力过剩最终会压缩前沿定价？"
+  },
+  {
+   "en": "How much of hyperscaler/lab revenue is circular (invest-in-lab → lab buys compute), and what happens if funding tightens?",
+   "zh": "超大规模云/实验室收入中有多少是循环的（投资实验室 → 实验室买算力），若融资收紧会怎样？"
+  },
+  {
+   "en": "Will custom ASICs (Trainium, TPU) actually strip meaningful Nvidia margin, or stay niche inference/RL weapons?",
+   "zh": "自研 ASIC（Trainium、TPU）真能剥离英伟达的可观毛利，还是只停留在利基的推理/RL 武器？"
+  },
+  {
+   "en": "When does Nvidia/TSMC 'central bank' restraint end, and who loses margin when it does?",
+   "zh": "英伟达/台积电「央行」式克制何时结束，结束时谁的毛利被抽走？"
+  },
+  {
+   "en": "Is 5-6yr GPU depreciation right? A wrong answer re-rates every hyperscaler's earnings.",
+   "zh": "5-6 年的 GPU 折旧对吗？答错会重估每一家超大规模云的盈利。"
+  }
+ ],
+ "sources": [
+  {
+   "title": "How Much Do GPU Clusters Really Cost?",
+   "date": "2026-04-20"
+  },
+  {
+   "title": "Microsoft's AI Strategy Deconstructed - From Energy to Tokens",
+   "date": "2025-11-12"
+  },
+  {
+   "title": "AI Value Capture - The Shift To Model Labs",
+   "date": "2026-05-01"
+  },
+  {
+   "title": "Anthropic Growth and Bedrock Mix Drive AWS Margins Higher While Peers Lag",
+   "date": "2026-05-27"
+  },
+  {
+   "title": "TokenBudgeting: Our Conversations with Enterprises on Token Spend",
+   "date": "2026-06-30"
+  },
+  {
+   "title": "How Oracle Is Winning the AI Compute Market",
+   "date": "2025-06-30"
+  },
+  {
+   "title": "Amazon's AI Self Sufficiency | Trainium2 Architecture & Networking",
+   "date": "2024-12-03"
+  },
+  {
+   "title": "Amazon's AI Resurgence: AWS & Anthropic's Multi-Gigawatt Trainium Expansion",
+   "date": "2025-09-03"
+  },
+  {
+   "title": "Amazon's Cloud Crisis: How AWS Will Lose The Future Of Computing",
+   "date": "2023-03-20"
+  },
+  {
+   "title": "GPU Cloud Economics Explained – The Hidden Truth",
+   "date": "2023-12-04"
+  },
+  {
+   "title": "AI Cloud TCO Model",
+   "date": "2024-04-26"
+  },
+  {
+   "title": "Microsoft's Datacenter Freeze - 1.5GW Self-Build Slowdown & Lease Cancellation Misconceptions",
+   "date": "2025-04-28"
+  },
+  {
+   "title": "OpenAI Stargate Joint Venture Demystified",
+   "date": "2025-01-23"
+  },
+  {
+   "title": "DeepSeek Debrief: >128 Days Later",
+   "date": "2025-07-03"
+  },
+  {
+   "title": "Peeling The Onion's Layers - Large Language Models Search Architecture And Cost",
+   "date": "2023-02-13"
+  },
+  {
+   "title": "Memory Mania: How a Once-in-Four-Decades Shortage Is Fueling a Memory Boom",
+   "date": "2026-02-06"
+  },
+  {
+   "title": "2025 AI Diffusion Export Controls - Microsoft Regulatory Capture, Oracle Tears",
+   "date": "2025-01-15"
+  }
+ ]
+}

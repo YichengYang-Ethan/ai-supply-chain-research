@@ -1,0 +1,646 @@
+{
+ "sector_id": "10_china_geopolitics",
+ "sector_name_en": "China, Geopolitics & Export Controls",
+ "sector_name_zh": "中国·地缘·出口管制",
+ "tagline_en": "The AI cold war fought in wafers, HBM stacks and actuators — where export controls bite, where they leak, and where China already dominates.",
+ "tagline_zh": "一场以晶圆、HBM 堆栈和执行器为战场的 AI 冷战——出口管制在哪里咬住、在哪里漏水,又在哪些环节中国已经领先。",
+ "overview_en": "SemiAnalysis frames US–China technology policy as a full-scale economic cold war whose single most important lever is compute: the US controls ~70% of the world's deployed FLOPs and is trying to keep China off the frontier by choking AI accelerators, wafer-fab equipment (WFE), EUV/DUV lithography and — most decisively now — HBM memory. Their reporting is unusually granular and unusually opinionated: they argue controls are simultaneously (1) genuinely effective at the leading edge (China will make FEWER Huawei Ascends next year, not more, because it runs out of foreign HBM), and (2) riddled with self-inflicted loopholes — the 'fab whack-a-mole' of entity-listing one building while its non-listed twin across the street imports every advanced tool, allied-lag windows where Samsung dumped 7M HBM stacks in one month before enforcement, and Huawei's TSMC 'die bank' of 2.9M+ Ascend dies smuggled via shell companies like Sophgo/Bitmain. The corpus spans the 2022 opening salvo, the 2023 'controls have failed' broadside, the 2024 Fab Whack-A-Mole enforcement manifesto, and the 2025 Huawei Ascend production model. Running underneath is a second, non-semiconductor front: robotics. Here SemiAnalysis is bearish on the West — China is running the BYD/DJI playbook (own the hardest component, bootstrap on hobbyists, verticalize, undercut on price), Unitree is shipping its 10,000th humanoid at a ~$9K BoM and 67% gross margin while Tesla Optimus and Figure ship single digits, and general-purpose robots making robots is cast as an existential industrial threat the US is 'missing.' The throughline: China wants sovereignty over every layer from silicon to tokens to actuators, and predates — so will outlast — any US chip it is temporarily sold.",
+ "overview_zh": "SemiAnalysis 把中美科技政策定义为一场全面的经济冷战,而其中最关键的杠杆是算力:美国掌控全球约 70% 的已部署 FLOPs,并试图通过卡住 AI 加速器、晶圆制造设备(WFE)、EUV/DUV 光刻,以及——如今最具决定性的——HBM 内存,把中国挡在前沿之外。他们的报道异常细颗粒、也异常有立场:他们主张出口管制同时具备两面性——(1) 在最先进节点上真正有效(明年华为昇腾的产量会更少而非更多,因为进口 HBM 会用尽);(2) 又布满自我制造的漏洞——'实体清单打地鼠'式地把一栋楼列名、而街对面未列名的孪生工厂却照进所有先进设备;盟友跟进滞后的窗口期里三星在执法前一个月倾销了 700 万片 HBM;华为通过 Sophgo/Bitmain 等壳公司走私、囤下 290 万+片台积电昇腾裸片的'裸片银行'。这批文章横跨 2022 年的第一记重拳、2023 年'管制已失败'的猛批、2024 年'打地鼠'式的执法檄文,以及 2025 年的华为昇腾产能模型。底层还有第二条非半导体战线:机器人。这里 SemiAnalysis 看空西方——中国正在复刻比亚迪/大疆打法(掌控最难的部件、以爱好者市场起步、垂直整合、以价格碾压),宇树正以约 9 千美元 BoM、67% 毛利率交付第 10,000 台人形机器人,而特斯拉 Optimus 与 Figure 只出货个位数;机器人造机器人被描绘成美国正在'错过'的、事关国运的产业威胁。贯穿始终的主线是:中国要的是从硅、到 token、到执行器每一层的自主权,而这个诉求早于——因而也会熬过——美国暂时卖给它的任何一颗芯片。",
+ "core_knowledge": [
+  {
+   "term_en": "Foreign Direct Product Rule (FDPR) & de minimis threshold",
+   "term_zh": "外国直接产品规则(FDPR)与最低含量门槛",
+   "explain_en": "US authority to control any foreign-made item that used US technology/software above a content threshold — normally 25%, but lowered to 0% for the most sensitive tools (e.g. ASML's 1980i lithography). SemiAnalysis's central policy recommendation is applying a 0% threshold to Huawei's fab network, which they argue could handicap or halt Chinese advanced fabs within six months.",
+   "explain_zh": "美国据此可管控任何使用了超过一定美国技术/软件含量的外国产品——通常门槛是 25%,但对最敏感设备(如 ASML 1980i 光刻机)降到 0%。SemiAnalysis 的核心政策建议就是对华为晶圆网络采用 0% 门槛,他们认为这能在六个月内让中国先进晶圆厂瘫痪或严重受制。"
+  },
+  {
+   "term_en": "TPP / Performance-density threshold (the AI-chip test)",
+   "term_zh": "TPP / 性能密度门槛(AI 芯片判定标准)",
+   "explain_en": "The 2022 rule banned chips above ~4800 (TOPS × bit-length) with 600 GB/s I/O — a two-part test Nvidia gamed with the A800/H800 by cutting only interconnect. The 2023 rule dropped the bandwidth prong and added a performance-DENSITY threshold (TPP÷die area, 5.92 absolute / 3.2 license), which SemiAnalysis says forces any compliant chip back to a 2017-era V100 and can't be re-gamed with blank silicon.",
+   "explain_zh": "2022 年规则封禁 TPP(TOPS×位宽)高于约 4800 且 I/O 达 600 GB/s 的芯片——这是英伟达用 A800/H800 仅砍互连就绕过的双段测试。2023 年规则去掉带宽这一段,新增了性能密度门槛(TPP÷裸片面积,5.92 绝对禁运 / 3.2 需许可),SemiAnalysis 称这把任何合规芯片逼回 2017 年的 V100 水平,且无法再靠塞空白硅来钻空子。"
+  },
+  {
+   "term_en": "Die bank",
+   "term_zh": "裸片银行(Die Bank)",
+   "explain_en": "Huawei's stockpile of foreign-fabbed logic dies. Before SMIC could ramp, Huawei procured 2.9M+ Ascend dies from TSMC (via shell firms) usable for both 910B and 910C. This inventory — not domestic production — is what carries Ascend volumes through 2024–25; SemiAnalysis expects it to run out within ~9 months of Sept 2025.",
+   "explain_zh": "指华为囤积的外国代工逻辑裸片。在中芯国际爬产前,华为(经壳公司)从台积电拿到 290 万+片昇腾裸片,可同时用于 910B 和 910C。真正撑起 2024–25 年昇腾出货量的是这批库存、而非国产;SemiAnalysis 预计它将在 2025 年 9 月起约 9 个月内耗尽。"
+  },
+  {
+   "term_en": "HBM as the binding constraint",
+   "term_zh": "HBM 成为约束瓶颈",
+   "explain_en": "High-Bandwidth Memory (stacked DRAM with TSVs) is the real chokepoint for Chinese AI ASICs — modern LLM training/inference needs it, GDDR/LPDDR won't substitute. China procured ~13M foreign HBM stacks (enough for 1.6M Ascend 910C packages) then hit a wall; domestic champion CXMT can make only ~2M stacks in 2026 (~250–300k Ascends). Beijing's trade-deal ask targets HBM, not lithography — telling you where it hurts.",
+   "explain_zh": "高带宽内存(带 TSV 的堆叠 DRAM)是中国 AI ASIC 的真正咽喉——现代大模型训练/推理离不开它,GDDR/LPDDR 无法替代。中国采购了约 1300 万片外国 HBM 堆栈(够封装 160 万套昇腾 910C)后撞墙;国产冠军长鑫(CXMT)2026 年只能造约 200 万片(约 25–30 万颗昇腾)。北京在贸易谈判中要的是放松 HBM、而非光刻——恰恰说明痛点在哪。"
+  },
+  {
+   "term_en": "Allied-lag / re-export window",
+   "term_zh": "盟友跟进滞后 / 转口窗口",
+   "explain_en": "The US exempts Japanese and Dutch tool makers, who then don't immediately match new controls (often delayed 6 months or never), and neither restricts re-export. Chinese firms rush-order years of equipment into this gap; Samsung shipped ~7M HBM stacks to China in the one-month window between the Dec-2024 control announcement and its Dec-31 enforcement.",
+   "explain_zh": "美国豁免日本、荷兰设备商,而它们并不立即跟进新管制(常滞后 6 个月或永不跟进),且都不限制转口。中国企业趁这个缝隙抢单囤下数年设备;仅在 2024 年 12 月管制公告与 12 月 31 日执法之间的一个月窗口里,三星就向中国出货了约 700 万片 HBM 堆栈。"
+  },
+  {
+   "term_en": "SMIC N+2 (7nm) via DUV multi-patterning",
+   "term_zh": "中芯国际 N+2(7nm)靠 DUV 多重曝光",
+   "explain_en": "SMIC produces true 7nm-class logic (Kirin 9000S, Ascend) with no EUV, using ASML's older 1980i DUV immersion scanners plus multi-patterning. SemiAnalysis argues yield is actually decent (D0 ~0.14, roughly 2× TSMC N5), the gap to TSMC is ~5 years not a decade, and even a DUV-based '5nm' at ~130M transistors/mm² is feasible given subsidies (lithography is only ~30% of process cost).",
+   "explain_zh": "中芯国际不用 EUV 就能造出真正的 7nm 级逻辑(麒麟 9000S、昇腾),靠的是 ASML 较老的 1980i DUV 浸没式光刻机加多重曝光。SemiAnalysis 认为其良率其实不差(D0 约 0.14,约为台积电 N5 的 2 倍),与台积电差距是约 5 年而非十年,且在补贴下用 DUV 做到约 1.3 亿晶体管/mm² 的'5nm'也可行(光刻只占工艺成本约 30%)。"
+  },
+  {
+   "term_en": "QDD (Quasi-Direct-Drive) actuator",
+   "term_zh": "QDD(准直驱)执行器",
+   "explain_en": "Unitree's core bet: a big motor + tiny (<20:1) planetary gearbox, vs the industry-standard small motor + big strainwave (Harmonic Drive) gearbox. QDDs are 95–98% efficient (vs 85–90%), up to 80% cheaper, built with standard gear-hobbing so many suppliers exist, and iterate in weeks not months. Early ones overheated; after two years Unitree pushed payload/duration ~2×/5× — making the cheap architecture viable.",
+   "explain_zh": "宇树的核心押注:大电机 + 极小(<20:1)行星减速器,对阵行业标配的小电机 + 大谐波减速器。QDD 效率 95–98%(对比 85–90%)、成本低多达 80%、用标准滚齿工艺制造故供应商众多、迭代以周而非月计。早期会过热;两年后宇树把负载/时长各提升约 2 倍/5 倍——让这个廉价架构变得可用。"
+  },
+  {
+   "term_en": "The DJI/BYD verticalization playbook",
+   "term_zh": "大疆/比亚迪式垂直整合打法",
+   "explain_en": "SemiAnalysis's frame for how Chinese hardware giants are born: own the single hardest/most-expensive BoM component (BYD=battery cell, DJI=flight controller, Unitree=actuator), bootstrap on a willing hobbyist/researcher market with a half-finished cheap product, ride the Shenzhen ecosystem, and let each generation unlock a new market while in-housing more of the stack until the cost structure is untouchable.",
+   "explain_zh": "SemiAnalysis 用来解释中国硬件巨头如何诞生的框架:掌控 BoM 中最难/最贵的那个部件(比亚迪=电芯,大疆=飞控,宇树=执行器),用一个半成品的廉价产品在爱好者/研究者市场起步,借力深圳生态,每一代都解锁一个新市场,同时不断把更多环节内化,直到成本结构无人能敌。"
+  },
+  {
+   "term_en": "Military-civil fusion & the entity/unverified list",
+   "term_zh": "军民融合与实体清单/未经核实清单",
+   "explain_en": "Because China's national-security law forbids US end-use checks and blurs civilian/military R&D, BIS uses two lists: the Unverified List (a 2-month on-ramp that can cut any firm off simply because Beijing blocks audits) and the Entity List (Huawei, YMTC). SemiAnalysis argues the whack-a-mole entity approach is structurally defeated by shell-company spin-ups faster than rules update.",
+   "explain_zh": "由于中国的国安法禁止美方终端用途核查、并模糊军民研发界线,BIS 使用两份清单:未经核实清单(一个 2 个月的过渡机制,仅凭北京拒绝审计即可切断任何企业)和实体清单(华为、长江存储)。SemiAnalysis 认为,壳公司新设速度快于规则更新,使'打地鼠'式的实体清单在结构上被击败。"
+  }
+ ],
+ "value_chain": [
+  {
+   "stage_en": "WFE / tools & subsystems (the chokepoint)",
+   "stage_zh": "晶圆制造设备/工具与子系统(咽喉环节)",
+   "players": "ASML, Applied Materials, Lam, KLA, Tokyo Electron, ASMI, Zeiss, VAT Group; China: Naura, AMEC, SiCarrier",
+   "role_en": "The true bottleneck. SemiAnalysis argues controls should be TIGHTER upstream (tools > chips, components > tools): <100 critical parts (EUV optics from Zeiss, precision mask stages, RF plasma generators) gate the whole chain. Huawei spent $7.3B on WFE in 2024 (4th-largest globally); its SiCarrier copies foreign tools and raised $2.8B.",
+   "role_zh": "真正的瓶颈。SemiAnalysis 主张管制应更收紧上游(设备严于芯片、部件严于设备):不到 100 个关键部件(蔡司 EUV 光学、精密掩模台、射频等离子发生器)锁死整条链。华为 2024 年 WFE 支出 73 亿美元(全球第 4);其 SiCarrier 复刻外国设备并融资 28 亿美元。"
+  },
+  {
+   "stage_en": "Advanced-logic foundry",
+   "stage_zh": "先进逻辑代工",
+   "players": "SMIC (N+2 7nm), Huawei captive fabs (Pengjin, Pensun, PXW); TSMC (the leak); Cambricon (fabless)",
+   "role_en": "SMIC makes the Ascend/Kirin dies on DUV 7nm; Huawei is building its own fab network of non-entity-listed shells next to listed fabs. SemiAnalysis forecasts SMIC advanced capacity of 45k→60k→80k wspm (2025→27) — enough that logic is NOT the binding constraint; HBM is.",
+   "role_zh": "中芯国际用 DUV 7nm 造昇腾/麒麟裸片;华为在已列名工厂旁自建未列名壳公司晶圆网络。SemiAnalysis 预测中芯先进产能 45k→60k→80k 片/月(2025→27)——足以使逻辑不再是约束瓶颈;HBM 才是。"
+  },
+  {
+   "stage_en": "Memory / HBM",
+   "stage_zh": "内存 / HBM",
+   "players": "CXMT (DRAM/HBM), Swaysure (3D DRAM), JCET & TongFu (OSAT/TSV); foreign leaks: Samsung, SK Hynix, Micron",
+   "role_en": "The binding constraint on Chinese AI accelerators. CXMT ships DDR5 ~2 yrs behind, targeting 257k wpm (~15% of world DRAM) in 2026; still NOT entity-listed despite the Big Fund III $2B injection. Foreign HBM (13M stacks, mostly Samsung) is what China actually runs on until it dries up.",
+   "role_zh": "中国 AI 加速器的约束瓶颈。长鑫已量产落后约 2 年的 DDR5,目标 2026 年 25.7 万片/月(约占全球 DRAM 15%);尽管获大基金三期注资 20 亿美元,仍未被列入实体清单。中国实际依赖的是外国 HBM(1300 万片、多为三星),直到耗尽。"
+  },
+  {
+   "stage_en": "AI accelerators & systems",
+   "stage_zh": "AI 加速器与系统",
+   "players": "Huawei Ascend 910B/910C + CloudMatrix CM384 + KunPeng CPU, Cambricon, Biren, MetaX; Nvidia H20/H20E/B30A (the sanctioned imports)",
+   "role_en": "Huawei is 'Nvidia's greatest adversary.' 507k Ascend shipped 2024, 805k 2025 (653k are 910C). System > microarchitecture: CM384 scale-up switches & KunPeng 930 CPU are made at TSMC to free SMIC for compute die. Nvidia backfills via H20 (more memory, fewer FLOPs) and a rumored B30A with ~10× H20 FLOPs.",
+   "role_zh": "华为是'英伟达最大的对手'。2024 年出货 50.7 万颗昇腾,2025 年 80.5 万颗(其中 65.3 万是 910C)。系统重于微架构:CM384 的 scale-up 交换机与鲲鹏 930 CPU 在台积电制造,以腾出中芯产能给算力裸片。英伟达用 H20(内存更多、FLOPs 更少)及传闻中 FLOPs 约为 H20 十倍的 B30A 回补市场。"
+  },
+  {
+   "stage_en": "Frontier AI models (compute-gated)",
+   "stage_zh": "前沿 AI 模型(受算力约束)",
+   "players": "DeepSeek, Alibaba/Qwen, Moonshot/Kimi, ByteDance/Seed",
+   "role_en": "China's labs have talent but are throttled by compute. DeepSeek's next-gen model was delayed by Huawei-chip use; most DeepSeek tokens still inference on Western hardware; R1 served deliberately slow to save compute. ByteDance trains Seed in the US on US clouds and rents Blackwell via Malaysia/Oracle/Google.",
+   "role_zh": "中国实验室有人才、却被算力扼住。DeepSeek 下一代模型因使用华为芯片而延期;DeepSeek 大多数 token 仍在西方硬件上推理;R1 被刻意限速服务以省算力。字节跳动在美国的美国云上训练 Seed,并经马来西亚/甲骨文/谷歌租用 Blackwell。"
+  },
+  {
+   "stage_en": "Robotics / embodied AI (China ahead)",
+   "stage_zh": "机器人 / 具身智能(中国领先)",
+   "players": "Unitree, UBTech, AGIBot, DEEP Robotics, DJI legacy; West: Boston Dynamics, Agility, Figure, Tesla Optimus, ANYbotics",
+   "role_en": "The one AI front where SemiAnalysis says China leads outright. ~200 Chinese humanoid firms; Unitree ~70% of global quadruped volume, shipping its 10,000th humanoid at ~$9K BoM / 67% margin vs Western single-digit units. A US-built UR5e-clone arm costs ~2.2× the Chinese one; even 'Made in USA' parts depend on China.",
+   "role_zh": "SemiAnalysis 认为这是中国唯一完全领先的 AI 战线。约 200 家中国人形机器人公司;宇树占全球四足销量约 70%,以约 9 千美元 BoM、67% 毛利交付第 1 万台人形机器人,而西方仅出货个位数。美国造 UR5e 仿制机械臂成本约为中国版的 2.2 倍;连'美国制造'部件也依赖中国。"
+  }
+ ],
+ "theses": [
+  {
+   "claim_en": "Export controls are genuinely WORKING at the leading edge — because of HBM, China will make FEWER Ascends next year, not more.",
+   "claim_zh": "出口管制在最先进节点上真正奏效——由于 HBM,中国明年会造更少而非更多的昇腾。",
+   "rationale_en": "SMIC logic is no longer the bottleneck (needs only single-digit % of capacity for millions of die); the binding constraint is HBM. China has ~13M foreign stacks (good for 1.6M 910C) that run out by end-2025; CXMT can supply only ~2M stacks in 2026 = 250–300k Ascends. Without smuggled HBM, Huawei can't build even 1M chips next year. Had controls not existed, the Ascend ramp would be fully realized and DeepSeek R2/V4 'would already be here.'",
+   "rationale_zh": "中芯的逻辑裸片已不再是瓶颈(只需个位数百分比的产能即可造出数百万颗);约束瓶颈是 HBM。中国约有 1300 万片外国堆栈(够 160 万颗 910C),将在 2025 年底耗尽;长鑫 2026 年只能供约 200 万片 = 25–30 万颗昇腾。没有走私 HBM,华为明年连 100 万颗都造不出。若无管制,昇腾爬产会完全兑现,DeepSeek R2/V4'早就问世了'。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!L5T4!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3db74357-492f-4ef2-86e7-d554edefa682_1024x563.png",
+    "shows_en": "Huawei Ascend production scenarios: capped at ~300k in 2026 by HBM vs 5M+ if all logic die could be paired with memory",
+    "shows_zh": "华为昇腾产能情景:2026 年受 HBM 制约封顶约 30 万颗,若所有逻辑裸片都能配上内存则可达 500 万+颗"
+   },
+   "quote": {
+    "text": "China can easily make more than 805k Huawei Ascends this year from TSMC and SMIC capacity, but they will not because they do not have enough HBM.",
+    "source_title": "Huawei Ascend Production Ramp: Die Banks, TSMC Continued Production, HBM is The Bottleneck",
+    "date": "2025-09-08"
+   }
+  },
+  {
+   "claim_en": "The same controls are riddled with self-inflicted loopholes — 'fab whack-a-mole' makes the entity list structurally defeatable.",
+   "claim_zh": "同一套管制布满自制漏洞——'晶圆厂打地鼠'让实体清单在结构上可被击破。",
+   "rationale_en": "One SMIC building is entity-listed for advanced logic; its twin next door imports 'dual-use' tools for 'legacy' — connected by a wafer bridge / overhead track that makes them one cleanroom. Huawei spins up non-listed shells (Pengjin across the street from listed PXW; Pensun next to SMIC) faster than rules update. Offshore manufacturing (Lam's Malaysia etch chambers, AMAT/KLA Singapore) legally reaches entity-listed fabs if no US persons are involved; CXMT dodged controls by renaming an 18nm node to 19nm.",
+   "rationale_zh": "中芯一栋楼因先进逻辑被列名;隔壁孪生楼以'成熟工艺'名义进口'两用'设备——两者用晶圆桥/高架轨相连,实为一个洁净室。华为新设未列名壳公司(彭进就在已列名的 PXW 街对面;鹏芯紧邻中芯)的速度快于规则更新。离岸制造(泛林马来西亚刻蚀腔、应材/科磊新加坡)只要不涉美国人,就能合法触达已列名工厂;长鑫把 18nm 节点改名 19nm 就绕过了管制。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!7Aj4!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa0a1cf01-8857-4ba0-812c-f42d4f0487b8_1431x1132.jpeg",
+    "shows_en": "Satellite image: non-entity-listed Huawei-linked GaN startup Pengjin building its cleanroom directly across the street from entity-listed advanced-logic producer PXW",
+    "shows_zh": "卫星图:未列入实体清单、与华为关联的 GaN 初创彭进,把洁净室直接建在已列名先进逻辑厂 PXW 的街对面"
+   },
+   "quote": {
+    "text": "In the race between shell entities and regulations, shells can be spun up faster than regulations are being updated.",
+    "source_title": "Fab Whack-A-Mole: Chinese Companies are Evading U.S. Sanctions",
+    "date": "2024-10-28"
+   }
+  },
+  {
+   "claim_en": "The single biggest enforcement failure was HBM: Samsung shipped 7M stacks to China in the one-month gap before enforcement.",
+   "claim_zh": "最大的执法失败是 HBM:三星在执法前的一个月窗口向中国出货 700 万片堆栈。",
+   "rationale_en": "BIS announced HBM2E-plus controls Dec 2, 2024 with a Dec 31 compliance date — telegraphed for months. Samsung alone directly provided 11.4M HBM stacks to China, including 7M in that single month; total foreign HBM into China reached ~13M stacks (majority Samsung), the majority of China's HBM. Because Korea has no re-export controls and Samsung failed to enter the Western accelerator supply chain, it sold to Chinese customers who funneled inventory to Huawei.",
+   "rationale_zh": "BIS 于 2024 年 12 月 2 日宣布对 HBM2E 以上的管制、12 月 31 日为合规日——且提前数月放风。仅三星就直接向中国提供 1140 万片 HBM 堆栈,其中 700 万片在那一个月内;进入中国的外国 HBM 总量达约 1300 万片(多为三星),构成中国 HBM 的大头。由于韩国无转口管制、三星又未能打入西方加速器供应链,它转而卖给中国客户、后者把库存输送给华为。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!zcAG!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd8177c30-85ab-4e0e-8589-5caf37fa2468_1024x716.png",
+    "shows_en": "Samsung HBM shipments into China spiking in the one-month window between the Dec-2024 control announcement and its Dec-31 enforcement",
+    "shows_zh": "三星对华 HBM 出货在 2024 年 12 月管制公告与 12 月 31 日执法之间的一个月窗口内飙升"
+   },
+   "quote": {
+    "text": "Samsung alone has directly provided 11.4 million stacks of HBM to China, including a staggering 7M stacks in the 1-month gap between controls announcement and enforcement dates.",
+    "source_title": "Huawei Ascend Production Ramp",
+    "date": "2025-09-08"
+   }
+  },
+  {
+   "claim_en": "WFE suppliers' 'death spiral' lobbying is false — the two years under controls were among their best ever, driven BY China.",
+   "claim_zh": "设备商鼓吹的'死亡螺旋'是假的——受管制的两年是他们史上最好的年份之一,而且正是被中国拉动的。",
+   "rationale_en": "Despite lobbying that controls cause a 'death spiral,' AMAT/Lam/KLA saw near-record revenue, expanding gross margins and rising R&D during the control years, with 2025 guided as best-ever; the primary driver was China. AMAT grew faster than WFE for a 5th straight year 'despite headwinds.' SemiAnalysis's read: the cost of controls to Western suppliers is short-term and recoverable, so controls are worth it — the real long-term threat is Chinese domestic tool replacement (the 'China Technology Cycle'), not the rules.",
+   "rationale_zh": "尽管游说称管制导致'死亡螺旋',应材/泛林/科磊在管制年份仍录得接近纪录的营收、扩张的毛利率与上升的研发,2025 年指引为史上最佳;主要拉动力正是中国。应材'顶着逆风'连续第 5 年跑赢 WFE 市场。SemiAnalysis 的判断:管制对西方供应商的代价是短期且可恢复的,故值得;真正的长期威胁是中国国产设备替代('中国技术周期'),而非规则本身。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!V_QN!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F730cc73f-ed95-47aa-9d38-019c50b42b39_1297x738.png",
+    "shows_en": "WFE majors' China revenue share surging — the primary reason near-all-time-high revenue held up under export controls",
+    "shows_zh": "WFE 巨头来自中国的营收占比飙升——支撑其在出口管制下仍维持接近历史高位营收的主因"
+   },
+   "quote": {
+    "text": "By nearly every metric the 24 months under export controls have been among the best in history for American WFE suppliers.",
+    "source_title": "Fab Whack-A-Mole",
+    "date": "2024-10-28"
+   }
+  },
+  {
+   "claim_en": "SMIC's 7nm is real and good — the gap to TSMC is ~5 years, not a decade, and a DUV-only '5nm' is feasible.",
+   "claim_zh": "中芯的 7nm 是真的、且不差——与台积电差距约 5 年而非十年,且纯 DUV 的'5nm'可行。",
+   "rationale_en": "The Kirin 9000S on SMIC N+2 matches 1–2-year-old Qualcomm chips; on identical Arm A510 IP it's on par with Samsung 4LPX despite the node gap. Yield is decent (D0 ~0.14, ~2× TSMC N5). SMIC uses the same 1980i DUV tools as TSMC/Intel 7nm; ASML's own capacity plans BUILD IN Chinese semiconductor independence (1.5M excess wafers/month by 2030). A '5nm' at 130M+ transistors/mm² via ArFi multi-patterning would cost only ~20% more than EUV-based, since lithography is ~30% of process cost.",
+   "rationale_zh": "中芯 N+2 上的麒麟 9000S 对标 1–2 年前的高通芯片;在相同的 Arm A510 IP 上,尽管节点有差距,仍与三星 4LPX 持平。良率不差(D0 约 0.14,约为台积电 N5 的 2 倍)。中芯用的 1980i DUV 设备与台积电/英特尔 7nm 相同;ASML 自己的产能规划已把中国半导体自主'算进去'(2030 年 150 万片/月的过剩晶圆)。用 ArFi 多重曝光做到 1.3 亿+晶体管/mm² 的'5nm',成本仅比 EUV 版高约 20%,因为光刻只占工艺成本约 30%。",
+   "figure": null,
+   "quote": {
+    "text": "Even with the lackluster export controls, this is a leading edge chip that would be near the front of the pack in 2021, yet was done with no access to EUV... We cannot overstate how scary this is.",
+    "source_title": "China AI & Semiconductors Rise: US Sanctions Have Failed",
+    "date": "2023-09-12"
+   }
+  },
+  {
+   "claim_en": "Selling Nvidia into China (H20, and especially a Blackwell B30A) is a strategic mistake dressed as diplomacy.",
+   "claim_zh": "把英伟达卖进中国(H20,尤其是 Blackwell B30A)是披着外交外衣的战略失误。",
+   "rationale_en": "The H20 has more memory than the banned H100 (good for inference/RL, the current driver of progress); a rumored B30A could carry ~10× H20 FLOPs at half a B300's price — just buy 2× for parity. This gives DeepSeek/Alibaba more RL compute and lets China serve and PROLIFERATE its AI on its own apps, taking share from US products. 'China may be trying to psyop their way into getting the significantly more performant Blackwell chip.' The claim that Blackwell must be sold because Huawei is an alternative is false — Huawei is about to run out of HBM.",
+   "rationale_zh": "H20 内存多于被禁的 H100(利于推理/RL,即当前进步的驱动力);传闻中的 B30A 可能带约 10 倍 H20 的 FLOPs、售价为 B300 的一半——买 2 倍即可对等。这给 DeepSeek/阿里更多 RL 算力,并让中国在自有应用上服务并扩散其 AI、抢占美国产品份额。'中国可能在用心理战方式套取性能强得多的 Blackwell 芯片。'所谓'因华为可替代所以必须卖 Blackwell'是伪命题——华为正要用完 HBM。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!pMnr!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe7efaeb9-6f42-45b4-8929-d028a9d45cdd_1024x694.png",
+    "shows_en": "China's compute (FLOPs & memory) with Nvidia B30A shipping vs domestic-only — how much extra a Blackwell-class export hands China",
+    "shows_zh": "在英伟达 B30A 出货 vs 纯国产两种情景下的中国算力(FLOPs 与内存)——一款 Blackwell 级出口会给中国多送多少"
+   },
+   "quote": {
+    "text": "The American AI stack is American AI on American chips, not just the chips.",
+    "source_title": "Huawei Ascend Production Ramp",
+    "date": "2025-09-08"
+   }
+  },
+  {
+   "claim_en": "Controls must move UPSTREAM: tighter on tools than chips, tightest on the <100 critical WFE components.",
+   "claim_zh": "管制必须上移:设备严于芯片,而对不到 100 个关键 WFE 部件最严。",
+   "rationale_en": "Current controls are strict downstream (accelerators) but loose upstream (equipment) and non-existent on components — which incentivizes China to build indigenous tools and eventually renders sanctions toothless. Example: EUV scanners are banned but Zeiss EUV projection optics (the #1 critical component) are not; fewer than 100 parts (EUV optics, precision mask stages, RF plasma generators) gate the whole chain. Margin-stacking math: $1B of restricted tools compounds to 2×+ at foundry and again at fabless, so keeping components onshore is high-leverage.",
+   "rationale_zh": "现行管制在下游(加速器)严、上游(设备)松、部件层几乎为零——这反而激励中国自研设备,最终让制裁失效。例证:EUV 光刻机被禁,但蔡司 EUV 投影光学(第 1 关键部件)未禁;不到 100 个部件(EUV 光学、精密掩模台、射频等离子发生器)锁死整条链。利润叠加账:10 亿美元受限设备在代工环节放大 2 倍+、在无晶圆环节再放大一次,故把部件留在本土是高杠杆之举。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!UqQy!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F88c989f7-1adc-4f39-b566-5c2f318df743_2797x1053.png",
+    "shows_en": "SemiAnalysis's easy/medium/hard framework for which WFE tools have viable foreign competitors — guiding where to restrict multilaterally vs where China takes share regardless",
+    "shows_zh": "SemiAnalysis 的易/中/难 WFE 设备框架:哪些工具有可行的外国竞品——指引何处应多边限制、何处无论如何中国都会拿下份额"
+   },
+   "quote": {
+    "text": "The entity list must be expanded and updated often... This means monthly updating, as well as geographic checks. If we can find this with some satellite photos in trivial time, it is clear the rules are easy to skirt.",
+    "source_title": "Fab Whack-A-Mole",
+    "date": "2024-10-28"
+   }
+  },
+  {
+   "claim_en": "Robotics is the AI front where China leads outright — and the US is 'missing the new labor economy.'",
+   "claim_zh": "机器人是中国完全领先的 AI 战线——而美国正在'错过新的劳动经济'。",
+   "rationale_en": "Robots making robots is the first industrial input that is fully additive (24/7, higher throughput than a human), and only China is positioned to capture it. Chinese local firms are approaching ~50% of the world's largest robot market (up from 30% in 2020); Xiaomi runs lights-out factories making one phone per second with zero humans; a US-built UR5e-clone arm costs ~2.2× the Chinese one, and even 'Made in USA' parts depend on China-made components with no scalable alternative. This is the battery/solar/EV capture playbook applied to a general-purpose technology.",
+   "rationale_zh": "机器人造机器人是首个完全'增量式'的工业投入(全天候、吞吐高于人),而唯有中国有条件抓住它。中国本土企业正逼近全球最大机器人市场约 50% 份额(2020 年为 30%);小米的黑灯工厂零人工、每秒造一部手机;美国造 UR5e 仿制臂成本约为中国版 2.2 倍,连'美国制造'部件也依赖无可规模替代的中国部件。这是电池/光伏/电动车式的产业攻占打法,被套用到一项通用技术上。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!QSdf!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd082f569-9321-438e-bfa3-4b3d7f624818_1241x1005.png",
+    "shows_en": "Cost of building an identical UR5e-class robot arm in the US vs China — ~2.2× more expensive in the US, with China-dependence even inside 'US-made' parts",
+    "shows_zh": "在美 vs 在华制造同款 UR5e 级机械臂的成本——在美贵约 2.2 倍,且'美国制造'部件内部仍依赖中国"
+   },
+   "quote": {
+    "text": "The only country that is positioned to capture this level of automation is currently China, and should China achieve it without the US following suit... posing an existential threat to the US.",
+    "source_title": "America Is Missing The New Labor Economy - Robotics Part 1",
+    "date": "2025-03-11"
+   }
+  },
+  {
+   "claim_en": "Unitree is being born as the next BYD/DJI — cheapest humanoid on earth at a ~$9K BoM and 67% gross margin.",
+   "claim_zh": "宇树正成长为下一个比亚迪/大疆——地表最便宜人形机器人,约 9 千美元 BoM、67% 毛利。",
+   "rationale_en": "Unitree cut G1 pre-tax pricing from $50K+ to $27.3K in 12–18 months yet still hits ~67% gross margin on a ~$8,976 BoM, with deals heard well under $20K; it may ship its 10,000th humanoid while Tesla/Figure ship single digits. It owns the actuator (50–70% of humanoid BoM), self-develops motors (30–40% of Western cost), gearboxes, LiDAR and cameras. Quadruped margins already went from 42.36% to 55.49% per its IPO filing. ~250 Unitrees are in labor pilots today, already passing below the $30/hr human-labor line even under conservative full-teleoperation assumptions.",
+   "rationale_zh": "宇树在 12–18 个月内把 G1 税前售价从 5 万+美元砍到 2.73 万美元,却仍在约 8,976 美元 BoM 上录得约 67% 毛利,并有远低于 2 万美元的成交传闻;它可能交付第 1 万台人形机器人,而特斯拉/Figure 仅出货个位数。它掌控执行器(占人形 BoM 的 50–70%),自研电机(为西方成本的 30–40%)、减速器、激光雷达与摄像头。据其招股书,四足毛利已从 42.36% 升至 55.49%。如今约 250 台宇树在劳动试点中,即便按保守的全遥操作假设,也已压到每小时 30 美元人工成本线之下。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!pOMl!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5819a3cc-2fa8-4b48-b000-9855987f126f_4099x3240.jpeg",
+    "shows_en": "SemiAnalysis teardown BoM of the Unitree G1 humanoid (~$8,976) with pricing slashed from $50K+ to $27.3K yet ~67% gross margin",
+    "shows_zh": "SemiAnalysis 拆解的宇树 G1 人形机器人 BoM(约 8,976 美元):售价从 5 万+砍到 2.73 万美元仍保约 67% 毛利"
+   },
+   "quote": {
+    "text": "Unitree has slashed pre-tax pricing from $50K+ to $27.3K over the past 12-18 months. Even at that price, we estimate they still hit 67% gross margins on their flagship G1.",
+    "source_title": "China's Unitree Will Dominate Global Robotics",
+    "date": "2026-06-08"
+   }
+  },
+  {
+   "claim_en": "Unitree's QDD bet — mocked for overheating — is now defying expectations and building an ecosystem.",
+   "claim_zh": "宇树的 QDD 押注——曾因过热被嘲——如今正超预期,并培育出生态。",
+   "rationale_en": "Critics said quasi-direct-drive (big motor, tiny gearbox) would draw too much current and overheat: the original G1 held 2kg outstretched for seconds before a 30-min cooldown. Two years of iteration (smoother magnets to cut cogging/torque ripple, 'low copper consumption' coils, targeted active cooling) pushed it to 5kg for 10–15 min arms-bent (~2× payload, ~5× duration). QDDs are 95–98% efficient (vs 85–90% strainwave), up to 80% cheaper, use standard hobbing so a new sample actuator comes in weeks vs 3+ months for Western firms — and other Chinese humanoids are now switching to QDD, thickening the supply base.",
+   "rationale_zh": "批评者称准直驱(大电机、小减速器)会拉电流过高、过热:初代 G1 手臂伸直只能举 2kg 数秒、随后需 30 分钟冷却。两年迭代(平滑磁体以降齿槽力/转矩脉动、'低铜耗'线圈、定点主动散热)把它推到手臂弯曲状态下 5kg 撑 10–15 分钟(负载约 2 倍、时长约 5 倍)。QDD 效率 95–98%(对比谐波 85–90%)、成本低多达 80%、用标准滚齿故新样品执行器数周即出,而西方公司要 3 个月+——如今其他中国人形机器人纷纷转向 QDD,壮大了供应基础。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!zpfm!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F18ec0090-dfe1-4a78-9e8e-257554b3d9ac_1382x500.heic",
+    "shows_en": "Unitree G1 payload-vs-duration envelope (arms outstretched vs bent) showing the thermal limits QDD critics pointed to, before iteration",
+    "shows_zh": "宇树 G1 负载-时长包络(手臂伸直 vs 弯曲):展示 QDD 批评者所指的热限制(迭代之前)"
+   },
+   "quote": {
+    "text": "While most stuck with the strainwave (HarmonicDrive) route, Unitree took the chance and iterated.",
+    "source_title": "China's Unitree Will Dominate Global Robotics",
+    "date": "2026-06-08"
+   }
+  },
+  {
+   "claim_en": "China's datacenter/power advantage means chips — not grids — are its only real AI ceiling.",
+   "claim_zh": "中国的数据中心/电力优势意味着,唯有芯片(而非电网)才是其真正的 AI 天花板。",
+   "rationale_en": "Where US frontier clusters are 'primarily capped by regulatory environment and industrial capacity' (forcing unproven cross-datacenter training), China has 'no issues securing power infrastructure' — multi-gigawatt substations convert from aluminum mills to datacenters in <6 months. Chinese AI chips are today decentralized (largest clusters ~1/3 US size), but a concentrated effort 'could lead to cluster sizes that dwarf those in the US in less than a year.' So compute — the one thing the US can restrict — is the decisive lever.",
+   "rationale_zh": "美国前沿集群'主要受监管环境与产业容量制约'(逼出未经验证的跨数据中心训练),而中国'确保电力基础设施毫无问题'——数吉瓦变电站可在 6 个月内从铝厂改造为数据中心。中国 AI 芯片如今分散部署(最大集群约为美国的 1/3),但一次集中努力'可能在不到一年内造出让美国相形见绌的集群规模'。因此算力——美国唯一能限制的东西——才是决定性杠杆。",
+   "figure": null,
+   "quote": {
+    "text": "There are enough chips being shipped to China + manufactured domestically to create the world's largest AI training cluster.",
+    "source_title": "Fab Whack-A-Mole",
+    "date": "2024-10-28"
+   }
+  },
+  {
+   "claim_en": "China exploits IP/JV loopholes the same way it exploits tool loopholes — Arm China went fully rogue.",
+   "claim_zh": "中国钻 IP/合资漏洞的方式与钻设备漏洞如出一辙——安谋科技已彻底'独立'。",
+   "rationale_en": "SoftBank sold 51% of Arm's China ops to a Chinese consortium for a paltry $775M; the JV then went rogue under ousted-but-entrenched CEO Allen Wu (who held the company chop, hired security paid by Arm China that locked Arm out, and literally sued himself). Arm China ('安谋科技') rebranded its own Power Core / XPU IP (NPU/SPU/ISP/VPU) with a 400+ person China R&D team — 'the tech heist of the century.' Same pattern in RF/power: STMicro's SiC JV with Sanan risks transferring tech repurposable for military RF.",
+   "rationale_zh": "软银以区区 7.75 亿美元把 Arm 中国业务 51% 卖给中国财团;该合资随后在被罢免却盘踞的 CEO 吴雄昂手中'独立'(他握着公司公章、雇了由 Arm 中国出资却把 Arm 挡在门外的保安、并实质上'自己告自己')。安谋科技用 400+ 人的中国研发团队把自研的 Power Core / XPU IP(NPU/SPU/ISP/VPU)重新贴牌——'世纪科技劫案'。射频/功率领域同样:意法半导体与三安的 SiC 合资,存在转移可被军用射频重用技术的风险。",
+   "figure": null,
+   "quote": {
+    "text": "Arm has been shaken to its core with the 2nd largest market snatched from underneath it. According to Arm, no IP has been stolen, but Arm cannot license directly license to any firm in China.",
+    "source_title": "The Semiconductor Heist Of The Century | Arm China Has Gone Completely Rogue",
+    "date": "2021-08-27"
+   }
+  }
+ ],
+ "key_data": [
+  {
+   "metric_en": "US share of world's deployed FLOPs",
+   "metric_zh": "美国占全球已部署 FLOPs 份额",
+   "value": ">70%",
+   "note_en": "The US lead controls are meant to defend; compute is the one gating factor the US can restrict.",
+   "note_zh": "出口管制要守住的美国领先;算力是美国唯一能限制的约束因素。"
+  },
+  {
+   "metric_en": "Huawei Ascend units shipped (2024 → 2025)",
+   "metric_zh": "华为昇腾出货量(2024 → 2025)",
+   "value": "507k → 805k",
+   "note_en": "653k of the 2025 units are the more advanced 910C; SemiAnalysis calls the reported '200k' figure significantly off.",
+   "note_zh": "2025 年出货中 65.3 万为更先进的 910C;SemiAnalysis 称'20 万'的公开数字严重失真。"
+  },
+  {
+   "metric_en": "TSMC Ascend dies smuggled into Huawei's 'die bank'",
+   "metric_zh": "走私进华为'裸片银行'的台积电昇腾裸片",
+   "value": "2.9M+",
+   "note_en": "Via shell firms (Sophgo/Bitmain); usable for both 910B/910C; expected to run out ~9 months after Sept 2025.",
+   "note_zh": "经壳公司(Sophgo/Bitmain);910B/910C 通用;预计 2025 年 9 月起约 9 个月耗尽。"
+  },
+  {
+   "metric_en": "Foreign HBM stacks procured by China",
+   "metric_zh": "中国采购的外国 HBM 堆栈",
+   "value": "~13M (Samsung 11.4M)",
+   "note_en": "Sufficient for 1.6M Ascend 910C packages; 7M shipped in the 1-month pre-enforcement gap alone.",
+   "note_zh": "够封装 160 万套昇腾 910C;仅执法前一个月窗口就出货 700 万片。"
+  },
+  {
+   "metric_en": "CXMT HBM capacity, 2026",
+   "metric_zh": "长鑫 HBM 产能,2026 年",
+   "value": "~2M stacks",
+   "note_en": "Only enough for 250–300k Ascend 910C; still NOT entity-listed despite $2B Big Fund III injection.",
+   "note_zh": "仅够 25–30 万颗昇腾 910C;尽管获大基金三期 20 亿美元注资,仍未列入实体清单。"
+  },
+  {
+   "metric_en": "Huawei WFE spend, 2024",
+   "metric_zh": "华为 WFE 支出,2024 年",
+   "value": "$7.3B (+27% YoY)",
+   "note_en": "4th-largest WFE customer globally, from ~zero in 2022; 2nd-largest if SMIC+CXMT are included.",
+   "note_zh": "全球第 4 大 WFE 客户,2022 年还近乎为零;若并入中芯+长鑫则为全球第 2。"
+  },
+  {
+   "metric_en": "SMIC advanced-node capacity (7nm & below)",
+   "metric_zh": "中芯先进节点产能(7nm 及以下)",
+   "value": "45k → 60k → 80k wspm (2025→27)",
+   "note_en": "Only single-digit % allocation needed to make >1M Ascend die/yr; logic is not the constraint.",
+   "note_zh": "只需个位数百分比产能即可年产 100 万+颗昇腾裸片;逻辑并非约束。"
+  },
+  {
+   "metric_en": "SMIC N+2 (7nm) yield defect density D0",
+   "metric_zh": "中芯 N+2(7nm)缺陷密度 D0",
+   "value": "~0.14",
+   "note_en": "Roughly 2× TSMC N5/N6 (i.e. worse but 'decent'); debunks the '10% yield' narrative.",
+   "note_zh": "约为台积电 N5/N6 的 2 倍(即更差但'不错');推翻'良率 10%'的说法。"
+  },
+  {
+   "metric_en": "Advanced-logic gap SMIC vs TSMC",
+   "metric_zh": "中芯与台积电先进逻辑差距",
+   "value": "~5 years",
+   "note_en": "SMIC N+2 shipped 2023 vs TSMC N7 in 2018 / N5 in 2020; narrower than most Western estimates.",
+   "note_zh": "中芯 N+2 于 2023 年出货 vs 台积电 N7(2018)/N5(2020);比多数西方估计更窄。"
+  },
+  {
+   "metric_en": "Nvidia B30A FLOPs vs H20",
+   "metric_zh": "英伟达 B30A 相对 H20 的 FLOPs",
+   "value": "~10×",
+   "note_en": "Rumored Blackwell-based China chip at ~half a B300's price/perf — 'buy 2× for parity.'",
+   "note_zh": "传闻中基于 Blackwell 的中国专供芯片,售价/性能约为 B300 的一半——'买 2 倍即对等'。"
+  },
+  {
+   "metric_en": "Revenue at risk if Huawei regains phone share",
+   "metric_zh": "若华为夺回手机份额的营收风险",
+   "value": "~$20B Apple, ~$7.6B Qualcomm+MediaTek",
+   "note_en": "Kirin 9000S insourcing threatens ~35–45M iPhone units gained after Huawei's 2019 ban.",
+   "note_zh": "麒麟 9000S 自研威胁到华为 2019 年被禁后苹果多卖的约 3500–4500 万台 iPhone。"
+  },
+  {
+   "metric_en": "Unitree G1 humanoid price cut / BoM / margin",
+   "metric_zh": "宇树 G1 人形机器人 降价 / BoM / 毛利",
+   "value": "$50K+ → $27.3K; ~$8,976 BoM; ~67% GM",
+   "note_en": "Deals heard well under $20K; may ship its 10,000th humanoid vs Western single-digit units.",
+   "note_zh": "有远低于 2 万美元的成交传闻;或交付第 1 万台,而西方仅出货个位数。"
+  },
+  {
+   "metric_en": "Unitree quadruped entry price decline (2018→now)",
+   "metric_zh": "宇树入门四足价格降幅(2018→今)",
+   "value": "94–96% (Laikago $45K → Go2 ~$1.6–2.8K)",
+   "note_en": "The DJI-style scaling curve that funded the humanoid program; ~70% of global quadruped volume.",
+   "note_zh": "为人形项目输血的大疆式规模曲线;占全球四足销量约 70%。"
+  },
+  {
+   "metric_en": "Unitree quadruped gross margin (per IPO filing)",
+   "metric_zh": "宇树四足毛利率(据招股书)",
+   "value": "42.36% → 55.49%",
+   "note_en": "Scaling gave 'upstream bargaining power'; costs dropped nearly in half. Self-develops motors/gearboxes.",
+   "note_zh": "规模带来'上游议价权';成本近乎减半。自研电机/减速器。"
+  },
+  {
+   "metric_en": "Unitree AI R&D spend planned",
+   "metric_zh": "宇树计划的 AI 研发支出",
+   "value": "~$300M",
+   "note_en": "On revenue tripling YoY; ~250 Unitrees already in labor pilots below the $30/hr human line.",
+   "note_zh": "营收同比三倍增长的同时;已有约 250 台宇树在低于每小时 30 美元人工线的劳动试点中。"
+  },
+  {
+   "metric_en": "China local share of world's largest robot market",
+   "metric_zh": "中国本土占全球最大机器人市场份额",
+   "value": "~50% (from 30% in 2020)",
+   "note_en": "~200 Chinese humanoid firms; a US UR5e-clone arm costs ~2.2× the Chinese one.",
+   "note_zh": "约 200 家中国人形机器人公司;美国 UR5e 仿制臂成本约为中国版 2.2 倍。"
+  },
+  {
+   "metric_en": "SemiCap combined China sales, 3Q23",
+   "metric_zh": "四大设备商对华合计销售额,2023 三季度",
+   "value": "~$8.7B (+50% vs prior peak)",
+   "note_en": "ASML 46% / Lam 48% of revenue from China on rush orders ahead of controls.",
+   "note_zh": "ASML 46% / 泛林 48% 营收来自中国,系管制前抢单;比此前峰值高约 50%。"
+  },
+  {
+   "metric_en": "Critical WFE components that gate the whole chain",
+   "metric_zh": "锁死整条链的关键 WFE 部件数",
+   "value": "<100",
+   "note_en": "e.g. Zeiss EUV projection optics, precision mask stages, RF plasma generators — the tightest control point SemiAnalysis urges.",
+   "note_zh": "如蔡司 EUV 投影光学、精密掩模台、射频等离子发生器——SemiAnalysis 力主的最严管制点。"
+  }
+ ],
+ "deep_dives": [
+  {
+   "article_title": "Huawei Ascend Production Ramp: Die Banks, TSMC Continued Production, HBM is The Bottleneck",
+   "date": "2025-09-08",
+   "summary_en": "The definitive quantified model of China's domestic AI-chip capacity. Huawei shipped 507k Ascend in 2024 and 805k in 2025 (653k 910C), carried by a 2.9M-die TSMC 'die bank' running out in ~9 months. SMIC advanced capacity (45k→80k wspm) means logic is NOT the constraint — HBM is. China has ~13M foreign stacks (11.4M from Samsung, 7M in a one-month enforcement gap) good for 1.6M 910C; domestic CXMT can supply only ~2M stacks in 2026 (250–300k Ascends). Verdict: controls WORK — assuming no smuggling, China makes fewer Ascends next year, not more — but Nvidia's H20/B30A and un-listed CXMT are the leaks. Also details the KunPeng CPU and CM384 switches made at TSMC to free SMIC for compute die.",
+   "summary_zh": "关于中国国产 AI 芯片产能最权威的量化模型。华为 2024 年出货 50.7 万颗昇腾、2025 年 80.5 万颗(65.3 万为 910C),靠一个约 9 个月耗尽的 290 万片台积电'裸片银行'支撑。中芯先进产能(45k→80k 片/月)意味着逻辑并非约束——HBM 才是。中国约有 1300 万片外国堆栈(1140 万来自三星,700 万在一个月执法窗口内)够 160 万颗 910C;国产长鑫 2026 年只能供约 200 万片(25–30 万颗昇腾)。结论:管制有效——若无走私,中国明年造更少而非更多昇腾——但英伟达 H20/B30A 与未列名的长鑫是漏洞。还详解了在台积电制造的鲲鹏 CPU 与 CM384 交换机,以腾出中芯产能给算力裸片。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!iNqu!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F24bd087c-5279-42ab-a2db-d4dede2327d4_943x625.png",
+    "shows_en": "Huawei's TSMC 'die bank' depletion — foreign-fabbed Ascend dies carrying volumes through 2024–25 before domestic must take over",
+    "shows_zh": "华为台积电'裸片银行'的消耗——外国代工的昇腾裸片撑起 2024–25 年出货,之后必须转向国产"
+   }
+  },
+  {
+   "article_title": "Fab Whack-A-Mole: Chinese Companies are Evading U.S. Sanctions",
+   "date": "2024-10-28",
+   "summary_en": "SemiAnalysis's enforcement manifesto and policy blueprint. Four claims: (1) controls work but need constant updates; (2) Huawei's state-backed fab network — $7.3B WFE in 2024, 4th globally — is the key threat, spinning up non-listed shells (Pengjin, Pensun) next to listed fabs faster than rules update; (3) the WFE 'death spiral' lobbying is false (record margins, China-driven); (4) enforcement must move upstream. Concrete asks: a 0% de-minimis threshold on Huawei's network (could cripple Chinese fabs in 6 months), monthly entity-list updates with satellite checks, and restricting <100 critical components (Zeiss EUV optics). Documents wafer-bridge tricks, offshore manufacturing (Lam Malaysia, AMAT Singapore), and CXMT's 18nm→19nm rename dodge.",
+   "summary_zh": "SemiAnalysis 的执法檄文与政策蓝图。四点主张:(1) 管制有效但需持续更新;(2) 华为国家背书的晶圆网络——2024 年 WFE 73 亿美元、全球第 4——是关键威胁,在已列名厂旁新设未列名壳公司(彭进、鹏芯)的速度快于规则更新;(3) 设备商'死亡螺旋'游说是假的(纪录毛利、由中国拉动);(4) 执法须上移。具体诉求:对华为网络采用 0% 最低含量门槛(6 个月内可瘫痪中国晶圆厂)、每月更新实体清单并配卫星核查、限制不到 100 个关键部件(蔡司 EUV 光学)。记录了晶圆桥手法、离岸制造(泛林马来西亚、应材新加坡)与长鑫 18nm→19nm 改名规避。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!kPF1!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F72b239d9-4435-4a18-910c-9180b4c1c045_2843x1794.png",
+    "shows_en": "Huawei's (incomplete) corporate family tree — many upstream fabs/entities controlled by entity-listed Huawei are themselves NOT listed, the core loophole",
+    "shows_zh": "华为(不完整的)企业族谱——许多由已列名华为控制的上游晶圆厂/实体本身未被列名,正是核心漏洞"
+   }
+  },
+  {
+   "article_title": "China's Unitree Will Dominate Global Robotics",
+   "date": "2026-06-08",
+   "summary_en": "The bull case on China's robotics champion via the BYD/DJI verticalization lens. Unitree owns the actuator (50–70% of humanoid BoM), self-develops motors (30–40% of Western cost), gearboxes, LiDAR and cameras; a full teardown puts the G1 BoM at ~$8,976 with ~67% gross margin even after cutting price from $50K+ to $27.3K. Its contrarian QDD (quasi-direct-drive) bet — mocked for overheating — now sustains 5kg for 10–15 min (2×/5× improvement) after two years of magnet/coil/cooling iteration. ~250 G1s are in labor pilots, already below the $30/hr human line even under full-teleoperation assumptions. With a $7B-rumored Shanghai IPO, tripling revenue and ~$300M AI R&D, SemiAnalysis argues Unitree keeps a structural first-mover cost advantage even as it scales.",
+   "summary_zh": "以比亚迪/大疆垂直整合视角看多中国机器人冠军。宇树掌控执行器(占人形 BoM 的 50–70%),自研电机(为西方成本的 30–40%)、减速器、激光雷达与摄像头;完整拆解显示 G1 的 BoM 约 8,976 美元,即便售价从 5 万+砍到 2.73 万美元仍保约 67% 毛利。其逆势的 QDD(准直驱)押注——曾因过热被嘲——在两年磁体/线圈/散热迭代后,如今能以 5kg 撑 10–15 分钟(负载/时长各提升 2/5 倍)。约 250 台 G1 在劳动试点中,即便按全遥操作假设也已低于每小时 30 美元人工线。伴随传闻 70 亿美元的上海 IPO、营收三倍增长与约 3 亿美元 AI 研发,SemiAnalysis 主张宇树即便扩产也将保持先发者的结构性成本优势。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!gsLP!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc65732ee-db1a-4891-b407-122c68480c71_4183x2354.heic",
+    "shows_en": "SemiAnalysis's Unitree deployment economics — a teleoperated G1 on tote-handoff work passing below the $30/hr human-labor cost line today",
+    "shows_zh": "SemiAnalysis 的宇树部署经济学——遥操作 G1 做料箱交接任务,如今已压到每小时 30 美元人工成本线之下"
+   }
+  },
+  {
+   "article_title": "America Is Missing The New Labor Economy - Robotics Part 1",
+   "date": "2025-03-11",
+   "summary_en": "The 9,600-word 'call to action' framing robotics as the next strategic-industry capture. Robots making robots is the first fully-additive industrial input (24/7, above-human throughput); only China is positioned to capture it, and if it does without the US following, that's 'an existential threat.' Evidence: Chinese local firms near ~50% of the world's largest robot market (up from 30% in 2020); Xiaomi lights-out factories make one phone per second with zero humans; KUKA's Guangdong plant has robots building robots; a US UR5e-clone arm costs ~2.2× the Chinese one, and even 'Made in USA' parts depend on China. Uses DJI/GoPro as the template: Shenzhen iteration speed + scale/oversupply crushed every Western drone maker. Grounds the whole robotics thesis the later Unitree pieces build on.",
+   "summary_zh": "这篇约 9,600 字的'行动号召',把机器人定义为下一个被攻占的战略产业。机器人造机器人是首个完全'增量式'的工业投入(全天候、吞吐超人);唯有中国有条件抓住它,若中国抓住而美国未跟进,即为'事关国运的威胁'。证据:中国本土企业逼近全球最大机器人市场约 50%(2020 年为 30%);小米黑灯工厂零人工每秒造一部手机;库卡广东厂让机器人造机器人;美国 UR5e 仿制臂成本约为中国版 2.2 倍,连'美国制造'部件也依赖中国。以大疆/GoPro 为模板:深圳迭代速度 + 规模/过剩碾压了每一家西方无人机厂商。为后续宇树系列奠定了整套机器人论点。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!szdb!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5255e0bf-0af6-47aa-a0b3-c44a9f41e870_920x563.png",
+    "shows_en": "China's rising share of the world's largest robotics market (toward ~50% from 30% in 2020), per SemiAnalysis / IFR data",
+    "shows_zh": "中国在全球最大机器人市场中不断上升的份额(从 2020 年 30% 迈向约 50%),据 SemiAnalysis / IFR 数据"
+   }
+  },
+  {
+   "article_title": "China AI & Semiconductors Rise: US Sanctions Have Failed",
+   "date": "2023-09-12",
+   "summary_en": "The one-year-post-2022-controls verdict: sanctions had failed at that point. The Kirin 9000S on SMIC N+2 (true 7nm, no EUV) matches 1–2-year-old Qualcomm silicon; on identical Arm A510 IP it's on par with Samsung 4LPX. Yield is decent (D0 ~0.14). SMIC can ramp 7nm to 30k+ wspm on allowed 1980i DUV tools; a DUV-only '5nm' (130M+ transistors/mm²) is feasible at ~20% cost premium. Equipment makers sell 'every tool they offer' to China under the 28nm pretext while it's used for 7nm. China will have >1M A100-class Nvidia chips by end-2024 and multiple firms training beyond GPT-4. Ends with a 20-point 'what can be done' arsenal (lithography, resist, masks, metrology, CMP, EDA, JVs) to shut China out.",
+   "summary_zh": "2022 年管制一周年的判决:当时制裁已失败。中芯 N+2(真 7nm、无 EUV)上的麒麟 9000S 对标 1–2 年前的高通芯片;在相同 Arm A510 IP 上与三星 4LPX 持平。良率不差(D0 约 0.14)。中芯可用获准的 1980i DUV 设备把 7nm 爬到 3 万+片/月;纯 DUV 的'5nm'(1.3 亿+晶体管/mm²)在约 20% 成本溢价下可行。设备商以 28nm 名义把'所提供的每一台工具'卖给中国、实际用于 7nm。到 2024 年底中国将拥有 100 万+颗 A100 级英伟达芯片,多家公司训练超越 GPT-4 的模型。文末列出 20 条'可行动'清单(光刻、光刻胶、掩模、量测、CMP、EDA、合资)以彻底封锁中国。",
+   "figure": null
+  },
+  {
+   "article_title": "China and USA Are Officially At Economic War – Technology Restriction Overview",
+   "date": "2022-10-08",
+   "summary_en": "The line-by-line breakdown of the Oct-2022 opening salvo that started the chip cold war. Two actions: (a) sweeping export controls on advanced computing + semiconductor manufacturing, and (b) 31 firms to the Unverified List — which, crucially, lets BIS cut ANY Chinese firm off global supply chains in 2 months simply because Beijing blocks end-use audits (a 'nuclear salvo'). The AI-chip test (600 GB/s I/O AND ~4800 TOPS×bit) bans A100/H100/MI250X/Biren BR100; a supercomputer test; a US-persons rule that locks Americans out of Chinese advanced logic/NAND/DRAM; equipment bans at 16nm logic / 128-layer NAND / 18nm DRAM. Flags the enforcement ambiguity ('no such thing as equipment for 16nm but not more') that would define the next three years of loophole reporting.",
+   "summary_zh": "对开启芯片冷战的 2022 年 10 月第一记重拳的逐条拆解。两项行动:(a) 对先进计算+半导体制造的全面出口管制;(b) 把 31 家公司列入未经核实清单——关键在于,这让 BIS 仅凭北京阻挠终端用途审计就能在 2 个月内切断任何中国企业的全球供应链(一记'核弹级重拳')。AI 芯片测试(600 GB/s I/O 且约 4800 TOPS×位宽)封禁 A100/H100/MI250X/壁仞 BR100;还有超算测试;一条把美国人锁在中国先进逻辑/NAND/DRAM 之外的'美国人规则';以及 16nm 逻辑/128 层 NAND/18nm DRAM 的设备禁令。文中点出执法的模糊性('不存在只能用于 16nm 而不能更先进的设备'),这正定义了此后三年的漏洞报道主题。",
+   "figure": null
+  }
+ ],
+ "investment": {
+  "winners": [
+   {
+    "name": "Western WFE majors (Applied Materials, Lam Research, KLA, ASML, Tokyo Electron)",
+    "why_en": "Counterintuitively the biggest near-term beneficiaries of controls: near-record revenue, expanding margins and best-ever 2025 guidance — driven BY China rush-orders (46–48% of revenue in peak quarters). Risk is long-term Chinese tool replacement, not the rules.",
+    "why_zh": "反直觉地成为管制最大的近期受益者:接近纪录的营收、扩张的毛利与史上最佳的 2025 指引——正是被中国抢单拉动(峰值季度营收占比 46–48%)。风险在于长期中国设备替代,而非规则本身。"
+   },
+   {
+    "name": "Nvidia (H20/H20E/B30A China lane)",
+    "why_en": "Re-granted H20 licenses = hundreds of thousands of chips and billions in China revenue; a rumored Blackwell B30A would extend the franchise. SemiAnalysis thinks selling in is strategically wrong but commercially lucrative — and that China's demand is real, not fading.",
+    "why_zh": "H20 许可重新获批 = 数十万颗芯片与数十亿美元中国营收;传闻中的 Blackwell B30A 将延续这一特许经营。SemiAnalysis 认为卖入战略上错误、商业上却丰厚——且中国需求是真实的、并未消退。"
+   },
+   {
+    "name": "Unitree (pre-IPO) and the Chinese robotics supply base",
+    "why_en": "Cheapest humanoid at ~$9K BoM / 67% margin, ~70% of global quadruped volume, tripling revenue into a ~$7B-rumored Shanghai IPO; ~200 Chinese humanoid firms and a deep gearbox/motor/LiDAR ecosystem (Leaderdrive et al.) ride the same wave.",
+    "why_zh": "地表最便宜人形机器人(约 9 千美元 BoM/67% 毛利)、约占全球四足销量 70%、营收三倍增长冲向传闻 70 亿美元的上海 IPO;约 200 家中国人形机器人公司与深厚的减速器/电机/激光雷达生态(绿的谐波等)共乘此浪。"
+   },
+   {
+    "name": "Huawei / SMIC / CXMT / Cambricon (China self-sufficiency stack)",
+    "why_en": "The national-champion vertical stack — logic (SMIC), memory (CXMT, still un-listed), accelerators (Ascend, Cambricon popular at ByteDance), tools (SiCarrier, $2.8B raised). State-funded ($30B/yr to Huawei; Big Fund III) and impossible to short cleanly, but the structural long China thesis.",
+    "why_zh": "国家冠军垂直栈——逻辑(中芯)、内存(长鑫,仍未列名)、加速器(昇腾、在字节流行的寒武纪)、设备(SiCarrier,融资 28 亿美元)。国家出资(华为每年 300 亿美元;大基金三期),难以干净做空,却是结构性看多中国的主线。"
+   },
+   {
+    "name": "Apple / Qualcomm / MediaTek (asymmetric downside, not upside)",
+    "why_en": "Inverse exposure: a Huawei phone resurgence via Kirin 9000S insourcing threatens ~$20B of Apple revenue and ~$7.6B of Qualcomm+MediaTek — the SemiAnalysis 'winner' here is really a risk flag for incumbents.",
+    "why_zh": "反向敞口:华为经麒麟 9000S 自研的手机复兴,威胁苹果约 200 亿美元、高通+联发科约 76 亿美元营收——这里 SemiAnalysis 的'赢家'其实是对现有厂商的风险提示。"
+   }
+  ],
+  "bottlenecks": [
+   {
+    "en": "HBM memory — the single binding constraint on Chinese AI accelerators; domestic CXMT can supply only ~2M stacks in 2026 (250–300k Ascends), so China runs on a finite foreign stockpile.",
+    "zh": "HBM 内存——中国 AI 加速器唯一的约束瓶颈;国产长鑫 2026 年只能供约 200 万片(25–30 万颗昇腾),故中国靠有限的外国库存运转。"
+   },
+   {
+    "en": "TSV/advanced packaging & Korean memory enforcement — CXMT still needs Japanese TSV tools and OSATs (JCET, TongFu); Samsung/SK Hynix leaks are the main HBM entry point.",
+    "zh": "TSV/先进封装与韩国内存执法——长鑫仍需日本 TSV 设备与封测厂(长电、通富);三星/SK 海力士的漏口是 HBM 主要入境通道。"
+   },
+   {
+    "en": "<100 critical WFE components (Zeiss EUV projection optics, precision mask stages, RF plasma generators) — the highest-leverage chokepoint, currently un-restricted.",
+    "zh": "不到 100 个关键 WFE 部件(蔡司 EUV 投影光学、精密掩模台、射频等离子发生器)——最高杠杆的咽喉点,目前未受限。"
+   },
+   {
+    "en": "Frontier-model compute — DeepSeek/Alibaba/Moonshot throttled by compute (multimodal models delayed, R1 served slow); the one thing the US can restrict.",
+    "zh": "前沿模型算力——DeepSeek/阿里/月之暗面受算力扼制(多模态延期、R1 限速服务);这是美国唯一能限制的东西。"
+   },
+   {
+    "en": "Actuators / strainwave-gearbox reliability — Harmonic Drive still the reliability leader; Unitree's QDD wins on cost/speed but Western humanoids gate on high-precision actuation.",
+    "zh": "执行器/谐波减速器可靠性——Harmonic Drive 仍是可靠性领导者;宇树 QDD 在成本/速度上取胜,但西方人形机器人受制于高精度驱动。"
+   }
+  ],
+  "risks": [
+   {
+    "en": "Policy reversal / license loosening — H20 resumed to unlock China's rare-earth exports; a B30A approval would hand China ~10× the FLOPs and accelerate DeepSeek/Alibaba.",
+    "zh": "政策逆转/许可放松——H20 恢复以换取中国稀土出口;若 B30A 获批,将给中国约 10 倍 FLOPs 并加速 DeepSeek/阿里。"
+   },
+   {
+    "en": "Rare-earth / magnet retaliation — China cut rare earths and magnets to the US; the Lutnick-linked H20↔rare-earth swap shows controls are now a two-way bargaining chip.",
+    "zh": "稀土/磁体反制——中国对美断供稀土与磁体;与卢特尼克相关的 H20↔稀土互换表明,管制已成双向筹码。"
+   },
+   {
+    "en": "Smuggling & re-export — H100s reach China via Malaysia/Oracle/Google rentals and shell OSATs; ByteDance trains Seed on US clouds; location tracking is 'technically intractable.'",
+    "zh": "走私与转口——H100 经马来西亚/甲骨文/谷歌租用及壳封测厂进入中国;字节在美国云训练 Seed;位置追踪'技术上无解'。"
+   },
+   {
+    "en": "Chinese legacy-chip flood — massive subsidized mature-node capacity dumps on TI/STMicro/Infineon/NXP; the 'China Technology Cycle' erodes Western WFE share long-term.",
+    "zh": "中国成熟制程芯片洪流——巨额补贴的成熟节点产能向 TI/意法/英飞凌/恩智浦倾销;'中国技术周期'长期侵蚀西方 WFE 份额。"
+   },
+   {
+    "en": "Unitree security / trust barriers — Unitree quadrupeds carry security concerns that bar select Western markets, a headwind to its otherwise dominant deployment path.",
+    "zh": "宇树安全/信任壁垒——宇树四足存在安全隐忧,被部分西方市场拒之门外,给其本已主导的部署路径带来逆风。"
+   }
+  ],
+  "catalysts": [
+   {
+    "en": "Foreign HBM stockpile exhaustion (~end-2025) — the moment Huawei can't build even 1M Ascends next year; forces the real test of CXMT's ramp and of Nvidia's China share.",
+    "zh": "外国 HBM 库存耗尽(约 2025 年底)——华为明年连 100 万颗昇腾都造不出的时刻;真正检验长鑫爬产与英伟达中国份额。"
+   },
+   {
+    "en": "CXMT entity-listing decision — SemiAnalysis calls the Biden-era omission a failure the Trump administration 'needs to solve immediately'; listing would slow HBM conversion.",
+    "zh": "长鑫是否列入实体清单——SemiAnalysis 称拜登时期的遗漏是特朗普政府'需立即解决'的失败;列名将拖慢 HBM 产线转换。"
+   },
+   {
+    "en": "Nvidia B30A / next China SKU approval — sets how much frontier compute China gets; SemiAnalysis: only raise the bar when China can ship H20E-class in volume.",
+    "zh": "英伟达 B30A/下一款中国 SKU 获批——决定中国拿到多少前沿算力;SemiAnalysis:只在中国能量产 H20E 级时才应抬高门槛。"
+   },
+   {
+    "en": "Unitree Shanghai IPO (~$7B rumored) — the 'birth of the robotics moment'; discloses margins/verticalization and re-rates the Chinese robotics supply chain.",
+    "zh": "宇树上海 IPO(传闻约 70 亿美元)——'机器人时刻的诞生';披露毛利/垂直整合并重估中国机器人供应链。"
+   },
+   {
+    "en": "0% de-minimis / upstream-component controls — if the US applies SemiAnalysis's blueprint (Huawei network at 0%, <100 components, monthly listing), Chinese advanced fabs could be handicapped within ~6 months.",
+    "zh": "0% 最低含量/上游部件管制——若美国采纳 SemiAnalysis 蓝图(华为网络 0%、限制不到 100 个部件、每月更新清单),中国先进晶圆厂或在约 6 个月内受制。"
+   }
+  ]
+ },
+ "open_questions": [
+  {
+   "en": "Will CXMT close the HBM gap fast enough to matter? SemiAnalysis pegs 2026 at only ~2M stacks (250–300k Ascends), but flags that Chinese manufacturing 'knows no bounds' and HBM3e in 2026 is plausible — the whole China-compute forecast hinges on this ramp.",
+   "zh": "长鑫能否足够快地补上 HBM 缺口?SemiAnalysis 把 2026 年定在仅约 200 万片(25–30 万颗昇腾),但也指出中国制造'没有上限'、2026 年做出 HBM3e 是可能的——整个中国算力预测都系于这次爬产。"
+  },
+  {
+   "en": "Does the US have the political will to move upstream (0% threshold, <100 components, monthly entity updates), given ally friction (ASML/Netherlands), WFE lobbying, and rare-earth leverage China now holds?",
+   "zh": "在盟友摩擦(ASML/荷兰)、设备商游说和中国如今握有的稀土杠杆之下,美国是否有政治意志把管制上移(0% 门槛、限制不到 100 个部件、每月更新实体清单)?"
+  },
+  {
+   "en": "Is China's H20 'disinterest' real demand-signal or brinkmanship? SemiAnalysis believes it's top-down government pressure to extract a more powerful B30A — but if wrong, the compute-diplomacy calculus changes.",
+   "zh": "中国对 H20 的'兴趣下降'是真实需求信号还是边缘博弈?SemiAnalysis 认为这是自上而下的政府施压、意在套取更强的 B30A——但若判断有误,算力外交的算盘就会改变。"
+  },
+  {
+   "en": "Can Unitree hold its structural cost lead through mass production, or will UBTech/AGIBot's verticalization drive (and Western supply-chain reliance on China) compress the moat once volumes scale?",
+   "zh": "宇树能否在量产中守住结构性成本领先,还是当产量放大后,优必选/智元的垂直整合(以及西方供应链对中国的依赖)会压缩这道护城河?"
+  },
+  {
+   "en": "Does forking into a different silicon idea-space (compute-in-memory, neuromorphic) let China escape the transformer/GPU control regime entirely, or is it a dead end that just buys time?",
+   "zh": "分叉进入不同的硅思路空间(存内计算、类脑)能否让中国彻底跳出 transformer/GPU 的管制体系,还是只是争取时间的死胡同?"
+  }
+ ],
+ "sources": [
+  {
+   "title": "Huawei Ascend Production Ramp: Die Banks, TSMC Continued Production, HBM is The Bottleneck",
+   "date": "2025-09-08"
+  },
+  {
+   "title": "Fab Whack-A-Mole: Chinese Companies are Evading U.S. Sanctions",
+   "date": "2024-10-28"
+  },
+  {
+   "title": "China's Unitree Will Dominate Global Robotics",
+   "date": "2026-06-08"
+  },
+  {
+   "title": "Quadruped State of The Market - Unitree, Boston Dynamics, ANYbotics, DEEP Robotics, and The Rising Application Ecosystem",
+   "date": "2025-10-20"
+  },
+  {
+   "title": "America Is Missing The New Labor Economy - Robotics Part 1",
+   "date": "2025-03-11"
+  },
+  {
+   "title": "China AI & Semiconductors Rise: US Sanctions Have Failed",
+   "date": "2023-09-12"
+  },
+  {
+   "title": "Wafer Wars: Deciphering Latest Restrictions On AI And Semiconductor Manufacturing",
+   "date": "2023-10-24"
+  },
+  {
+   "title": "China and USA Are Officially At Economic War – Technology Restriction Overview",
+   "date": "2022-10-08"
+  },
+  {
+   "title": "How China's Biren Is Attempting To Evade US Sanctions",
+   "date": "2022-10-24"
+  },
+  {
+   "title": "The Semiconductor Heist Of The Century | Arm China Has Gone Completely Rogue",
+   "date": "2021-08-27"
+  },
+  {
+   "title": "China Has Built The World's Most Expensive Silicon Carbide Fab, But Numbers Don't Add Up",
+   "date": "2021-09-30"
+  },
+  {
+   "title": "Will The China Real Estate Meltdown End The Semiconductor Shortage?",
+   "date": "2021-09-13"
+  }
+ ]
+}

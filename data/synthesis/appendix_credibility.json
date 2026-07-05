@@ -1,0 +1,313 @@
+{
+ "title_zh": "附录 A · SemiAnalysis 覆盖可信度研究",
+ "title_en": "Appendix A · SemiAnalysis Coverage Credibility Study",
+ "intro_zh": "本书全部内容蒸馏自 SemiAnalysis。读者应当知道这个信息源「能信多少、怎么用」。为此我们独立做了一项事件研究：从 311 篇文章中用 27 个并行代理抽取全部带立场的公司提及（664 个单股事件、119 只股票、看多 384 次/看空 168 次），以发文日为事件日，计算其后 1 个月/1 年/3 年相对费城半导体 ETF（SMH）的几何超额收益。方法上按名字等权、按 ticker 聚类（避免「赢家被反复覆盖」的软前视）、剔除 pre-IPO 前视（ARM/CRWV 等）、退市按末价兑现，并经三轮对抗审计修正八处方法学缺陷。结论一句话：叙事极准，选股无 α——本书用它的方式（理解机制与瓶颈）恰是这个源的正确打开方式。",
+ "intro_en": "Everything in this book is distilled from SemiAnalysis, so the reader deserves to know how much this source can be trusted, and for what. We ran an independent event study: 27 parallel agents extracted every stance-bearing company mention from 311 articles (664 single-stock events across 119 tickers; 384 bullish / 168 bearish), then measured geometric excess returns vs. the SMH semiconductor ETF over 1M/1Y/3Y from publication date. Methodology: equal-weight by name with ticker clustering (to kill the soft look-ahead of winners being covered repeatedly), pre-IPO look-ahead removed (ARM/CRWV etc.), delistings settled at last price, and three adversarial audit rounds fixing eight methodological defects. One-line verdict: the narratives are remarkably right, but the stock picks carry no alpha — which makes this book's use of the source (mechanisms and bottlenecks, not tickers) exactly the right one.",
+ "findings": [
+  {
+   "zh": "唯一显著的领先信号只有约 1 个月：看多组 1M 超额 +2.0%（t=1.63），看多−看空价差 +3.9%（Welch t=2.33）——这是全研究唯一过显著性的正向结果。",
+   "en": "The only significant leading signal lasts ~1 month: bullish names earn +2.0% excess at 1M (t=1.63), and the bull-minus-bear spread is +3.9% (Welch t=2.33) — the study's only significant positive result."
+  },
+  {
+   "zh": "长期反转：典型被看多的名字 1 年落后 SMH -5.2%，3 年 -27.2%（t=-4.49，显著为负）。照看多名单买票，输给直接持有 SMH。",
+   "en": "Long horizons reverse: the typical bullish name lags SMH by -5.2% at 1Y and -27.2% at 3Y (t=-4.49, significantly negative). Buying the bull list loses to simply holding SMH."
+  },
+  {
+   "zh": "汇总收益是 beta 幻觉：看多组巨大的绝对收益来自半导体牛市 + NVDA 被覆盖 62 次；剔除覆盖最多的 5 只（NVDA/TSM/AMD/GOOGL/AVGO）后，其余看多名字 1 年超额为 -6.1%。",
+   "en": "Aggregate returns are a beta illusion: the big absolute gains come from the semi bull market plus NVDA being covered 62 times; excluding the five most-covered names (NVDA/TSM/AMD/GOOGL/AVGO), the remaining bullish names' 1Y excess is -6.1%."
+  },
+  {
+   "zh": "看空比看多准：被看空的名字 1 年落后 SMH -10.7%（t=-2.90，显著）。INTC 被看空 30 次、三星 15 次——都兑现了。「SA 骂谁」比「SA 夸谁」更接近可交易信号。",
+   "en": "Bearish calls beat bullish ones: bearish names lag SMH by -10.7% at 1Y (t=-2.90, significant). INTC was panned 30 times and Samsung 15 — both played out. Whom SA pans is closer to a tradeable signal than whom it praises."
+  },
+  {
+   "zh": "「看对行业、买错票」：板块层面唯一跑赢等权同行指数的是 AI 加速器（且完全由 NVDA/AVGO 抬起）；封装/OSAT 与代工板块 3 年反而显著为负。内存短缺、CoWoS 瓶颈、数据中心电力这些叙事全对——但钱被 NVDA/TSM 赚走，同主题的二线名字跑输。",
+   "en": "Right industry, wrong stock: at sector level only AI accelerators beat an equal-weight peer index (entirely carried by NVDA/AVGO), while packaging/OSAT and foundry are significantly negative at 3Y. The memory-shortage, CoWoS-bottleneck and datacenter-power narratives were all right — but the money went to NVDA/TSM, and same-theme second-tier names underperformed."
+  }
+ ],
+ "bull_note_zh": "看多记分牌（覆盖 ≥5 次的名字；按名等权，相对 SMH 的几何超额）",
+ "bull_note_en": "Bullish scorecard (names covered ≥5 times; equal-weight by name, geometric excess vs SMH)",
+ "bear_note_zh": "看空记分牌（覆盖 ≥3 次；负超额=看空正确）",
+ "bear_note_en": "Bearish scorecard (covered ≥3 times; negative excess = the bearish call was right)",
+ "usage_zh": "使用指南：把 SemiAnalysis 当「机制与瓶颈的显微镜」，不要当「买票清单」。本书提炼的正是前者——产业链结构、瓶颈传导、成本经济学；这些是该源被验证最准的部分。若用于交易：只有约 1 个月的方向漂移可用（且薄），看空 call 值得认真对待，长期请回到组合与 beta 的框架。",
+ "usage_en": "How to use: treat SemiAnalysis as a microscope on mechanisms and bottlenecks, not a buy list. That is precisely what this book distills — chain structure, bottleneck propagation, cost economics — the parts of the source that verify best. For trading: only the ~1-month drift is usable (and thin), bearish calls deserve real weight, and at long horizons return to a portfolio/beta framework.",
+ "caveat_zh": "研究口径：事件=发文日；基准=SMH；语料含 210 篇付费文预览（覆盖全文 79%），立场抽取基于可得文本；本研究为作者独立分析，与 SemiAnalysis 无关联。",
+ "caveat_en": "Scope: events dated at publication; benchmark = SMH; corpus includes paid-article previews (79% of full text), stances extracted from available text. This is the author's independent analysis, unaffiliated with SemiAnalysis.",
+ "bull_table": [
+  {
+   "ticker": "ARM",
+   "n": 5,
+   "m1": 0.006511666666666665,
+   "y1": 0.54271,
+   "y3": null
+  },
+  {
+   "ticker": "NVDA",
+   "n": 62,
+   "m1": -0.0013512622950819673,
+   "y1": 0.303720612244898,
+   "y3": 1.683792714285714
+  },
+  {
+   "ticker": "GFS",
+   "n": 6,
+   "m1": 0.1628636,
+   "y1": 0.2200066,
+   "y3": -0.6125746
+  },
+  {
+   "ticker": "META",
+   "n": 5,
+   "m1": 0.0113016,
+   "y1": 0.171916,
+   "y3": -0.385103
+  },
+  {
+   "ticker": "AVGO",
+   "n": 20,
+   "m1": 0.021521649999999996,
+   "y1": 0.15868986666666668,
+   "y3": 0.769444
+  },
+  {
+   "ticker": "000660.KS",
+   "n": 15,
+   "m1": 0.03071442857142857,
+   "y1": 0.10614845454545456,
+   "y3": 0.4925814
+  },
+  {
+   "ticker": "MU",
+   "n": 11,
+   "m1": 0.0865981,
+   "y1": 0.08732957142857144,
+   "y3": -0.3088245
+  },
+  {
+   "ticker": "LRCX",
+   "n": 8,
+   "m1": 0.0334275,
+   "y1": 0.07998014285714285,
+   "y3": -0.14862820000000002
+  },
+  {
+   "ticker": "005930.KS",
+   "n": 5,
+   "m1": -0.0488072,
+   "y1": 0.024154,
+   "y3": -0.58037
+  },
+  {
+   "ticker": "QCOM",
+   "n": 6,
+   "m1": 0.036580499999999995,
+   "y1": 0.0016705000000000008,
+   "y3": -0.310731
+  },
+  {
+   "ticker": "TSM",
+   "n": 32,
+   "m1": 0.0034578064516129037,
+   "y1": -0.031060961538461537,
+   "y3": -0.0429505
+  },
+  {
+   "ticker": "AMD",
+   "n": 27,
+   "m1": -0.0017674074074074115,
+   "y1": -0.046154499999999994,
+   "y3": -0.224575625
+  },
+  {
+   "ticker": "GOOGL",
+   "n": 23,
+   "m1": 0.008743739130434783,
+   "y1": -0.06432505555555555,
+   "y3": -0.15549839999999998
+  },
+  {
+   "ticker": "AMAT",
+   "n": 10,
+   "m1": -0.0331347,
+   "y1": -0.07994455555555555,
+   "y3": -0.16388724999999998
+  },
+  {
+   "ticker": "2454.TW",
+   "n": 8,
+   "m1": 0.04156375,
+   "y1": -0.10791312500000001,
+   "y3": -0.151295625
+  },
+  {
+   "ticker": "ASML",
+   "n": 6,
+   "m1": -0.0197905,
+   "y1": -0.1203344,
+   "y3": -0.377741
+  },
+  {
+   "ticker": "MSFT",
+   "n": 9,
+   "m1": -0.026767666666666665,
+   "y1": -0.176803,
+   "y3": -0.529792
+  },
+  {
+   "ticker": "8035.T",
+   "n": 6,
+   "m1": 0.001679000000000001,
+   "y1": -0.1878671666666667,
+   "y3": -0.38589633333333334
+  },
+  {
+   "ticker": "MRVL",
+   "n": 7,
+   "m1": -0.035194,
+   "y1": -0.22151000000000004,
+   "y3": -0.3975876
+  },
+  {
+   "ticker": "INTC",
+   "n": 12,
+   "m1": -0.01867554545454545,
+   "y1": -0.2728474444444444,
+   "y3": -0.7375827142857142
+  },
+  {
+   "ticker": "0981.HK",
+   "n": 6,
+   "m1": -0.04727383333333334,
+   "y1": -0.31788060000000007,
+   "y3": 0.111056
+  },
+  {
+   "ticker": "AMZN",
+   "n": 7,
+   "m1": -0.07219316666666666,
+   "y1": -0.33635433333333337,
+   "y3": -0.253792
+  }
+ ],
+ "bear_table": [
+  {
+   "ticker": "NVDA",
+   "n": 7,
+   "m1": 0.061900142857142855,
+   "y1": 0.6354671428571429,
+   "y3": 2.4233818
+  },
+  {
+   "ticker": "MRVL",
+   "n": 3,
+   "m1": -0.119126,
+   "y1": 0.3399625,
+   "y3": -0.307952
+  },
+  {
+   "ticker": "AVGO",
+   "n": 6,
+   "m1": -0.027460666666666664,
+   "y1": 0.20538733333333334,
+   "y3": 1.0715612
+  },
+  {
+   "ticker": "AAPL",
+   "n": 3,
+   "m1": -0.005408666666666666,
+   "y1": 0.12525966666666669,
+   "y3": -0.19746000000000002
+  },
+  {
+   "ticker": "CRDO",
+   "n": 3,
+   "m1": -0.010557666666666668,
+   "y1": 0.103576,
+   "y3": 2.6081403333333335
+  },
+  {
+   "ticker": "LRCX",
+   "n": 3,
+   "m1": 0.09048466666666667,
+   "y1": 0.012374333333333334,
+   "y3": -0.030809500000000004
+  },
+  {
+   "ticker": "MU",
+   "n": 6,
+   "m1": -0.04322466666666666,
+   "y1": 0.005826399999999998,
+   "y3": 0.690516
+  },
+  {
+   "ticker": "2454.TW",
+   "n": 4,
+   "m1": 0.035064,
+   "y1": -0.047184000000000004,
+   "y3": -0.21985833333333335
+  },
+  {
+   "ticker": "GOOGL",
+   "n": 3,
+   "m1": 0.063573,
+   "y1": -0.0815665,
+   "y3": -0.05987850000000001
+  },
+  {
+   "ticker": "005930.KS",
+   "n": 15,
+   "m1": -0.010638133333333336,
+   "y1": -0.08754146153846154,
+   "y3": -0.5026284
+  },
+  {
+   "ticker": "TSM",
+   "n": 3,
+   "m1": -0.011699333333333332,
+   "y1": -0.1148905,
+   "y3": 0.078559
+  },
+  {
+   "ticker": "QCOM",
+   "n": 5,
+   "m1": 0.0050165999999999995,
+   "y1": -0.16116400000000003,
+   "y3": -0.42810174999999995
+  },
+  {
+   "ticker": "ASML",
+   "n": 4,
+   "m1": 0.0055495,
+   "y1": -0.194366,
+   "y3": -0.3496325
+  },
+  {
+   "ticker": "GFS",
+   "n": 3,
+   "m1": 0.12033633333333332,
+   "y1": -0.21900399999999998,
+   "y3": -0.7678823333333332
+  },
+  {
+   "ticker": "AMD",
+   "n": 8,
+   "m1": -0.040382375,
+   "y1": -0.23139416666666665,
+   "y3": -0.3666565
+  },
+  {
+   "ticker": "INTC",
+   "n": 30,
+   "m1": -0.005362099999999999,
+   "y1": -0.24544510714285714,
+   "y3": -0.6171877619047619
+  },
+  {
+   "ticker": "ARM",
+   "n": 6,
+   "m1": -0.070975,
+   "y1": -0.534599,
+   "y3": null
+  }
+ ]
+}

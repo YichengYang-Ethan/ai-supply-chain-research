@@ -1,0 +1,696 @@
+{
+ "sector_id": "03_memory",
+ "sector_name_en": "Memory & HBM",
+ "sector_name_zh": "存储与 HBM",
+ "tagline_en": "DRAM stopped scaling a decade ago; AI turned that broken physics into the highest-margin product memory has ever sold. HBM is where the money, the yield pain, and the geopolitics all collide.",
+ "tagline_zh": "DRAM 十年前就停止微缩，AI 却把这条坏掉的物理曲线变成了存储史上利润率最高的产品。HBM 正是资金、良率痛点与地缘政治三者交汇之处。",
+ "overview_en": "Memory is the quiet chokepoint of the AI buildout. SemiAnalysis's throughline across this bucket: DRAM bit-density scaling collapsed from 2x-every-18-months to 2x-per-decade, so the industry can no longer cushion price with cost-down, leaving a consolidated 3-player oligopoly (SK Hynix, Samsung, Micron) plus rising CXMT that swings violently on supply. HBM is the release valve — vertically stacked DRAM with a 1,024-bit (soon 2,048-bit) bus, glued to the GPU by CoWoS, now ~60%+ of Blackwell's manufacturing cost and the single largest BOM increase generation-over-generation. It is also the hardest DRAM ever made: front-end TSV yield and 8-to-16-high stacking losses run far below normal DRAM, which is exactly why it is margin-accretive. The frontier is HBM4, which splits the base die onto a foundry logic node (TSMC N12 for Hynix, SF4 for Samsung, internal for Micron) and opens the door to custom base dies for OpenAI/Nvidia/AMD/Amazon. Beneath HBM sits the slower war over how to keep DRAM alive at all — 4F2 vertical-channel cells, hybrid-bonded cell-on-peri, and eventually 3D DRAM (~2030-2035) — plus a once-in-four-decades shortage that has DRAM pricing set to double again in 2026. NAND runs a parallel story: layer-count racing (332L), 5-bits-per-cell, and China's YMTC/CXMT breaking the cartel from below.",
+ "overview_zh": "存储是 AI 基建里最安静的咽喉。SemiAnalysis 贯穿本主题的主线是：DRAM 位密度微缩已从「18 个月翻倍」崩塌到「十年才翻倍」，行业再也无法靠成本下降来缓冲价格波动，于是形成高度集中的三巨头寡头格局（SK 海力士、三星、美光）外加崛起的长鑫（CXMT），供需一失衡就剧烈震荡。HBM 是这套系统的泄压阀——垂直堆叠的 DRAM，配 1024 位（很快 2048 位）超宽总线，用 CoWoS 贴在 GPU 边上，如今已占 Blackwell 制造成本的约 60% 以上，是每代物料清单里增量最大的单一部件。它同时是史上最难做的 DRAM：前道 TSV 良率与 8~16 层堆叠的累积损失都远低于普通 DRAM，而这恰恰是它「越难做越增厚利润」的原因。前沿是 HBM4——把基底 die 拆到代工逻辑节点上（海力士用台积电 N12、三星用 SF4、美光用自研），并为 OpenAI/英伟达/AMD/亚马逊打开定制基底 die 的大门。HBM 之下，是一场关于「如何让 DRAM 还能活下去」的慢速战争：4F² 垂直沟道单元、混合键合的 cell-on-peri，以及最终的 3D DRAM（约 2030-2035）；叠加一场「四十年一遇」的短缺，使 2026 年 DRAM 价格有望再翻一倍。NAND 是平行剧本：层数竞赛（332 层）、单元 5 比特，以及中国的长江存储/长鑫从下方击穿卡特尔。",
+ "core_knowledge": [
+  {
+   "term_en": "HBM (High Bandwidth Memory)",
+   "term_zh": "HBM（高带宽存储）",
+   "explain_en": "A 3DIC stack of 8-16 DRAM dies on a logic base die, connected by 1,000+ TSV wires and a 1,024-bit bus (2,048-bit in HBM4). It trades a warranted 3x+ price premium over DDR5 for the bandwidth AI accelerators need; every leading GenAI training/inference chip uses it. Must sit at the GPU 'shoreline' via a 2.5D interposer (CoWoS) because a PCB can't route the density.",
+   "explain_zh": "把 8~16 层 DRAM die 堆在一个逻辑基底 die 上的 3DIC 堆叠，用 1000 多根 TSV 走线和 1024 位（HBM4 为 2048 位）总线互连。它以对 DDR5 逾 3 倍的合理溢价，换取 AI 加速器所需的带宽；所有主流生成式 AI 训练/推理芯片都在用。必须通过 2.5D 中介层（CoWoS）贴在 GPU「岸线」旁，因为 PCB 根本走不了这么高的密度。"
+  },
+  {
+   "term_en": "The Memory Wall",
+   "term_zh": "存储墙",
+   "explain_en": "DRAM density doubled every 18 months in its golden age (100x/decade); in the last decade it managed only ~2x. Compute keeps racing ahead while memory bandwidth crawls, so most LLM inference is memory-bandwidth-bound, not compute-bound — the GPU waits on HBM. 'Moore's Law is dead for DRAM' — and it died a decade ago with zero fanfare.",
+   "explain_zh": "DRAM 密度在黄金年代每 18 个月翻倍（十年 100 倍）；而过去十年只做到约 2 倍。算力一路狂奔，存储带宽却在爬行，于是大多数 LLM 推理受制于存储带宽而非算力——GPU 在等 HBM。「DRAM 的摩尔定律已死」，而且十年前就悄无声息地死了。"
+  },
+  {
+   "term_en": "TSV & stacking yield",
+   "term_zh": "TSV 与堆叠良率",
+   "explain_en": "Through-Silicon Vias carry power/signal up the HBM stack; forming them (etch/plate/grind/bond) is the incremental step that converts DDR wafers to HBM, so HBM capacity is quoted in 'TSV capacity.' Yield compounds badly: at 99% per-layer bond yield an 8-hi stack yields 92%, a 12-hi only 87%. Front-end (power-TSV/PDN) is the bigger yield problem, not the stack.",
+   "explain_zh": "硅通孔（TSV）负责把电源/信号送上 HBM 堆叠；成孔（刻蚀/电镀/减薄/键合）是把 DDR 晶圆转成 HBM 的增量工序，所以 HBM 产能以「TSV 产能」计。良率会恶性累乘：每层键合 99% 良率下，8 层堆叠只剩 92%，12 层只剩 87%。前道（电源 TSV／配电网络）才是更大的良率瓶颈，而非堆叠本身。"
+  },
+  {
+   "term_en": "MR-MUF vs TC-NCF (packaging)",
+   "term_zh": "MR-MUF 对比 TC-NCF（封装）",
+   "explain_en": "SK Hynix's Mass Reflow-Molded Underfill uses a single over-mold and batch reflow (co-developed with Namics), giving higher productivity and better thermal dissipation than the Non-Conductive Film (TC-NCF) that Micron and Samsung use, where each layer needs a full thermocompression bond. This is a core reason Hynix leads HBM3E while Samsung struggles to yield.",
+   "explain_zh": "SK 海力士的「批量回流—模塑底填」用一次整体包封加批量回流（与 Namics 联合开发），比美光/三星用的非导电膜（TC-NCF，每层都要一次热压键合）产能更高、散热更好。这正是海力士在 HBM3E 领先、而三星良率吃力的核心原因之一。"
+  },
+  {
+   "term_en": "HBM4 custom base die",
+   "term_zh": "HBM4 定制基底 die",
+   "explain_en": "HBM4's big architectural break: the core DRAM dies stay on a DRAM node, but the base die moves to a foundry logic node (FinFET), enabling higher speed, lower voltage, and customer-specific customization. Hynix uses TSMC N12; Samsung uses its own SF4; Micron uses an internal CMOS base. Opens memory-controller offload, repeater PHYs and per-customer base dies for OpenAI/Nvidia/AMD.",
+   "explain_zh": "HBM4 最大的架构突破：核心 DRAM die 仍用 DRAM 节点，但基底 die 迁到代工逻辑节点（FinFET），从而实现更高速度、更低电压和客户定制。海力士用台积电 N12；三星用自家 SF4；美光用自研 CMOS 基底。这打开了内存控制器卸载、中继 PHY 和为 OpenAI/英伟达/AMD 做「每客户定制」基底 die 的空间。"
+  },
+  {
+   "term_en": "4F2 & Vertical Channel Transistor (VCT)",
+   "term_zh": "4F² 单元与垂直沟道晶体管（VCT）",
+   "explain_en": "The next DRAM cell shrink: 4F2 is the theoretical minimum single-bit cell (a 6F2->4F2 move gives ~30% density in theory) and requires a vertical-channel transistor stacked under the capacitor. Paired with hybrid-bonded cell-on-peripheral (COP/PUC), core circuitry hides under the array — Samsung cut core-circuit area from 17.0% to 2.7%. China's CXMT already ships a 4F2 18nm DRAM.",
+   "explain_zh": "DRAM 单元的下一次微缩：4F² 是单比特单元的理论最小面积（6F²→4F² 理论上给约 30% 密度），需要把垂直沟道晶体管竖着堆在电容下方。再配合混合键合的 cell-on-peri（COP/PUC），核心电路藏到阵列下方——三星把核心电路面积从 17.0% 压到 2.7%。中国长鑫已量产 4F² 的 18nm DRAM。"
+  },
+  {
+   "term_en": "3D DRAM",
+   "term_zh": "3D DRAM",
+   "explain_en": "The endgame when vertical capacitors can't shrink further: lay capacitors horizontally and stack many atop each other (like 3D NAND did). Micron calls timing 'the quintessential question'; IMEC/Micron roadmaps put insertion ~2030-2035. Tellingly, none of the big-3 present serious 3D DRAM papers — it's the race that will reshuffle market share.",
+   "explain_zh": "当垂直电容再也缩不下去时的终局：把电容躺平横放、再一层层往上堆（就像 3D NAND 做的那样）。美光称量产时点是「本质性的问题」；IMEC/美光路线图把导入定在约 2030-2035。耐人寻味的是，三巨头都不发正经的 3D DRAM 论文——这是一场会重新洗牌市场份额的竞赛。"
+  },
+  {
+   "term_en": "LPDDR as 2nd-tier memory / KVCache offload",
+   "term_zh": "LPDDR 作二级内存 / KVCache 卸载",
+   "explain_en": "HBM is scarce, so systems tier memory: hot KV/weights in HBM, warm data in cheaper LPDDR/DDR, cold in NVMe (Nvidia's Dynamo KVCache Manager). LPDDR uses ~10x less energy/bit than DDR5 DIMMs (Grace ships 480GB usable). Crucially SemiAnalysis argues these don't cannibalize HBM — like L1/L2 cache vs DRAM, they're complements, not substitutes.",
+   "explain_zh": "HBM 稀缺，于是系统把内存分层：热的 KV/权重放 HBM，温数据放更便宜的 LPDDR/DDR，冷数据放 NVMe（英伟达的 Dynamo KVCache 管理器）。LPDDR 每比特能耗约为 DDR5 DIMM 的 1/10（Grace 可用 480GB）。关键是 SemiAnalysis 认为它们并不蚕食 HBM——就像 L1/L2 缓存与 DRAM 的关系，是互补而非替代。"
+  },
+  {
+   "term_en": "Emerging memory (FeRAM/MRAM)",
+   "term_zh": "新兴存储（FeRAM/MRAM）",
+   "explain_en": "Non-volatile alternatives researched for decades but none has 'emerged' to high volume. Micron's FeRAM matched D1b DRAM density at IEDM 2023 but is too costly (exotic materials). MRAM (magnetic tunnel junction) reached 0.49 Gb/mm2 — denser than D1b DRAM — but ships in MB, not GB. TSMC's N16 STT-MRAM is real, but only as embedded NVM for automotive/edge, not a DRAM replacement.",
+   "explain_zh": "研究了几十年的非易失替代品，但没有一个真正「上量」。美光的 FeRAM 在 IEDM 2023 上密度追平 D1β DRAM，但太贵（需异材）。MRAM（磁隧道结）密度达 0.49 Gb/mm²——比 D1β DRAM 还密——但出货以 MB 计而非 GB。台积电 N16 的 STT-MRAM 是真产品，但只做汽车/边缘的嵌入式非易失存储，不是 DRAM 替代。"
+  }
+ ],
+ "value_chain": [
+  {
+   "stage_en": "DRAM/HBM makers (the oligopoly)",
+   "stage_zh": "DRAM/HBM 制造商（寡头）",
+   "players": "SK Hynix, Samsung, Micron, CXMT (China)",
+   "role_en": "Top 3 own >95% of DRAM; SK Hynix leads HBM on MR-MUF and reliability, Micron leapfrogged on TSV power delivery, Samsung struggles on yield but its bad HBM yield ironically tightens total DRAM supply. CXMT is the rising #4.",
+   "role_zh": "三巨头掌握 DRAM 逾 95%；海力士靠 MR-MUF 和可靠性领跑 HBM，美光靠 TSV 配电实现弯道超车，三星良率吃力但其糟糕的 HBM 良率反而收紧了 DRAM 总供给。长鑫是崛起的老四。"
+  },
+  {
+   "stage_en": "Foundry base-die & interposer",
+   "stage_zh": "代工基底 die 与中介层",
+   "players": "TSMC (N12 base die, CoWoS interposer), Samsung Foundry (SF4), UMC",
+   "role_en": "HBM4 shifts the base die onto foundry logic nodes; TSMC is Hynix's announced partner. TSMC also fabricates the silicon interposer that co-packages HBM+logic in CoWoS — the actual AI packaging bottleneck.",
+   "role_zh": "HBM4 把基底 die 迁到代工逻辑节点；台积电是海力士公开的合作方。台积电还制造把 HBM 与逻辑封在一起的硅中介层（CoWoS）——这才是真正的 AI 封装瓶颈。"
+  },
+  {
+   "stage_en": "Back-end bonding & packaging tools",
+   "stage_zh": "后道键合与封装设备",
+   "players": "Hanmi, Hanwha, ASMPT, Besi (TC bonders); Namics (MUF material)",
+   "role_en": "TC bonders need sub-micron alignment across ~40um TSV pitch. Hanmi held a near-monopoly at SK Hynix (100% until Hynix ordered Hanwha tools at a higher price) — the dispute nearly halted Hynix HBM shipments in 2025.",
+   "role_zh": "热压键合机需要在约 40µm 的 TSV 间距上做亚微米对准。Hanmi 一度在海力士近乎垄断（100%，直到海力士以更高价格下单韩华的设备）——这场纠纷 2025 年几乎让海力士 HBM 断供。"
+  },
+  {
+   "stage_en": "Front-end WFE (TSV/etch/deposition)",
+   "stage_zh": "前道设备（TSV/刻蚀/沉积）",
+   "players": "Applied Materials, Lam Research, TEL, EVG (wafer bonding), Camtek/Onto (bump inspection)",
+   "role_en": "TSV etch/plate + double-side bumping convert DDR wafers to HBM. Lam dominates the high-aspect-ratio (cryo) channel etch central to 3D NAND; TEL is encroaching. EVG/TEL gain from wafer-bonding for VCT/4F2 DRAM.",
+   "role_zh": "TSV 刻蚀/电镀 + 双面凸点把 DDR 晶圆转成 HBM。泛林主导 3D NAND 核心的高深宽比（低温）沟道刻蚀，东京电子在蚕食。EVG/TEL 从 VCT/4F² DRAM 的晶圆键合中获益。"
+  },
+  {
+   "stage_en": "NAND makers",
+   "stage_zh": "NAND 制造商",
+   "players": "SanDisk/Kioxia, Samsung, SK Hynix, Micron, YMTC (China)",
+   "role_en": "Layer-count race (SanDisk/Kioxia BiCS10 = 332L, world's densest at 37.6 Gb/mm2 QLC), Mo wordlines, 5-bits-per-cell R&D. YMTC broke in as first Chinese tech-competitive semiconductor (128L, then 232L+).",
+   "role_zh": "层数竞赛（闪迪/铠侠 BiCS10 = 332 层，QLC 密度 37.6 Gb/mm² 全球最高）、钼字线、单元 5 比特研发。长江存储以「中国首个技术上有竞争力的半导体」（128 层，后 232 层+）杀入。"
+  },
+  {
+   "stage_en": "Custom-HBM / interface IP & buyers",
+   "stage_zh": "定制 HBM / 接口 IP 与买家",
+   "players": "Eliyan (UMI/NuLink), Nvidia, OpenAI, AMD, Amazon (direct HBM buyer)",
+   "role_en": "Hyperscalers/labs now spec custom base dies and buy HBM directly (Amazon) to cut cost. Interface startups (Eliyan, funded by Micron/Intel) push UCIe-class PHYs (~11 Tbps/mm, ~12x HBM3E) to let HBM sit farther from the ASIC.",
+   "role_zh": "超大规模厂商/实验室如今定制基底 die，并直接采购 HBM（亚马逊）以压成本。接口初创（Eliyan，由美光/英特尔投资）推进 UCIe 级 PHY（约 11 Tbps/mm，约为 HBM3E 的 12 倍），让 HBM 得以离 ASIC 更远。"
+  }
+ ],
+ "theses": [
+  {
+   "claim_en": "DRAM's scaling death is the whole story: density went from 2x every 18 months to 2x per decade.",
+   "claim_zh": "DRAM 微缩之死就是整个故事的根源：密度从「18 个月翻倍」退化成「十年翻倍」。",
+   "rationale_en": "Moore's Law for DRAM died a decade ago with zero fanfare. Because DRAM is commoditized and has almost no cost-down to cushion price, it can't behave like logic — the only way to add supply is to build new fabs, so wild price swings and huge capex leave a top-3 oligopoly owning >95% of the market. This is the structural reason memory is so cyclical and why AI-driven scarcity is so violent.",
+   "rationale_zh": "DRAM 的摩尔定律十年前就悄无声息地死了。由于 DRAM 已商品化、几乎没有成本下降来缓冲价格，它无法像逻辑那样运行——加供给的唯一办法是建新厂，于是价格剧烈波动、资本开支巨大，最终三巨头掌握逾 95% 市场。这就是存储如此周期化、以及 AI 驱动的稀缺如此暴烈的结构性原因。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!eJPq!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fcab4be20-9507-47a5-95b2-13544883eb66_1872x922.png",
+    "shows_en": "DRAM bit-density scaling: ~100x/decade golden age collapsing to just ~2x over the last decade.",
+    "shows_zh": "DRAM 位密度微缩：黄金年代约十年 100 倍，崩塌到过去十年仅约 2 倍。"
+   },
+   "quote": {
+    "text": "The world increasingly questions the death of Moore's Law, but the tragedy is that it already died over a decade ago with 0 fanfare or headlines.",
+    "source_title": "The Memory Wall: Past, Present, and Future of DRAM",
+    "date": "2024-09-03"
+   }
+  },
+  {
+   "claim_en": "HBM is now the majority of an AI GPU's manufacturing cost — ~60%+ on Blackwell.",
+   "claim_zh": "HBM 如今已占 AI GPU 制造成本的大头——Blackwell 上约 60% 以上。",
+   "rationale_en": "For the H100, 50%+ of manufacturing cost is HBM; on Blackwell it grows past 60%. Nvidia's roadmap scales HBM from the A100's 80GB HBM2E to 1,024GB HBM4E on Rubin Ultra, and from Ampere to Blackwell Ultra the single biggest absolute and relative BOM increase is HBM — a direct wealth transfer to memory vendors, primarily SK Hynix. HBM3E costs 3x+ per GB versus DDR5 and customers pay it because no other DRAM makes a competitive accelerator.",
+   "rationale_zh": "H100 制造成本 50% 以上是 HBM；Blackwell 上升破 60%。英伟达路线图把 HBM 从 A100 的 80GB HBM2E 一路推到 Rubin Ultra 的 1024GB HBM4E；从 Ampere 到 Blackwell Ultra，物料清单里绝对与相对增量最大的单项都是 HBM——这是直接向存储厂（主要是 SK 海力士）的财富转移。HBM3E 每 GB 成本是 DDR5 的 3 倍以上，客户照付，因为别的 DRAM 做不出有竞争力的加速器。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!lNTR!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd948fcb8-3afb-4dab-8d4d-23ee094efbb5_1024x290.png",
+    "shows_en": "Nvidia HBM capacity per GPU exploding from A100 (80GB HBM2E) to Rubin Ultra (1,024GB HBM4E).",
+    "shows_zh": "英伟达单 GPU 的 HBM 容量从 A100（80GB HBM2E）暴增到 Rubin Ultra（1024GB HBM4E）。"
+   },
+   "quote": {
+    "text": "For the H100, ~50%+ of the cost of manufacturing is attributed to HBM and with Blackwell, this grows to ~60%+.",
+    "source_title": "The Memory Wall: Past, Present, and Future of DRAM",
+    "date": "2024-09-03"
+   }
+  },
+  {
+   "claim_en": "The memory market has entered a 'once-in-four-decades shortage'; DRAM pricing is set to double again in 2026.",
+   "claim_zh": "存储市场已进入「四十年一遇的短缺」；2026 年 DRAM 价格有望再翻一倍。",
+   "rationale_en": "SemiAnalysis first flagged AI's insatiable reasoning/agentic memory demand in late 2024. The shortage now spans not just HBM but DDR5, DDR4 and even DDR3, with the firm 'even more confident' pricing could exceed expectations by year-end. Even factoring in CXMT and peer wafer adds at high-90s% utilization, they model DRAM undersupplied by a high-single-digit % in 2026, widening to low-to-mid-teens bit undersupply in 2027, potentially through 2028 — because fab construction timelines are simply too long to react.",
+   "rationale_zh": "SemiAnalysis 在 2024 年底就最早警示了 AI 推理/智能体对内存的无尽需求。如今短缺不只在 HBM，还蔓延到 DDR5、DDR4 甚至 DDR3，公司「更加确信」价格到年底可能超预期。即便把长鑫及同行的晶圆增量、按 90% 多的高稼动率一并计入，他们仍测算 DRAM 2026 年缺口为高个位数，2027 年扩大到十几个百分点的位缺口，甚至可能持续到 2028——因为建厂周期实在太长，来不及反应。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!lGkx!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F4e7341ef-e3c9-4fa0-a8c7-66ce087b659d_2326x692.png",
+    "shows_en": "DRAM supply-demand model: undersupply persisting despite CXMT and incumbent wafer additions.",
+    "shows_zh": "DRAM 供需模型：即便算上长鑫与在位厂商的晶圆增量，仍持续供不应求。"
+   },
+   "quote": {
+    "text": "we described the memory market as entering a 'once-in-four-decades shortage,' we believe DRAM pricing remains on track to double again this year driven by sustained supply-demand imbalance",
+    "source_title": "China's CXMT Is Set to Challenge DRAM Incumbents",
+    "date": "2026-06-23"
+   }
+  },
+  {
+   "claim_en": "HBM's yield pain — front-end TSV/PDN, not just stacking — is precisely why it's margin-accretive.",
+   "claim_zh": "HBM 的良率痛点主要在前道 TSV/配电网络（而非仅仅堆叠）——这恰恰是它增厚利润的原因。",
+   "rationale_en": "All makers run absolute HBM yields well below their conventional DRAM, so it's a game of relative yields and end economics. Yield compounds with layers (99% per-layer -> 92% at 8-hi, 87% at 12-hi). The bigger problem is front-end: delivering power up the stack via power-TSVs. Hynix's all-around power TSVs cut IR drop up to 75% for VPP; Micron's TSV/PDN focus lets it claim 30% lower power. Because pricing more than covers yield loss, HBM is the most valuable, highest-margin product the memory industry has ever had.",
+   "rationale_zh": "所有厂商的 HBM 绝对良率都远低于其常规 DRAM，所以拼的是相对良率与最终经济性。良率随层数累乘（每层 99% → 8 层 92%、12 层 87%）。更大的问题在前道：靠电源 TSV 把电送上堆叠。海力士的全环绕电源 TSV 把 VPP 的 IR 压降最多降低 75%；美光聚焦 TSV/配电，声称功耗低 30%。由于售价远超良率损失，HBM 成为存储业史上最值钱、利润率最高的产品。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!o94Z!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F78b0616b-6cd4-4ed4-b779-d409bcae1d7c_2293x1198.png",
+    "shows_en": "Micron's TSV power-delivery network focus (basis for its ~30% lower-power HBM claim).",
+    "shows_zh": "美光聚焦 TSV 配电网络（其「HBM 功耗低约 30%」说法的依据）。"
+   },
+   "quote": {
+    "text": "As data from hyperscalers have shown, HBM failures are the number one cause of GPU failures, which happen more frequently than other chips in the data center.",
+    "source_title": "Scaling the Memory Wall: The Rise and Roadmap of HBM",
+    "date": "2025-08-12"
+   }
+  },
+  {
+   "claim_en": "HBM4 is a tectonic shift: the base die moves to a foundry logic node, and Samsung has clawed back into contention.",
+   "claim_zh": "HBM4 是一次构造级变革：基底 die 迁到代工逻辑节点，而三星已重回竞争。",
+   "rationale_en": "HBM4 splits process nodes — DRAM node for core dies, advanced logic node for the base die. At ISSCC 2026 Samsung showed a 36GB 12-hi HBM4 at 3.3 TB/s with 2,048 IO on 1c DRAM + an SF4 logic base, hitting 13 Gb/s/pin (>2x the JEDEC HBM4 spec of 6.4 Gb/s) while dropping VDDQ 32% from 1.1V to 0.75V. Hynix uses cheaper TSMC N12, Micron an internal CMOS base — both lower-cost than Samsung's SF4. Samsung's 1c yields ran ~50% in 2025, a margin risk, but its technology gap to Hynix has meaningfully closed.",
+   "rationale_zh": "HBM4 把工艺节点拆开——核心 die 用 DRAM 节点，基底 die 用先进逻辑节点。在 ISSCC 2026 上，三星展示了 36GB、12 层、3.3 TB/s、2048 IO 的 HBM4，采用 1c DRAM + SF4 逻辑基底，达到 13 Gb/s/pin（是 JEDEC HBM4 规范 6.4 Gb/s 的 2 倍以上），同时 VDDQ 从 1.1V 降到 0.75V（降 32%）。海力士用更便宜的台积电 N12，美光用自研 CMOS 基底——都比三星的 SF4 便宜。三星 1c 良率 2025 年约 50%，是利润风险，但它与海力士的技术差距已明显缩小。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!R4vq!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1d73da51-6e13-4c3f-a013-11188a56fcaf_2880x1620.jpeg",
+    "shows_en": "4F2 VCT DRAM cell architecture (vertical-channel transistor with capacitor above drain), the shrink path underpinning next-gen DRAM/HBM core dies.",
+    "shows_zh": "4F² VCT DRAM 单元架构（垂直沟道晶体管，电容位于漏极上方），支撑下一代 DRAM/HBM 核心 die 的微缩路径。"
+   },
+   "quote": {
+    "text": "Samsung's paper claimed that the ABB and the 4x higher TSV count allow their HBM4 to achieve operating speeds up to 13 Gb/s per pin.",
+    "source_title": "ISSCC 2026: NVIDIA & Broadcom CPO, HBM4 & LPDDR6...",
+    "date": "2026-04-15"
+   }
+  },
+  {
+   "claim_en": "The DRAM interface is grotesquely wasteful — 95-99% of read/write energy is spent in the interface, not the cells.",
+   "claim_zh": "DRAM 接口极度浪费——读写能耗的 95%~99% 花在接口而非存储单元上。",
+   "rationale_en": "DRAM is a 'dumb' state machine with no on-chip control logic; commands funnel through one ancient half-duplex interface. DDR5 DIMMs burn >99% of read/write energy in the host controller/interface; even HBM is ~95% interface, 5% cell. Worse, an HBM die's 256-bit bus taps only ~1/16 of the banks' true ~4 TB/s potential. This is the opening for compute-in-memory and modernized base-die PHYs (UCIe: ~11 Tbps/mm, ~12x HBM3E; energy/bit from 2pJ to 0.25pJ). 'Someone is going to win big in the IP wars.'",
+   "rationale_zh": "DRAM 是一台「哑」状态机，片上没有控制逻辑；命令全挤过一个古老的半双工接口。DDR5 DIMM 把逾 99% 的读写能耗烧在主控/接口上；即便 HBM 也是约 95% 接口、5% 单元。更糟的是，HBM die 的 256 位总线只用到了 bank 真实约 4 TB/s 潜力的约 1/16。这为存内计算和现代化基底 die PHY 打开了缺口（UCIe：约 11 Tbps/mm，约 HBM3E 的 12 倍；每比特能耗从 2pJ 降到 0.25pJ）。「有人会在这场 IP 战争里大赚一笔。」",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!wJ7P!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd2a37746-c1ed-4919-9b53-848a50148fea_842x850.png",
+    "shows_en": "'Dumb' DRAM: control logic sits off-chip, so every command crosses a slow, inefficient interface.",
+    "shows_zh": "「哑」DRAM：控制逻辑在片外，每条命令都要穿过缓慢低效的接口。"
+   },
+   "quote": {
+    "text": "DDR5 DIMMs, the most common on servers, expend more than 99% of read or write energy in the host controller and interface.",
+    "source_title": "The Memory Wall: Past, Present, and Future of DRAM",
+    "date": "2024-09-03"
+   }
+  },
+  {
+   "claim_en": "CXMT's explosive earnings are a cycle story, not a competitiveness story — its cost-per-bit is still 30%+ worse.",
+   "claim_zh": "长鑫的爆发式盈利是周期故事，不是竞争力故事——其单位比特成本仍高出 30% 以上。",
+   "rationale_en": "CXMT FY25 revenue rose 156% to ~$8.6B, first-ever net profit ~$1B; 1Q26 revenue $7.3B (~700% YoY) at ~70% op-margin. But its 1Q26 bit shipments grew only 11% while ASP rose ~57% — the earnings are ASP, not share. On DDR5, CXMT's cost-per-bit is still >30% higher than the big-3; ~38% gross margin is pricing, not product. The old 'Chinese memory will flood and crush pricing' fear is, this cycle, inaccurate — CXMT ASP sits only 5-10% below the leaders.",
+   "rationale_zh": "长鑫 FY25 营收增 156% 至约 86 亿美元，首次盈利约 10 亿美元；1Q26 营收 73 亿美元（同比约 700%），营业利润率约 70%。但 1Q26 位出货只增 11%，ASP 却涨约 57%——盈利来自 ASP 而非份额。在 DDR5 上，长鑫单位比特成本仍比三巨头高 30% 以上；约 38% 的毛利率是价格给的，不是产品给的。「中国存储会大水漫灌、压垮价格」这个老恐惧，在本轮周期里并不准确——长鑫 ASP 只比龙头低 5%~10%。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!x2Kl!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F29a5424f-3557-44d3-b79c-05d617daeebf_1372x211.png",
+    "shows_en": "DDR5 cost-per-bit: CXMT still >30% above Samsung/SK Hynix/Micron.",
+    "shows_zh": "DDR5 单位比特成本：长鑫仍比三星/海力士/美光高逾 30%。"
+   },
+   "quote": {
+    "text": "such significant upside to CXMT's earnings is clearly driven more by the cycle itself than company's technology or market positioning.",
+    "source_title": "China's CXMT Is Set to Challenge DRAM Incumbents",
+    "date": "2026-06-23"
+   }
+  },
+  {
+   "claim_en": "CXMT is deliberately choosing commodity DRAM over HBM — because commodity DRAM currently earns more.",
+   "claim_zh": "长鑫在刻意选择商品 DRAM 而非 HBM——因为当下商品 DRAM 更赚钱。",
+   "rationale_en": "~99% of CXMT's 2025 revenue is DDR/LPDDR; only ~5 of ~265 kwspm went to HBM in 2025. Its HBM3 8-hi is modeled at ~35% front-end and ~70% back-end yield = ~25% overall, so HBM would be low-margin and consume scarce DRAM wafers that yield 3x more bits as commodity. So prioritizing commodity is rational — but Beijing's self-sufficiency push conflicts with that, forcing CXMT's HBM wafer capacity up to a modeled 55/100 kwspm in 2027/2028 (1%->12% of global HBM wafers). The IPO prospectus discloses NO dedicated HBM project.",
+   "rationale_zh": "长鑫 2025 年约 99% 营收是 DDR/LPDDR；约 265 kwspm 产能里 2025 年仅约 5 kwspm 给了 HBM。其 HBM3 8 层良率模型为前道约 35%、后道约 70% = 整体约 25%，故 HBM 低毛利，还会占用能多产 3 倍比特的稀缺 DRAM 晶圆。所以优先做商品 DRAM 是理性的——但北京的自给自足诉求与之冲突，逼着长鑫 HBM 晶圆产能升至 2027/2028 年模型的 55/100 kwspm（占全球 HBM 晶圆 1%→12%）。IPO 招股书未披露任何专门的 HBM 项目。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!J835!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe1e3e7a4-6bfa-44ea-8684-9343fdde4e37_1592x1202.png",
+    "shows_en": "CXMT wafer allocation: HBM a tiny sliver of capacity (~5 kwspm in 2025) vs commodity DRAM.",
+    "shows_zh": "长鑫晶圆分配：HBM 仅占产能极小一角（2025 年约 5 kwspm），远小于商品 DRAM。"
+   },
+   "quote": {
+    "text": "The commodity DRAM currently offers materially higher margins than CXMT's HBM products, while also delivering more than 3x the bits per wafer on a like-for-like basis.",
+    "source_title": "China's CXMT Is Set to Challenge DRAM Incumbents",
+    "date": "2026-06-23"
+   }
+  },
+  {
+   "claim_en": "Hybrid bonding for HBM keeps slipping; JEDEC chose to just make the stack taller (720um->775um) instead.",
+   "claim_zh": "HBM 的混合键合一再跳票；JEDEC 干脆把堆叠加高（720µm→775µm）而非上混合键合。",
+   "rationale_en": "Hybrid bonding is bump-less, freeing room for more layers, but D2W HB yield for even 2 layers is hard/expensive — imagine 16. HBM3/3E hit the 12-hi limit inside the 720um JEDEC cube; the two ways up are bump-less or taller. In a blow to HB, JEDEC relaxed height to 775um. HB for HBM keeps sliding from HBM4 to '4E'; Hynix and Micron have gone quiet, only Samsung loudly promotes it — 'typical for Samsung which often promotes the most aggressive technology... only to expectedly fail on execution.'",
+   "rationale_zh": "混合键合无凸点，能腾出空间堆更多层，但即便 2 层的 D2W 混合键合良率都很难做、很贵——何况 16 层。HBM3/3E 在 720µm 的 JEDEC 立方体内触到了 12 层上限；往上只有两条路：无凸点或加高。JEDEC 把高度放宽到 775µm，这是对混合键合的一记打击。HBM 的混合键合从 HBM4 一路推迟到「4E」；海力士和美光都沉默了，只有三星在高调宣传——「三星的典型作风：总爱鼓吹最激进的技术……然后一如预期地栽在执行上。」",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!C3AL!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F4e6e019a-4951-48ed-9016-30e955c7d313_1024x398.png",
+    "shows_en": "HBM stack-height options: relax the JEDEC cube (720um->775um) vs go bump-less via hybrid bonding.",
+    "shows_zh": "HBM 堆叠高度选项：放宽 JEDEC 立方体（720µm→775µm）对比走混合键合的无凸点路线。"
+   },
+   "quote": {
+    "text": "All initial HBM4 will not use hybrid bonding, and we expect that to remain true for much longer than most would hope.",
+    "source_title": "The Memory Wall: Past, Present, and Future of DRAM",
+    "date": "2024-09-03"
+   }
+  },
+  {
+   "claim_en": "'Memory-Parkinson': every HBM capacity bump is instantly eaten by bigger models, so memory is always the next bottleneck.",
+   "claim_zh": "「内存帕金森定律」：每一次 HBM 扩容都被更大的模型瞬间吃掉，所以内存永远是下一个瓶颈。",
+   "rationale_en": "In inference, weights live permanently in HBM alongside a KVCache that grows every token; decode repeatedly reads both, so most LLM inference is bandwidth-bound. As reasoning models 'think' for tens of minutes (Deep Research) with 100k+ token contexts, capacity pressure explodes and serving at low batch sizes hurts economics. Each capacity jump (80GB/3.35TB/s H100 -> 192GB/8TB/s GB200) just resets the baseline for 'reasonable' model size. RL/inference is now the main driver of progress, permanently structural for memory demand.",
+   "rationale_zh": "推理时，权重常驻 HBM，旁边还有一个每生成一个 token 就变大的 KVCache；解码要反复读这两者，所以大多数 LLM 推理受带宽约束。当推理模型能「思考」几十分钟（Deep Research）、上下文超 10 万 token 时，容量压力暴涨，用小批量服务又伤经济性。每次容量跃升（H100 的 80GB/3.35TB/s → GB200 的 192GB/8TB/s）都只是把「合理」模型规模的基线重置。RL/推理如今是进步的主引擎，对内存需求构成永久的结构性支撑。",
+   "figure": null,
+   "quote": {
+    "text": "as AI chips get more HBM, developers immediately build larger models to fill it, so memory is always the next bottleneck.",
+    "source_title": "Scaling the Memory Wall: The Rise and Roadmap of HBM",
+    "date": "2025-08-12"
+   }
+  },
+  {
+   "claim_en": "SRAM scaling is dead too — MediaTek's logic-based xBIT is a workaround, not a cure.",
+   "claim_zh": "SRAM 微缩也死了——联发科基于逻辑的 xBIT 是绕路，不是解药。",
+   "rationale_en": "From N5 to N2, logic area fell 40% but 6T-HC SRAM bitcells shrank only 2% (8T-HC 18%); N3E's HD bitcell even regressed to N5 density. SRAM is ~120 F2 — 20x less dense than DRAM's 6F2. MediaTek's 10-transistor xBIT (balanced 4/6 NMOS/PMOS) gets 22-63% higher density and 30%+ lower power vs a standard 8T cell, using pure logic rules. It shows how hard on-die cache scaling has become — reinforcing the case for offloading capacity to HBM/LPDDR tiers instead.",
+   "rationale_zh": "从 N5 到 N2，逻辑面积降 40%，但 6T-HC SRAM 位元只缩了 2%（8T-HC 缩 18%）；N3E 的高密度位元甚至倒退回 N5 密度。SRAM 约 120 F²——密度比 DRAM 的 6F² 低 20 倍。联发科的 10 管 xBIT（平衡的 4/6 NMOS/PMOS）用纯逻辑设计规则，比标准 8T 单元密度高 22%~63%、功耗低 30% 以上。这说明片上缓存微缩已多难——反过来强化了「把容量卸载到 HBM/LPDDR 分层」的逻辑。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!m8pd!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa42110ab-a204-4a5f-8977-830bd38e06ea_1283x461.jpeg",
+    "shows_en": "SRAM high-current bitcell density stalling across nodes vs logic-based MBFF alternative.",
+    "shows_zh": "SRAM 大电流位元密度随节点停滞，对比基于逻辑的 MBFF 替代方案。"
+   },
+   "quote": {
+    "text": "Despite logic area decreasing by 40% from N5 to N2, 8-transistor high-current SRAM bitcells have only decreased in area by 18%. 6-transistor high-current (6T-HC) bitcells are even worse, only decreasing by 2%.",
+    "source_title": "ISSCC 2026: NVIDIA & Broadcom CPO, HBM4 & LPDDR6...",
+    "date": "2026-04-15"
+   }
+  },
+  {
+   "claim_en": "NAND is a layer-count and bits-per-cell race — and SK Hynix is quietly losing the density war.",
+   "claim_zh": "NAND 是一场层数与单元比特的竞赛——而 SK 海力士正在悄悄输掉密度战。",
+   "rationale_en": "SanDisk/Kioxia's BiCS10 (332L, 3 decks) is the world's densest at 37.6 Gb/mm2 QLC, dethroning Hynix's 321L V9 (28.8 Gb/mm2 QLC / 21 Gb/mm2 TLC — 30% behind). Micron matches Hynix's density with only 2 decks (lower cost). Since AI has choked cleanroom space, makers can only upgrade existing lines, so denser processes = more supply per constrained wafer. SK Hynix's exotic answers (Mo wordlines, 5-bits-per-cell multi-site cell) are R&D-stage, not yet cost-effective.",
+   "rationale_zh": "闪迪/铠侠的 BiCS10（332 层、3 层 deck）以 QLC 37.6 Gb/mm² 成为全球最密，把海力士的 321 层 V9（QLC 28.8 / TLC 21 Gb/mm²，落后 30%）拉下王座。美光只用 2 层 deck 就追平海力士密度（成本更低）。由于 AI 挤占了洁净室空间，厂商只能升级现有产线，于是更密的工艺 = 每片受限晶圆产出更多供给。海力士的异招（钼字线、5 比特多站单元）仍在研发阶段，尚不划算。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!xViG!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9f240c14-4a4f-4fab-bc19-194185a47c6b_2880x1620.jpeg",
+    "shows_en": "SanDisk/Kioxia BiCS10 332L die shot & density vs SK Hynix and Samsung V9.",
+    "shows_zh": "闪迪/铠侠 BiCS10 332 层芯片照及密度，对比 SK 海力士与三星 V9。"
+   },
+   "quote": {
+    "text": "SanDisk and Kioxia demonstrated their BiCS10 NAND, with 332 layers and 3 decks. This is the highest reported NAND bit density, at 37.6 Gb/mm2, dethroning the previous champion, SK Hynix's 321L V9.",
+    "source_title": "ISSCC 2026: NVIDIA & Broadcom CPO, HBM4 & LPDDR6...",
+    "date": "2026-04-15"
+   }
+  },
+  {
+   "claim_en": "The real AI-memory bottleneck isn't the DRAM cell — it's CoWoS advanced packaging co-locating HBM and logic.",
+   "claim_zh": "AI 存储真正的瓶颈不是 DRAM 单元本身——而是把 HBM 与逻辑封在一起的 CoWoS 先进封装。",
+   "rationale_en": "HBM3E needs 1,000+ wires between XPU and memory — undoable on PCB/substrate, so a silicon interposer (CoWoS-S) is mandatory. That capacity, not GPU dies, gated 2023-24 supply. The flow (TSV interposer -> chip-on-wafer flip-chip reflow -> wafer-on-substrate) spans ~28 upstream vendors; SemiAnalysis argues the market misprices which of them actually win. Because HBM is limited to the SOC's two shoreline edges (the other two are for off-package I/O), 'shoreline area' becomes a first-order design constraint.",
+   "rationale_zh": "HBM3E 在 XPU 与内存之间要走 1000 多根线——PCB/基板做不到，所以硅中介层（CoWoS-S）是必选。真正卡住 2023-24 供给的是这块产能，而非 GPU die。整条流程（TSV 中介层 → chip-on-wafer 倒装回流 → wafer-on-substrate）牵涉约 28 家上游供应商；SemiAnalysis 认为市场对「其中谁真正受益」定价错误。由于 HBM 只能贴在 SOC 的两条岸线边（另两条留给出封装 I/O），「岸线面积」成了一阶设计约束。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!CjsU!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7dae3ae3-f074-40e5-8241-2a8f42ade96c_1293x488.png",
+    "shows_en": "CoWoS-S structure: logic + HBM stacks on a silicon interposer over a package substrate.",
+    "shows_zh": "CoWoS-S 结构：逻辑 + HBM 堆叠置于硅中介层之上、封装基板之下。"
+   },
+   "quote": {
+    "text": "the primary limiting factor is the CoWoS advanced packaging to put the 5nm ASICs and HBM together.",
+    "source_title": "AI Expansion - Supply Chain Analysis For CoWoS And HBM",
+    "date": "2023-07-26"
+   }
+  },
+  {
+   "claim_en": "China's HBM will come via custom, non-JEDEC designs — and via reclaimed HBM smuggled out of GPU packages.",
+   "claim_zh": "中国的 HBM 会走定制、非 JEDEC 的路线——并通过从 GPU 封装里回收拆解的 HBM 走私获取。",
+   "rationale_en": "US export controls (Dec 2024) ban raw HBM stacks into China, but chips containing HBM can ship if under FLOPS limits — so banned HBM is reexported (via CoAsia/Faraday/SPIL) and desoldered/reclaimed from GPU packages. Huawei runs its own HBM affiliates (XMC fab + SJSemi packaging, both entity-listed). Critically, Huawei and CXMT will use custom HBM that bypasses slow JEDEC standards/PHYs, letting them close the bandwidth gap without matching the incumbents' interface roadmap.",
+   "rationale_zh": "美国出口管制（2024 年 12 月）禁止裸 HBM 堆叠进入中国，但含 HBM 的芯片只要不超 FLOPS 上限仍可出货——于是被禁的 HBM 被转口（经 CoAsia/Faraday/SPIL），再从 GPU 封装里拆焊回收。华为自建 HBM 关联厂（XMC 制造 + SJSemi 封装，均在实体清单）。关键是，华为与长鑫会用绕过缓慢 JEDEC 标准/PHY 的定制 HBM，从而在不复制在位厂商接口路线图的情况下缩小带宽差距。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!7xuU!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1e126eac-88ea-44d3-8387-309ce40b99ab_1024x811.png",
+    "shows_en": "XMC's DRAM/HBM fab supplying Huawei's domestic HBM effort.",
+    "shows_zh": "XMC 的 DRAM/HBM 工厂，为华为国产 HBM 供货。"
+   },
+   "quote": {
+    "text": "Huawei and CXMT will have custom HBM that is not based on the slow JEDEC standards and phys, so it will be able to close the bandwidth disadvantage.",
+    "source_title": "China's CXMT Is Set to Challenge DRAM Incumbents",
+    "date": "2026-06-23"
+   }
+  }
+ ],
+ "key_data": [
+  {
+   "metric_en": "DRAM density scaling",
+   "metric_zh": "DRAM 密度微缩",
+   "value": "~2x in the last decade (vs 2x every 18 months in the golden age = ~100x/decade)",
+   "note_en": "The single fact behind memory's structural scarcity and cyclicality.",
+   "note_zh": "存储结构性稀缺与周期性背后最核心的一个事实。"
+  },
+  {
+   "metric_en": "HBM share of AI GPU manufacturing cost",
+   "metric_zh": "HBM 占 AI GPU 制造成本比重",
+   "value": "H100 ~50%+ -> Blackwell ~60%+",
+   "note_en": "Biggest absolute & relative BOM increase Ampere->Blackwell Ultra; a wealth transfer to SK Hynix.",
+   "note_zh": "Ampere→Blackwell Ultra 物料清单里绝对与相对增量最大项；财富向海力士转移。"
+  },
+  {
+   "metric_en": "HBM price premium vs DDR5",
+   "metric_zh": "HBM 对 DDR5 溢价",
+   "value": "3x+ per GB",
+   "note_en": "Customers pay it because no other DRAM makes a competitive accelerator.",
+   "note_zh": "客户照付，因为别的 DRAM 做不出有竞争力的加速器。"
+  },
+  {
+   "metric_en": "HBM stack-yield compounding",
+   "metric_zh": "HBM 堆叠良率累乘",
+   "value": "99%/layer -> 92% at 8-hi, 87% at 12-hi",
+   "note_en": "Illustrative; real yield degrades faster as non-critical defects accumulate.",
+   "note_zh": "示意值；实际良率因非关键缺陷累积而下降更快。"
+  },
+  {
+   "metric_en": "Samsung HBM4 (ISSCC 2026)",
+   "metric_zh": "三星 HBM4（ISSCC 2026）",
+   "value": "36GB 12-hi, 3.3 TB/s, 2,048 IO, 13 Gb/s/pin, VDDQ 0.75V",
+   "note_en": ">2x the JEDEC HBM4 spec (6.4 Gb/s, ~2 TB/s); 1c DRAM + SF4 base die.",
+   "note_zh": "是 JEDEC HBM4 规范（6.4 Gb/s，约 2 TB/s）的 2 倍以上；1c DRAM + SF4 基底 die。"
+  },
+  {
+   "metric_en": "HBM4 base-die foundry split",
+   "metric_zh": "HBM4 基底 die 代工分工",
+   "value": "Hynix = TSMC N12; Samsung = SF4; Micron = internal CMOS",
+   "note_en": "SF4 is the most expensive; Hynix/Micron chose lower-cost paths.",
+   "note_zh": "SF4 最贵；海力士/美光选了更省钱的路径。"
+  },
+  {
+   "metric_en": "Samsung 1c HBM4 front-end yield (2025)",
+   "metric_zh": "三星 1c HBM4 前道良率（2025）",
+   "value": "~50% (improving)",
+   "note_en": "Samsung skipped 1b, jumping 1a->1c; a margin risk on HBM4.",
+   "note_zh": "三星跳过 1b，直接 1a→1c；对 HBM4 是利润风险。"
+  },
+  {
+   "metric_en": "DRAM energy split (interface vs cell)",
+   "metric_zh": "DRAM 能耗分布（接口对单元）",
+   "value": "DDR5 >99% interface; HBM ~95% interface / 5% cell",
+   "note_en": "The waste that motivates compute-in-memory and modern base-die PHYs.",
+   "note_zh": "这份浪费正是存内计算与现代基底 die PHY 的动因。"
+  },
+  {
+   "metric_en": "Bank potential vs delivered bandwidth",
+   "metric_zh": "Bank 潜力对实际带宽",
+   "value": "~4 TB/s/chip potential; HBM die delivers only ~1/16 (256-bit bus)",
+   "note_en": "UCIe PHY could reach ~11 Tbps/mm (~12x HBM3E), energy/bit 2pJ->0.25pJ.",
+   "note_zh": "UCIe PHY 可达约 11 Tbps/mm（约 HBM3E 的 12 倍），每比特能耗 2pJ→0.25pJ。"
+  },
+  {
+   "metric_en": "CXMT FY25 financials",
+   "metric_zh": "长鑫 FY25 财务",
+   "value": "Revenue ~$8.6B (+156% YoY), first net profit ~$1B, GM 37.8%",
+   "note_en": "1Q26: $7.3B rev (~700% YoY), ~70% op-margin — ASP-driven, not share.",
+   "note_zh": "1Q26：营收 73 亿美元（同比约 700%），营业利润率约 70%——ASP 驱动，非份额。"
+  },
+  {
+   "metric_en": "CXMT vs incumbents DRAM revenue (CY25)",
+   "metric_zh": "长鑫对在位厂商 DRAM 营收（CY25）",
+   "value": "CXMT ~$8.6B vs Samsung ~$72.3B, SK Hynix ~$52.1B, Micron ~$37.2B",
+   "note_en": "Clear #4 globally, but still an order of magnitude behind the leaders.",
+   "note_zh": "全球明确第四，但仍落后龙头一个数量级。"
+  },
+  {
+   "metric_en": "CXMT DDR5 cost-per-bit gap",
+   "metric_zh": "长鑫 DDR5 单位比特成本差距",
+   "value": ">30% higher than the big-3; ASP only 5-10% below leaders",
+   "note_en": "Margin is pricing, not product competitiveness this cycle.",
+   "note_zh": "本轮毛利来自价格，而非产品竞争力。"
+  },
+  {
+   "metric_en": "CXMT HBM3 8-hi modeled yield",
+   "metric_zh": "长鑫 HBM3 8 层建模良率",
+   "value": "~35% front-end x ~70% back-end ~= 25% overall",
+   "note_en": "Struggling on 8-hi, greater challenges at 12-hi; likely skips HBM3 for HBM3E.",
+   "note_zh": "8 层吃力，12 层更难；可能跳过 HBM3 直上 HBM3E。"
+  },
+  {
+   "metric_en": "DRAM wafer capacity (end-2026E)",
+   "metric_zh": "DRAM 晶圆产能（2026 年末预估）",
+   "value": "Samsung ~720k, SK Hynix ~595k, Micron ~385k, CXMT ~350k wspm",
+   "note_en": "CXMT closing on #3 Micron by wafers; global DRAM share ~13%->17%.",
+   "note_zh": "长鑫按晶圆计逼近第三的美光；全球 DRAM 份额约 13%→17%。"
+  },
+  {
+   "metric_en": "SanDisk/Kioxia BiCS10 NAND",
+   "metric_zh": "闪迪/铠侠 BiCS10 NAND",
+   "value": "332 layers, 3 decks, 37.6 Gb/mm2 QLC (world's densest)",
+   "note_en": "vs SK Hynix 321L V9 at 28.8 Gb/mm2 QLC — 30% behind.",
+   "note_zh": "对比 SK 海力士 321 层 V9 的 QLC 28.8 Gb/mm²——落后 30%。"
+  },
+  {
+   "metric_en": "SK Hynix V9 321L density gain",
+   "metric_zh": "SK 海力士 V9 321 层密度增益",
+   "value": "+44% memory/wafer over 238L V8; +30% process steps, +20% etch steps",
+   "note_en": "Layer count up ~35% — outrunning process-step growth, so still cost-down.",
+   "note_zh": "层数增约 35%——快于工序增长，故仍在降本。"
+  },
+  {
+   "metric_en": "Emerging memory density",
+   "metric_zh": "新兴存储密度",
+   "value": "MRAM 0.49 Gb/mm2 > Micron D1b DRAM 0.435; ships in MB not GB",
+   "note_en": "FeRAM matched D1b density at IEDM 2023 but too costly; not DRAM replacements.",
+   "note_zh": "FeRAM 在 IEDM 2023 追平 D1β 密度但太贵；都不是 DRAM 替代。"
+  }
+ ],
+ "deep_dives": [
+  {
+   "article_title": "Scaling the Memory Wall: The Rise and Roadmap of HBM",
+   "date": "2025-08-12",
+   "summary_en": "The definitive HBM primer and roadmap. Explains why HBM's wide bus + vertical stack demands an interposer (1,000+ wires), why front-end TSV/PDN yield (not just stacking) is the real problem, and why it's still margin-accretive. Details the SK Hynix-Hanmi TC-bonder monopoly fight that nearly halted HBM shipments in April 2025, the shoreline-area constraint, KVCache offload to LPDDR/NVMe tiers, and the 'memory-Parkinson' dynamic. Covers HBM4's custom base die, JEDEC's 720->775um height relaxation (a blow to hybrid bonding), and China's CXMT/Huawei domestic HBM push. Nvidia still commands the lion's share of HBM demand through 2027 (Rubin Ultra = 1TB/GPU).",
+   "summary_zh": "HBM 的权威入门与路线图。讲清了为何 HBM 的超宽总线+垂直堆叠必须用中介层（1000 多根线）、为何前道 TSV/配电（而非仅堆叠）才是真瓶颈、以及为何它仍增厚利润。详述了 2025 年 4 月几乎让 HBM 断供的海力士—Hanmi 热压键合机垄断之争、岸线面积约束、KVCache 向 LPDDR/NVMe 分层卸载，以及「内存帕金森」动态。覆盖 HBM4 定制基底 die、JEDEC 把高度从 720 放宽到 775µm（对混合键合的打击）、以及中国长鑫/华为的国产 HBM 推进。英伟达到 2027 年仍主导 HBM 需求（Rubin Ultra = 每 GPU 1TB）。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!iKBN!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9c51757f-88bb-437a-999c-4a655fff1c7d_1902x823.png",
+    "shows_en": "Why HBM's much wider bus delivers far higher bandwidth-per-package than any other memory.",
+    "shows_zh": "为何 HBM 远更宽的总线让其每封装带宽远超任何其他存储。"
+   }
+  },
+  {
+   "article_title": "The Memory Wall: Past, Present, and Future of DRAM",
+   "date": "2024-09-03",
+   "summary_en": "The bucket's intellectual backbone. Traces DRAM from the 1T1C cell + sense-amp inventions to today's stagnation (capacitors at ~100:1 aspect ratio, ~40,000 electrons/cell, sense-amp sensing limits). Lays out the full scaling menu: near-term 4F2 + vertical-channel transistors (~30% theoretical density), medium-term compute-in-memory (banks have ~4 TB/s potential but interfaces tap ~1/16), custom HBM4 base dies, emerging FeRAM/MRAM (denser than DRAM but ship in MB), and long-term 3D DRAM. Key insight: DRAM's 'dumb' half-duplex interface wastes 95-99% of read/write energy — the opening for a new PHY/IP war.",
+   "summary_zh": "本主题的思想主干。从 1T1C 单元 + 灵敏放大器的发明，追到今天的停滞（电容约 100:1 深宽比、每单元约 4 万电子、灵敏放大器的感测极限）。铺开完整的微缩菜单：近期 4F² + 垂直沟道晶体管（理论约 30% 密度）、中期存内计算（bank 有约 4 TB/s 潜力但接口只用到约 1/16）、定制 HBM4 基底 die、新兴 FeRAM/MRAM（比 DRAM 密但以 MB 出货）、以及远期 3D DRAM。核心洞见：DRAM「哑」的半双工接口浪费了读写能耗的 95%~99%——这正是一场新 PHY/IP 战争的入口。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!1qjj!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc0c73dc0-1ec4-4171-a670-0494a26bc88e_748x694.png",
+    "shows_en": "DRAM bank hierarchy: 256-bit HBM die interface taps only ~1/16 of the banks' true bandwidth.",
+    "shows_zh": "DRAM bank 层级：256 位的 HBM die 接口只用到 bank 真实带宽的约 1/16。"
+   }
+  },
+  {
+   "article_title": "China's CXMT Is Set to Challenge DRAM Incumbents",
+   "date": "2026-06-23",
+   "summary_en": "The definitive CXMT deep dive ahead of its STAR Market IPO (likely China's largest semiconductor listing). Traces its origins: licensed ~7,000 Qimonda patents + 2.8TB of docs + poached Qimonda/Korean/Taiwanese/US talent (Kuesters, Ping) + patient Hefei state-VC that absorbed ~RMB36.65B of accumulated losses over a decade. Verdict: explosive 1Q26 earnings ($7.3B, ~70% op-margin) are cycle/ASP-driven, not competitiveness — DDR5 cost/bit still >30% worse, HBM barely 5 kwspm and ~25% yield. Debunks the 'China floods and crushes pricing' fear this cycle. Flags the IPO's consolidation accounting (74% minority interest) and lack of any disclosed HBM project.",
+   "summary_zh": "长鑫上市前（很可能是中国最大半导体 IPO）的权威深度剖析。追溯其起源：授权约 7000 项奇梦达专利 + 2.8TB 文档 + 挖来的奇梦达/韩/台/美人才（Kuesters、Ping）+ 十年间吸收约 366.5 亿元累计亏损的合肥耐心国资。定论：1Q26 的爆发盈利（73 亿美元、约 70% 营业利润率）是周期/ASP 驱动，而非竞争力——DDR5 单位比特成本仍差 30% 以上，HBM 仅约 5 kwspm、良率约 25%。驳斥了本轮「中国大水漫灌压垮价格」的恐惧。并点出 IPO 的并表会计（74% 归属少数股东）与招股书未披露任何 HBM 项目。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!8REC!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1d9a20ac-f95d-494c-8db3-a72e65a36edd_3579x2195.png",
+    "shows_en": "CXMT gross margin swing: -113% (FY23) -> -4.7% (FY24) -> 37.8% (FY25), vs Samsung/Micron/SK Hynix.",
+    "shows_zh": "长鑫毛利率的翻转：-113%（FY23）→ -4.7%（FY24）→ 37.8%（FY25），对比三星/美光/海力士。"
+   }
+  },
+  {
+   "article_title": "ISSCC 2026: NVIDIA & Broadcom CPO, HBM4 & LPDDR6, TSMC Active LSI, Logic-Based SRAM, UCIe-S and More",
+   "date": "2026-04-15",
+   "summary_en": "The frontier scorecard. Samsung's HBM4 (36GB 12-hi, 3.3 TB/s, 13 Gb/s/pin, VDDQ 0.75V) confirms it has closed the gap on Hynix technically, though it still trails on reliability and 1c yield (~50%). Samsung & SK Hynix LPDDR6 (up to 14.4 Gb/s, dual sub-channel efficiency mode), SK Hynix 1c GDDR7 (48 Gb/s). Samsung 4F2 COP DRAM cuts core-circuit area 17.0%->2.7% via hybrid-bonded cell-on-peri (but suffers floating-body leakage). SanDisk/Kioxia BiCS10 (332L) takes NAND density crown. MediaTek's logic-based xBIT SRAM cell and TSMC N16 MRAM round out the 'scaling is dead, find workarounds' theme.",
+   "summary_zh": "前沿计分卡。三星 HBM4（36GB 12 层、3.3 TB/s、13 Gb/s/pin、VDDQ 0.75V）证实其技术上已追平海力士，虽在可靠性与 1c 良率（约 50%）上仍落后。三星与 SK 海力士 LPDDR6（最高 14.4 Gb/s，双子通道效率模式）、SK 海力士 1c GDDR7（48 Gb/s）。三星 4F² COP DRAM 用混合键合的 cell-on-peri 把核心电路面积从 17.0% 压到 2.7%（但受浮体漏电困扰）。闪迪/铠侠 BiCS10（332 层）夺回 NAND 密度王座。联发科基于逻辑的 xBIT SRAM 单元与台积电 N16 MRAM 共同印证「微缩已死、只能绕路」的主题。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!NQFx!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb1824aa4-f1c3-4174-94c7-320067ca2401_2880x1620.jpeg",
+    "shows_en": "Samsung's COP 'sandwich' structure cutting core-circuit area from 17.0% to 2.7% of the die.",
+    "shows_zh": "三星 COP「三明治」结构把核心电路面积从占芯片 17.0% 降到 2.7%。"
+   }
+  },
+  {
+   "article_title": "Interconnects Beyond Copper, 1,000 CFETs, SK Hynix Next-Gen NAND, 2D Materials, and More (IEDM)",
+   "date": "2026-01-13",
+   "summary_en": "The NAND scaling deep dive amid the supercycle. With no cleanroom space for new capacity, makers can only densify existing lines: SK Hynix's 321L V9 packs +44% memory/wafer over V8 by adding a 3rd deck (etch limit ~120 layers/deck). But its 21 Gb/mm2 TLC trails Micron (2 decks, cheaper) and is dwarfed by BiCS10 (29 Gb/mm2 TLC, 37+ QLC). Samsung switches NAND wordlines W->Mo for performance and skips 3xx layers (286L->43xL). The standout: SK Hynix's multi-site cell splitting the channel to enable 5-bits-per-cell — R&D only, not yet cost-effective.",
+   "summary_zh": "超级周期下的 NAND 微缩深度剖析。由于没有洁净室空间上新产能，厂商只能给现有产线加密度：SK 海力士 321 层 V9 靠加第三层 deck 实现比 V8 多 44% 的每晶圆容量（每 deck 刻蚀上限约 120 层）。但其 TLC 21 Gb/mm² 落后美光（2 层 deck、更便宜），更被 BiCS10（TLC 29、QLC 37+ Gb/mm²）碾压。三星把 NAND 字线由钨改钼以提性能，并跳过 3xx 层（286 层→43x 层）。最亮点：SK 海力士把沟道一分为二的多站单元，实现单元 5 比特——仅研发阶段，尚不划算。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!bwlg!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe6eafda4-673c-4b5f-a184-c5aac8ecf0b8_697x321.png",
+    "shows_en": "SK Hynix NAND generational scaling — 3rd deck added at V9 as decks could no longer grow taller.",
+    "shows_zh": "SK 海力士 NAND 代际微缩——V9 加了第三层 deck，因为 deck 再也无法更高。"
+   }
+  }
+ ],
+ "investment": {
+  "winners": [
+   {
+    "name": "SK Hynix",
+    "why_en": "Clear HBM leader on MR-MUF packaging and reliability; primary beneficiary of every HBM content increase in Nvidia's roadmap; highest gross margin of the majors (60.4% FY25) thanks to its HBM mix. TSMC partners on its HBM4 N12 base die.",
+    "why_zh": "凭 MR-MUF 封装与可靠性稳居 HBM 龙头；英伟达路线图每一次 HBM 增量的首要受益者；靠 HBM 结构获得龙头中最高毛利率（FY25 60.4%）。台积电为其 HBM4 N12 基底 die 合作方。"
+   },
+   {
+    "name": "Micron",
+    "why_en": "Leapfrogged into HBM on TSV/power-delivery focus (claims ~30% lower power), matches Hynix NAND density with fewer/cheaper decks, and rides the broad DRAM shortage. Uses a lower-cost internal CMOS HBM4 base die. Also a FeRAM leader.",
+    "why_zh": "靠 TSV/配电聚焦弯道超车进 HBM（声称功耗低约 30%），用更少/更便宜的 deck 追平海力士 NAND 密度，并搭上全面的 DRAM 短缺。HBM4 用更省钱的自研 CMOS 基底 die。也是 FeRAM 领跑者。"
+   },
+   {
+    "name": "TSMC",
+    "why_en": "Owns the CoWoS interposer that is the real AI packaging bottleneck AND the foundry logic node (N12) for HBM4 base dies — double exposure to HBM's growth without making DRAM. Also fabs custom base dies for OpenAI/Nvidia/AMD.",
+    "why_zh": "既拥有真正卡脖子的 CoWoS 中介层，又拥有 HBM4 基底 die 的代工逻辑节点（N12）——不做 DRAM 却双重受益于 HBM 增长。还为 OpenAI/英伟达/AMD 代工定制基底 die。"
+   },
+   {
+    "name": "Hanmi (TC bonders) / EVG / TEL",
+    "why_en": "Hanmi held a near-monopoly on HBM thermocompression bonders (100% at Hynix until recently). EVG/TEL gain from wafer-bonding tools needed for VCT/4F2 and hybrid-bonded cell-on-peri DRAM. Lam dominates cryo high-aspect-ratio NAND etch.",
+    "why_zh": "Hanmi 一度近乎垄断 HBM 热压键合机（在海力士曾 100%）。EVG/TEL 从 VCT/4F² 及混合键合 cell-on-peri DRAM 所需的晶圆键合设备获益。泛林主导低温高深宽比 NAND 刻蚀。"
+   },
+   {
+    "name": "CXMT (speculative)",
+    "why_en": "Rising #4 DRAM maker, ~13%->17% wafer share, riding the same pricing supercycle to a first-ever profit and a landmark IPO — but it's an ASP play, not a technology one, and still 30%+ behind on cost/bit.",
+    "why_zh": "崛起的 DRAM 老四，晶圆份额约 13%→17%，搭同一轮价格超级周期实现首次盈利与标志性 IPO——但这是 ASP 故事而非技术故事，单位比特成本仍落后 30% 以上。"
+   }
+  ],
+  "bottlenecks": [
+   {
+    "en": "CoWoS interposer capacity — the real gate on AI accelerator supply; 1,000+ wires can't be routed on PCB, so silicon interposers are mandatory.",
+    "zh": "CoWoS 中介层产能——AI 加速器供给的真正闸门；1000 多根线无法走 PCB，硅中介层是必选。"
+   },
+   {
+    "en": "HBM front-end TSV/PDN yield and 12-hi+ stacking losses — the binding constraint on effective HBM bit supply (why Rubin Ultra uses 12-hi not 16-hi HBM4E).",
+    "zh": "HBM 前道 TSV/配电良率与 12 层以上堆叠损失——制约有效 HBM 比特供给的硬约束（Rubin Ultra 用 12 层而非 16 层 HBM4E 的原因）。"
+   },
+   {
+    "en": "TC-bonder supply — a single-vendor dependency (Hanmi) that nearly halted Hynix HBM in April 2025.",
+    "zh": "热压键合机供给——单一供应商（Hanmi）依赖，2025 年 4 月几乎让海力士 HBM 断供。"
+   },
+   {
+    "en": "GPU 'shoreline' area — HBM limited to 2 SOC edges, capping how many stacks fit per package.",
+    "zh": "GPU「岸线」面积——HBM 只能贴 SOC 两条边，限制每封装能放多少堆叠。"
+   },
+   {
+    "en": "Fab construction lead times — too long to react, which is exactly why the shortage persists to ~2028.",
+    "zh": "建厂周期——太长以致来不及反应，这正是短缺持续到约 2028 年的原因。"
+   }
+  ],
+  "risks": [
+   {
+    "en": "Cyclicality: memory is the most cyclical semi sub-industry; ASP-driven earnings (esp. CXMT) reverse violently when the cycle turns.",
+    "zh": "周期性：存储是最周期化的半导体子行业；ASP 驱动的盈利（尤其长鑫）在周期反转时会剧烈回吐。"
+   },
+   {
+    "en": "Samsung wildcard: perennially over-promises aggressive tech (hybrid bonding), then fails execution — but is genuinely closing the HBM4 gap. Its bad HBM yield ironically tightens total DRAM supply.",
+    "zh": "三星的不确定性：一贯高调承诺激进技术（混合键合）却栽在执行上——但 HBM4 差距确在缩小。其糟糕 HBM 良率反而收紧了 DRAM 总供给。"
+   },
+   {
+    "en": "China oversupply overhang: overplayed for the next ~2 years per SemiAnalysis, but CXMT/Huawei custom non-JEDEC HBM + government self-sufficiency push are a longer-term structural threat.",
+    "zh": "中国过剩阴影：SemiAnalysis 认为未来约 2 年被夸大，但长鑫/华为的定制非 JEDEC HBM + 政府自给自足推进是更长期的结构性威胁。"
+   },
+   {
+    "en": "Interface/IP disruption: modern base-die PHYs (Eliyan UMI/NuLink, UCIe) could reshuffle where value accrues and even reduce HBM capacity needs — 'someone is going to win big in the IP wars.'",
+    "zh": "接口/IP 颠覆：现代基底 die PHY（Eliyan UMI/NuLink、UCIe）可能重新分配价值归属，甚至降低 HBM 容量需求——「有人会在这场 IP 战争里大赚一笔。」"
+   },
+   {
+    "en": "Export-control leakage: reclaimed/smuggled HBM and reexport loopholes blunt controls and quietly feed Chinese accelerators.",
+    "zh": "出口管制渗漏：回收/走私 HBM 与转口漏洞削弱管制，暗中供养中国加速器。"
+   }
+  ],
+  "catalysts": [
+   {
+    "en": "CXMT STAR Market IPO — likely China's largest-ever semiconductor listing; a valuation and disclosure event for the whole China memory complex.",
+    "zh": "长鑫科创板 IPO——很可能是中国史上最大半导体上市；对整个中国存储板块是估值与信息披露事件。"
+   },
+   {
+    "en": "HBM4 ramp (2026-27) — base-die-on-foundry-node transition; Samsung's competitive re-entry vs Hynix; custom base dies for OpenAI/Nvidia/AMD/Amazon.",
+    "zh": "HBM4 上量（2026-27）——基底 die 迁至代工节点；三星重回竞争对垒海力士；为 OpenAI/英伟达/AMD/亚马逊做定制基底 die。"
+   },
+   {
+    "en": "DRAM price doubling in 2026 — the 'once-in-four-decades shortage' spanning HBM/DDR5/DDR4/DDR3, potentially exceeding forecasts by year-end.",
+    "zh": "2026 年 DRAM 价格翻倍——横跨 HBM/DDR5/DDR4/DDR3 的「四十年一遇短缺」，年底可能超预期。"
+   },
+   {
+    "en": "Server DRAM + HBM crossing >50% of DRAM demand by end-2027 — mix shift that widens leader ASP over CXMT.",
+    "zh": "到 2027 年末服务器 DRAM + HBM 占 DRAM 需求逾 50%——结构转变，拉大龙头对长鑫的 ASP 优势。"
+   },
+   {
+    "en": "Rubin Ultra (1TB HBM4E/GPU) and Amazon direct-HBM procurement — the next leg of per-chip capacity and a new buying model.",
+    "zh": "Rubin Ultra（每 GPU 1TB HBM4E）与亚马逊直采 HBM——单芯片容量的下一段跃升与新采购模式。"
+   }
+  ]
+ },
+ "open_questions": [
+  {
+   "en": "When does hybrid bonding actually arrive for HBM? It keeps sliding from HBM4 to '4E'; nobody has a high-volume 16+ die HB solution, and JEDEC's height relaxation bought incumbents time to avoid it.",
+   "zh": "HBM 的混合键合到底何时真落地？它一路从 HBM4 推迟到「4E」；没人有 16 层以上的高量产混合键合方案，而 JEDEC 放宽高度又给在位厂商争取了绕开它的时间。"
+  },
+  {
+   "en": "When does 3D DRAM insert, and who wins? Roadmaps say ~2030-2035; the big-3 tellingly avoid publishing serious papers because it's the race that will reshuffle DRAM market share.",
+   "zh": "3D DRAM 何时导入、谁赢？路线图说约 2030-2035；三巨头刻意不发正经论文，因为这是一场会重新洗牌 DRAM 份额的竞赛。"
+  },
+  {
+   "en": "Does a modern base-die PHY / compute-in-memory standard emerge from JEDEC or from fast-moving memory-GPU pairs — and does it reduce HBM capacity needs, undercutting the memory-content thesis?",
+   "zh": "现代基底 die PHY / 存内计算标准会出自 JEDEC，还是出自动作更快的存储—GPU 组合？它是否会降低 HBM 容量需求，从而动摇「存储含量」逻辑？"
+  },
+  {
+   "en": "Can CXMT/Huawei's custom non-JEDEC HBM actually close the bandwidth gap at usable yield — and how much does export-control leakage (reclaimed/reexported HBM) matter in the interim?",
+   "zh": "长鑫/华为的定制非 JEDEC HBM 能否在可用良率下真正缩小带宽差距？期间出口管制渗漏（回收/转口 HBM）又有多重要？"
+  },
+  {
+   "en": "When does the supercycle break? Fab lead times keep supply tight to ~2028, but memory has cycled for 50 years — the ASP-driven earnings (esp. CXMT) are the most exposed on the turn.",
+   "zh": "超级周期何时终结？建厂周期让供给紧张到约 2028，但存储已周期波动 50 年——ASP 驱动的盈利（尤其长鑫）在拐点上最脆弱。"
+  }
+ ],
+ "sources": [
+  {
+   "title": "Scaling the Memory Wall: The Rise and Roadmap of HBM",
+   "date": "2025-08-12"
+  },
+  {
+   "title": "The Memory Wall: Past, Present, and Future of DRAM",
+   "date": "2024-09-03"
+  },
+  {
+   "title": "China's CXMT Is Set to Challenge DRAM Incumbents",
+   "date": "2026-06-23"
+  },
+  {
+   "title": "ISSCC 2026: NVIDIA & Broadcom CPO, HBM4 & LPDDR6, TSMC Active LSI, Logic-Based SRAM, UCIe-S and More",
+   "date": "2026-04-15"
+  },
+  {
+   "title": "Interconnects Beyond Copper, 1,000 CFETs, SK Hynix Next-Gen NAND, 2D Materials, and More (IEDM)",
+   "date": "2026-01-13"
+  },
+  {
+   "title": "Intel GenAI For Yield, TSMC CFET & 3D Stacking, SK Hynix HBM4, Micron 3D DRAM & FeRAM, Hybrid Bonding vs TCB - IEDM 2023",
+   "date": "2024-01-03"
+  },
+  {
+   "title": "AI Expansion - Supply Chain Analysis For CoWoS And HBM",
+   "date": "2023-07-26"
+  },
+  {
+   "title": "2022 NAND - Process Technology Comparison, China's YMTC Shipping Densest NAND, Chips 4 Alliance",
+   "date": "2022-08-12"
+  },
+  {
+   "title": "Samsung Backstabs The DRAM Cartel - Capital Expenditure Cuts, 130 Manufacturing Projects",
+   "date": "2022-12-08"
+  },
+  {
+   "title": "ACM Research, China's Most Successful Semiconductor Capital Equipment Provider, Wins At SK Hynix and Intel",
+   "date": "2022-07-18"
+  },
+  {
+   "title": "Austria's Silent Monopolies On Advanced Semiconductor Manufacturing - EV Group and IMS Nanofabrication",
+   "date": "2022-08-24"
+  },
+  {
+   "title": "AI Server Cost Analysis - Memory Is The Biggest Loser",
+   "date": "2023-05-29"
+  },
+  {
+   "title": "The Impending Chinese NAND Apocalypse - YMTC 128 Layer NAND",
+   "date": "2021-09-28"
+  },
+  {
+   "title": "How Onto Innovation Is Gaining Market Share From KLA",
+   "date": "2022-09-06"
+  },
+  {
+   "title": "Memory Oligopoly Woes - Micron Says They Will Not Increase Wafer Output In DRAM Or NAND",
+   "date": "2021-09-29"
+  },
+  {
+   "title": "Micron Sells 3D X-Point Lehi, Utah Fab to Texas Instruments For $1.5B",
+   "date": "2021-06-30"
+  },
+  {
+   "title": "Moore's Law is Dead for DRAM and that is Great for SemiCap",
+   "date": "2020-05-22"
+  }
+ ]
+}

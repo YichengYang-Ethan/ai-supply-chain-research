@@ -1,0 +1,668 @@
+{
+ "sector_id": "05_equipment",
+ "sector_name_en": "Semiconductor Equipment",
+ "sector_name_zh": "半导体设备",
+ "tagline_en": "The picks-and-shovels of AI: whoever owns EUV, etch, deposition and metrology owns the physical bottleneck of Moore's Law — and, increasingly, the cost curve is decided by process tricks, not just by ASML's next scanner.",
+ "tagline_zh": "AI 时代的\"卖铲人\"：谁掌握 EUV、刻蚀、沉积与量检测，谁就扼住摩尔定律的物理咽喉。而越来越关键的是——成本曲线不再只由 ASML 的下一台光刻机决定，而由\"绕开光刻\"的工艺花招决定。",
+ "overview_en": "Wafer fabrication equipment (WFE) is a ~$100B/year oligopoly split by process step, not by node. ASML holds a hard monopoly on EUV lithography (each low-NA tool >$200M, each High-NA EXE:5000 ~$400M and 150 metric tons); Applied Materials and Lam Research dominate deposition and etch; Tokyo Electron owns 100% of EUV photoresist coat/develop tracks; KLA owns process control. SemiAnalysis's core, repeated, non-consensus thesis is that lithography is NOT destiny: as 2D scaling dies, value migrates from the scanner to complementary patterning (AMAT Sculpta pattern-shaping, directed self-assembly, metal-oxide/dry resist) and to etch+deposition-driven vertical scaling (3D NAND, gate-all-around, 3D DRAM). Their most contrarian call — that High-NA EUV single-patterning is actually MORE expensive than low-NA double-patterning through the 1nm node — cuts directly against ASML's marketing and reframes the whole roadmap around cost-per-wafer, not resolution. The memory downturn/AI-driven upturn cycle, Chinese equipment substitution, and export-control gaps are the macro overlay.",
+ "overview_zh": "晶圆制造设备（WFE）是一个每年约 1000 亿美元、按\"工艺步骤\"而非\"节点\"切分的寡头市场。ASML 独家垄断 EUV 光刻（每台 low-NA 机>2 亿美元，每台 High-NA EXE:5000 约 4 亿美元、重达 150 吨）；应用材料（AMAT）与泛林（Lam）主宰沉积与刻蚀；东京电子（TEL）拿下 100% 的 EUV 光刻胶涂布/显影 track；科磊（KLA）把持量检测。SemiAnalysis 反复强调的核心非共识判断是：光刻并非命运。当 2D 微缩走到尽头，价值从光刻机迁移到\"互补图形化\"（AMAT Sculpta 图形塑形、定向自组装 DSA、金属氧化物/干法光刻胶），以及由刻蚀+沉积驱动的\"垂直微缩\"（3D NAND、环栅 GAA、3D DRAM）。其最反直觉的结论——High-NA EUV 单次曝光直到 1nm 节点都\"比 low-NA 双重曝光更贵\"——直接打脸 ASML 的营销，把整条路线图从\"分辨率\"重构为\"单片晶圆成本\"。存储周期下行/AI 驱动上行、中国设备国产替代、以及出口管制漏洞，构成宏观底色。",
+ "core_knowledge": [
+  {
+   "term_en": "WFE (Wafer Fabrication Equipment)",
+   "term_zh": "WFE（晶圆制造设备）",
+   "explain_en": "The front-end toolset that turns bare silicon into patterned chips: lithography, deposition, etch, CMP, ion implant, and process control (metrology/inspection). A ~$100B/year market segmented by step, each step an oligopoly.",
+   "explain_zh": "把裸硅变成有图形芯片的前道工具集：光刻、沉积、刻蚀、CMP、离子注入、量检测。约 1000 亿美元/年，按步骤切分，每一步都是寡头。"
+  },
+  {
+   "term_en": "EUV / High-NA EUV",
+   "term_zh": "EUV / High-NA EUV",
+   "explain_en": "Extreme ultraviolet lithography at 13.5nm wavelength — ASML monopoly. High-NA (0.55 aperture, EXE:5000) images smaller features but halves the exposure field, forcing die-stitching. The critical debate: is it worth ~2x the cost?",
+   "explain_zh": "波长 13.5nm 的极紫外光刻，ASML 独家。High-NA（数值孔径 0.55，EXE:5000）能画更小特征，但曝光视场减半，逼迫\"拼场\"（stitching）。核心争论：值不值约两倍的成本？"
+  },
+  {
+   "term_en": "Multi-patterning (LELE/SADP/SALELE)",
+   "term_zh": "多重曝光（LELE/SADP/SALELE）",
+   "explain_en": "Using multiple exposures + etch/deposition to print features finer than one exposure allows. Doubles/triples litho cost but keeps each exposure at a cheaper, higher-dose point on the exponential dose-vs-CD curve.",
+   "explain_zh": "用多次曝光+刻蚀/沉积，画出单次曝光做不到的更细特征。使光刻成本翻倍/三倍，但让每次曝光都停在\"剂量-关键尺寸\"指数曲线上更便宜、剂量更低的点。"
+  },
+  {
+   "term_en": "Pattern shaping (AMAT Sculpta)",
+   "term_zh": "图形塑形（AMAT Sculpta）",
+   "explain_en": "A directional (angled ribbon-beam plasma) etch that elongates features in one axis after a single exposure, replacing a second litho pass. Can remove EUV double-patterning on some layers; ~$4.5B potential EUV demand reduction.",
+   "explain_zh": "一种定向（成角度带状束等离子）刻蚀，单次曝光后沿单一轴向拉长特征，替代第二次光刻。在部分层能省掉 EUV 双重曝光；潜在削减约 45 亿美元 EUV 需求。"
+  },
+  {
+   "term_en": "DSA (Directed Self-Assembly)",
+   "term_zh": "DSA（定向自组装）",
+   "explain_en": "Block copolymers (PS-b-PMMA) that self-organize into ~9-20nm lines guided by a coarse EUV template. 'Heals' line-edge roughness, letting EUV run at 50%+ lower dose — Intel's proposed 'magic bullet' to make High-NA economical at 14A.",
+   "explain_zh": "嵌段共聚物（PS-b-PMMA）在粗略 EUV 模板引导下自组织成约 9-20nm 线条。能\"修复\"线边缘粗糙度，让 EUV 剂量降 50%+——Intel 提出的、让 High-NA 在 14A 划算的\"银弹\"。"
+  },
+  {
+   "term_en": "CAR vs MOR vs Dry Resist",
+   "term_zh": "CAR vs MOR vs 干法光刻胶",
+   "explain_en": "Photoresist platforms. CAR (organic, TEL/JSR/TOK incumbent); MOR (metal-oxide, Inpria/JSR, better etch selectivity for thin High-NA films); Dry resist (Lam CVD-deposited metal, ~2x throughput, ~50% dose cut). A $5B+ battle.",
+   "explain_zh": "三种光刻胶路线。CAR（有机，TEL/JSR/TOK 在位者）；MOR（金属氧化物，Inpria/JSR，对 High-NA 薄膜有更好刻蚀选择性）；干法胶（Lam CVD 沉积金属，约 2x 产能、约省 50% 剂量）。50 亿美元+的战争。"
+  },
+  {
+   "term_en": "ALD & Batch vs Single-Wafer",
+   "term_zh": "ALD 与批量 vs 单片",
+   "explain_en": "Atomic Layer Deposition lays down one atomic layer at a time — highest conformality for high-aspect-ratio 3D structures. Batch (Kokusai ~70% share) processes 100s of wafers for memory; single-wafer (ASMI/AMAT/Lam) for precise logic films.",
+   "explain_zh": "原子层沉积一次只铺一层原子——对高深宽比 3D 结构保形性最好。批量式（Kokusai 约 70% 份额）一次处理数百片，用于存储；单片式（ASMI/AMAT/Lam）用于精密逻辑薄膜。"
+  },
+  {
+   "term_en": "HAR Etch (High Aspect Ratio)",
+   "term_zh": "HAR 高深宽比刻蚀",
+   "explain_en": "Etching channel holes 70x deeper than wide through 3D NAND stacks (>250 layers, ~7 microns). Lam's crown jewel; Tokyo Electron's cryogenic etch threatens >$1B of it. The gating step for NAND vertical scaling.",
+   "explain_zh": "在 3D NAND 堆栈（>250 层、约 7 微米）中刻出\"深宽比 70:1\"的沟道孔。Lam 的皇冠明珠；TEL 的低温（cryo）刻蚀威胁其中超 10 亿美元。NAND 垂直微缩的卡脖子步骤。"
+  },
+  {
+   "term_en": "Process Control (Metrology/Inspection)",
+   "term_zh": "量检测（Metrology/Inspection）",
+   "explain_en": "Measuring/inspecting wafers between steps to catch defects before yield is destroyed (a single fab excursion cost TSMC $550M in 2019). KLA-dominated; ~10-15% of WFE. AI (e.g. Lynceus) aims to cut this capex via virtual metrology.",
+   "explain_zh": "在工序间测量/检查晶圆，在良率被毁前抓缺陷（2019 年一次 TSMC 事故损失 5.5 亿美元）。KLA 主导；占 WFE 约 10-15%。AI（如 Lynceus）力图用\"虚拟量测\"削减这块资本开支。"
+  }
+ ],
+ "value_chain": [
+  {
+   "stage_en": "Lithography (patterning)",
+   "stage_zh": "光刻（图形化）",
+   "players": "ASML (EUV monopoly + DUV leader), Nikon, Canon (DUV/nanoimprint), SMEE (China)",
+   "role_en": "Prints the circuit pattern. ASML's EUV/High-NA is the single hardest bottleneck; ~35% of a 3nm node's cost. Nikon/Canon relegated to DUV; Canon's nanoimprint bet 'was the wrong bet.'",
+   "role_zh": "把电路图案印到晶圆上。ASML 的 EUV/High-NA 是最硬的单点瓶颈；约占 3nm 节点成本 35%。Nikon/Canon 退守 DUV；Canon 押注纳米压印\"押错了\"。"
+  },
+  {
+   "stage_en": "Deposition (add material)",
+   "stage_zh": "沉积（加材料）",
+   "players": "Applied Materials, Lam Research, Tokyo Electron, ASM International (ALD), Kokusai Electric (batch ALD ~70%)",
+   "role_en": "Lays down films (CVD/PVD/ALD/electroplating). ALD intensity rises hard with GAA and 3D — self-limiting, conformal, but slow, so memory batches it. Kokusai is the batch-ALD specialist; TSMC is its 2nd-largest customer.",
+   "role_zh": "铺薄膜（CVD/PVD/ALD/电镀）。ALD 强度随 GAA 与 3D 化大幅上升——自限、保形但慢，故存储用批量。Kokusai 是批量 ALD 专家；TSMC 是其第二大客户。"
+  },
+  {
+   "stage_en": "Etch (remove material)",
+   "stage_zh": "刻蚀（去材料）",
+   "players": "Lam Research (HAR etch leader), Tokyo Electron (cryo etch challenger), Applied Materials",
+   "role_en": "Carves patterns/holes. The engine of 3D NAND vertical scaling (70:1 channel holes). Lam dominates HAR; TEL's cryogenic etch + moly deposition could move >$1B of NAND revenue.",
+   "role_zh": "雕刻图形/孔洞。3D NAND 垂直微缩的发动机（70:1 沟道孔）。Lam 主宰 HAR；TEL 的低温刻蚀+钼沉积或转移超 10 亿美元 NAND 收入。"
+  },
+  {
+   "stage_en": "Photoresist track & materials",
+   "stage_zh": "光刻胶 track 与材料",
+   "players": "Tokyo Electron (100% EUV coat/develop track), JSR/Inpria, TOK, Shin-Etsu, Lam (dry resist)",
+   "role_en": "Coats, bakes and develops resist around every ASML tool — a $5B+ run-rate monopoly for TEL that pulls in adjacent etch/clean wins. Lam's dry resist is the disruptor; JSR bought Inpria for $514M to defend MOR.",
+   "role_zh": "在每台 ASML 机器旁涂胶、烘烤、显影——TEL 的 50 亿美元+垄断，还带动相邻刻蚀/清洗订单。Lam 干法胶是颠覆者；JSR 以 5.14 亿美元收购 Inpria 守住 MOR。"
+  },
+  {
+   "stage_en": "Process control",
+   "stage_zh": "量检测",
+   "players": "KLA (dominant), Onto Innovation, Nova, Lasertec (EUV mask/actinic inspection), Lynceus (AI software)",
+   "role_en": "Metrology and defect inspection to protect yield across 1000+ steps. KLA is the toll-booth; Lasertec monopolizes actinic EUV mask inspection; AI/virtual metrology threatens to shrink the sampling capex.",
+   "role_zh": "在 1000+ 步中做量测与缺陷检查以保良率。KLA 是收费站；Lasertec 垄断 EUV 掩模 actinic 检测；AI/虚拟量测有望压缩抽样资本开支。"
+  },
+  {
+   "stage_en": "Masks / mask equipment",
+   "stage_zh": "掩模 / 掩模设备",
+   "players": "Hoya (~80% EUV blanks), AGC/Asahi, Veeco (blank deposition tools), IMS/JEOL (multibeam writers), Photronics",
+   "role_en": "Makes the reticles that carry each layer's pattern; mask sets now approach $40M at 3nm. Veeco monopolizes EUV mask-blank Mo/Si/Ru deposition. A '6x12 inch' larger mask is the swing factor for High-NA economics.",
+   "role_zh": "制造承载每层图案的掩模版；3nm 掩模套组已逼近 4000 万美元。Veeco 垄断 EUV 掩模坯的 Mo/Si/Ru 沉积。\"6×12 英寸\"大掩模是 High-NA 经济性的关键变量。"
+  },
+  {
+   "stage_en": "Specialty / niche tools",
+   "stage_zh": "专用 / 利基工具",
+   "players": "Veeco (laser anneal, GaN MOCVD, wet), EV Group (wafer bonders), BE Semi (hybrid bonding), Entegris (materials)",
+   "role_en": "Adjacent enablers: hybrid bonding for CMOS-bonded-array NAND and backside power; laser annealing for GAA dopant activation; wafer bonding for heterogeneous integration. Small TAMs but structurally growing with 3D.",
+   "role_zh": "周边使能者：CMOS 键合阵列 NAND 与背面供电的混合键合；GAA 掺杂激活的激光退火；异构集成的晶圆键合。TAM 小，但随 3D 结构性增长。"
+  }
+ ],
+ "theses": [
+  {
+   "claim_en": "High-NA EUV single-patterning is MORE expensive than low-NA double-patterning — all the way through the 1nm node.",
+   "claim_zh": "High-NA EUV 单次曝光比 low-NA 双重曝光更贵——一路贵到 1nm 节点。",
+   "rationale_en": "Dose requirements rise exponentially as critical dimension shrinks. Low-NA double-patterning splits a layer into two exposures with ~2x-larger features each, sitting far down the exponential dose curve, so the scanner runs at full stage-limited throughput. High-NA single-exposure is dose-limited even at a hypothetical 1kW source. The throughput advantage is so strong that despite 2x the wafer passes, low-NA double-patterning is cheaper. IBM's own SPIE data confirmed it: a single High-NA exposure costs ~2.5x a single low-NA exposure, so High-NA only wins when it replaces 3+ low-NA masks (e.g. 4-mask SALELE).",
+   "rationale_zh": "关键尺寸缩小时，曝光剂量呈指数级上升。low-NA 双重曝光把一层拆成两次、每次特征约大 2 倍，停在指数剂量曲线的低位，扫描机可跑满\"工作台受限\"的最高产能。High-NA 单次曝光即使假设 1kW 光源仍受剂量限制。产能优势之大，以至于尽管过机次数翻倍，low-NA 双重曝光反而更便宜。IBM 在 SPIE 的数据佐证：单次 High-NA 曝光成本约为单次 low-NA 的 2.5 倍，故 High-NA 只有在替代 3 次以上 low-NA 掩模（如 4 掩模 SALELE）时才划算。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!sh-7!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F99420447-33e5-4a42-8eb1-9bcc54026fa3_1488x925.png",
+    "shows_en": "SemiAnalysis litho-cost model, normalized to low-NA 3nm: low-NA double-patterning stays cheaper than High-NA single exposure from 3nm through ~1nm.",
+    "shows_zh": "SemiAnalysis 光刻成本模型（以 low-NA 3nm 归一化）：从 3nm 到约 1nm，low-NA 双重曝光始终比 High-NA 单次曝光便宜。"
+   },
+   "quote": {
+    "text": "Our lithography models show that despite reducing complexity, high-NA EUV single patterning costs significantly more than double-patterning using existing low-NA machines for upcoming technology nodes including 1.4nm/14A.",
+    "source_title": "ASML Dilemma: High-NA EUV is Worse vs Low-NA EUV Multi-Patterning",
+    "date": "2023-12-11"
+   }
+  },
+  {
+   "claim_en": "Lithography is not destiny — as 2D scaling dies, value migrates from ASML's scanner to complementary patterning and to etch/deposition-driven vertical scaling.",
+   "claim_zh": "光刻并非命运——2D 微缩终结时，价值从 ASML 的光刻机迁移到互补图形化，以及由刻蚀/沉积驱动的垂直微缩。",
+   "rationale_en": "NAND broke the mold in 2013: it stopped relying on lithography and went vertical, so density improved ~30%/year and cost/bit fell ~21%/year while the value shifted to HAR etch and ALD. NAND litho-intensity is only ~10-12% of WFE. The same physics now hits logic (GAA nanosheets, then CFET) and DRAM (3D DRAM), raising etch/deposition intensity. The inflection to 'stacking not shrinking' is exactly where SemiAnalysis places High-NA's natural, cost-effective insertion — the 2030+ 1nm/7A era, not 14A.",
+   "rationale_zh": "NAND 在 2013 年打破定式：不再依赖光刻，转向垂直堆叠，密度年增约 30%、每比特成本年降约 21%，价值转移到 HAR 刻蚀与 ALD。NAND 光刻强度仅占 WFE 约 10-12%。同样的物理如今冲击逻辑（GAA 纳米片，之后 CFET）与 DRAM（3D DRAM），抬升刻蚀/沉积强度。从\"缩小\"转向\"堆叠\"的拐点，正是 SemiAnalysis 认为 High-NA 天然、划算的切入点——2030 年后的 1nm/7A 时代，而非 14A。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!dwrz!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5c44db81-34aa-4cd2-b493-5cef8dd611bf_1924x1346.png",
+    "shows_en": "3D NAND density/cost scaling driven by added layers (deposition + HAR etch), not lithography — the template for logic and DRAM going vertical.",
+    "shows_zh": "3D NAND 靠增加层数（沉积+HAR 刻蚀）而非光刻实现密度/成本微缩——逻辑与 DRAM 垂直化的范本。"
+   },
+   "quote": {
+    "text": "This is because NAND flipped the formula and stopped relying on lithography for patterning smaller cells. Instead, NAND has relied on a different architecture, 3D NAND... density has improved by 30% per year at a very consistent rate.",
+    "source_title": "NAND Flash Monopoly Broken? Tokyo Electron Moly Dep + Cryo Etch Takes On Lam Research",
+    "date": "2023-07-16"
+   }
+  },
+  {
+   "claim_en": "Applied Materials' Sculpta 'pattern shaping' is real, works, and could cut EUV double-patterning demand by ~$4.5B — not the immature science project critics dismissed.",
+   "claim_zh": "AMAT 的 Sculpta\"图形塑形\"是真的、能用、可削减约 45 亿美元的 EUV 双重曝光需求——绝非批评者口中的不成熟科研项目。",
+   "rationale_en": "Sculpta fires a highly directional angled ribbon-beam plasma (beam angle controllable 0-70 degrees) to elongate a feature on one axis after a single exposure, replacing a second litho pass for tight tip-to-tip, corner-to-corner via, and stochastic-defect repair (>90% defect reduction). AMAT claims per-layer savings of ~$250M capex per 100k wafers/month and ~$50/wafer opex versus adding an EUV loop. It's not vaporware: AMAT has published since 2015, the first customer engaged in ~2017, and it inserts on a 2nm-class node in late-2024/2025. But it can't be used everywhere — it shapes existing features, it doesn't add routing density.",
+   "rationale_zh": "Sculpta 用高度定向的成角度带状束等离子（束角 0-70 度可调），单次曝光后沿单一轴向拉长特征，替代第二次光刻，用于紧凑的 tip-to-tip、角对角通孔、以及随机缺陷修复（缺陷降>90%）。AMAT 称相较增加一道 EUV 循环，每层可省约 2.5 亿美元资本开支（按 10 万片/月）与约 50 美元/片运营开支。这不是画饼：AMAT 自 2015 年就发论文，首个客户约 2017 年介入，将在 2024 年底/2025 年一个 2nm 级节点插入。但它不能用在所有地方——它塑形已有特征，并不增加布线密度。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!9Jor!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F921592c0-0b90-453f-8f99-f469704859b9_2666x1377.png",
+    "shows_en": "Sculpta achieving LELE-equivalent feature fidelity with a single litho cycle + pattern shaping vs. the two-exposure LELE flow.",
+    "shows_zh": "Sculpta 用\"单次光刻+图形塑形\"达到与两次曝光 LELE 等效的特征保真度。"
+   },
+   "quote": {
+    "text": "According to Applied Materials, the Sculpta tool could be used to reduce the use of EUV lithography by as much as HALF for some layers. If true, this would reshape the cost structure of the industry.",
+    "source_title": "EUV Requirements Halved? Applied Materials' Sculpta Redefines Lithography And Patterning",
+    "date": "2023-03-06"
+   }
+  },
+  {
+   "claim_en": "Directed Self-Assembly (DSA) is Intel's 'magic bullet' — the only thing that could make High-NA economical at 14A by cutting EUV dose 50%+.",
+   "claim_zh": "定向自组装（DSA）是 Intel 的\"银弹\"——唯一可能在 14A 让 High-NA 划算的技术，靠把 EUV 剂量砍 50%+。",
+   "rationale_en": "Because High-NA's cost problem is the exponential dose-vs-CD curve, the fix is to relax the EUV exposure and 'heal' it. DSA block copolymers (PS-b-PMMA) self-assemble into ~9nm lines aligned to a coarse, low-dose EUV guide pattern; they align to the average of the guide, so the guide's line-edge roughness can be poor. That relaxes dose by 50%+ (Intel R&D shows 25 mJ/cm2 = a 3-4x cut). This is why Intel — alone among chipmakers — bet on High-NA in HVM at 14A while TSMC/Samsung ordered only R&D tools. The catch: DSA has been stuck in research for a decade because of defectivity risk.",
+   "rationale_zh": "既然 High-NA 的成本症结是\"剂量-关键尺寸\"指数曲线，破法就是放松 EUV 曝光再\"修复\"它。DSA 嵌段共聚物（PS-b-PMMA）自组装成约 9nm 线条，对齐到粗略、低剂量的 EUV 引导图案；它对齐引导图案的\"平均值\"，故引导的线边缘粗糙度可以很差。剂量因此降 50%+（Intel 研发显示 25 mJ/cm2 = 降 3-4 倍）。这就是为何 Intel——在芯片厂中独此一家——在 14A 量产押注 High-NA，而台积电/三星只订研发机。代价：DSA 因缺陷率风险已在研究阶段卡了十年。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!mLqe!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3e6a6a10-a7ea-4d4a-ae55-8163dae95a10_1554x1117.png",
+    "shows_en": "Single EUV exposure vs. EUV+DSA resist rectification: DSA block copolymer heals a poor low-dose guide pattern into clean lines.",
+    "shows_zh": "单次 EUV 曝光 vs. EUV+DSA 光刻胶矫正：DSA 嵌段共聚物把粗糙的低剂量引导图案\"修复\"成整齐线条。"
+   },
+   "quote": {
+    "text": "Relaxing image quality requirements for the EUV exposure means the dose can be reduced by 50% or more.",
+    "source_title": "Intel's 14A Magic Bullet: Directed Self-Assembly (DSA)",
+    "date": "2024-04-18"
+   }
+  },
+  {
+   "claim_en": "The NAND monopoly is breakable: Tokyo Electron's cryogenic HAR etch + molybdenum deposition can move >$1B of revenue away from Lam Research.",
+   "claim_zh": "NAND 垄断可被打破：东京电子（TEL）的低温 HAR 刻蚀 + 钼沉积可从泛林（Lam）手中夺走超 10 亿美元收入。",
+   "rationale_en": "NAND vertical scaling has hit the HAR-etch wall (6-7 micron / 70:1 channel holes; ~40nm minimum cell thickness). Two manufacturing changes threaten Lam's crown-jewel etch dominance: cryogenic etch (etching at very low temperature to push depth/aspect ratio further, where TEL is strong) and a tungsten-to-molybdenum wordline material change (lower resistance, thinner, enabling more layers). SemiAnalysis frames both as >$1B of share potentially changing hands — a rare crack in one of WFE's tightest oligopolies.",
+   "rationale_zh": "NAND 垂直微缩已撞上 HAR 刻蚀墙（6-7 微米 / 70:1 沟道孔；单元最小约 40nm 厚）。两项制造变化威胁 Lam 的皇冠级刻蚀主导：低温刻蚀（在极低温刻蚀，把深度/深宽比推得更远，TEL 在此强），以及字线材料从钨换钼（电阻更低、更薄，能上更多层）。SemiAnalysis 把两者合计视为可能易手的超 10 亿美元份额——WFE 最紧的寡头之一上的罕见裂缝。",
+   "figure": null,
+   "quote": {
+    "text": "a potential big shift in market share from Lam Research to Tokyo Electron (TEL) due to two manufacturing changes representing over $1 billion of revenues potentially changing hands.",
+    "source_title": "NAND Flash Monopoly Broken? Tokyo Electron Moly Dep + Cryo Etch Takes On Lam Research",
+    "date": "2023-07-16"
+   }
+  },
+  {
+   "claim_en": "Nanoimprint lithography will NOT replace EUV — the mask lasts ~50 wafers vs. 100,000+ for a photomask, and defectivity kills the economics.",
+   "claim_zh": "纳米压印光刻（NIL）不会取代 EUV——其掩模只能撑约 50 片晶圆，而光掩模>10 万片，缺陷率毁掉经济性。",
+   "rationale_en": "On paper NIL is seductive: a 4-cell tool costs ~1/10th of an EUV scanner, ~1/4 the cost-per-wafer, ~90% less power, and can theoretically match EUV resolution with no stochastics. In practice the nanometer-scale 3D stamp is fragile — Canon's templates last ~50 wafers (customers dispute Canon's higher claims), and any repeater defect is copied to every field, so inspecting every template would consume 'roughly the entire annual output of mask-inspection tools worldwide.' Kioxia and Micron, who WANT it to work, keep repeating the same complaints. Its real use is niches (metalenses, MEMS). Note the export-control gap: a Japan-sold NIL tool could be re-exported to China.",
+   "rationale_zh": "纸面上 NIL 很诱人：4 单元机约为 EUV 光刻机的 1/10 价、约 1/4 单片成本、省约 90% 电，理论上分辨率匹敌 EUV 且无随机误差。实践中纳米级 3D 印章太脆——Canon 模板只撑约 50 片（客户对 Canon 更高声称有异议），任何\"重复缺陷\"会复制到每个曝光场，故检查每一片模板将耗尽\"全球掩模检测设备近乎一整年的产能\"。铠侠与美光——它们本\"希望\"NIL 成功——反复抱怨同样的问题。真正用途是利基（超透镜、MEMS）。注意出口管制漏洞：日本售出的 NIL 机可再出口到中国。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!--v2!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F328577a0-c32d-4b44-b68e-a38bc377585b_1038x994.png",
+    "shows_en": "NIL vs EUV/DUV throughput: Canon NIL ~25 wph/cell (100 wph for a 4-cell set) vs 330 wph DUV, 220 wph EUV.",
+    "shows_zh": "NIL vs EUV/DUV 产能：Canon NIL 约 25 片/时/单元（4 单元约 100 片/时）vs DUV 330 片/时、EUV 220 片/时。"
+   },
+   "quote": {
+    "text": "How long does that stamp last? Right now, about 50 wafers... Compare that to a photolithography mask which has a lifetime of well over 100,000 wafers.",
+    "source_title": "Nanoimprint Lithography: Stop Saying It Will Replace EUV",
+    "date": "2025-10-26"
+   }
+  },
+  {
+   "claim_en": "Metal-oxide resist's time has finally come — and it arrives bundled with High-NA at ~A10, not because the industry chose it but because thin-film physics forces it.",
+   "claim_zh": "金属氧化物光刻胶（MOR）终于等到了时机——它随 High-NA 在约 A10 一并到来，不是因为产业选它，而是薄膜物理逼它。",
+   "rationale_en": "High-NA's depth of focus shrinks with the square of NA, forcing very thin resist. Organic CAR resist that thin lacks etch resistance to survive pattern transfer; metal-oxide resist (MOR) has far better etch selectivity plus better resolution-LER-sensitivity. The crossover is ~30nm-pitch vias, ~2 nodes out at A10 — the same point SemiAnalysis models High-NA becoming economical. Most SPIE 2025 High-NA data already used MOR over CAR. A parallel war rages over wet (TEL spin-coat) vs dry (Lam CVD) application of that resist, with winners now emerging in research.",
+   "rationale_zh": "High-NA 的焦深随数值孔径平方缩小，逼出极薄光刻胶。这么薄的有机 CAR 胶缺乏刻蚀抗性、扛不过图形转移；金属氧化物胶（MOR）刻蚀选择性远好、且分辨率-线边缘粗糙度-灵敏度更优。交叉点在约 30nm 间距通孔，约 2 个节点后的 A10——正是 SemiAnalysis 模型里 High-NA 变划算的点。SPIE 2025 的多数 High-NA 数据已用 MOR 而非 CAR。围绕该胶的\"湿法（TEL 旋涂）vs 干法（Lam CVD）\"另一场战争正打，研究中已现赢家。",
+   "figure": null,
+   "quote": {
+    "text": "It will probably make sense to adopt MOR at the same time as high-NA for a small number of critical layers like metals and vias. Most SPIE papers this year with high-NA exposure data used MOR rather than CAR.",
+    "source_title": "High-NA is Here (for R&D), EUV Cost, Pattern Shaping Gaining Share...",
+    "date": "2025-04-14"
+   }
+  },
+  {
+   "claim_en": "ASML's own long-term guidance is questionable — its 20 High-NA tools/year by 2028 target is 'impossible,' and its wafer model bakes in 10-20% 'inefficient' capacity.",
+   "claim_zh": "ASML 自己的长期指引站不住脚——2028 年每年 20 台 High-NA 的目标\"不可能\"，其晶圆模型还内嵌了 10-20% 的\"低效\"产能。",
+   "rationale_en": "SemiAnalysis repeatedly pokes holes in first-party equipment guidance. ASML's investor-day math assumed 600 DUV + 90 EUV tools/year by 2025 and 20 High-NA/year by 2028 — the last of which they call flatly impossible given the cost problem. ASML's demand model leans on 'technological sovereignty' regionalization adding ~10% inefficient capacity (rising to ~20% of incremental 2025-30 wafers), which would drag utilization toward ~72%. Their fab-count slide got 'a 4 out of 10.' The takeaway: buy-side/sell-side that just plug ASML's guidance are ignoring a large long-term risk.",
+   "rationale_zh": "SemiAnalysis 反复给一方（设备商）指引挑刺。ASML 投资者日的算法假设 2025 年每年 600 台 DUV + 90 台 EUV、2028 年每年 20 台 High-NA——最后一项被直接判为\"不可能\"，因成本问题。ASML 的需求模型依赖\"技术主权\"区域化带来约 10% 低效产能（升到 2025-30 增量晶圆的约 20%），会把利用率拖向约 72%。其晶圆厂数量图被打\"4/10 分\"。要点：直接照搬 ASML 指引的买方/卖方，忽视了巨大的长期风险。",
+   "figure": null,
+   "quote": {
+    "text": "the most lofty, and in our view, impossible to hit target of theirs is the plan to have 20 High-NA EUV tool annual shipments by 2028.",
+    "source_title": "ASML Dilemma: High-NA EUV is Worse vs Low-NA EUV Multi-Patterning",
+    "date": "2023-12-11"
+   }
+  },
+  {
+   "claim_en": "Export controls have gaping holes: DUV, photoresist, components and service — not just EUV — must be blocked, or China rebuilds 7nm from existing tools.",
+   "claim_zh": "出口管制漏洞巨大：不只 EUV，DUV、光刻胶、零部件与服务都得堵，否则中国靠现有工具重建 7nm。",
+   "rationale_en": "The 2023 trilateral (US/Japan/Netherlands) deal was 'extremely limited,' covering mainly ArFi tools. But SAQP with ArFi (k1=0.391) reaches 5nm-class 28nm minimum-metal-pitch, and even dry-ArF or advanced-KrF can reach 7nm/14nm pitches at ~19% higher wafer cost — trivial for a state subsidizing at nuclear-plant scale. SMIC alone has 100+ DUV tools and could reach >100k wafers/month of 7nm. The un-restricted photoresist supply chain (~75% Japanese) and tool service/parts are the biggest holes: any nation can be cut off from all lithography if Japan restricts resist. Separately, ASML declared it 'can continue to ship all non-EUV systems to China.'",
+   "rationale_zh": "2023 年美日荷三方协议\"极其有限\"，主要覆盖 ArFi 工具。但用 ArFi 的 SAQP（k1=0.391）可达 5nm 级的 28nm 最小金属间距，甚至干法 ArF 或先进 KrF 也能以约高 19% 的单片成本做到 7nm/14nm 间距——对以核电站规模补贴的国家微不足道。仅 SMIC 就有 100+ 台 DUV 机，可达 7nm 超 10 万片/月。不受限的光刻胶供应链（约 75% 日本）与工具服务/备件是最大漏洞：只要日本限制光刻胶，任何国家都可被切断全部光刻能力。另外，ASML 宣称它\"可继续向中国出货所有非 EUV 系统\"。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!YGqW!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F971e19ab-b0eb-454d-af31-224e6af0f77c_2048x932.jpeg",
+    "shows_en": "How DUV multi-patterning (SAQP with ArFi/ArF/KrF) can reach 5nm/7nm/14nm minimum metal pitches without EUV, defining where export controls must reach.",
+    "shows_zh": "DUV 多重曝光（ArFi/ArF/KrF 的 SAQP）如何在无 EUV 下达到 5nm/7nm/14nm 最小金属间距，界定出口管制该管到哪。"
+   },
+   "quote": {
+    "text": "As a European-based company with limited US technology in our systems, ASML can continue to ship all non-EUV lithography systems to China out of the Netherlands.",
+    "source_title": "The Gaps In The New China Lithography Restrictions",
+    "date": "2023-01-29"
+   }
+  },
+  {
+   "claim_en": "Batch ALD is a hidden monopoly niche: Kokusai Electric owns ~70% of batch ALD, wins critical 3D NAND deposition at all top-5 makers, and its intensity rises with GAA.",
+   "claim_zh": "批量 ALD 是隐藏的垄断利基：Kokusai Electric 拥有约 70% 批量 ALD 份额，在全部前五大 NAND 厂拿下关键 3D NAND 沉积，且强度随 GAA 上升。",
+   "rationale_en": "WFE isn't one market — it's dozens of niches each with a hidden leader. Kokusai (KKR-owned, IPO'd 2023) holds ~70% of batch ALD (~46% of all batch deposition), and is the process-of-record for 3D NAND's blocking oxide, charge-trap nitride and tunnel oxide at ALL top-5 NAND makers. AMAT tried to buy it for $2.2B, raised the offer 59% to $3.5B, then aborted after two years awaiting China antitrust approval — an endorsement of the moat. Batch beats single-wafer above 64-layer NAND (depth loading flips the throughput math), and GAA needs several more ALD steps, so KE's TAM structurally grows; TSMC is already its 2nd-largest customer.",
+   "rationale_zh": "WFE 不是一个市场——而是数十个各有隐藏龙头的利基。Kokusai（KKR 持有、2023 年 IPO）握有约 70% 批量 ALD（占全部批量沉积约 46%），并且是全部前五大 NAND 厂的 3D NAND 阻挡氧化层、电荷俘获氮化层、隧穿氧化层的\"工艺记录\"（POR）。AMAT 曾出价 22 亿美元收购，后加价 59% 至 35 亿美元，苦等中国反垄断审批两年未果后放弃——正是对其护城河的背书。64 层以上 NAND 批量式胜过单片（深度加载翻转产能算式），且 GAA 需多几步 ALD，故 KE 的 TAM 结构性增长；TSMC 已是其第二大客户。",
+   "figure": null,
+   "quote": {
+    "text": "KE dominates the batch ALD process with ~70% market share... For the blocking oxide, charge trap nitride and tunnel oxide, KE's batch ALD is the process tool of record among ALL of the top 5 NAND players.",
+    "source_title": "Going Vertical: Gate All Around, 3D DRAM, 3D NAND - Kokusai Electric IPO",
+    "date": "2023-10-15"
+   }
+  },
+  {
+   "claim_en": "Fixed costs are exploding — a 3nm mask set approaches $40M — which paradoxically drives MORE equipment demand at trailing nodes as designs proliferate.",
+   "claim_zh": "固定成本正在爆炸——3nm 掩模套组逼近 4000 万美元——这反而在成熟节点催生更多设备需求，因为设计数量激增。",
+   "rationale_en": "Mask-set cost scales far faster than wafer cost: ~$100Ks at 90-45nm, >$1M at 28nm, >$10M at 7nm, ~$40M at 3nm. Combined with soaring verification/validation cost (Intel needed 12 steppings for Sapphire Rapids), only high-volume designs can amortize leading-edge economics — culling AI-chip startups. The flip side, per ASML, is a 40%+ increase in >28nm mask-set starts (48% per eBeam Initiative): not old chips, but NEW designs on mature nodes. That, plus regionalization, is what keeps trailing-edge DUV, deposition and etch demand — and Nikon/Canon/SMEE competition — structurally alive.",
+   "rationale_zh": "掩模套组成本比晶圆成本涨得快得多：90-45nm 约几十万美元、28nm>100 万、7nm>1000 万、3nm 约 4000 万。叠加飙升的验证/确认成本（Intel 的 Sapphire Rapids 用了 12 次流片修版），只有大批量设计才能摊薄先进节点经济性——淘汰 AI 芯片初创。反面是（据 ASML）>28nm 掩模套组开工量增 40%+（eBeam Initiative 称 48%）：不是旧芯片，而是成熟节点上的\"新设计\"。这加上区域化，让成熟 DUV、沉积、刻蚀需求——以及 Nikon/Canon/SMEE 竞争——结构性存活。",
+   "figure": null,
+   "quote": {
+    "text": "At 28nm it moves beyond $1M. With 7nm, the cost increases beyond $10M, and now, as we cross the 3nm barrier, mask sets will begin to push into the $40M range.",
+    "source_title": "The Dark Side Of The Semiconductor Design Renaissance",
+    "date": "2022-07-24"
+   }
+  },
+  {
+   "claim_en": "AI is coming for metrology capex: virtual/inline AI process control (e.g. Lynceus) can cut defect-detection time 90% and metrology sampling 4x.",
+   "claim_zh": "AI 正冲击量检测资本开支：虚拟/在线 AI 过程控制（如 Lynceus）可把缺陷检测时间砍 90%、量测抽样降 4 倍。",
+   "rationale_en": "Metrology/inspection is pure overhead — floorspace and cycle time that doesn't advance the wafer — yet indispensable: a 2,000-step process at 6-sigma per step still yields D0=0.678 (>half the die defective), and one undetected excursion cost TSMC $550M in 2019. Lynceus feeds tool FDC/test data into AI models to predict quality inline, achieving (in two HVM fabs) a 90% cut in time-to-detect (4 days to 3 hours) and a 4x reduction in metrology/inspection sampling. The structural implication: AI virtual metrology is a headwind to the KLA/Onto/Nova sampling-capex growth story even as complexity rises.",
+   "rationale_zh": "量测/检测是纯开销——占地与周期却不推进晶圆——但不可或缺：2000 步工艺即使每步 6-sigma，D0 仍达 0.678（过半芯片报废），且 2019 年一次未察觉的漂移让 TSMC 损失 5.5 亿美元。Lynceus 把工具 FDC/测试数据喂给 AI 模型，在线预测质量，（在两座量产厂）实现检测时间降 90%（4 天→3 小时）、量测/检测抽样降 4 倍。结构含义：AI 虚拟量测对 KLA/Onto/Nova 的\"抽样资本开支增长\"故事构成逆风，哪怕复杂度上升。",
+   "figure": null,
+   "quote": {
+    "text": "The results are astounding with a 90% reduction in time to detect a defect from 4 days to 3 hours. Furthermore, they were able to achieve a 4x reduction in metrology and inspection sampling frequency.",
+    "source_title": "Lynceus: Inline, Real-time, AI Based Process Control Monitoring",
+    "date": "2022-07-28"
+   }
+  }
+ ],
+ "key_data": [
+  {
+   "metric_en": "Low-NA EUV tool price",
+   "metric_zh": "low-NA EUV 光刻机单价",
+   "value": ">$200M (NXE:3800E)",
+   "note_en": "Cost per wafer is dominated by throughput, so the whole High-NA cost debate turns on this.",
+   "note_zh": "单片成本由产能主导，整场 High-NA 成本之争都系于此。"
+  },
+  {
+   "metric_en": "High-NA EUV tool price / weight",
+   "metric_zh": "High-NA EUV 单价 / 重量",
+   "value": "~$400M / 150 metric tons (EXE:5000)",
+   "note_en": "~2x a low-NA tool; depreciates >$150,000/day.",
+   "note_zh": "约为 low-NA 两倍；每天折旧超 15 万美元。"
+  },
+  {
+   "metric_en": "High-NA vs low-NA single-exposure cost",
+   "metric_zh": "High-NA 对 low-NA 单次曝光成本",
+   "value": "~2.5x (IBM SPIE data)",
+   "note_en": "So High-NA only wins where it replaces 3+ low-NA masks; 4-mask SALELE is 1.7-2.1x a single High-NA pass.",
+   "note_zh": "故 High-NA 只在替代 3 次以上 low-NA 掩模时才赢；4 掩模 SALELE 是单次 High-NA 的 1.7-2.1 倍。"
+  },
+  {
+   "metric_en": "Lithography share of a 3nm node cost",
+   "metric_zh": "光刻占 3nm 节点成本比例",
+   "value": "~35%",
+   "note_en": "The prize everyone wants to shrink via pattern shaping / DSA / vertical scaling.",
+   "note_zh": "人人想用图形塑形/DSA/垂直微缩去压缩的那块大蛋糕。"
+  },
+  {
+   "metric_en": "High-NA source power at first shipment",
+   "metric_zh": "High-NA 光源功率（首台交付时）",
+   "value": "110% of target",
+   "note_en": "First EUV system ever to exceed initial target (vs NXE:3300 at 15%, NXE:3400B at 50%); reliability ~85%.",
+   "note_zh": "史上首台超初始目标的 EUV 系统（对比 NXE:3300 的 15%、NXE:3400B 的 50%）；可靠性约 85%。"
+  },
+  {
+   "metric_en": "Intel High-NA wafers exposed",
+   "metric_zh": "Intel High-NA 已曝光晶圆",
+   "value": "30,000 across 2 EXE:5000 tools",
+   "note_en": "Intel is years ahead; TSMC/Samsung only ordered R&D tools. Overlay 0.6nm to a low-NA tool.",
+   "note_zh": "Intel 领先数年；台积电/三星只订研发机。对 low-NA 工具套刻 0.6nm。"
+  },
+  {
+   "metric_en": "6x12\" mask throughput uplift",
+   "metric_zh": "6×12 英寸掩模产能提升",
+   "value": "+23-50%",
+   "note_en": "Would eliminate High-NA stitching and swing economics — but ASML says only 'early next decade,' and 2 normal-mask tools = $200-300M more ASML revenue.",
+   "note_zh": "可消除 High-NA 拼场、扭转经济性——但 ASML 称仅\"下个十年初\"，且卖两台常规掩模机=多 2-3 亿美元 ASML 收入。"
+  },
+  {
+   "metric_en": "Sculpta per-layer savings",
+   "metric_zh": "Sculpta 每层节省",
+   "value": "~$250M capex / 100k WSPM + ~$50/wafer opex",
+   "note_en": "AMAT's claim vs adding an EUV loop; potential ~$4.5B EUV demand reduction at full adoption.",
+   "note_zh": "AMAT 相较增加一道 EUV 循环的声称；全面采用可削减约 45 亿美元 EUV 需求。"
+  },
+  {
+   "metric_en": "3D NAND density / cost-per-bit scaling",
+   "metric_zh": "3D NAND 密度 / 每比特成本微缩",
+   "value": "+30%/yr density, -21%/yr cost/bit",
+   "note_en": "Since 2013; slowing to low-to-mid-teens cost decline as HAR etch hits the 6-7 micron / 70:1 wall.",
+   "note_zh": "自 2013 年；随 HAR 刻蚀撞上 6-7 微米 / 70:1 墙，成本降幅放缓至十几个百分点。"
+  },
+  {
+   "metric_en": "Kokusai batch-ALD share",
+   "metric_zh": "Kokusai 批量 ALD 份额",
+   "value": "~70% (batch ALD); ~46% (all batch deposition)",
+   "note_en": "AMAT tried to buy it for $3.5B (raised 59%) before China antitrust blocked it.",
+   "note_zh": "AMAT 曾出价 35 亿美元（加价 59%）收购，遭中国反垄断否决。"
+  },
+  {
+   "metric_en": "TEL EUV coat/develop track share",
+   "metric_zh": "TEL EUV 涂布/显影 track 份额",
+   "value": "100%; ~$5B+ annual run-rate",
+   "note_en": "Monopoly on the track around every ASML tool, pulling in adjacent etch/clean wins.",
+   "note_zh": "每台 ASML 机旁的 track 垄断，带动相邻刻蚀/清洗订单。"
+  },
+  {
+   "metric_en": "Lam dry-resist revenue target",
+   "metric_zh": "Lam 干法胶收入目标",
+   "value": "~$1.5B over 5 yrs; multi-$B by decade end",
+   "note_en": "Higher gross margin than Lam's ~46% corporate average; JSR bought Inpria for $514M to defend MOR.",
+   "note_zh": "毛利率高于 Lam 约 46% 的公司均值；JSR 以 5.14 亿美元收购 Inpria 守 MOR。"
+  },
+  {
+   "metric_en": "NIL mask lifetime vs photomask",
+   "metric_zh": "NIL 掩模寿命 vs 光掩模",
+   "value": "~50 wafers vs >100,000",
+   "note_en": "The defectivity killer; NIL throughput ~100 wph (4-cell) vs 220 (EUV)/330 (DUV).",
+   "note_zh": "缺陷率致命伤；NIL 产能约 100 片/时（4 单元）vs 220（EUV）/330（DUV）。"
+  },
+  {
+   "metric_en": "3nm mask set cost",
+   "metric_zh": "3nm 掩模套组成本",
+   "value": "~$40M (vs >$10M at 7nm, >$1M at 28nm)",
+   "note_en": "Fixed-cost explosion; a leading-edge chip tape-out runs $50-75M all-in at 7nm.",
+   "note_zh": "固定成本爆炸；7nm 一款先进芯片流片总成本 5000-7500 万美元。"
+  },
+  {
+   "metric_en": "Lynceus AI process-control gains",
+   "metric_zh": "Lynceus AI 过程控制收益",
+   "value": "90% faster defect detect (4d to 3h); 4x less sampling",
+   "note_en": "In two HVM fabs; a structural headwind to metrology sampling capex.",
+   "note_zh": "在两座量产厂；对量测抽样资本开支构成结构性逆风。"
+  },
+  {
+   "metric_en": "Lam Malaysia manufacturing shift",
+   "metric_zh": "Lam 马来西亚制造转移",
+   "value": ">1/3 of future capacity; +50% total footprint (~845k sq ft)",
+   "note_en": "Cost-driven offshoring of high-value tool manufacturing from the US.",
+   "note_zh": "成本驱动、把高价值工具制造从美国外移。"
+  },
+  {
+   "metric_en": "ASML 2030 revenue / WFE market",
+   "metric_zh": "ASML 2030 营收 / WFE 市场",
+   "value": "$44-60B ASML implies ~$150-280B WFE",
+   "note_en": "SemiAnalysis: guidance is optimistic and bakes in 10-20% 'inefficient' regionalized capacity.",
+   "note_zh": "SemiAnalysis：指引偏乐观，内嵌 10-20% 区域化\"低效\"产能。"
+  }
+ ],
+ "deep_dives": [
+  {
+   "article_title": "ASML Dilemma: High-NA EUV is Worse vs Low-NA EUV Multi-Patterning",
+   "date": "2023-12-11",
+   "summary_en": "The keystone contrarian piece (co-authored by an ex-ASML analyst). Builds a bottom-up litho-cost model proving High-NA single-patterning is MORE expensive than low-NA double-patterning from 3nm through 1nm, because dose rises exponentially with shrinking CD and low-NA runs at full stage-limited throughput. Documents how ASML quietly shifted its own marketing from 'lower cost' (2020) to merely 'less complex' (2021+) — and calls the 20-High-NA-tools-by-2028 target impossible. Places natural High-NA insertion at 2030+ (1nm/7A), when scaling shifts from shrinking to stacking and CD stops falling.",
+   "summary_zh": "最关键的反共识文章（由一位前 ASML 分析师合著）。自下而上建光刻成本模型，证明从 3nm 到 1nm，High-NA 单次曝光都比 low-NA 双重曝光更贵，因为剂量随关键尺寸缩小指数上升，而 low-NA 可跑满\"工作台受限\"最高产能。记录 ASML 如何悄悄把营销从\"更低成本\"（2020）改为仅\"更低复杂度\"（2021+），并判\"2028 年 20 台 High-NA\"目标不可能。把 High-NA 的自然切入点放到 2030 年后（1nm/7A），届时微缩从缩小转向堆叠、关键尺寸停止下降。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!-0Kl!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2731068e-09ce-44e1-b66b-7eb68756cf6d_1009x460.png",
+    "shows_en": "The exponential dose-vs-critical-dimension curve (IRDS) — the physics that makes High-NA single-exposure throughput-limited and thus expensive.",
+    "shows_zh": "剂量-关键尺寸的指数曲线（IRDS）——让 High-NA 单次曝光受产能限制、因而昂贵的底层物理。"
+   }
+  },
+  {
+   "article_title": "EUV Requirements Halved? Applied Materials' Sculpta Redefines Lithography And Patterning",
+   "date": "2023-03-06",
+   "summary_en": "Deep dive on AMAT's Centura Sculpta 'pattern shaping' — an angled ribbon-beam plasma etch that elongates features on one axis to replace a second litho pass. Explains the three use cases (tight corner-to-corner vias, narrow tip-to-tip trenches, >90% stochastic-defect repair), the metal-interconnect insertion at a 2nm-class node in 2024-25, and quantifies a potential ~$4.5B EUV-demand reduction. Rebuts the finance/industry dismissal that it's 'just fancy RIE' — noting AMAT published since 2015 with a first customer since ~2017. Maps ramifications across ASML, Lam, TEL, JSR, KLA, Onto and the resist/mask supply chain.",
+   "summary_zh": "深挖 AMAT 的 Centura Sculpta\"图形塑形\"——一种成角度带状束等离子刻蚀，沿单一轴向拉长特征以替代第二次光刻。讲清三大用例（紧凑角对角通孔、窄 tip-to-tip 沟槽、>90% 随机缺陷修复）、2024-25 在一个 2nm 级节点的金属互连插入点，并量化约 45 亿美元 EUV 需求削减潜力。反驳金融/产业界\"不过是花哨 RIE\"的轻视——指出 AMAT 自 2015 年发论文、首客户约 2017 年介入。梳理对 ASML、Lam、TEL、JSR、KLA、Onto 及胶/掩模供应链的连锁影响。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!_OCf!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F34f16ec9-5c53-48db-bbad-a59140bf9cc6_2012x1052.png",
+    "shows_en": "How Sculpta's angled ribbon-beam plasma (0-70 degrees) elongates a feature on one axis while preserving the perpendicular critical dimension.",
+    "shows_zh": "Sculpta 的成角度带状束等离子（0-70 度）如何沿单一轴向拉长特征、同时保持垂直方向关键尺寸不变。"
+   }
+  },
+  {
+   "article_title": "Going Vertical: Gate All Around, 3D DRAM, 3D NAND - Kokusai Electric IPO",
+   "date": "2023-10-15",
+   "summary_en": "The definitive map of the deposition landscape, framed around the Kokusai Electric IPO. Explains ALD's self-limiting conformality, why batch (Kokusai ~70%) beats single-wafer above 64-layer NAND (depth loading), and where each vendor (Kokusai, ASMI, TEL, AMAT, Lam) wins in 3D NAND, DRAM capacitors and GAA. Key structural call: GAA and 3D DRAM sharply raise ALD/etch intensity while cutting litho intensity — the value migration thesis in one company. AMAT tried to buy Kokusai for $2.2B, raised the offer 59% to $3.5B, then aborted after two years awaiting China antitrust approval; TSMC is its 2nd-largest customer.",
+   "summary_zh": "围绕 Kokusai Electric IPO 展开的、沉积版图的权威地图。讲清 ALD 的自限保形性、为何 64 层以上 NAND 批量式（Kokusai 约 70%）胜过单片（深度加载），以及各厂商（Kokusai、ASMI、TEL、AMAT、Lam）在 3D NAND、DRAM 电容、GAA 各处的胜负。关键结构判断：GAA 与 3D DRAM 大幅抬升 ALD/刻蚀强度、同时压低光刻强度——价值迁移论浓缩在一家公司里。AMAT 曾以 22 亿美元出价收购 Kokusai、后加价 59% 至 35 亿美元，等待中国反垄断审批两年未果后放弃；TSMC 是其第二大客户。",
+   "figure": null
+  },
+  {
+   "article_title": "NAND Flash Monopoly Broken? Tokyo Electron Moly Dep + Cryo Etch Takes On Lam Research",
+   "date": "2023-07-16",
+   "summary_en": "Maps the four avenues of NAND scaling (logical/vertical/lateral/architectural) and shows most are tapped out, leaving HAR etch and deposition as the battleground. Two manufacturing shifts — TEL's cryogenic etch and a tungsten-to-molybdenum wordline change — threaten to move >$1B from Lam. Also delivers the memory-cycle call: 2023-24 a NAND glut (utilization ~60%, worst since 1997) setting up a 2025 shortage, with YMTC cut off by export controls removing China's counter-cyclical buffer.",
+   "summary_zh": "梳理 NAND 微缩的四条路径（逻辑/垂直/横向/架构），显示多数已到头，把 HAR 刻蚀与沉积留作主战场。两项制造变化——TEL 的低温刻蚀、字线从钨换钼——威胁从 Lam 转走超 10 亿美元。还给出存储周期判断：2023-24 NAND 供过于求（利用率约 60%，1997 年来最差），埋下 2025 短缺伏笔，而被出口管制切断的 YMTC 抽走了中国的逆周期缓冲。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!1UB5!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9999fdce-3bab-4851-a98e-ce47b44da5de_1345x893.png",
+    "shows_en": "The four avenues of NAND capacity scaling (logical, vertical, lateral, architectural) — most now tapped out, forcing reliance on HAR etch and deposition.",
+    "shows_zh": "NAND 容量微缩的四条路径（逻辑、垂直、横向、架构）——多数已到头，被迫依赖 HAR 刻蚀与沉积。"
+   }
+  },
+  {
+   "article_title": "High-NA is Here (for R&D), EUV Cost, Pattern Shaping Gaining Share, Metal Oxide & Dry Resist, Hyper-NA",
+   "date": "2025-04-14",
+   "summary_en": "The SPIE 2025 field report — the freshest read on the roadmap. Intel ran 30,000 wafers on two EXE:5000 tools with source power at 110% of target and 0.6nm overlay, declaring both 'in production' (running proven processes, not commercial products). IBM's cost talk confirmed SemiAnalysis's model: High-NA single exposure ~2.5x a low-NA one, only winning vs 3+ masks. Metal-oxide resist arrives with High-NA at ~A10; the wet(TEL) vs dry(Lam) resist war and pattern shaping (Sculpta / TEL Acrevia) gain share; ASML pushes the 6x12\" mask to 'early next decade' and teases hyper-NA for the CFET era.",
+   "summary_zh": "SPIE 2025 现场报告——对路线图最新鲜的解读。Intel 在两台 EXE:5000 上跑了 3 万片，光源功率达目标 110%、套刻 0.6nm，宣布两台\"投产\"（跑成熟工艺、非商用产品）。IBM 的成本演讲印证 SemiAnalysis 模型：High-NA 单次曝光约为 low-NA 的 2.5 倍，只在替代 3 次以上掩模时赢。金属氧化物胶随 High-NA 在约 A10 到来；湿法（TEL）vs 干法（Lam）胶之战与图形塑形（Sculpta / TEL Acrevia）抢份额；ASML 把 6×12 英寸掩模推到\"下个十年初\"，并放风 CFET 时代的 hyper-NA。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!8bQj!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fafa92cc5-4670-490b-bf53-d7ab67d6cbab_1024x567.png",
+    "shows_en": "Intel's case for a 6x12\" mask: full-field exposures eliminate High-NA stitching and lift throughput 23-50%, swinging economics toward High-NA.",
+    "shows_zh": "Intel 主张 6×12 英寸掩模：全场曝光消除 High-NA 拼场、产能提升 23-50%，把经济性扳向 High-NA。"
+   }
+  },
+  {
+   "article_title": "Nanoimprint Lithography: Stop Saying It Will Replace EUV",
+   "date": "2025-10-26",
+   "summary_en": "A definitive myth-buster on Canon's J-FIL nanoimprint. On paper NIL wins on cost (~1/10 tool price, ~1/4 cost/wafer, ~90% less power) and resolution. In practice the fragile nanometer-scale stamp lasts ~50 wafers (vs >100,000 for a photomask), every repeater defect prints to every field, and inspecting every template would consume nearly the entire world's mask-inspection output. Kioxia and Micron — who want it to work — keep repeating defect/lifetime/cost complaints. Real use is niches (metalenses, MEMS). Flags a serious export-control gap: a Japan-sold NIL tool can be re-exported to China, potentially handing EUV-level capability to SMIC/Huawei.",
+   "summary_zh": "对 Canon 的 J-FIL 纳米压印的权威\"辟谣\"。纸面上 NIL 在成本（约 1/10 机价、约 1/4 单片成本、省约 90% 电）与分辨率上都赢。实践中脆弱的纳米级印章只撑约 50 片（光掩模>10 万片），每个重复缺陷都印到每个曝光场，检查每片模板将耗尽全球近乎全部掩模检测产能。铠侠与美光——它们本希望成功——反复抱怨缺陷/寿命/成本。真正用途是利基（超透镜、MEMS）。警示严重的出口管制漏洞：日本售出的 NIL 机可再出口中国，可能把 EUV 级能力交给 SMIC/华为。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!AQ5B!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0659197c-026b-4891-8fbf-f3b0877de1ec_1395x868.webp",
+    "shows_en": "NIL defect modes: non-filled features from insufficient resist (A,C) and deformed features from too much contact pressure (B) — why defectivity dooms NIL for advanced chips.",
+    "shows_zh": "NIL 缺陷模式：光刻胶不足导致未填满（A、C）、接触压力过大导致变形（B）——缺陷率为何注定 NIL 无法用于先进芯片。"
+   }
+  }
+ ],
+ "investment": {
+  "winners": [
+   {
+    "name": "ASML",
+    "why_en": "Absolute EUV/High-NA monopoly and DUV leader — the hardest bottleneck in tech. But the SemiAnalysis nuance is a double-edge: High-NA ramp is slower and less economic than guided, and a customer-friendly 6x12\" mask (which ASML resists because 2 normal tools = more revenue) is the swing factor. Own the moat, discount the guidance.",
+    "why_zh": "绝对的 EUV/High-NA 垄断 + DUV 龙头——科技界最硬的瓶颈。但 SemiAnalysis 的细节是双刃：High-NA 上量比指引更慢、更不经济，而对客户友好的 6×12 英寸掩模（ASML 抵触，因卖两台常规机=更多收入）是关键变量。买护城河，对指引打折。"
+   },
+   {
+    "name": "Applied Materials (AMAT)",
+    "why_en": "#2 in WFE and the broadest portfolio (deposition, etch, PVD, implant, plus Sculpta pattern shaping and panel-level packaging PVD). Structurally positioned for the value migration away from pure litho toward materials-engineering and vertical scaling; Sculpta is a new litho-adjacent TAM.",
+    "why_zh": "WFE 第二、组合最广（沉积、刻蚀、PVD、注入，加 Sculpta 图形塑形与面板级封装 PVD）。在\"从纯光刻迁向材料工程与垂直微缩\"中结构性受益；Sculpta 是光刻相邻的新 TAM。"
+   },
+   {
+    "name": "Lam Research (LRCX)",
+    "why_en": "HAR-etch and deposition leader — the engine of 3D NAND/DRAM vertical scaling — plus the dry-resist disruptor (~$1.5B target, above-corporate margin). Risk: TEL cryo etch + moly change contest >$1B of NAND. Malaysia offshoring lifts gross margin.",
+    "why_zh": "HAR 刻蚀与沉积龙头——3D NAND/DRAM 垂直微缩的发动机——加干法胶颠覆者（约 15 亿美元目标、高于公司均值毛利）。风险：TEL 低温刻蚀+换钼争夺超 10 亿美元 NAND。马来西亚外移抬升毛利。"
+   },
+   {
+    "name": "Tokyo Electron (TEL)",
+    "why_en": "100% of EUV coat/develop tracks (~$5B+ run-rate monopoly), a strong batch-ALD #2, and the cryo-etch/moly challenger poised to take NAND share from Lam. Defends resist via wet-develop innovation; JSR/Inpria alliance backs MOR.",
+    "why_zh": "100% EUV 涂布/显影 track（约 50 亿美元+垄断）、批量 ALD 强二、且低温刻蚀/钼挑战者有望从 Lam 抢 NAND 份额。靠湿法显影创新守胶；JSR/Inpria 联盟撑 MOR。"
+   },
+   {
+    "name": "KLA",
+    "why_en": "Dominant in process control/metrology — a toll booth on every fab across 1000+ steps, rising with complexity. Watch the AI/virtual-metrology headwind (Lynceus-type) to sampling capex, but the moat in physical inspection is deep.",
+    "why_zh": "量检测主导——1000+ 步中每座晶圆厂的收费站，随复杂度上升。留意 AI/虚拟量测（Lynceus 类）对抽样资本开支的逆风，但物理检测护城河很深。"
+   },
+   {
+    "name": "Kokusai Electric",
+    "why_en": "Hidden batch-ALD monopoly (~70%), process-of-record at all top-5 NAND makers, TAM growing with GAA. AMAT's aborted $3.5B buyout (a $2.2B offer raised 59%, then abandoned after two years awaiting China antitrust approval) is the third-party validation of the moat.",
+    "why_zh": "隐藏的批量 ALD 垄断（约 70%），全部前五大 NAND 厂的工艺记录，TAM 随 GAA 增长。AMAT 那笔最终放弃的 35 亿美元收购（22 亿美元起步、加价 59%，苦等中国反垄断审批两年后放弃）是护城河的第三方背书。"
+   },
+   {
+    "name": "Enablers: Veeco, EV Group, BE Semi, Lasertec, JSR, Entegris",
+    "why_en": "Niche monopolies riding 3D/heterogeneous integration: Veeco (EUV mask-blank deposition, laser anneal, GaN); EV Group/BE Semi (wafer/hybrid bonding); Lasertec (actinic EUV mask inspection); JSR/Entegris (resist & materials).",
+    "why_zh": "随 3D/异构集成受益的利基垄断：Veeco（EUV 掩模坯沉积、激光退火、GaN）；EV Group/BE Semi（晶圆/混合键合）；Lasertec（EUV 掩模 actinic 检测）；JSR/Entegris（光刻胶与材料）。"
+   }
+  ],
+  "bottlenecks": [
+   {
+    "en": "EUV source power — CO2-laser-on-tin-droplet EUV tops out; dose requirements outrun ASML/Trumpf's power roadmap, capping throughput and forcing multi-patterning or DSA.",
+    "zh": "EUV 光源功率——\"CO2 激光打锡滴\"式 EUV 见顶；剂量需求跑赢 ASML/Trumpf 的功率路线图，限制产能、逼出多重曝光或 DSA。"
+   },
+   {
+    "en": "EUV mask ecosystem — the 6\"x6\" reticle standard (since the 1980s) and actinic mask inspection are chokepoints; a larger 6x12\" mask needs the whole blank/write/inspect chain rebuilt.",
+    "zh": "EUV 掩模生态——6×6 英寸掩模标准（1980 年代沿用至今）与 actinic 掩模检测是卡点；更大的 6×12 英寸掩模需重建整条坯/写/检链条。"
+   },
+   {
+    "en": "HAR etch depth — 6-7 micron / 70:1 channel-hole wall limits NAND vertical scaling; cryo etch and string-stacking are the only ways up.",
+    "zh": "HAR 刻蚀深度——6-7 微米 / 70:1 沟道孔墙限制 NAND 垂直微缩；低温刻蚀与串接堆叠是仅有的上行路径。"
+   },
+   {
+    "en": "Fixed-cost explosion — $40M 3nm mask sets + verification (Intel's 12 Sapphire Rapids steppings) restrict the leading edge to high-volume designs.",
+    "zh": "固定成本爆炸——4000 万美元的 3nm 掩模套组 + 验证（Intel 的 12 次 Sapphire Rapids 流片）把先进节点限于大批量设计。"
+   }
+  ],
+  "risks": [
+   {
+    "en": "WFE cyclicality — a memory glut (2022-23 NAND utilization ~60%) or fab-buildout delays (TSMC/Intel/Samsung push-outs) can cut equipment revenue sharply and quickly.",
+    "zh": "WFE 周期性——存储供过于求（2022-23 NAND 利用率约 60%）或晶圆厂建设延期（台积电/英特尔/三星推迟）可迅速大幅削减设备收入。"
+   },
+   {
+    "en": "High-NA over-investment — being too early with a billion-dollar fleet on a technology that's not yet cheaper than low-NA (Intel's bet) could be as damaging as being late.",
+    "zh": "High-NA 过度投资——在一项尚不比 low-NA 便宜的技术上过早铺开数十亿美元机队（Intel 的赌注），可能与\"迟到\"一样有害。"
+   },
+   {
+    "en": "China substitution + export-control blowback — SMEE/AMEC/Naura rising at trailing edge; controls that only cover ArFi leave DUV/resist/service holes, and cut off a huge China TAM for Western toolmakers.",
+    "zh": "中国替代 + 出口管制反噬——SMEE/AMEC/华为系在成熟端上升；只管 ArFi 的管制留下 DUV/胶/服务漏洞，又切断西方工具商在华的巨大 TAM。"
+   },
+   {
+    "en": "Value migration mis-bet — backing the wrong patterning path (High-NA vs multi-patterning vs Sculpta vs DSA vs MOR/dry resist) strands R&D and capacity.",
+    "zh": "价值迁移押错——押错图形化路线（High-NA vs 多重曝光 vs Sculpta vs DSA vs MOR/干法胶）会搁浅研发与产能。"
+   }
+  ],
+  "catalysts": [
+   {
+    "en": "AI capex super-cycle — hyperscaler datacenter/AI spend drives leading-edge logic + HBM/DRAM WFE; larger dies and more designs lift both advanced and trailing WFE.",
+    "zh": "AI 资本开支超级周期——超大规模厂的数据中心/AI 支出拉动先进逻辑 + HBM/DRAM 的 WFE；更大裸片、更多设计同时抬升先进与成熟 WFE。"
+   },
+   {
+    "en": "GAA + 3D DRAM ramp — nanosheet logic and 3D DRAM sharply raise ALD/etch intensity, reshuffling deposition/etch share (Kokusai, ASMI, Lam, TEL, AMAT).",
+    "zh": "GAA + 3D DRAM 上量——纳米片逻辑与 3D DRAM 大幅抬升 ALD/刻蚀强度，重排沉积/刻蚀份额（Kokusai、ASMI、Lam、TEL、AMAT）。"
+   },
+   {
+    "en": "2025 memory shortage — the 2023-24 NAND glut + capex delays set up a sharp WFE recovery as supply/demand rebalance.",
+    "zh": "2025 存储短缺——2023-24 NAND 供过于求 + 资本开支延期，为供需再平衡后的 WFE 陡峭复苏埋下伏笔。"
+   },
+   {
+    "en": "6x12\" mask decision + High-NA/DSA insertion at 14A/A10 — an ASML commitment to large masks, or Intel proving High-NA+DSA economical, would re-rate the whole litho roadmap.",
+    "zh": "6×12 英寸掩模决策 + High-NA/DSA 在 14A/A10 的插入——ASML 承诺大掩模、或 Intel 证明 High-NA+DSA 划算，都会重估整条光刻路线图。"
+   }
+  ]
+ },
+ "open_questions": [
+  {
+   "en": "Does High-NA ever become genuinely cheaper than low-NA multi-patterning — i.e. does the 6x12\" mask arrive, and can DSA/MOR cut dose enough to move insertion from A10/1nm forward to 14A?",
+   "zh": "High-NA 到底会不会真的比 low-NA 多重曝光更便宜——即 6×12 英寸掩模是否到来，DSA/MOR 能否把剂量砍得够多，把插入点从 A10/1nm 提前到 14A？"
+  },
+  {
+   "en": "Who wins the resist war: TEL/JSR wet MOR (upgrade-only tracks) or Lam dry resist (new CVD tools, ~2x throughput)? The answer decides billions in coater/developer/etch share.",
+   "zh": "谁赢光刻胶之战：TEL/JSR 的湿法 MOR（只需升级 track）还是 Lam 的干法胶（全新 CVD 工具、约 2x 产能）？答案决定数十亿美元的涂布/显影/刻蚀份额。"
+  },
+  {
+   "en": "Can Tokyo Electron actually pry >$1B of HAR-etch and wordline deposition from Lam via cryo etch + molybdenum — or does Lam defend its NAND crown?",
+   "zh": "东京电子真能靠低温刻蚀+钼从 Lam 撬走超 10 亿美元的 HAR 刻蚀与字线沉积吗——还是 Lam 守住 NAND 王座？"
+  },
+  {
+   "en": "How far and fast do Chinese toolmakers (SMEE, Naura, AMEC) climb, and will Japan/Netherlands close the DUV/resist/service/re-export loopholes before SMIC scales 7nm/5nm on reconfigured DUV?",
+   "zh": "中国工具商（SMEE、北方华创、中微）能爬多高多快，日本/荷兰会在 SMIC 用重构 DUV 上量 7nm/5nm 之前堵上 DUV/胶/服务/再出口漏洞吗？"
+  },
+  {
+   "en": "Does AI virtual metrology (Lynceus-style) meaningfully shrink KLA/Onto/Nova sampling capex, or does rising process complexity keep physical inspection growing faster than AI can offset?",
+   "zh": "AI 虚拟量测（Lynceus 类）会实质压缩 KLA/Onto/Nova 的抽样资本开支吗，还是工艺复杂度上升让物理检测增速快到 AI 抵消不了？"
+  }
+ ],
+ "sources": [
+  {
+   "title": "ASML Dilemma: High-NA EUV is Worse vs Low-NA EUV Multi-Patterning",
+   "date": "2023-12-11"
+  },
+  {
+   "title": "EUV Requirements Halved? Applied Materials' Sculpta Redefines Lithography And Patterning",
+   "date": "2023-03-06"
+  },
+  {
+   "title": "High-NA is Here (for R&D), EUV Cost, Pattern Shaping Gaining Share, Metal Oxide & Dry Resist, Hyper-NA",
+   "date": "2025-04-14"
+  },
+  {
+   "title": "Going Vertical: Gate All Around, 3D DRAM, 3D NAND - Kokusai Electric IPO",
+   "date": "2023-10-15"
+  },
+  {
+   "title": "NAND Flash Monopoly Broken? Tokyo Electron Moly Dep + Cryo Etch Takes On Lam Research",
+   "date": "2023-07-16"
+  },
+  {
+   "title": "Intel's 14A Magic Bullet: Directed Self-Assembly (DSA)",
+   "date": "2024-04-18"
+  },
+  {
+   "title": "Nanoimprint Lithography: Stop Saying It Will Replace EUV",
+   "date": "2025-10-26"
+  },
+  {
+   "title": "Lam Research, Tokyo Electron, JSR Battle It Out In The $5B+ EUV Photoresist, Coater, and Developer Market",
+   "date": "2021-11-18"
+  },
+  {
+   "title": "ASML & The Semiconductor Market In 2025 & 2030",
+   "date": "2022-11-22"
+  },
+  {
+   "title": "Lithography Intensity And Long-Term Wafer Demand",
+   "date": "2022-11-30"
+  },
+  {
+   "title": "The Gaps In The New China Lithography Restrictions – ASML, SMEE, Nikon, Canon, EUV, DUV",
+   "date": "2023-01-29"
+  },
+  {
+   "title": "The Transformation of Veeco",
+   "date": "2022-02-20"
+  },
+  {
+   "title": "Semiconductor Fab Buildout Delays – 2023 to 2025 Wafer Fabrication Equipment Outlook",
+   "date": "2022-10-03"
+  },
+  {
+   "title": "The Dark Side Of The Semiconductor Design Renaissance – Fixed Costs Soaring",
+   "date": "2022-07-24"
+  },
+  {
+   "title": "Lynceus: Inline, Real-time, AI Based Process Control Monitoring",
+   "date": "2022-07-28"
+  },
+  {
+   "title": "Lam Research Is Outsourcing More Than 1/3 Of Their Manufacturing To Malaysia",
+   "date": "2022-07-18"
+  },
+  {
+   "title": "LAM Research (LRCX) Dry Deposit and Resist Could Become a Multi-Billion Dollar Business",
+   "date": "2021-04-05"
+  },
+  {
+   "title": "ASML's EUV Tools Have A Throughput Problem, But Lyncean Has The Answer",
+   "date": "2021-10-13"
+  },
+  {
+   "title": "Advanced Packaging The Size Of Your Monitor | Applied Materials Modifies Panel PVD Tool",
+   "date": "2021-09-13"
+  },
+  {
+   "title": "Q3 Semiconductor Roundup – TXN WOLF ANET NVDA TER ASML LRCX AMAT KLA",
+   "date": "2022-10-27"
+  }
+ ]
+}

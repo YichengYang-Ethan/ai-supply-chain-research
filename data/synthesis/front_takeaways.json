@@ -1,0 +1,120 @@
+{
+ "cascade_en": "Demand no longer gates this cycle — physics and lead times do. Token demand keeps exploding (Anthropic ARR $9B→$44B+, coding >70% of frontier-lab revenue, H100 rentals +40% since Oct-25), so every accelerator roadmap — Nvidia, TPU, Trainium, MI450X — converges on TSMC N3-class silicon: AI takes ~60% of N3 output in 2026, ~86% in 2027, at >100% utilization. Each die then queues for memory and assembly: HBM is 50-60%+ of GPU cost in a once-in-four-decades shortage (prices ~6x, DRAM set to double again in 2026), while CoWoS interposers, TSV and TC bonders gate how fast HBM attaches to logic. Upstream, ASML's EUV output isn't scaling, capping how fast anyone adds fabs. Downstream, watts are the final gate: +21GW of 2026 US datacenter demand versus ~15GW/yr of net grid additions, a ~1TW interconnection queue, 3-4-year transformers, 24-30-month turbines. Chips gate power; power gates chips — the cascade is circular, and every link is sold out.",
+ "cascade_zh": "这轮周期的闸门不再是需求，而是物理与交期。token 需求持续爆发——Anthropic 年化营收从约 90 亿美元冲到 440 亿以上、编程占前沿实验室收入七成以上、H100 租金自 2025 年 10 月以来上涨约 40%——于是英伟达、TPU、Trainium、MI450X 的路线图全部挤向台积电 N3 级制程：AI 吃掉 2026 年约 60%、2027 年约 86% 的 N3 产出，稼动率超 100%。每颗裸片还要排队等存储与组装：HBM 占 GPU 成本 50%–60% 以上、正处「四十年一遇」的短缺（价格约 6 倍，DRAM 2026 年预计再翻倍），而 CoWoS 中介层、TSV 与 TC 键合机决定 HBM 贴装到逻辑芯片的速度。再往上游，ASML 的 EUV 出货并未放量，封死所有人扩产的速度上限。最下游是电这道终极闸：2026 年美国数据中心新增 +21GW，对上每年仅约 15GW 的净新增电网容量、约 1TW 的并网排队、3–4 年的变压器和 24–30 个月的燃机交期。芯片卡电力、电力卡芯片——这条瀑布是环形的，且每一环都已售罄。",
+ "winners": [
+  {
+   "name": "TSMC (TSM)",
+   "why_en": "The toll-taker on every branch of the war — >90% of advanced-node capacity with AI eating 60%→86% of N3, the CoWoS/SoIC packaging gate ($9.6B in 2025), the HBM4 base-die foundry and COUPE for co-packaged optics — it wins whoever wins.",
+   "why_zh": "这场战争每条支线上的收费站——九成以上先进制程产能、AI 吃掉 N3 的 60%→86%，CoWoS/SoIC 封装闸口（2025 年 96 亿美元），HBM4 基底裸片代工，再加 CPO 时代的 COUPE——无论谁赢它都赢。"
+  },
+  {
+   "name": "Nvidia (NVDA)",
+   "why_en": "Still king: ~75% gross margin, the NVL72 rack-scale moat that RL-era inference rewards ($0.156/Mtok on GB300), CUDA's Day-0 software flywheel, networking bundled in, and $20B to absorb Groq — three simultaneous challengers only nibble at the flanks.",
+   "why_zh": "依然是王：约 75% 毛利率、RL 时代推理最吃的 NVL72 机柜级护城河（GB300 每百万 token 仅 0.156 美元）、CUDA 的 Day-0 软件飞轮、网络打包在内，还有 200 亿美元吞下 Groq——三个挑战者同时上也只咬到侧翼。"
+  },
+  {
+   "name": "Broadcom (AVGO)",
+   "why_en": "The silent #2 AI chip company: co-designer of Google's TPU, Meta's MTIA and now OpenAI's XPU, merchant switch leader (Tomahawk 5/6) and first to ship production CPO — the anti-Nvidia trade and the networking trade in one ticker.",
+   "why_zh": "沉默的 AI 芯片第二名：谷歌 TPU、Meta MTIA、如今还有 OpenAI XPU 的共同设计者，商用交换机霸主（Tomahawk 5/6），又率先量产 CPO——「去英伟达化」和网络两笔交易合在一只票里。"
+  },
+  {
+   "name": "SK Hynix",
+   "why_en": "The HBM leader on MR-MUF packaging and reliability — 60.4% gross margin in FY25, first in line for every content increase on Nvidia's roadmap toward 1TB of HBM4E per GPU (Rubin Ultra).",
+   "why_zh": "凭 MR-MUF 封装与可靠性坐稳的 HBM 龙头——FY25 毛利率 60.4%，英伟达路线图冲向单 GPU 1TB HBM4E（Rubin Ultra）的每一次加量，它都排在第一顺位。"
+  },
+  {
+   "name": "Micron (MU)",
+   "why_en": "The Western pure-play that leapfrogged into HBM with ~30% lower power via superior TSV/power-delivery, a cheaper internal HBM4 base die, and full exposure to the broad DRAM shortage.",
+   "why_zh": "跳级杀入 HBM 的西方纯玩家——靠更优 TSV/供电设计宣称功耗低约 30%、自研更便宜的 HBM4 基底裸片，并全面吃到整场 DRAM 短缺。"
+  },
+  {
+   "name": "ASML & the WFE oligopoly (AMAT, Lam, KLA, TEL, Kokusai)",
+   "why_en": "Quiet monopolies at every step — ASML's EUV, TEL's 100% EUV-track lock, KLA's 1,000-step inspection toll, Kokusai's ~70% batch-ALD — with value migrating from litho to deposition/etch as GAA, backside power and 3D stacking arrive, and China rush-orders (46-48% of peak-quarter revenue) as a bonus.",
+   "why_zh": "每道工序上的沉默垄断——ASML 的 EUV、东京电子 100% 的 EUV 涂胶显影锁定、KLA 上千道工序的检测过路费、Kokusai 约 70% 的批式 ALD——GAA、背面供电与 3D 堆叠让价值从光刻迁向沉积/刻蚀，中国抢购潮（高峰季度收入的 46–48%）还是意外之喜。"
+  },
+  {
+   "name": "Packaging & bonding toolchain (EVG, Besi, ASMPT/K&S, Disco)",
+   "why_en": "Hybrid bonding and TCB convert packaging into fab-grade capex: EVG owns W2W (sub-50nm alignment), Besi is the de-facto D2W bonder at TSMC, ASMPT/K&S order books rise with every HBM stack height, and Disco 'more than tripled'.",
+   "why_zh": "混合键合与 TCB 把封装变成晶圆厂级资本开支：EVG 独占 W2W（对准精度 50nm 以内），Besi 是台积电事实上的 D2W 键合机，ASMPT/K&S 的订单随 HBM 每加一层往上走，Disco 更是「涨了三倍不止」。"
+  },
+  {
+   "name": "Anthropic & OpenAI (frontier labs)",
+   "why_en": "The swing profit pool on top: Anthropic is the purest value capture (ARR $9B→$44B, inference GM 38%→70%+, Claude Code ~4% of GitHub commits), OpenAI the distribution king (#5 website, 700M+ free users awaiting agentic-checkout monetization).",
+   "why_zh": "顶端的利润摆动池：Anthropic 是最纯粹的价值捕获（ARR 90 亿→440 亿美元、推理毛利 38%→70%+、Claude Code 约占 GitHub 提交 4%），OpenAI 则是分发之王（全球第 5 大网站、7 亿+ 免费用户等着智能体购物变现）。"
+  },
+  {
+   "name": "Amazon / AWS (AMZN)",
+   "why_en": "The best-positioned hyperscaler — the only CSP whose AI mix is token-as-a-service (Bedrock ~$5.5B run-rate, 80-90% Anthropic) plus vertical silicon (Trainium >50% of Bedrock tokens): AI hit 10% of AWS with margins up 213bp.",
+   "why_zh": "定位最佳的超大规模云——唯一以「token 即服务」为主 AI 结构的 CSP（Bedrock 年化约 55 亿美元、80–90% 来自 Anthropic），加上垂直自研芯片（Trainium 承载 Bedrock 一半以上 token）：AI 已占 AWS 一成，利润率反升 213 个基点。"
+  },
+  {
+   "name": "Power & electrical complex (GE Vernova, Bloom, Delta, Vertiv, Tesla Megapack)",
+   "why_en": "The last physical gate, monetized: turbine 'Big Three' booked into 2028-29, Bloom's fuel cells deployable in weeks, Delta leading the 800VDC transition, Vertiv/Boyd shorting the liquid-cooling ramp, Megapack as the default gigawatt buffer.",
+   "why_zh": "最后一道物理闸的变现层：燃机「三巨头」订单排到 2028–29，Bloom 燃料电池数周即可部署，台达领跑 800VDC 转型，Vertiv/Boyd 吃液冷缺口，Megapack 则是吉瓦级负载波动的默认缓冲。"
+  }
+ ],
+ "risks": [
+  {
+   "en": "Demand air-pocket: 1GW of AI capacity must earn ~$12-13B a year — if token demand or agentic adoption stalls (benchmarks already mislead; automation may prove mere augmentation), the N3 shortage flips to idle capacity (2023: N7 utilization <60%) and hyper-cyclical memory gets crushed first.",
+   "zh": "需求气穴：1GW AI 产能每年要赚约 120–130 亿美元——若 token 需求或智能体落地失速（基准测试已在误导，自动化可能只是增强），N3 短缺将翻转为闲置产能（2023 年 N7 稼动率跌破 60%），最周期的存储第一个被碾。"
+  },
+  {
+   "en": "Circular financing & depreciation: Nvidia/hyperscaler equity flows into labs that buy their compute, 4-5-year GPUs sit against 15-year leases and $420B-scale backlogs — if useful life proves shorter (the Burry thesis), hyperscaler earnings are overstated.",
+   "zh": "循环融资与折旧：英伟达/超大规模厂商的股权投进回头买算力的实验室，4–5 年寿命的 GPU 对着 15 年租约和 4200 亿美元级在手订单——若实际寿命更短（Burry 论点），云厂商盈利被高估。"
+  },
+  {
+   "en": "Taiwan concentration: ~3% of US GDP and 8 of the world's 10 largest firms depend on one square mile for N3 wafers, CoWoS and HBM attach — the tail risk that dwarfs all others.",
+   "zh": "台湾集中度：约 3% 的美国 GDP、全球十大公司中的八家，都系于一平方英里内的 N3 晶圆、CoWoS 与 HBM 贴装——碾压其余一切的尾部风险。"
+  },
+  {
+   "en": "ASIC and software erosion of the Nvidia toll: TPU externalization (Meta/xAI talks, ≥1M-TPU Anthropic deal), Trainium3 and OpenAI's XPU eat the merchant TAM from the top, an open-sourced XLA/NKI would flank CUDA, and ~1200x inference cost-down keeps deflating token prices.",
+   "zh": "ASIC 与软件侵蚀英伟达的过路费：TPU 外销（Meta/xAI 洽谈、Anthropic 百万级 TPU 订单）、Trainium3 与 OpenAI 自研 XPU 从顶部吃掉通用 GPU 空间，XLA/NKI 一旦开源将侧击 CUDA，而约 1200 倍的推理降本持续压低 token 价格。"
+  },
+  {
+   "en": "Power as a hard ceiling plus regulatory clampdown: a ~1TW queue against ~15GW/yr of additions, 3-4-year transformers, NERC's Level-3 alert and ERCOT ride-through mandates, an 800VDC code gap until ~2029 — and turbine orders may already be at a 'peak'.",
+   "zh": "电力硬天花板叠加监管收紧：约 1TW 排队对每年约 15GW 新增，变压器 3–4 年交期，NERC 三级预警与 ERCOT 穿越强制令，800VDC 规范空窗要到 2029 年左右——而燃机订单可能已是「顶部」。"
+  },
+  {
+   "en": "China cuts both ways: a B30A approval hands China ~10x the FLOPs, rare-earth retaliation and smuggling (2.9M dies in Huawei's 'die bank') blunt the controls, while subsidized legacy-chip floods and SiCarrier-class toolmakers erode Western semicap long-term.",
+   "zh": "中国因素双向切割：B30A 一旦放行即给中国约 10 倍算力，稀土反制与走私（华为「裸片银行」囤了 290 万颗）钝化管制；补贴催生的成熟制程倾销与新凯来式设备商则在长期侵蚀西方半导体设备。"
+  }
+ ],
+ "watchlist": [
+  {
+   "en": "GPU rental index & InferenceMAX prints — H100 1-yr rentals $1.70→$2.35 (+40%); a rollover is the earliest air-pocket signal for the entire chain.",
+   "zh": "GPU 租金指数与 InferenceMAX 榜单——H100 一年期租金 1.70→2.35 美元/时（+40%）；一旦掉头就是全链最早的气穴警报。"
+  },
+  {
+   "en": "H2-2026 rack-scale showdown — AMD MI450X (IF64/128) vs Nvidia VR200 NVL144, the first true 72+-GPU apples-to-apples, plus TPUv7 Ironwood and Trainium3 landing on independent inference leaderboards.",
+   "zh": "2026 下半年机柜级对决——AMD MI450X（IF64/128）对英伟达 VR200 NVL144，首次真正的 72+ GPU 同台比较；外加 TPUv7 Ironwood 与 Trainium3 登上独立推理榜单。"
+  },
+  {
+   "en": "Memory prints — DRAM contract prices modeled to double in 2026, the HBM4 ramp with Samsung's re-entry, Rubin Ultra's 1TB HBM4E per GPU, and the CXMT STAR IPO as China-memory's disclosure event.",
+   "zh": "存储价格信号——模型指 DRAM 合约价 2026 年再翻倍、HBM4 放量与三星重返战局、Rubin Ultra 单 GPU 1TB HBM4E，以及 CXMT 科创板 IPO 这一中国存储的信息披露事件。"
+  },
+  {
+   "en": "Foundry milestones — TSMC N2/A16 (GAA + backside power) ramp, Intel 18A HVM in late 2026 and its first external anchor customer, and whether smartphone cuts free N3 for AI (~0.7M more Rubins).",
+   "zh": "代工里程碑——台积电 N2/A16（GAA＋背面供电）爬坡、英特尔 18A 2026 年底量产及首个外部锚定客户，以及手机砍单能否腾出 N3 给 AI（约多产 70 万颗 Rubin）。"
+  },
+  {
+   "en": "Power signposts — 800VDC-native Kyber/Rubin Ultra shipping late-2026/27, the first SST UL certification (DG Matrix, target end-Q2 2026), ERCOT Batch Zero (Jul 2026), and turbine order books versus a surging secondary market.",
+   "zh": "电力路标——原生 800VDC 的 Kyber/Rubin Ultra 于 2026 底/2027 出货、首张 SST UL 认证（DG Matrix 目标 2026 年二季度末）、ERCOT Batch Zero（2026 年 7 月），以及燃机订单簿对上正在涌现的二手市场。"
+  },
+  {
+   "en": "CPO adoption curve — Nvidia's 10-15k 'pipe-cleaner' scale-out CPO switches in 2026, Meta/Broadcom field-reliability data (2.6M-hr MTBF), and AWS Trainium4 with Celestial/Marvell scale-up CPO in late 2027.",
+   "zh": "CPO 采用曲线——英伟达 2026 年 1–1.5 万台「探路」横向扩展 CPO 交换机、Meta/博通实测可靠性数据（MTBF 260 万小时），以及 2027 年底搭载 Celestial/Marvell 纵向扩展 CPO 的 AWS Trainium4。"
+  },
+  {
+   "en": "Frontier cadence & agentic monetization — GPT-5.5 'Spud' and Anthropic 'Capybara' pre-trains, OpenAI Instant Checkout switching on 700M+ free users, and Claude Code's GitHub-commit share (4% → projected 20%+).",
+   "zh": "前沿节奏与智能体变现——GPT-5.5「Spud」与 Anthropic「Capybara」重启预训练，OpenAI Instant Checkout 激活 7 亿+ 免费用户，Claude Code 的 GitHub 提交份额（4% → 预计 20%+）。"
+  },
+  {
+   "en": "Hyperscaler prints — AWS AI margins (+213bp), Oracle's >$420B backlog converting to revenue, Microsoft's capacity freeze (>2GW of LOIs dropped), and Anthropic ARR versus its >$100B year-end model.",
+   "zh": "云厂商财报信号——AWS AI 利润率（+213 基点）、甲骨文 4200 亿+ 美元在手订单的兑现节奏、微软冻结产能（放弃 2GW+ 意向书），以及 Anthropic ARR 对照其年底 1000 亿+ 美元的模型。"
+  },
+  {
+   "en": "China policy — the foreign-HBM stockpile running out (forcing the real CXMT test), the CXMT entity-listing decision, Nvidia B30A license terms, and the ~$7B Unitree IPO as the robotics bellwether.",
+   "zh": "中国政策——海外 HBM 库存见底（逼出 CXMT 的真实大考）、CXMT 实体清单裁决、英伟达 B30A 许可条款，以及约 70 亿美元估值的宇树 IPO 这一机器人风向标。"
+  }
+ ]
+}

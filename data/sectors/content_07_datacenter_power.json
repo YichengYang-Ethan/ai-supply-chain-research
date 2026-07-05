@@ -1,0 +1,745 @@
+{
+ "sector_id": "07_datacenter_power",
+ "sector_name_en": "Datacenter, Power & Cooling",
+ "sector_name_zh": "数据中心·电力·散热",
+ "tagline_en": "AI's real bottleneck is no longer chips but electrons, and the datacenter is being redesigned from the grid substation down to the sub-1V rail to squeeze out every token per watt.",
+ "tagline_zh": "AI 的真正瓶颈已从芯片转向电子——从电网变电站一路到芯片端 1V 以下电源轨,整座数据中心正在被重新设计,只为榨出每一瓦特能换来的 token。",
+ "overview_en": "SemiAnalysis frames this sector through one lens: cost per token is set by how much compute you can pack densely, power, and cool. That forces three simultaneous revolutions. (1) Power supply: the US grid is 'sold out' — roughly a terawatt of load requests are queued, ELCC headroom goes negative by 2027, and interconnection now runs ~5-7 years — so behind-the-meter (BTM) onsite gas, fuel cells and engines are set to power over half of new US datacenter capacity by 2028. (2) Electrical distribution: rack density is climbing toward 600kW+ (Kyber) and eventually ~2,300W chips, breaking 48-54V distribution and forcing an 800VDC transition that migrates conversion content from grey space to white space and enables a Solid-State Transformer (SST) endgame. (3) Cooling: >1000W chips end the air-cooled era, pushing direct-to-chip liquid cooling (DLC), CDUs and quick-disconnects, while hyperscalers already run 1.08-1.15 PUE via free cooling. Layered on top are grid-stability risk from gigawatt synchronous AI loads, the political fight over household electricity bills, water-footprint myths, and the speculative frontier of space datacenters. SemiAnalysis's edge is a bottom-up, building-by-building Datacenter/Industrials/Energy model tracking 6,000+ datacenters and 40,000 generators via satellite imagery, letting it call winners and 'fake losers' before the market.",
+ "overview_zh": "SemiAnalysis 用一条主线贯穿整个板块:每 token 成本由你能多密集地堆算力、供电、散热决定。这逼出三场同步革命。(1) 供电:美国电网已「卖空」——排队接入的负荷请求接近 1 太瓦,ELCC 净余量到 2027 年转负,接入排队已长达约 5-7 年——于是「表后」(BTM) 自建天然气、燃料电池和内燃机,预计到 2028 年将为美国过半新增数据中心供电。(2) 配电:单机柜功率密度冲向 600kW+(Kyber)乃至约 2,300W 的芯片,48-54V 配电被彻底击穿,逼出 800VDC 变革,把电力转换内容从灰空间迁往白空间,并指向固态变压器 (SST) 的终局。(3) 散热:>1000W 芯片终结风冷时代,推动芯片直接液冷 (DLC)、CDU 与快接头,而超大规模厂商已凭自然冷却把 PUE 做到 1.08-1.15。之上还叠加了吉瓦级同步 AI 负荷带来的电网稳定性风险、居民电费的政治博弈、被夸大的用水争议,以及太空数据中心这一投机性前沿。SemiAnalysis 的护城河是自下而上、逐栋建模的 Datacenter/Industrials/Energy 模型——借卫星影像追踪 6,000+ 数据中心与 40,000 台发电机组,从而在市场之前叫出赢家与「假输家」。",
+ "core_knowledge": [
+  {
+   "term_en": "PUE / WUE (Power & Water Usage Effectiveness)",
+   "term_zh": "PUE / WUE(电能 / 水资源使用效率)",
+   "explain_en": "PUE = total facility power / IT power; industry-average PUE is ~1.6 (Uptime survey excluding hyperscalers), but Google/Meta run ~1.1 and Microsoft/AWS ~1.15. WUE (liters/kWh) can exceed 2 for water-cooled chillers; Meta ~0.20, Microsoft ~0.3 company-wide but >2 in dry Phoenix. Non-IT power is 60-80% cooling, 15-30% electrical losses. Fan Law: a 10% airflow cut yields ~27% fan-energy cut (cubic).",
+   "explain_zh": "PUE = 设施总功率 / IT 功率;行业均值约 1.6(Uptime 调查,剔除了超大规模厂商),但 Google/Meta 约 1.1、微软/AWS 约 1.15。WUE(升/kWh)水冷冷机可超过 2;Meta 约 0.20、微软全公司约 0.3 但干燥的凤凰城站点 >2。非 IT 用电中散热占 60-80%、电气损耗占 15-30%。风扇定律:降 10% 风量约省 27% 风扇能耗(三次方关系)。"
+  },
+  {
+   "term_en": "Behind-the-Meter (BTM) / Bring Your Own Generation (BYOG)",
+   "term_zh": "表后供电 (BTM) / 自建发电 (BYOG)",
+   "explain_en": "Generating power onsite (gas turbines, engines, fuel cells) rather than waiting years for a grid connection. 'Speed is the moat': an AI cloud nets ~$10-13M revenue per MW annually, so bringing 200MW online six months early is worth ~$1B+. BTM is expected to power over half of new US datacenter capacity by 2028, up from <7% in 2025.",
+   "explain_zh": "在场地内自行发电(燃气轮机、内燃机、燃料电池),而非苦等数年的电网接入。「速度即护城河」:AI 云每 MW 每年净收入约 1,000-1,300 万美元,故让 200MW 提前半年上线价值约 10 亿美元以上。BTM 预计到 2028 年为过半美国新增数据中心供电,而 2025 年占比 <7%。"
+  },
+  {
+   "term_en": "800VDC / ±400VDC & the Power Rack (Sidecar)",
+   "term_zh": "800VDC / ±400VDC 与电源柜(Sidecar)",
+   "explain_en": "Distributing ~800V DC to the rack instead of 48-54V. A 600kW rack at 54V needs ~12,500A vs ~750A at 800V (~16.7x less current, I²R losses ~220-278x lower). The 'power rack' (OCP Diablo 400, co-authored by Google/Meta/Microsoft) disaggregates AC-DC rectification, BBUs and supercaps into a dedicated cabinet (~$400-500k ASP, ~10x a standard AC power rack). ±400V bipolar leverages the mature EV supply chain (650V GaN, 400V caps).",
+   "explain_zh": "向机柜配送约 800V 直流,取代 48-54V。600kW 机柜在 54V 下需约 12,500A,而 800V 下仅约 750A(电流少约 16.7 倍,I²R 损耗低约 220-278 倍)。「电源柜」(OCP Diablo 400,由 Google/Meta/微软联合撰写)把 AC-DC 整流、电池备份 (BBU) 与超级电容拆分进专用机柜(ASP 约 40-50 万美元,约为标准交流电源柜的 10 倍)。±400V 双极方案可复用成熟的电动车供应链(650V GaN、400V 电容)。"
+  },
+  {
+   "term_en": "Solid-State Transformer (SST)",
+   "term_zh": "固态变压器 (SST)",
+   "explain_en": "Replaces the iron-core transformer + rectifier with high-frequency (20kHz+) semiconductor conversion, going directly from medium-voltage AC (13.8-45kV) to 800VDC. Infineon claims ~40x weight and ~14x size reduction; targets >97% efficiency (best public benchmark: ETH Zurich 98% at 400kW). Depends on 3,300V+ SiC MOSFETs still in limited production. The '800VDC endgame' (Phase 4, ~2029+).",
+   "explain_zh": "用高频(20kHz+)半导体转换取代铁芯变压器 + 整流器,直接从中压交流(13.8-45kV)转出 800VDC。英飞凌称重量降约 40 倍、体积降约 14 倍;目标效率 >97%(最佳公开基准:苏黎世联邦理工在 400kW 下 98%)。依赖仍属小批量生产的 3,300V+ 碳化硅 MOSFET。这是「800VDC 终局」(第四阶段,约 2029 年后)。"
+  },
+  {
+   "term_en": "Direct-to-Chip Liquid Cooling (DLC) & CDU",
+   "term_zh": "芯片直接液冷 (DLC) 与冷量分配单元 (CDU)",
+   "explain_en": "Cold plates carry coolant directly against the silicon; the GB200 NVL72 (120kW, 72 GPUs) is DLC-exclusive. A Coolant Distribution Unit (CDU, typically >1MW) exchanges heat between the IT loop and facility water. Nvidia's ramp is causing shortages of seemingly simple parts like Quick Disconnects. Rear-Door Heat Exchangers (RDHx, 30-50kW) are a bridge; xAI Memphis combined RDHx + DLC.",
+   "explain_zh": "冷板让冷却液直接贴着硅片流过;GB200 NVL72(120kW、72 颗 GPU)仅支持 DLC。冷量分配单元(CDU,通常 >1MW)在 IT 回路与设施水之间换热。英伟达的产能爬坡导致看似简单的快接头 (Quick Disconnect) 都出现短缺。后门换热器(RDHx,30-50kW)是过渡方案;xAI 孟菲斯站点即 RDHx + DLC 混用。"
+  },
+  {
+   "term_en": "ELCC (Effective Load Carrying Capability) & Grid Headroom",
+   "term_zh": "ELCC(有效承载能力)与电网余量",
+   "explain_en": "ELCC = the 'true' firm-capacity value of a plant to the system, discounting intermittent solar/wind steeply and thermal forced-outage risk. Incremental 4hr BESS adds little marginal ELCC once <4hr risk is saturated. Grid headroom = accredited supply − peak demand − required reserves; on a UCAP basis it turns red (negative) across a growing set of US subregions by 2027, an aggregate ~40GW deficit by 2030.",
+   "explain_zh": "ELCC = 一座电厂对系统的「真实」可靠容量价值,对间歇性风光大幅折扣、并计入火电强迫停运风险。一旦 <4 小时风险被填满,新增 4 小时 BESS 的边际 ELCC 就很低。电网余量 = 认证供给 − 峰值需求 − 所需备用;按 UCAP 口径,到 2027 年美国越来越多子区域转「红」(为负),到 2030 年合计缺口约 40GW。"
+  },
+  {
+   "term_en": "Load Fluctuations, Inertia & LVRT",
+   "term_zh": "负荷波动、惯量与低压穿越 (LVRT)",
+   "explain_en": "Synchronous GPU training swings power ~15x more than a cloud datacenter (Google: 1.5MW→15MW), with MW-scale spikes sub-second. Spinning generators supply inertia; inverter-based solar/BESS do not. A low-voltage ride-through (LVRT) is a transient voltage sag (30ms-5s); if datacenters trip during one, ERCOT modeled 1.5-2.5GW of West Texas load disconnecting near-simultaneously — echoing the April 2025 Iberian blackout (collapse in 27 seconds).",
+   "explain_zh": "同步 GPU 训练的功率摆动比云数据中心大约 15 倍(Google:1.5MW→15MW),兆瓦级尖峰在亚秒内发生。旋转发电机提供惯量;逆变器接入的光伏/BESS 没有。低压穿越 (LVRT) 是瞬时电压跌落(30 毫秒-5 秒);若数据中心在此期间跳闸,ERCOT 建模显示西得州 1.5-2.5GW 负荷会近乎同时脱网——正如 2025 年 4 月伊比利亚大停电(27 秒内崩溃)。"
+  },
+  {
+   "term_en": "Capacity Auction (PJM BRA) vs Energy-Only (ERCOT)",
+   "term_zh": "容量拍卖(PJM BRA)对比纯电量市场(ERCOT)",
+   "explain_en": "PJM pays plants to stay on standby via a forward capacity auction (Base Residual Auction), priced two years out off a simulated demand curve (VRR). The 2025/26 clearing jumped 9.3x to $270/MW-day (some zones ~$450), driving ~15% higher household bills. ERCOT has no capacity market — real-time scarcity pricing only — and Texas power prices stayed roughly flat despite equivalent AI buildout. SemiAnalysis's verdict: the bill shock is government/market-design driven, not AI.",
+   "explain_zh": "PJM 通过远期容量拍卖(基础剩余拍卖 BRA)付费让电厂待命,价格提前两年由模拟需求曲线 (VRR) 定出。2025/26 出清价暴涨 9.3 倍至 270 美元/MW·日(部分区域约 450),推高居民电费约 15%。ERCOT 没有容量市场——只有实时稀缺定价——尽管 AI 建设规模相当,得州电价却大致持平。SemiAnalysis 的结论:电费冲击源于政府/市场设计,而非 AI。"
+  },
+  {
+   "term_en": "Aeroderivative / IGT / RICE / SOFC (onsite generation types)",
+   "term_zh": "航改燃机 / 工业燃机 / 往复式内燃机 / 固态氧化物燃料电池(自建发电类型)",
+   "explain_en": "Aeroderivatives = jet engines bolted down (30-60MW, 5-10min ramp, $1,700-2,000/kW). Industrial Gas Turbines (IGTs, 5-50MW, ~20min ramp, $1,500-1,800/kW). Reciprocating engines (RICE, 3-20MW, 10min ramp, $1,700-2,000/kW) — Jenbacher J624 is a favorite. Solid-oxide fuel cells (Bloom Energy, no combustion, $3,000-4,000/kW, near-instant permitting). Heavy-duty CCGTs are most efficient (>60%) but slowest (4-6yr COD).",
+   "explain_zh": "航改燃机 = 螺栓固定的喷气发动机(30-60MW,5-10 分钟爬坡,$1,700-2,000/kW)。工业燃机(IGT,5-50MW,约 20 分钟爬坡,$1,500-1,800/kW)。往复式内燃机(RICE,3-20MW,10 分钟爬坡,$1,700-2,000/kW)——Jenbacher J624 最受青睐。固态氧化物燃料电池(Bloom Energy,无燃烧,$3,000-4,000/kW,审批近乎即时)。重型联合循环燃机(CCGT)效率最高(>60%)但最慢(4-6 年建成)。"
+  }
+ ],
+ "value_chain": [
+  {
+   "stage_en": "Power Generation & Grid Supply",
+   "stage_zh": "发电与电网供给",
+   "players": "GE Vernova, Siemens Energy, Mitsubishi Power (heavy turbines); Caterpillar/Solar, Wärtsilä, Bergen, Everllence, Jenbacher/INNIO (engines); Bloom Energy (fuel cells); Doosan Enerbility, ProEnergy, Boom Supersonic (new entrants); IPPs Vistra, Constellation, Talen, NRG",
+   "role_en": "Supplies the electrons — increasingly onsite (BYOG) because the grid can't add firm capacity fast enough. The 'Big Three' turbine makers are order-booked into 2028-29; a dozen suppliers each hold >400MW of US datacenter orders.",
+   "role_zh": "提供电子——因电网无法快速新增可靠容量,越来越多转向场地自建(BYOG)。「三大」燃机厂订单已排到 2028-29 年;十余家供应商各自握有 >400MW 的美国数据中心订单。"
+  },
+  {
+   "stage_en": "Grey-Space Electrical (facility-level)",
+   "stage_zh": "灰空间电气(设施级)",
+   "players": "ABB, Schneider Electric, Eaton, Vertiv, Legrand (switchgear/UPS/transformers); SST startups DG Matrix, Amperesand, Heron Power, Novos Power; Wolfspeed, Infineon (SiC/GaN); LS Electric, EPEC (DC breakers)",
+   "role_en": "Steps utility MV down to usable voltage and distributes it. The 800VDC transition eliminates central low-voltage UPS ($1.2M), migrates conversion to DC rectifiers/SSTs, and forces new DC-rated busway, switchgear and solid-state circuit breakers.",
+   "role_zh": "把公用中压降到可用电压并分配。800VDC 变革将淘汰中央低压 UPS(120 万美元)、把转换环节迁往直流整流器/SST,并逼出新的直流额定母线槽、开关柜与固态断路器。"
+  },
+  {
+   "stage_en": "White-Space Power (rack-level)",
+   "stage_zh": "白空间供电(机柜级)",
+   "players": "Delta, Advanced Energy, TE Connectivity, Infineon (power racks/PSU/BBU); Rittal (cabinets); supercapacitor & BBU vendors; Nvidia (660kW 800V reference)",
+   "role_en": "The power rack / battery rack — the headline new-equipment category. Rectifies AC→800VDC, houses BBUs and supercapacitors, steps down to ~50V then sub-1V at the GPU VRM. Content per MW ~$0.5M (power rack) to ~$0.2M (battery rack).",
+   "role_zh": "电源柜/电池柜——最亮眼的新设备品类。整流 AC→800VDC,装载 BBU 与超级电容,先降到约 50V、再由 GPU 端 VRM 降到 1V 以下。每 MW 内容约 50 万美元(电源柜)到约 20 万美元(电池柜)。"
+  },
+  {
+   "stage_en": "Cooling",
+   "stage_zh": "散热",
+   "players": "Vertiv, Boyd, Cooler Master, nVent, Delta (CDUs/cold plates); Danfoss (Turbocor compressors, VFDs); Schneider, Mitsubishi Heavy (chillers); quick-disconnect & manifold vendors",
+   "role_en": "Rejects the heat: air (CRAH/fan wall + chillers/cooling towers) for legacy, but >1000W chips force DLC (cold plates + CDUs). Cooling is the fastest-evolving, highest-execution-risk system and the 2nd-largest capex after electrical.",
+   "role_zh": "排热:传统用风冷(CRAH/风墙 + 冷机/冷却塔),但 >1000W 芯片逼出 DLC(冷板 + CDU)。散热是演进最快、执行风险最高的系统,资本开支仅次于电气,排第二。"
+  },
+  {
+   "stage_en": "Datacenter Developers & Operators",
+   "stage_zh": "数据中心开发商与运营商",
+   "players": "Hyperscalers (Google, Meta, Microsoft, AWS, Oracle); AI labs (OpenAI, xAI, Anthropic); neoclouds/EaaS (Crusoe, VoltaGrid, Fluidstack, Nebius); crypto-converters (Core Scientific, IREN, Cipher, Applied Digital, TeraWulf); colos (Switch, CyrusOne, Vantage)",
+   "role_en": "Integrate the whole stack and take the timeline risk. Vertically-integrated hyperscalers (Google/Meta) push aggressive designs (distributed UPS, no gensets, 2-nines uptime); AI labs prioritize speed and accept lower redundancy.",
+   "role_zh": "整合整个栈并承担工期风险。垂直整合的超大规模厂商(Google/Meta)推进激进设计(分布式 UPS、不用柴油机、两个 9 的可用性);AI 实验室优先追速度、接受更低冗余。"
+  },
+  {
+   "stage_en": "Grid Stability & Storage Enablers",
+   "stage_zh": "电网稳定与储能使能者",
+   "players": "Tesla (Megapack BESS); flywheel & synchronous-condenser vendors (Piller, Baldor); ABB HiPerGuard MV UPS; supercapacitor makers; EPC/interconnection specialists (Aran Industries)",
+   "role_en": "Absorb sub-second load swings and prevent cascade blackouts. BESS handles MW/ms→MW/min fluctuations, provides fast frequency response and demand-response; synchronous condensers/flywheels add inertia. A GW-scale BESS can cost ~$1B.",
+   "role_zh": "吸收亚秒级负荷摆动、防止连锁停电。BESS 覆盖 MW/毫秒→MW/分钟的波动,提供快速频率响应与需求响应;同步调相机/飞轮补充惯量。吉瓦级 BESS 造价可达约 10 亿美元。"
+  }
+ ],
+ "theses": [
+  {
+   "claim_en": "The US grid is 'sold out' — headroom goes negative by 2027 and BTM powers half of new datacenters by 2028.",
+   "claim_zh": "美国电网已「卖空」——余量到 2027 年转负,BTM 到 2028 年将为过半新增数据中心供电。",
+   "rationale_en": "Roughly a terawatt of load requests are queued against a 745GW US peak; barely ~15GW of net-new ELCC capacity is added per year, and less than 10GW/yr of gas in 2026-27. Interconnection now runs ~5 years (7 in North Virginia). On a UCAP basis, grid headroom turns red across a growing set of subregions by 2027. Since a utility's timeline can slip from 2027 to 2029 with no penalty, the marginal buyer goes behind the meter for speed and certainty; DC BTM equipment TAM is set to cross 50GW/year by 2029.",
+   "rationale_zh": "排队的负荷请求接近 1 太瓦,而美国峰值仅 745GW;每年净新增 ELCC 容量仅约 15GW,2026-27 年天然气新增不足 10GW/年。接入排队已达约 5 年(北弗吉尼亚 7 年)。按 UCAP 口径,到 2027 年越来越多子区域余量转红。由于公用事业可以把工期从 2027 无罚地推到 2029,边际买家为了速度与确定性转向表后;数据中心 BTM 设备 TAM 预计到 2029 年跨过 50GW/年。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!tFzC!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F672bdd39-9957-4296-a01b-53ac56fd55f2_1920x1080.png",
+    "shows_en": "US grid headroom (accredited supply minus peak demand minus reserves) approaching zero and turning negative by 2027.",
+    "shows_zh": "美国电网余量(认证供给减峰值需求减备用)逼近零并在 2027 年转负。"
+   },
+   "quote": {
+    "text": "BTM will power well over half of new US datacenters in 2028+, and the Total Addressable Market (TAM) for DC BTM equipment to cross 50GW/year by 2029.",
+    "source_title": "US Grid Constraints: Towards 40GW+ of Behind-The-Meter Datacenter by 2028?",
+    "date": "2026-06-25"
+   }
+  },
+  {
+   "claim_en": "Speed is the moat: onsite gas is worth billions because six months of earlier revenue dwarfs the extra cost.",
+   "claim_zh": "速度即护城河:自建天然气价值数十亿,因为提前半年的收入远超额外成本。",
+   "rationale_en": "An AI cloud nets ~$10-13M per MW annually, so getting 200MW online six months early is worth ~$1-1.2B (an NPV of ~$400-500M even discounted). xAI proved it — Colossus built in ~122 days by bypassing the grid with rented, truck-mounted Solar/Caterpillar turbines and VoltaGrid engines. OpenAI/Oracle then placed the largest-ever onsite order (2.3GW in Texas, Oct 2025), and 12 different suppliers now each hold >400MW of US onsite-gas orders. Power as a % of AI TCO is 'mostly insignificant,' so any power secured is worth billions.",
+   "rationale_zh": "AI 云每 MW 每年净收入约 1,000-1,300 万美元,故让 200MW 提前半年上线价值约 10-12 亿美元(即便折现,NPV 约 4-5 亿)。xAI 已验证——Colossus 约 122 天建成,靠租用的卡车装载 Solar/卡特彼勒燃机与 VoltaGrid 内燃机绕开电网。随后 OpenAI/甲骨文下了史上最大自建订单(2025 年 10 月得州 2.3GW),如今 12 家不同供应商各握有 >400MW 美国自建天然气订单。电力占 AI TCO 的比例「基本微不足道」,故任何锁定的电力都价值数十亿。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!H5El!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3aea9513-1713-449a-827e-18713518ede2_3731x2214.png",
+    "shows_en": "Building-by-building tracker of onsite-gas datacenter orders by supplier — 12 suppliers each with >400MW of US orders.",
+    "shows_zh": "逐栋追踪的自建天然气数据中心订单(按供应商)——12 家供应商各有 >400MW 美国订单。"
+   },
+   "quote": {
+    "text": "AI cloud revenue can net $10-12M per MW annually, meaning that getting 200 MW of datacenter powered and online even six months earlier can net $1-1.2 billion in revenue.",
+    "source_title": "How AI Labs Are Solving the Power Crisis: The Onsite Gas Deep Dive",
+    "date": "2025-12-30"
+   }
+  },
+  {
+   "claim_en": "800VDC is inevitable — physics, not preference — because 600kW+ racks break 48-54V distribution.",
+   "claim_zh": "800VDC 势在必行——是物理规律而非偏好——因为 600kW+ 机柜击穿了 48-54V 配电。",
+   "rationale_en": "Resistive losses scale with current squared. A 600kW Kyber-class rack draws ~12,500A at 54V but only ~750A at 800V — ~16.7x less current and, at fixed resistance, ~219-278x lower I²R heating. A 1MW rack at 48-54V needs ~200kg of copper busbar; at GW scale that's hundreds of tons. Today's NVL72 already uses up to 8 power shelves; at Kyber power a 48V approach would need ~64U of power hardware — an entire rack, leaving no room for compute. 800VDC also cuts facility power ~5% (~50MW saved at 1GW IT load).",
+   "rationale_zh": "电阻损耗随电流平方增长。600kW Kyber 级机柜在 54V 下取约 12,500A,而 800V 下仅约 750A——电流少约 16.7 倍,在电阻固定时 I²R 发热低约 219-278 倍。1MW 机柜在 48-54V 下需约 200 公斤铜母排;吉瓦级即数百吨。当今 NVL72 已用到 8 个电源架;Kyber 功率下 48V 方案需约 64U 电源硬件——整整一柜,不给算力留空间。800VDC 还能省约 5% 设施功率(1GW IT 负荷时约省 50MW)。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!xgBF!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fafb0968c-ec14-46c2-ad51-3b9165c49b52_1363x807.png",
+    "shows_en": "Rack power density trajectory toward Kyber Ultra at ~660kW/rack, where copper mass and thermal envelope break 48-54V.",
+    "shows_zh": "机柜功率密度冲向约 660kW/柜的 Kyber Ultra——此处铜用量与热包络击穿 48-54V。"
+   },
+   "quote": {
+    "text": "800VDC is the physics enabler for 2,300W TDP chips and 600kW racks, and those 600kW racks are the direct consequence of the push for density, because density is what drives cost per token down.",
+    "source_title": "Inside the 800VDC Revolution – Part 1",
+    "date": "2026-05-26"
+   }
+  },
+  {
+   "claim_en": "The 800VDC transition migrates content from grey space to white space and ends with the Solid-State Transformer.",
+   "claim_zh": "800VDC 变革把内容从灰空间迁往白空间,并以固态变压器收尾。",
+   "rationale_en": "SemiAnalysis models four phases: (1/2) 2026-28 white-space retrofit via the ~$400-500k power rack (sidecar TAM peaks ~$11B in 2028); (3) 2028/29 grey-space DC distribution with centralized rectifiers, eliminating the central UPS ($1.2M) and AC switchboards/PDUs; (4) 2029+ SSTs collapsing MV transformer + rectifier into one device (SST TAM ~$32B by 2030 at ~$1.25M/MW). Total electrical content per MW stays in a $3.6-4.8M band — it's a content migration, with cumulative path efficiency rising from ~82% (baseline AC) to ~87.4% by Phase 4.",
+   "rationale_zh": "SemiAnalysis 建模四阶段:(1/2) 2026-28 年经约 40-50 万美元的电源柜做白空间改造(sidecar TAM 于 2028 年见顶约 110 亿美元);(3) 2028/29 年灰空间直流配电,用集中整流器,淘汰中央 UPS(120 万美元)与交流配电盘/PDU;(4) 2029 年后 SST 把中压变压器 + 整流器合为一台(SST TAM 到 2030 年约 320 亿美元,约 1.25M/MW)。每 MW 电气总内容维持在 360-480 万美元区间——这是内容迁移,累计链路效率从约 82%(基准交流)升到第四阶段约 87.4%。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!lnhb!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7b4948fe-0850-4ce8-a562-b003ab2976fe_2456x1834.png",
+    "shows_en": "SST TAM sizing reaching ~$32B by 2030 as it captures sidecar displacement plus MV-to-800VDC conversion.",
+    "shows_zh": "SST TAM 到 2030 年达约 320 亿美元——吸收 sidecar 被替代的份额加上中压转 800VDC 的增量。"
+   },
+   "quote": {
+    "text": "Total electrical content per MW stays in a $3.6-4.8M band across four of the five architectures we model. The main headline is a content migration from grey space to white space.",
+    "source_title": "Inside the 800VDC Revolution – Part 1",
+    "date": "2026-05-26"
+   }
+  },
+  {
+   "claim_en": ">1000W chips end the air-cooled era; liquid cooling is the fastest-evolving, highest-risk datacenter system.",
+   "claim_zh": ">1000W 芯片终结风冷时代;液冷是演进最快、风险最高的数据中心系统。",
+   "rationale_en": "The GB200 NVL72 (120kW, 72 GPUs) is DLC-exclusive and is the highest-volume Blackwell SKU; chip TDP is climbing toward 1500W+. Cooling is already the 2nd-largest capex after electrical and carries the steepest learning curve and execution/obsolescence risk. Nvidia's ramp is causing shortages of components 'that on first glance look simple such as Quick Disconnects.' Demand for liquid cooling is underestimated, driving inefficient 'bridge' solutions like RDHx (used with DLC at xAI Memphis) because there won't be enough liquid-ready datacenters.",
+   "rationale_zh": "GB200 NVL72(120kW、72 颗 GPU)仅支持 DLC,是出货量最大的 Blackwell SKU;芯片 TDP 冲向 1500W+。散热已是仅次于电气的第二大资本开支,且学习曲线最陡、执行/过时风险最高。英伟达的爬坡导致「乍看简单如快接头」的零件短缺。液冷需求被低估,催生像 RDHx 这类低效「过渡」方案(xAI 孟菲斯与 DLC 混用),因为液冷就绪的数据中心不够用。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!Po45!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F26e83220-36dc-45f8-bef3-91ba8ca912ff_1642x867.png",
+    "shows_en": "Chip-by-chip forecast of the liquid-cooling market ramping as rack density rises.",
+    "shows_zh": "逐芯片预测的液冷市场随机柜密度上升而放量。"
+   },
+   "quote": {
+    "text": "Nvidia's massive ramp is causing shortages on components that on first glance look simple such as Quick Disconnects!",
+    "source_title": "Datacenter Anatomy Part 2 – Cooling Systems",
+    "date": "2025-02-13"
+   }
+  },
+  {
+   "claim_en": "Hyperscalers already run 1.08-1.15 PUE with air cooling — debunking the 'air can't be efficient' myth.",
+   "claim_zh": "超大规模厂商已用风冷做到 1.08-1.15 PUE——戳破「风冷不可能高效」的迷思。",
+   "rationale_en": "The industry-average 1.6 PUE (Uptime survey) excludes hyperscalers; Google/Meta run ~1.1, Microsoft/AWS ~1.15. They win via free cooling (air/water economizers), running server inlets above 30°C (sometimes >40°C) with custom servers, and deep CFD. Meta's 'H' hits 1.08 PUE / 0.20 WUE but takes ~2 years to build a shell (2-3x rivals) — so Meta scrapped in-progress 'H' shells for a faster AI-ready design. Google trades energy for water (PUE 1.10 but WUE >1.0 via evaporative towers).",
+   "rationale_zh": "行业均值 1.6 PUE(Uptime 调查)剔除了超大规模厂商;Google/Meta 约 1.1、微软/AWS 约 1.15。他们靠自然冷却(空气/水侧节能器)、把服务器进风温度提到 30°C 以上(有时 >40°C)配定制服务器、以及深度 CFD 取胜。Meta 的「H」做到 1.08 PUE / 0.20 WUE,但建一栋外壳约需 2 年(是对手的 2-3 倍)——故 Meta 报废了在建的「H」外壳,改用更快的 AI 就绪设计。Google 以电换水(PUE 1.10 但因蒸发塔 WUE >1.0)。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!G9JS!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3ece32c3-b004-47d3-994a-a1c3071a1821_1564x1312.png",
+    "shows_en": "Uptime Institute PUE distribution — the ~1.6 'industry average' vs the ~1.1 hyperscalers achieve.",
+    "shows_zh": "Uptime Institute 的 PUE 分布——约 1.6 的「行业均值」对比超大规模厂商实现的约 1.1。"
+   },
+   "quote": {
+    "text": "Hyperscalers have largely proved wrong the popular narrative that air cooling is not an energy efficient technology.",
+    "source_title": "Datacenter Anatomy Part 2 – Cooling Systems",
+    "date": "2025-02-13"
+   }
+  },
+  {
+   "claim_en": "Gigawatt synchronous AI loads threaten cascade blackouts — an Iberian-Peninsula scenario in Texas.",
+   "claim_zh": "吉瓦级同步 AI 负荷威胁连锁停电——得州版的伊比利亚半岛情景。",
+   "rationale_en": "ERCOT modeled a fault on a West Texas 345kV line: in all four scenarios ≥1.5GW of datacenter load disconnects near-instantly; on a duck-curve day with datacenters not equipped for LVRT, ~2.5GW (all of West Texas) trips at once. If >2.6GW system-wide (or 2.0GW in West Texas) drops, frequency exceeds ERCOT's 60.4Hz danger zone and risks cascade — exactly the April 28, 2025 Iberian blackout, where 2.2GW tripped and the grid collapsed in 27 seconds. Synchronous condensers help but still leave 1.3-1.9GW at risk and cost $10-20M per GW.",
+   "rationale_zh": "ERCOT 建模了西得州 345kV 线路故障:四种情景下均有 ≥1.5GW 数据中心负荷近乎瞬时脱网;在鸭形曲线日、数据中心未配 LVRT 时,约 2.5GW(整个西得州)同时跳闸。若系统级 >2.6GW(或西得州 2.0GW)掉负荷,频率将超过 ERCOT 的 60.4Hz 危险区并有连锁风险——正是 2025 年 4 月 28 日伊比利亚大停电,2.2GW 跳闸、电网 27 秒内崩溃。同步调相机有帮助,但仍留 1.3-1.9GW 风险,且每 GW 造价 1,000-2,000 万美元。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!_qAI!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb2a584d4-b5c9-4618-a273-1247a6dc9568_2326x798.png",
+    "shows_en": "Google data showing ~15x greater load fluctuation for an AI datacenter (1.5MW→15MW) vs a cloud datacenter.",
+    "shows_zh": "Google 数据显示 AI 数据中心负荷波动比云数据中心大约 15 倍(1.5MW→15MW)。"
+   },
+   "quote": {
+    "text": "if 2-2.5 GW of datacenter load tripped off the grid in short succession, then similar voltage and frequency fluctuations could cause cascade failures through Texas… All this, potentially started by a squirrel stepping on the wrong power line.",
+    "source_title": "AI Training Load Fluctuations at Gigawatt-scale - Risk of Power Grid Blackout?",
+    "date": "2025-06-25"
+   }
+  },
+  {
+   "claim_en": "AI is being blamed for household electric bills, but the fault is market design (PJM), not AI.",
+   "claim_zh": "AI 被指抬高居民电费,但祸首是市场设计(PJM),而非 AI。",
+   "rationale_en": "PJM's capacity auction cleared 9.3x higher ($29→$270/MW-day, ~$450 in some zones), adding $25-30/month to bills and driving ~15% higher household costs across 67M residents — off a simulated demand curve (VRR) that PJM itself has repeatedly miscut (a methodology change made 14GW of gas capacity disappear overnight). ERCOT, an energy-only market with no capacity auction, saw equivalent AI buildout yet roughly flat prices. Winter Storm Fern proved the point: PJM's $270/MW-day 'bought' a 21GW generation failure (Dominion spiked to $1,800/MWh) while ERCOT held.",
+   "rationale_zh": "PJM 容量拍卖出清价暴涨 9.3 倍($29→$270/MW·日,部分区约 450),每月加 25-30 美元、令 6,700 万居民电费涨约 15%——而这基于 PJM 自己屡屡算错的模拟需求曲线 (VRR)(一次方法变更让 14GW 天然气产能一夜之间消失)。ERCOT 作为无容量拍卖的纯电量市场,AI 建设规模相当却价格大致持平。冬季风暴 Fern 证明了这点:PJM 的 270 美元/MW·日「买来」21GW 的发电故障(Dominion 区飙至 1,800 美元/MWh),而 ERCOT 稳住了。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!48ZG!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fdf36a940-6317-428c-9e9e-f171b1d7c3f2_3179x1543.png",
+    "shows_en": "PJM Base Residual Auction clearing price history — the 9.3x jump to $270/MW-day.",
+    "shows_zh": "PJM 基础剩余拍卖出清价历史——暴涨 9.3 倍至 270 美元/MW·日。"
+   },
+   "quote": {
+    "text": "In PJM, plants get paid no matter what, even if they fail when needed… PJM's 9.3x capacity price increase was supposed to buy reliability. It did not.",
+    "source_title": "Are AI Datacenters Increasing Electric Bills for American Households?",
+    "date": "2026-03-03"
+   }
+  },
+  {
+   "claim_en": "BESS is the most flexible fluctuation fix but not a cheap one — a GW-scale system costs ~$1B.",
+   "claim_zh": "BESS 是最灵活的波动解法,但并不便宜——吉瓦级系统造价约 10 亿美元。",
+   "rationale_en": "Tesla's Megapack can charge/discharge hundreds of MW within seconds, managing fluctuations at MW/ms, MW/s and MW/min — more flexible than capacitor banks, diesel gensets or grid resources. But per Lazard, a 100MW/2hr BESS runs $38-80M and 4hr $76-157M, so a GW-scale system is 'close to a billion dollars' and is additive to (not a replacement for) UPS and gensets. BESS also unlocks demand response: 20-90hrs/yr of curtailment could free 6.5-14.7GW of new ERCOT load with no upgrades — but utility DRMS and incentives remain immature.",
+   "rationale_zh": "特斯拉 Megapack 能在数秒内充放数百 MW,覆盖 MW/毫秒、MW/秒、MW/分钟的波动——比电容器组、柴油机或电网资源都灵活。但据 Lazard,100MW/2 小时 BESS 造价 3,800-8,000 万美元、4 小时 7,600 万-1.57 亿,故吉瓦级系统「接近 10 亿美元」,且是对 UPS 与柴油机的叠加而非替代。BESS 还能开启需求响应:每年 20-90 小时的削峰可在不升级下释放 ERCOT 6.5-14.7GW 新负荷——但公用事业的 DRMS 与激励仍不成熟。",
+   "figure": null,
+   "quote": {
+    "text": "a BESS suitable for a GW-scale datacenter would cost close to a billion dollars, and for that price, Tesla would not consider BESS a replacement for a UPS or a diesel generator.",
+    "source_title": "AI Training Load Fluctuations at Gigawatt-scale - Risk of Power Grid Blackout?",
+    "date": "2025-06-25"
+   }
+  },
+  {
+   "claim_en": "'Half of 2026 datacenter capacity is canceled' is wrong — the panic is built on a flawed denominator.",
+   "claim_zh": "「2026 年过半数据中心产能被取消」是错的——恐慌建立在错误的分母上。",
+   "rationale_en": "The viral claim traces to a Bloomberg/Sightline figure that only tracks large, publicly-announced megaprojects (~12GW basis, of which ~5GW 'confirmed'), skewing toward speculative builds by inexperienced developers that were never landing in 2026 anyway. SemiAnalysis's building-by-building satellite tracking shows those slip to 2028+, not cancel, and its 2026 outlook hasn't moved. The real signal: over a terawatt now sits in the US large-load queue, and leading operators are adept at navigating permitting, grid and equipment constraints.",
+   "rationale_zh": "这条爆火说法源自 Bloomberg/Sightline 的数字——它只追踪大型公开宣布的巨型项目(约 12GW 基数,其中约 5GW「已确认」),严重偏向缺乏经验开发商的投机项目,而这些本就不会在 2026 落地。SemiAnalysis 逐栋卫星追踪显示它们是推到 2028+,而非取消,其 2026 展望未变。真正的信号:如今美国大负荷队列已超 1 太瓦,而领先运营商擅长驾驭审批、电网与设备约束。",
+   "figure": null,
+   "quote": {
+    "text": "the data sources behind these claims of '50% of 2026 datacenters are delayed' are essentially uninformed vibe-coded datacenter forecasts that take announcements at face value.",
+    "source_title": "Stop Saying Half of 2026 US Datacenter Capacity Is Canceled",
+    "date": "2026-06-18"
+   }
+  },
+  {
+   "claim_en": "Space datacenters stay ~4x costlier than Earth until ~2040 — terrestrial power isn't exhausted yet.",
+   "claim_zh": "太空数据中心到约 2040 年前仍比地球贵约 4 倍——陆地电力尚未耗尽。",
+   "rationale_en": "A 30.5kW B300 cluster costs $8.64/hr/GPU in space vs $2.37 terrestrial (LCOC $10.91 vs $2.49 after redundancy), largely because launch is $1.6M of the $3.1M datacenter capex and space useful life is only ~5yr vs 15yr (levelized DC capex ~18x higher). SemiAnalysis maps five terrestrial supply layers (grid → converted/crypto sites → BTM → industrial production → the semiconductor ceiling) that must exhaust before orbit makes sense. The binding constraint today is actually silicon: AI consumes ~60% of TSMC N3 in 2026, ~86% in 2027 — a limit space cannot solve.",
+   "rationale_zh": "一个 30.5kW 的 B300 集群在太空是 8.64 美元/时/GPU,陆地 2.37(计入冗余后 LCOC 为 10.91 对 2.49),主因是发射占 310 万美元数据中心资本开支中的 160 万,且太空使用寿命仅约 5 年对 15 年(平摊数据中心资本开支高约 18 倍)。SemiAnalysis 梳理了五层陆地供给(电网 → 转换/挖矿站点 → BTM → 工业产能 → 半导体天花板),须先耗尽轨道才有意义。当今真正的约束其实是硅:AI 在 2026 年吃掉约 60% 台积电 N3、2027 年约 86%——这是太空无法解决的极限。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!7WjA!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F25629b6a-51f8-4a04-8916-2c72b08f3497_1885x1023.png",
+    "shows_en": "Space vs terrestrial monthly TCO for a 30.5kW B300 cluster: $100,925 vs $27,724, launch as the biggest driver.",
+    "shows_zh": "30.5kW B300 集群的太空对陆地月度 TCO:100,925 对 27,724 美元,发射为最大驱动项。"
+   },
+   "quote": {
+    "text": "In our base case scenario, the cost difference between space and terrestrial datacenters starts at over 4x in 2026, before narrowing to parity in ~2040.",
+    "source_title": "To Boldly Go: The Case for Space Datacenters",
+    "date": "2026-06-03"
+   }
+  },
+  {
+   "claim_en": "Heavy-duty turbines are the tightest supply chain; the industry is scarred by two boom-bust cycles.",
+   "claim_zh": "重型燃机是最紧的供应链;两轮繁荣-萧条周期给行业留下了创伤。",
+   "rationale_en": "GE Vernova, Siemens Energy and Mitsubishi are order-booked into 2028-29 with nonrefundable reservations beyond, yet respond with caution — GE targets just 24GW/yr (its 2007-16 level), Siemens ~30GW by 2028-30, all without expanding factory footprint. The bottleneck is turbine blades: exotic single-crystal nickel alloys (rhenium, cobalt, tantalum, yttrium — yttrium is under Chinese export control) made by just four Western firms (PCC, Howmet, CPP, Doncasters). Heavy cores are 300-500-ton logistics nightmares needing 24-30 months. Aeros, IGTs and RICE are far less constrained.",
+   "rationale_zh": "GE Vernova、西门子能源、三菱订单已排到 2028-29 年、之后还有不可退预订,却谨慎应对——GE 仅目标 24GW/年(其 2007-16 年水平),西门子到 2028-30 年约 30GW,均不扩厂房。瓶颈在燃机叶片:异种单晶镍合金(铼、钴、钽、钇——钇受中国出口管制),仅四家西方公司(PCC、Howmet、CPP、Doncasters)制造。重型核心是 300-500 吨的物流噩梦,需 24-30 个月。航改机、工业燃机与内燃机受限则小得多。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!x29-!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F69e6ba37-ea1c-45f7-8344-1e09ccfe8643_1451x728.png",
+    "shows_en": "Historical gas turbine shipments showing the two boom-bust cycles (GE >60GW in 2001, then multi-year winters).",
+    "shows_zh": "历史燃机出货显示两轮繁荣-萧条周期(GE 2001 年 >60GW,随后多年寒冬)。"
+   },
+   "quote": {
+    "text": "few manufacturers appear fully 'AGI-pilled' despite surging demand… much of it reflects PTSD from 30 years of boom-bust cycles in gas generation.",
+    "source_title": "How AI Labs Are Solving the Power Crisis: The Onsite Gas Deep Dive",
+    "date": "2025-12-30"
+   }
+  },
+  {
+   "claim_en": "±400V bipolar won the 800VDC voltage war by borrowing the EV supply chain, but no standard has settled.",
+   "claim_zh": "±400V 双极借力电动车供应链赢得 800VDC 电压之争,但尚无标准落定。",
+   "rationale_en": "OCP Diablo 400 (Google/Meta/Microsoft) defines ±400V bipolar as base config so each rail sits only 400V from the grounded midpoint, letting operators use mature EV-grade 650V GaN FETs and 400V-class caps — Google: '400VDC allows us to leverage the supply chain established by electric vehicles.' But there's no one-size-fits-all: Nvidia sits outside Diablo 400 with a monopolar 660kW 800V design; Meta runs 600-800kW, Google pushes 900kW, Amazon lands 800kW. Full NEC code support only targets 2029, so pre-2029 sites need custom AHJ approvals — a barrier for colos, not hyperscalers.",
+   "rationale_zh": "OCP Diablo 400(Google/Meta/微软)将 ±400V 双极定为基础配置,使每条母线距接地中点仅 400V,让运营商能用成熟的车规 650V GaN FET 与 400V 级电容——Google 称:「400VDC 让我们复用电动车建立的供应链。」但没有一刀切:英伟达在 Diablo 400 之外,用单极 660kW 800V 设计;Meta 跑 600-800kW、Google 推 900kW、亚马逊落 800kW。完整的 NEC 规范支持才瞄准 2029 年,故 2029 年前的站点需逐场地取得地方主管当局审批——这对托管商是障碍,对超大规模厂商不是。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!mr9-!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F423bf1e3-5ae5-44e6-9520-7aafe5525a60_907x510.png",
+    "shows_en": "Single-ended 800V vs bipolar ±400V topologies (OCP), showing the third midpoint conductor tradeoff.",
+    "shows_zh": "单端 800V 对双极 ±400V 拓扑(OCP),展示第三根中点导体的取舍。"
+   },
+   "quote": {
+    "text": "selecting 400 VDC as the nominal voltage allows us to leverage the supply chain established by electric vehicles, for greater economies of scale, more efficient manufacturing, and improved quality and scale.",
+    "source_title": "Inside the 800VDC Revolution – Part 1",
+    "date": "2026-05-26"
+   }
+  },
+  {
+   "claim_en": "The datacenter water panic targets the wrong problem — Colossus 2 uses ~2.5x one In-N-Out store.",
+   "claim_zh": "数据中心用水恐慌盯错了问题——Colossus 2 用水约为一家 In-N-Out 的 2.5 倍。",
+   "rationale_en": "SemiAnalysis modeled xAI's 400MW Colossus 2 (PUE 1.15, 70% utilization, ~30% wet operation) at ~346M gallons/yr (0.9M gal/day, WUE ~0.51 L/kWh). A single In-N-Out store (burgers only) consumes ~147M gallons/yr — so the whole gigawatt-class datacenter is only ~2.5:1 versus one burger joint. With 400+ In-N-Out locations and hundreds of thousands of burger restaurants, the water argument for slowing datacenters is misdirected. Cooling architecture (dry vs wet) and onsite gas generation water use dominate the honest accounting.",
+   "rationale_zh": "SemiAnalysis 对 xAI 的 400MW Colossus 2(PUE 1.15、利用率 70%、约 30% 湿运行)建模得约 3.46 亿加仑/年(0.9 百万加仑/日,WUE 约 0.51 L/kWh)。单家 In-N-Out(仅算汉堡)年耗约 1.47 亿加仑——故整座吉瓦级数据中心仅约为一家汉堡店的 2.5:1。全美 400+ 家 In-N-Out、数十万家汉堡店,以用水为由放缓数据中心是盯错了靶子。冷却架构(干冷对湿冷)与自建天然气发电用水才主导诚实的核算。",
+   "figure": null,
+   "quote": {
+    "text": "Colossus 2's blue water footprint is around 346 million gallons per year, while an average In-N-Out store (yes, burgers only) comes in at around 147 million gallons. That's roughly a ~2.5 : 1 ratio.",
+    "source_title": "From Tokens to Burgers: A Water Footprint Face-Off",
+    "date": "2026-01-15"
+   }
+  }
+ ],
+ "key_data": [
+  {
+   "metric_en": "US datacenter buildout",
+   "metric_zh": "美国数据中心建设量",
+   "value": "+21GW (2026) → +84GW (2030)",
+   "note_en": "Record pace; global tracked capacity (ex-China) ~89GW (2026) → up to 338GW (2030).",
+   "note_zh": "创纪录节奏;全球(除中国)可追踪产能约 89GW(2026)→ 最高 338GW(2030)。"
+  },
+  {
+   "metric_en": "US grid load-request queue",
+   "metric_zh": "美国电网负荷请求队列",
+   "value": "~1 terawatt",
+   "note_en": "Against a 745GW US peak; ERCOT alone has ~108GW of large-load requests (with duplicates).",
+   "note_zh": "对比美国峰值 745GW;仅 ERCOT 就有约 108GW 大负荷请求(含重复)。"
+  },
+  {
+   "metric_en": "Net-new ELCC grid capacity added",
+   "metric_zh": "净新增 ELCC 电网容量",
+   "value": "~15GW/yr (rising to 20GW+)",
+   "note_en": "Headroom turns negative in 2027, ~40GW aggregate deficit by 2030.",
+   "note_zh": "余量 2027 年转负,2030 年合计缺口约 40GW。"
+  },
+  {
+   "metric_en": "AI cloud revenue per MW",
+   "metric_zh": "AI 云每 MW 收入",
+   "value": "~$10-13M / MW / year",
+   "note_en": "Why 'speed is the moat'; 200MW six months early ≈ $1B+ revenue / ~$400-500M NPV.",
+   "note_zh": "故「速度即护城河」;200MW 提前半年≈10 亿美元以上收入 / NPV 约 4-5 亿。"
+  },
+  {
+   "metric_en": "BTM share of new US DC capacity",
+   "metric_zh": "BTM 占美国新增 DC 产能",
+   "value": "<7% (2025) → >50% (2028)",
+   "note_en": "DC BTM equipment TAM crosses 50GW/year by 2029; 26GW cumulative confirmed BTM by 2030.",
+   "note_zh": "数据中心 BTM 设备 TAM 到 2029 年跨 50GW/年;到 2030 年累计确认 26GW。"
+  },
+  {
+   "metric_en": "800VDC current/loss reduction",
+   "metric_zh": "800VDC 电流/损耗降幅",
+   "value": "~16.7x less current, ~219-278x less I²R",
+   "note_en": "600kW rack: ~12,500A at 54V → ~750A at 800V; enables ~2,300W chips.",
+   "note_zh": "600kW 机柜:54V 下约 12,500A → 800V 下约 750A;支撑约 2,300W 芯片。"
+  },
+  {
+   "metric_en": "HVDC power rack ASP",
+   "metric_zh": "HVDC 电源柜均价",
+   "value": "$400-500k/unit (~$0.5M/MW)",
+   "note_en": "~10x a standard $40k AC power rack; sidecar TAM peaks ~$11B in 2028.",
+   "note_zh": "约为标准 4 万美元交流电源柜的 10 倍;sidecar TAM 于 2028 年见顶约 110 亿美元。"
+  },
+  {
+   "metric_en": "SST TAM by 2030",
+   "metric_zh": "SST TAM(至 2030 年)",
+   "value": "~$32B (@ ~$1.25M/MW)",
+   "note_en": ">$320M flowed into SST startups in the year to Mar 2026; Eaton bought Resilient Power.",
+   "note_zh": "截至 2026 年 3 月一年内 >3.2 亿美元流入 SST 初创;伊顿收购 Resilient Power。"
+  },
+  {
+   "metric_en": "Electrical-path efficiency",
+   "metric_zh": "电气链路效率",
+   "value": "~82% (AC baseline) → ~87.4% (Phase 4)",
+   "note_en": "Phase 2 (86.5%) via UPS elimination = ~58MW saved at 1GW IT; Nvidia cites ~5% (~50MW).",
+   "note_zh": "第二阶段(86.5%)靠淘汰 UPS = 1GW IT 时约省 58MW;英伟达称约 5%(约 50MW)。"
+  },
+  {
+   "metric_en": "Onsite generation capex",
+   "metric_zh": "自建发电资本开支",
+   "value": "$1,500-4,000/kW",
+   "note_en": "IGT $1,500-1,800; aero/RICE $1,700-2,000; Bloom SOFC $3,000-4,000.",
+   "note_zh": "工业燃机 $1,500-1,800;航改机/内燃机 $1,700-2,000;Bloom 燃料电池 $3,000-4,000。"
+  },
+  {
+   "metric_en": "Hyperscaler PUE / WUE",
+   "metric_zh": "超大规模厂商 PUE / WUE",
+   "value": "PUE 1.08-1.15; WUE 0.20 to >2.0",
+   "note_en": "Meta 1.08/0.20; Google 1.10 but WUE >1.0; Microsoft ~0.3 avg but >2 in Phoenix.",
+   "note_zh": "Meta 1.08/0.20;Google 1.10 但 WUE >1.0;微软均值约 0.3 但凤凰城 >2。"
+  },
+  {
+   "metric_en": "GB200 NVL72 rack",
+   "metric_zh": "GB200 NVL72 机柜",
+   "value": "120kW, 72 GPUs, DLC-only",
+   "note_en": "Highest-volume Blackwell SKU; chip TDP heading to 1500W+ then ~2,300W.",
+   "note_zh": "出货量最大的 Blackwell SKU;芯片 TDP 迈向 1500W+ 再到约 2,300W。"
+  },
+  {
+   "metric_en": "PJM capacity auction (2025/26)",
+   "metric_zh": "PJM 容量拍卖(2025/26)",
+   "value": "9.3x jump to $270/MW-day",
+   "note_en": "~$450 in some zones; +$25-30/month on bills; total ~$16B / ~$120k/MW; 2026/27 capped $329.",
+   "note_zh": "部分区约 450;每月账单 +25-30 美元;合计约 160 亿 / 约 12 万美元/MW;2026/27 封顶 329。"
+  },
+  {
+   "metric_en": "Winter Storm Fern (Jan 2026)",
+   "metric_zh": "冬季风暴 Fern(2026 年 1 月)",
+   "value": "PJM lost ~21GW; Dominion $1,800/MWh",
+   "note_en": "15% of cleared fleet failed; DOE tapped ~35GW of DC/industrial backup; ERCOT held (~$300/MWh).",
+   "note_zh": "占出清机队 15% 失效;DOE 动用约 35GW 数据中心/工业备电;ERCOT 稳住(约 300 美元/MWh)。"
+  },
+  {
+   "metric_en": "ERCOT cascade limits",
+   "metric_zh": "ERCOT 连锁风险阈值",
+   "value": ">2.6GW system / >2.0GW West TX",
+   "note_en": "Load-loss beyond this risks 60.4Hz danger zone; Iberian blackout (2.2GW, collapse in 27s).",
+   "note_zh": "超此负荷损失即有 60.4Hz 危险区风险;伊比利亚停电(2.2GW,27 秒崩溃)。"
+  },
+  {
+   "metric_en": "BESS cost (Lazard)",
+   "metric_zh": "BESS 成本(Lazard)",
+   "value": "100MW: $38-80M (2hr) / $76-157M (4hr)",
+   "note_en": "GW-scale ≈ ~$1B, additive to UPS/gensets; synchronous condenser $30-60k/MVAr.",
+   "note_zh": "吉瓦级≈约 10 亿美元,叠加于 UPS/柴油机;同步调相机 3-6 万美元/MVAr。"
+  },
+  {
+   "metric_en": "Space vs terrestrial compute cost",
+   "metric_zh": "太空对陆地算力成本",
+   "value": "$8.64 vs $2.37 /hr/GPU (B300, 2026)",
+   "note_en": "LCOC $10.91 vs $2.49; parity ~2040 base case (early 2030s in 'Elon' case).",
+   "note_zh": "LCOC 10.91 对 2.49;基准情景约 2040 年平价(「马斯克」情景 2030 年代初)。"
+  },
+  {
+   "metric_en": "AI share of TSMC N3",
+   "metric_zh": "AI 占台积电 N3 份额",
+   "value": "~60% (2026) → ~86% (2027)",
+   "note_en": "Silicon, not power, is the binding constraint; AI ~0.3% of global generation today → ~5% by 2030.",
+   "note_zh": "硅而非电力是约束;AI 目前约占全球发电 0.3% → 2030 年约 5%。"
+  }
+ ],
+ "deep_dives": [
+  {
+   "article_title": "Inside the 800VDC Revolution – Part 1",
+   "date": "2026-05-26",
+   "summary_en": "The definitive map of the rack-power transition. As racks climb toward 600kW+ (Kyber) and chips toward 2,300W, 48-54V distribution physically breaks (I²R losses scale with current squared), forcing 800VDC. SemiAnalysis models four phases: (1/2, 2026-28) white-space retrofit via the ~$400-500k HVDC power rack (OCP Diablo 400, co-authored by Google/Meta/Microsoft; ±400V bipolar to reuse the EV supply chain); (3, ~2028/29) grey-space DC distribution with centralized rectifiers, killing the central UPS ($1.2M) and AC switchboards; (4, 2029+) Solid-State Transformers collapsing MV transformer + rectifier into one device. Sidecar TAM peaks ~$11B (2028); SST TAM ~$32B by 2030. Total electrical content per MW stays $3.6-4.8M — a migration from grey to white space — while path efficiency rises 82%→87.4%. Winners: Delta, Infineon, Wolfspeed (10kV SiC), DG Matrix, Amperesand, Heron Power. Barriers: NEC 2029 code, DC arc-flash safety, grounding fragmentation, and a 3,300V+ SiC supply gate.",
+   "summary_zh": "机柜供电变革的权威地图。当机柜冲向 600kW+(Kyber)、芯片冲向 2,300W,48-54V 配电物理击穿(I²R 损耗随电流平方),逼出 800VDC。SemiAnalysis 建模四阶段:(1/2,2026-28)经约 40-50 万美元的 HVDC 电源柜做白空间改造(OCP Diablo 400,Google/Meta/微软联合撰写;±400V 双极以复用电动车供应链);(3,约 2028/29)灰空间直流配电、用集中整流器,干掉中央 UPS(120 万美元)与交流配电盘;(4,2029 年后)固态变压器把中压变压器 + 整流器合为一台。sidecar TAM 峰值约 110 亿(2028);SST TAM 到 2030 约 320 亿。每 MW 电气总内容维持 360-480 万——从灰到白空间的迁移——链路效率从 82% 升到 87.4%。赢家:Delta、英飞凌、Wolfspeed(10kV SiC)、DG Matrix、Amperesand、Heron Power。障碍:NEC 2029 规范、直流电弧闪安全、接地碎片化,以及 3,300V+ SiC 供应闸口。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!1nEP!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F06965a33-fc34-4e70-9ca4-ec5107ff8c84_1890x1377.png",
+    "shows_en": "800VDC adoption curve — ~39GW incremental capacity by 2030, shifting from sidecar to facility-level SST/rectifier around 2029.",
+    "shows_zh": "800VDC 采用曲线——到 2030 年约 39GW 增量产能,约 2029 年从 sidecar 转向设施级 SST/整流器。"
+   }
+  },
+  {
+   "article_title": "How AI Labs Are Solving the Power Crisis: The Onsite Gas Deep Dive",
+   "date": "2025-12-30",
+   "summary_en": "The BYOG bible. With the grid 'sold out' (Texas approves barely >1GW/yr against tens of GW/month of requests) and interconnection ~5 years, AI labs bypass the grid entirely. xAI pioneered rented, truck-mounted 16MW Solar turbines + VoltaGrid engines to build Colossus in ~122 days; OpenAI/Oracle then placed a 2.3GW Texas order. Full taxonomy of generation: aeroderivatives (jet engines bolted down, 30-60MW, 5-10min ramp, $1,700-2,000/kW), IGTs ($1,500-1,800/kW), reciprocating engines (RICE, Jenbacher J624), and Bloom SOFC fuel cells ($3,000-4,000/kW, no combustion, near-instant permitting). Deployment configs: bridge power, islanded, N+1+1 redundancy, gas+battery hybrids, Energy-as-a-Service (VoltaGrid). Load surges need synchronous condensers, flywheels or BESS. The binding constraint is heavy-duty turbine blades — single-crystal nickel alloys from 4 Western firms — and 30 years of boom-bust PTSD keeping GE/Siemens/MHI cautious.",
+   "summary_zh": "BYOG 圣经。电网「卖空」(得州每年勉强批 >1GW,而每月请求达数十 GW)、接入约 5 年,AI 实验室干脆绕开电网。xAI 首创租用卡车装载的 16MW Solar 燃机 + VoltaGrid 内燃机,约 122 天建成 Colossus;随后 OpenAI/甲骨文下了 2.3GW 得州订单。发电全谱系:航改机(螺栓固定的喷气发动机,30-60MW,5-10 分钟爬坡,$1,700-2,000/kW)、工业燃机($1,500-1,800/kW)、往复式内燃机(RICE,Jenbacher J624)、Bloom 固态氧化物燃料电池($3,000-4,000/kW,无燃烧,审批近即时)。部署配置:桥接电力、孤岛、N+1+1 冗余、气+电池混合、能源即服务(VoltaGrid)。负荷尖峰需同步调相机、飞轮或 BESS。约束在重型燃机叶片——4 家西方公司的单晶镍合金——加上 30 年繁荣-萧条创伤让 GE/西门子/三菱谨慎。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!IijO!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fdc289e35-2585-43af-a588-90b1a61674bd_1248x540.png",
+    "shows_en": "Interconnection-to-COD timeline now ~5 years for most generation types (Lawrence Berkeley National Lab).",
+    "shows_zh": "多数发电类型从接入申请到商运 (COD) 的时间现约 5 年(劳伦斯伯克利国家实验室)。"
+   }
+  },
+  {
+   "article_title": "Datacenter Anatomy Part 2 – Cooling Systems",
+   "date": "2025-02-13",
+   "summary_en": "The comprehensive cooling primer. Modern datacenters generate >50x an office's heat/sq-ft; cooling is 60-80% of non-IT power and the 2nd-largest capex. Walks the full heat path — server fans, CRAC/CRAH/fan walls (500-600kW), RDHx (30-50kW), CDUs (>1MW), water- vs air-cooled chillers (COP ~7), evaporative vs dry cooling towers, WUE (>2 L/kWh for wet). Debunks the myth air can't be efficient: hyperscalers hit 1.08-1.15 PUE via free cooling, >30°C server inlets, custom servers, and CFD (Fan Law: -10% airflow = -27% energy). The GenAI shift: the GB200 NVL72 (120kW, DLC-exclusive) forces direct-to-chip liquid cooling; Nvidia's ramp is shorting simple parts like Quick Disconnects. Case studies of Microsoft (direct evaporative), Meta ('H', 1.08 PUE but slow), Google (energy-for-water), AWS.",
+   "summary_zh": "散热全面入门。现代数据中心每平方英尺发热是办公室的 >50 倍;散热占非 IT 用电 60-80%,资本开支第二。走完整散热路径——服务器风扇、CRAC/CRAH/风墙(500-600kW)、RDHx(30-50kW)、CDU(>1MW)、水冷对风冷冷机(COP 约 7)、蒸发对干式冷却塔、WUE(湿冷 >2 L/kWh)。戳破风冷不能高效的迷思:超大规模厂商靠自然冷却、>30°C 进风、定制服务器与 CFD(风扇定律:-10% 风量 = -27% 能耗)做到 1.08-1.15 PUE。生成式 AI 转折:GB200 NVL72(120kW、仅 DLC)逼出芯片直接液冷;英伟达爬坡令快接头这类简单件短缺。案例:微软(直接蒸发)、Meta(「H」,1.08 PUE 但慢)、Google(以电换水)、AWS。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!eXFl!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F638df528-29b5-41f1-aa7e-76efdec81e66_2427x1804.png",
+    "shows_en": "Datacenter cost breakdown — cooling as the 2nd-largest capex after electrical systems.",
+    "shows_zh": "数据中心成本拆解——散热为仅次于电气系统的第二大资本开支。"
+   }
+  },
+  {
+   "article_title": "AI Training Load Fluctuations at Gigawatt-scale - Risk of Power Grid Blackout?",
+   "date": "2025-06-25",
+   "summary_en": "Why synchronous GPU training is uniquely dangerous for the grid. AI loads swing ~15x more than a cloud datacenter (Google: 1.5MW→15MW) with MW-scale sub-second spikes from batch cycles, checkpointing and AllReduce. Inverter-based solar/BESS lack the inertia spinning generators provide. ERCOT modeled a West Texas 345kV fault: ≥1.5GW of datacenter load disconnects near-instantly; on a duck-curve day, 2.5GW (all of West Texas) trips at once. Beyond 2.6GW system-wide (2.0GW West Texas), frequency exceeds the 60.4Hz danger zone and risks cascade — mirroring the April 2025 Iberian blackout (2.2GW tripped, 27-second collapse). Solutions: synchronous condensers ($10-20M/GW, still leave 1.3-1.9GW at risk), and BESS — the most flexible fix (MW/ms→MW/min) but ~$1B at GW-scale, additive to UPS/gensets. Demand response could free 6.5-14.7GW in ERCOT but utility DRMS is immature.",
+   "summary_zh": "为何同步 GPU 训练对电网独具危险。AI 负荷比云数据中心波动大约 15 倍(Google:1.5MW→15MW),批处理、检查点与 AllReduce 带来兆瓦级亚秒尖峰。逆变器接入的光伏/BESS 缺乏旋转发电机的惯量。ERCOT 建模西得州 345kV 故障:≥1.5GW 数据中心负荷近乎瞬时脱网;鸭形曲线日 2.5GW(整个西得州)同时跳闸。系统级超 2.6GW(西得州 2.0GW)频率即超 60.4Hz 危险区、有连锁风险——重演 2025 年 4 月伊比利亚停电(2.2GW 跳闸,27 秒崩溃)。解法:同步调相机($10-20M/GW,仍留 1.3-1.9GW 风险),以及 BESS——最灵活(MW/毫秒→MW/分钟)但吉瓦级约 10 亿美元、叠加于 UPS/柴油机。需求响应可在 ERCOT 释放 6.5-14.7GW 但公用事业 DRMS 不成熟。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!rMCH!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb1db6fab-e1ed-4760-bd1c-1ba4c7919624_1970x486.png",
+    "shows_en": "ERCOT base-case datacenter disconnection risk under an LVRT fault (≥1.5GW disconnects in all scenarios).",
+    "shows_zh": "ERCOT 基准情景下 LVRT 故障的数据中心脱网风险(所有情景 ≥1.5GW 脱网)。"
+   }
+  },
+  {
+   "article_title": "US Grid Constraints: Towards 40GW+ of Behind-The-Meter Datacenter by 2028?",
+   "date": "2026-06-25",
+   "summary_en": "Models the exact grid shortfall BTM must fill. From 40,000 tracked generators, only ~15GW/yr of net-new ELCC capacity is added; <10GW/yr of gas in 2026-27 as slow CCGTs dominate utility orders and transformer/turbine lead times stretch to 3-4 years. On a UCAP basis, headroom turns red across a growing set of subregions by 2027 (PJM's 2027/28 auction cleared ~6.5GW short of its 20% target). BTM wins on speed and certainty — utility timelines slip with no penalty (Switch posted a multi-billion LOC facility) while AI labs accept lower redundancy (Meta targets 2 nines, no gensets). Details ERCOT's Batch Zero co-location framework (NMA, BYOG, WLPUN, PCLR) codifying hybrid grid+onsite structures, with ~2,885MW of announced co-location deals (Crusoe, AWS/Comanche Peak, CyrusOne).",
+   "summary_zh": "精确建模 BTM 须填补的电网缺口。从 4 万台追踪发电机看,每年净新增 ELCC 仅约 15GW;2026-27 年天然气 <10GW/年,因慢速 CCGT 主导公用订单、变压器/燃机交期拉长到 3-4 年。按 UCAP 口径,到 2027 年越来越多子区域余量转红(PJM 2027/28 拍卖较其 20% 目标短约 6.5GW)。BTM 凭速度与确定性取胜——公用事业无罚地拖工期(Switch 开了数十亿美元信用证),而 AI 实验室接受更低冗余(Meta 目标两个 9、无柴油机)。详解 ERCOT 的 Batch Zero 共址框架(NMA、BYOG、WLPUN、PCLR),将电网+自建混合结构成文,已宣布约 2,885MW 共址交易(Crusoe、AWS/Comanche Peak、CyrusOne)。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!Y1vc!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ffaf90a69-1cf3-448e-b719-8ebf7ea547ad_1920x1080.png",
+    "shows_en": "US datacenter power demand vs available grid capacity vs new grid supply — the gap BTM must fill.",
+    "shows_zh": "美国数据中心电力需求对比可用电网容量对比新增电网供给——BTM 须填补的缺口。"
+   }
+  },
+  {
+   "article_title": "Are AI Datacenters Increasing Electric Bills for American Households?",
+   "date": "2026-03-03",
+   "summary_en": "A market-design autopsy. PJM's capacity auction (Base Residual Auction) cleared 9.3x higher ($29→$270/MW-day, ~$450 some zones), adding $25-30/month to 67M residents' bills — off a simulated VRR demand curve PJM keeps miscutting (a methodology change made 14GW of gas 'disappear' overnight). The IMM found removing all datacenters would cut capacity payments $9.33B (64%). But ERCOT, an energy-only market, saw equivalent AI buildout and roughly flat prices. Winter Storm Fern (Jan 2026) was the proof: PJM's record capacity price 'bought' a 21GW generation failure (Dominion $1,800/MWh) while ERCOT held. Verdict: the bill shock is government/market-design driven, not AI — and ERCOT's single-state regulatory agility (SB6) is 'durable and investable' vs PJM's 13-state FERC gridlock.",
+   "summary_zh": "一场市场设计的验尸。PJM 容量拍卖(基础剩余拍卖)出清价暴涨 9.3 倍($29→$270/MW·日,部分区约 450),令 6,700 万居民每月账单 +25-30 美元——基于 PJM 屡屡算错的模拟 VRR 需求曲线(一次方法变更让 14GW 天然气一夜之间「消失」)。IMM 发现剔除所有数据中心可减容量支付 93.3 亿(64%)。但纯电量市场 ERCOT 在同等 AI 建设下价格大致持平。冬季风暴 Fern(2026 年 1 月)是铁证:PJM 创纪录容量价「买来」21GW 发电故障(Dominion 1,800 美元/MWh),ERCOT 却稳住。结论:电费冲击源于政府/市场设计而非 AI——且 ERCOT 单州监管敏捷(SB6)相对 PJM 十三州 FERC 僵局是「可持续且可投资的」。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!YaBK!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff4cbff97-5557-4b44-aaa1-539add752ebc_2400x1125.png",
+    "shows_en": "PJM vs ERCOT household bill trajectory — ~15% PJM increase driven by the capacity auction vs flat ERCOT.",
+    "shows_zh": "PJM 对 ERCOT 居民账单走势——PJM 约 15% 涨幅由容量拍卖驱动,ERCOT 持平。"
+   }
+  }
+ ],
+ "investment": {
+  "winners": [
+   {
+    "name": "Bloom Energy",
+    "why_en": "First called out as the biggest BTM beneficiary in Dec 2024; SOFC fuel cells (no combustion, near-instant EPA permitting, deployable in weeks) are taking share fast. Claims 2GW/yr capacity by end-2026. Premium ($3,000-4,000/kW) offset by speed and siting flexibility (usable in population centers).",
+    "why_zh": "2024 年 12 月首次被点名为最大 BTM 受益者;固态氧化物燃料电池(无燃烧、EPA 审批近即时、数周可部署)正快速抢份额。称到 2026 年底产能 2GW/年。溢价($3,000-4,000/kW)由速度与选址灵活(可用于人口中心)抵消。"
+   },
+   {
+    "name": "GE Vernova / Siemens Energy / Mitsubishi Power",
+    "why_en": "The turbine 'Big Three' — order-booked into 2028-29 with nonrefundable reservations. But SemiAnalysis flags risk of 'peak' orders and secondary-market turbine supply surging, so the durable winners may be fuel cells and RICE, not just the majors.",
+    "why_zh": "燃机「三大」——订单排到 2028-29 年、含不可退预订。但 SemiAnalysis 提示「峰值」订单风险与二手燃机供应激增,故持久赢家或是燃料电池与内燃机,而非仅巨头。"
+   },
+   {
+    "name": "Delta Electronics",
+    "why_en": "Leading the 800VDC transition — power racks, PSU shelves, 110kW power shelves with 80kW BBU, the first 2.4MW 800VDC In-Row CDU (GTC 2026), and 800VDC busway. Straddles power electronics AND liquid cooling, the two content-growth engines.",
+    "why_zh": "引领 800VDC 变革——电源柜、PSU 架、含 80kW BBU 的 110kW 电源架、首台 2.4MW 800VDC 行内 CDU(GTC 2026)、以及 800VDC 母线槽。横跨电力电子与液冷两大内容增长引擎。"
+   },
+   {
+    "name": "Infineon / Wolfspeed (power semis)",
+    "why_en": "The silicon under 800VDC/SST. Infineon claims ~40x/14x SST weight/size reduction and a 12kW BBU roadmap (99.5% efficiency); Wolfspeed's 10kV SiC MOSFET (bare die since Mar 2026) opens direct MV rectification. ±400V bipolar rides the mature EV 650V-GaN supply chain.",
+    "why_zh": "800VDC/SST 之下的硅。英飞凌称 SST 重量/体积降约 40 倍/14 倍、12kW BBU 路线图(99.5% 效率);Wolfspeed 的 10kV SiC MOSFET(2026 年 3 月起裸片)开启直接中压整流。±400V 双极搭乘成熟的电动车 650V-GaN 供应链。"
+   },
+   {
+    "name": "SST startups: DG Matrix, Amperesand, Heron Power, Novos Power",
+    "why_en": ">$320M funded in the year to Mar 2026. DG Matrix (ABB-backed, Infineon SiC) is the only SST in Nvidia's MGX reference; Heron building a 40GW US plant; Amperesand targets 30MW deployed in 2026. Eaton acquired Resilient Power for SST expertise.",
+    "why_zh": "截至 2026 年 3 月一年内融资 >3.2 亿美元。DG Matrix(ABB 支持、英飞凌 SiC)是英伟达 MGX 参考架构中唯一 SST;Heron 在建 40GW 美国工厂;Amperesand 目标 2026 年部署 30MW。伊顿收购 Resilient Power 获取 SST 技术。"
+   },
+   {
+    "name": "Tesla (Megapack BESS)",
+    "why_en": "The default answer to gigawatt load fluctuations, LVRT ride-through and demand response — pairs with turbines at xAI. GW-scale ~$1B TAM per site, plus the emerging role as a firm-capacity and demand-response asset class.",
+    "why_zh": "吉瓦级负荷波动、LVRT 穿越与需求响应的默认答案——在 xAI 与燃机搭配。每站点吉瓦级约 10 亿美元 TAM,外加作为可靠容量与需求响应资产类别的新兴角色。"
+   },
+   {
+    "name": "Liquid-cooling ecosystem: Vertiv, Boyd, nVent, Danfoss",
+    "why_en": "DLC ramp shorts CDUs, cold plates, manifolds and Quick Disconnects. Danfoss Turbocor compressors already run on 700-813V DC — a rare cooling component ready for the DC-native future.",
+    "why_zh": "DLC 爬坡令 CDU、冷板、歧管与快接头短缺。丹佛斯 Turbocor 压缩机已运行于 700-813V 直流——罕见的、为直流原生未来就绪的散热部件。"
+   },
+   {
+    "name": "Neoclouds / EaaS: Crusoe, VoltaGrid",
+    "why_en": "VoltaGrid runs full Energy-as-a-Service (e.g. 2.3GW for a 1.4GW Vantage campus, 64% overbuild) bundling RICE + synchronous condensers + BESS. Crusoe books bridge power (Abilene) and 1.2GW of Boom Superpower turbines.",
+    "why_zh": "VoltaGrid 提供完整能源即服务(如为 1.4GW Vantage 园区配 2.3GW、64% 超建)打包内燃机 + 同步调相机 + BESS。Crusoe 锁定桥接电力(Abilene)与 1.2GW 的 Boom Superpower 燃机。"
+   }
+  ],
+  "bottlenecks": [
+   {
+    "en": "Firm dispatchable power — <10GW/yr of gas added in 2026-27, ~15GW/yr net-new ELCC vs a ~terawatt queue; grid headroom negative by 2027.",
+    "zh": "可靠可调度电力——2026-27 年天然气新增 <10GW/年,净新增 ELCC 约 15GW/年对约 1 太瓦队列;电网余量 2027 年转负。"
+   },
+   {
+    "en": "Heavy-duty turbine blades — single-crystal nickel alloys (rhenium, cobalt, yttrium under Chinese export control) from just 4 Western firms; 300-500-ton cores need 24-30 months.",
+    "zh": "重型燃机叶片——单晶镍合金(铼、钴、受中国出口管制的钇),仅 4 家西方公司;300-500 吨核心需 24-30 个月。"
+   },
+   {
+    "en": "Grain-oriented electrical steel (GOES) & large power transformers — longest lead times in the stack (3-4 years); ~80% of US high-power transformers are imported.",
+    "zh": "取向电工钢 (GOES) 与大型电力变压器——全栈最长交期(3-4 年);美国高功率变压器约 80% 依赖进口。"
+   },
+   {
+    "en": "3,300V+ SiC MOSFETs — gate the MV-input SST; still in limited production, forcing LV-input SST as the earlier-to-market variant.",
+    "zh": "3,300V+ SiC MOSFET——卡住中压输入 SST;仍小批量生产,逼使低压输入 SST 先行上市。"
+   },
+   {
+    "en": "Quick Disconnects, CDUs & liquid-ready datacenter shells — Nvidia's ramp shorts simple parts; too few DLC-ready halls force inefficient RDHx 'bridge' solutions.",
+    "zh": "快接头、CDU 与液冷就绪的数据中心外壳——英伟达爬坡令简单件短缺;DLC 就绪机房太少,逼出低效的 RDHx「过渡」方案。"
+   },
+   {
+    "en": "Grid interconnection & transmission — ~5-7 year queues; conversion (not queue depth) now binds in PJM (24GW of executed agreements terminated since 2020).",
+    "zh": "电网接入与输电——约 5-7 年队列;PJM 的约束现在是转化率而非队列深度(2020 年以来 24GW 已签协议终止)。"
+   }
+  ],
+  "risks": [
+   {
+    "en": "Peak gas turbine orders — SemiAnalysis flags risk that current turbine order surge is temporary; secondary-market turbine availability is surging, pressuring OEM pricing.",
+    "zh": "燃机订单见顶——SemiAnalysis 提示当前燃机订单激增或是暂时的;二手燃机供应激增,压制 OEM 定价。"
+   },
+   {
+    "en": "Datacenter delays overstated but real — SemiAnalysis debunks '50% canceled' yet flags specific slips (STACK/Oracle to 2029 on gas pipeline); demand is fine, execution slips.",
+    "zh": "数据中心延期被夸大但确实存在——SemiAnalysis 驳斥「50% 取消」但指出具体滑期(STACK/甲骨文因燃气管道推到 2029);需求无虞,执行滑期。"
+   },
+   {
+    "en": "Grid stability / regulatory clampdown — NERC issued a Level 3 alert (May 2026) on large loads; ERCOT ride-through mandates (NOGRR282) and a Computational Load Entity registration raise the compliance bar.",
+    "zh": "电网稳定/监管收紧——NERC 就大负荷发布三级警报(2026 年 5 月);ERCOT 穿越强制要求(NOGRR282)与「计算负荷实体」注册抬高合规门槛。"
+   },
+   {
+    "en": "800VDC safety/code gap — full NEC support only ~2029; DC arc-flash has no IEEE 1584/NFPA 70E PPE table; grounding fragmentation makes each site a custom engineering project.",
+    "zh": "800VDC 安全/规范缺口——完整 NEC 支持才约 2029;直流电弧闪无 IEEE 1584/NFPA 70E 防护表;接地碎片化使每站点成定制工程。"
+   },
+   {
+    "en": "AI-bubble / demand risk — 1GW of AI capacity implies ~$12-13B annual revenue; if token demand disappoints, the whole power/cooling capex thesis unwinds. OEMs remember 30 years of boom-bust.",
+    "zh": "AI 泡沫/需求风险——1GW AI 产能对应约 120-130 亿美元年收入;若 token 需求不及预期,整个电力/散热资本开支论点将瓦解。OEM 记得 30 年的繁荣-萧条。"
+   },
+   {
+    "en": "Silicon ceiling caps everything — AI consumes ~60% of TSMC N3 in 2026, ~86% in 2027; power/DC headroom can't be used without chips.",
+    "zh": "硅天花板封顶一切——AI 在 2026 年吃掉约 60% 台积电 N3、2027 年约 86%;没有芯片,电力/数据中心余量无从使用。"
+   }
+  ],
+  "catalysts": [
+   {
+    "en": "800VDC-native compute (Kyber/Vera Rubin Ultra) shipping late-2026/2027 — the inflection where 800VDC becomes mandatory, not optional, spiking penetration.",
+    "zh": "800VDC 原生算力(Kyber/Vera Rubin Ultra)于 2026 年底/2027 年出货——800VDC 从可选变强制的拐点,渗透率骤升。"
+   },
+   {
+    "en": "NEC 2029 code + OCP/UL standards (year-end 2026 white paper, UL 857 Ed.15 to 1500VDC) unlocking colo/smaller-builder 800VDC adoption.",
+    "zh": "NEC 2029 规范 + OCP/UL 标准(2026 年底白皮书、UL 857 第 15 版至 1500VDC)解锁托管/中小开发商的 800VDC 采用。"
+   },
+   {
+    "en": "SST UL certification — DG Matrix targets end-Q2 2026; first certification unlocks the ~$32B facility-level TAM (~2029 scale adoption).",
+    "zh": "SST UL 认证——DG Matrix 目标 2026 年二季度末;首个认证解锁约 320 亿美元的设施级 TAM(约 2029 年规模化)。"
+   },
+   {
+    "en": "ERCOT Batch Zero / co-location rules (NPRR1325, effective Jul 2026) + FERC's large-load rulemaking (RM26-4) codifying hybrid grid+BTM structures.",
+    "zh": "ERCOT Batch Zero/共址规则(NPRR1325,2026 年 7 月生效)+ FERC 大负荷立法(RM26-4)将电网+BTM 混合结构成文。"
+   },
+   {
+    "en": "Behind-the-meter TAM inflection — DC BTM equipment crossing 50GW/year by 2029; new-entrant order flow (Boom Superpower, Doosan DGT6, ProEnergy retrofits).",
+    "zh": "表后 TAM 拐点——数据中心 BTM 设备到 2029 年跨 50GW/年;新进入者订单流(Boom Superpower、斗山 DGT6、ProEnergy 改造)。"
+   },
+   {
+    "en": "Load-flexibility / demand response reform — 20-90hrs/yr curtailment could unlock 6.5-14.7GW in ERCOT; PJM's Expedited Interconnection Track (June 2026).",
+    "zh": "负荷灵活性/需求响应改革——每年 20-90 小时削峰可在 ERCOT 释放 6.5-14.7GW;PJM 加速接入通道(2026 年 6 月)。"
+   }
+  ]
+ },
+ "open_questions": [
+  {
+   "en": "Which 800VDC grounding/voltage topology wins — ±400V bipolar (EV supply chain) vs single-ended 800V monopolar (Nvidia)? The choice is a vendor-ecosystem commitment, not just technical, and no consensus exists.",
+   "zh": "哪种 800VDC 接地/电压拓扑胜出——±400V 双极(电动车供应链)对单端 800V 单极(英伟达)?这是供应商生态的绑定而非纯技术选择,尚无共识。"
+  },
+  {
+   "en": "Do SSTs displace MV rectifiers, and can they hit datacenter-grade reliability? No vendor has field-reliability data at scale (longest deployment is a 2011 Swiss railway PETT); ETH Zurich found a line-frequency transformer + SiC rectifier can match SST efficiency.",
+   "zh": "SST 能否取代中压整流器,并达到数据中心级可靠性?尚无供应商有规模化现场可靠性数据(最长部署是 2011 年瑞士铁路 PETT);苏黎世联邦理工发现工频变压器 + SiC 整流器可匹敌 SST 效率。"
+  },
+  {
+   "en": "Does BESS/demand-response actually get deployed at scale, or do immature utility DRMS and weak incentives ($160-300k/month for 20MW = a rounding error) keep it niche outside Texas cryptominers?",
+   "zh": "BESS/需求响应能否真正规模化部署,还是不成熟的公用事业 DRMS 与微弱激励(20MW 每月 16-30 万美元=舍入误差)使其在得州挖矿商之外仍属小众?"
+  },
+  {
+   "en": "Is the current gas-turbine order surge a durable buildout or a repeat boom-bust? Secondary-market turbine availability is already surging and SemiAnalysis flags 'peak gas turbine orders.'",
+   "zh": "当前燃机订单激增是持久建设还是又一轮繁荣-萧条?二手燃机供应已在激增,SemiAnalysis 已提示「燃机订单见顶」。"
+  },
+  {
+   "en": "When (if ever) does terrestrial power exhaust enough to justify space datacenters — and can chip reliability (3-6% annual GPU failures needing human intervention) be solved in orbit? Parity is ~2040 base case, but silicon, not power, binds first.",
+   "zh": "陆地电力何时(是否)耗尽到足以证明太空数据中心合理——以及轨道上能否解决芯片可靠性(每年 3-6% GPU 故障需人工干预)?基准情景约 2040 年平价,但先受约束的是硅而非电力。"
+  }
+ ],
+ "sources": [
+  {
+   "title": "Inside the 800VDC Revolution – Part 1",
+   "date": "2026-05-26"
+  },
+  {
+   "title": "How AI Labs Are Solving the Power Crisis: The Onsite Gas Deep Dive",
+   "date": "2025-12-30"
+  },
+  {
+   "title": "US Grid Constraints: Towards 40GW+ of Behind-The-Meter Datacenter by 2028?",
+   "date": "2026-06-25"
+  },
+  {
+   "title": "Datacenter Anatomy Part 2 – Cooling Systems",
+   "date": "2025-02-13"
+  },
+  {
+   "title": "Datacenter Anatomy Part 1: Electrical Systems",
+   "date": "2024-10-14"
+  },
+  {
+   "title": "AI Training Load Fluctuations at Gigawatt-scale - Risk of Power Grid Blackout?",
+   "date": "2025-06-25"
+  },
+  {
+   "title": "Are AI Datacenters Increasing Electric Bills for American Households?",
+   "date": "2026-03-03"
+  },
+  {
+   "title": "Stop Saying Half of 2026 US Datacenter Capacity Is Canceled",
+   "date": "2026-06-18"
+  },
+  {
+   "title": "AI Datacenter Energy Dilemma - Race for AI Datacenter Space",
+   "date": "2024-03-13"
+  },
+  {
+   "title": "Multi-Datacenter Training: OpenAI's Ambitious Plan To Beat Google's Infrastructure",
+   "date": "2024-09-04"
+  },
+  {
+   "title": "To Boldly Go: The Case for Space Datacenters",
+   "date": "2026-06-03"
+  },
+  {
+   "title": "xAI's Colossus 2 - First Gigawatt Datacenter In The World, Unique RL Methodology",
+   "date": "2025-09-16"
+  },
+  {
+   "title": "Meta Superintelligence - Leadership Compute, Talent, and Data",
+   "date": "2025-07-11"
+  },
+  {
+   "title": "From Tokens to Burgers: A Water Footprint Face-Off",
+   "date": "2026-01-15"
+  },
+  {
+   "title": "AI Arrives In The Middle East: US Strikes A Deal with UAE and KSA",
+   "date": "2025-05-16"
+  },
+  {
+   "title": "Tariff Armageddon? GPU Loopholes, Datacenter Equipment",
+   "date": "2025-04-10"
+  },
+  {
+   "title": "Silicon Carbide Game-Changer: Aehr's Edge - SiC Pure Play $AEHR",
+   "date": "2023-04-03"
+  },
+  {
+   "title": "Power Integrations, $POWI, A Premier ESG Play Semiconductor Exposure To Power Efficiency",
+   "date": "2021-08-03"
+  },
+  {
+   "title": "The AI Brick Wall – A Practical Limit For Scaling Dense Transformer Models",
+   "date": "2023-01-24"
+  },
+  {
+   "title": "Datacenter Industry Model",
+   "date": "2024-02-03"
+  }
+ ]
+}

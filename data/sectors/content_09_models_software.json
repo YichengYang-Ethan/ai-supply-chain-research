@@ -1,0 +1,698 @@
+{
+ "sector_id": "09_models_software",
+ "sector_name_en": "AI Models, Labs & Software",
+ "sector_name_zh": "AI 模型·实验室·软件",
+ "tagline_en": "Scaling never died — it stacked. Pre-training gave way to reinforcement learning and test-time compute, data replaced weights as the moat, and agents like Claude Code turned models into the fastest-growing software business ever.",
+ "tagline_zh": "缩放定律从未死去，只是叠加了。预训练让位于强化学习与推理时算力，数据取代权重成为护城河，而 Claude Code 这类智能体把模型变成了史上增长最快的软件生意。",
+ "overview_en": "SemiAnalysis's model/lab coverage is built around one contrarian spine: the 'scaling laws are dead' narrative is wrong because scaling is not one curve but a stack of them. When pre-training hit the data wall, the labs pivoted to post-training — supervised fine-tuning, RLHF/RLAIF, and above all reinforcement learning on verifiable rewards — and then to test-time (inference) compute via reasoning models. OpenAI rode the same GPT-4o base model for 18 months through o1, o3 and GPT-5, proving post-training alone drives capability. The consequence is a different industrial structure than pre-training: where everyone once trained on the same internet, RL requires bespoke environments, verifiers, and expert-authored data that must be built from scratch — so 'data is the moat.' An entire shovel-selling economy has erupted: 35+ RL-environment startups, UI-gym website clones at ~$20k each, and data foundries (Surge ~$1B ARR, Mercor, Handshake) that recruit PhDs to write tasks and rubrics. On the product side, Claude Code is SemiAnalysis's declared inflection point — coding is the beachhead into a $15T information-work economy, the six-player coding-assistant market already clears $30B+ ARR heading to $100B, and Anthropic is now adding more revenue per quarter than OpenAI. The technical throughline is that RL fuses inference into training (rollouts are inference-heavy), which reshapes hardware demand toward memory-bound inference chips (Trainium), CPUs for RL environments, and decentralized rather than mega-centralized clusters. Below the frontier, DeepSeek and other Chinese open-weights labs (MLA cutting KV cache ~93%, V4 hitting 1M context with a 90% KV-cache cut) commoditize the low end, but still trail on agentic coding — 'data is the moat' keeps the frontier ahead. Benchmarks are broken (SWE-bench contamination, GDPval single-turn), so the real north-star metric is cost-per-task, not cost-per-token.",
+ "overview_zh": "SemiAnalysis 对模型/实验室的覆盖有一条逆共识主线：「缩放定律已死」是错的，因为缩放不是一条曲线，而是一叠曲线。当预训练撞上数据墙，实验室转向后训练——监督微调、RLHF/RLAIF，尤其是在「可验证奖励」上的强化学习——再转向靠推理模型实现的推理时（test-time）算力。OpenAI 用同一个 GPT-4o 底座跑了 18 个月，经 o1、o3 直到 GPT-5，证明单靠后训练就能推动能力。其后果是与预训练完全不同的产业结构：过去人人都在同一份互联网上训练，如今 RL 需要定制环境、验证器和专家撰写的数据，且都要从零搭建——于是「数据即护城河」。一整条「卖铲子」经济随之爆发：35+ 家 RL 环境初创、约 2 万美元一个的 UI-gym 网站克隆，以及招 PhD 写任务和评分表的数据工厂（Surge 约 10 亿美元 ARR、Mercor、Handshake）。产品端，Claude Code 是 SemiAnalysis 明确点名的拐点——编程是切入 15 万亿美元信息工作经济的滩头堡，六强编程助手市场已超 300 亿美元 ARR、直奔千亿，而 Anthropic 现在每季度新增收入已超过 OpenAI。技术主线是：RL 把推理熔进了训练（rollout 极度吃推理），这把硬件需求重塑为偏内存带宽的推理芯片（Trainium）、跑 RL 环境的 CPU，以及去中心化而非超级集中的集群。在前沿之下，DeepSeek 等中国开源权重实验室（MLA 把 KV 缓存砍约 93%、V4 上 100 万上下文并砍 90% KV 缓存）把低端商品化，但在智能体编程上仍落后——「数据即护城河」让前沿保持领先。基准测试已失效（SWE-bench 污染、GDPval 单轮），真正的北极星指标是「每任务成本」而非「每 token 成本」。",
+ "core_knowledge": [
+  {
+   "term_en": "The scaling stack (pre-train → post-train → test-time)",
+   "term_zh": "缩放三段栈（预训练→后训练→推理时）",
+   "explain_en": "SemiAnalysis's core framing: overall AI 'scaling' is the sum of three compounding vectors, not just pre-training. Pre-training (next-token prediction on the internet) hit a data wall; post-training (SFT/RLHF/RLAIF/RL on verifiable rewards) unlocked reasoning; test-time compute lets a model 'think' longer for a better answer. Like Moore's Law surviving the end of clock-speed scaling via multi-core, the aggregate curve keeps climbing even as one vector slows.",
+   "explain_zh": "SemiAnalysis 的核心框架：整体 AI「缩放」是三条相互叠加的向量之和，而不只是预训练。预训练（在互联网上做下一 token 预测）撞上数据墙；后训练（SFT/RLHF/RLAIF/在可验证奖励上做 RL）解锁了推理；推理时算力让模型「想」得更久以得到更好答案。就像时钟频率见顶后摩尔定律靠多核延续，即便某一条向量放缓，总曲线仍在攀升。"
+  },
+  {
+   "term_en": "RL on verifiable rewards (GRPO/PPO)",
+   "term_zh": "可验证奖励上的 RL（GRPO/PPO）",
+   "explain_en": "RL worked best where a reward is cleanly checkable — code (does it pass tests?) and math (is the answer right?). The model generates many 'rollouts' (attempts) per prompt, each scored; GRPO (DeepSeek's algorithm) drops PPO's critic model to save memory by scoring each rollout against the group average. This makes RL inference-heavy: hundreds of answers per question, so production-grade inference is now inside the training loop.",
+   "explain_zh": "RL 在奖励可干净判定的地方最有效——代码（能否通过测试？）和数学（答案对不对？）。模型对每个提示生成多个「rollout」（尝试），逐个打分；GRPO（DeepSeek 的算法）砍掉 PPO 的 critic 模型、用每个 rollout 相对组内均值打分来省内存。这让 RL 极度吃推理：每题几百个答案，于是产线级推理如今被嵌进了训练环路。"
+  },
+  {
+   "term_en": "RL environments & sandboxes",
+   "term_zh": "RL 环境与沙箱",
+   "explain_en": "An 'environment' is the simulated world (a code sandbox, a cloned website, a browser, a spreadsheet app) where an agent acts and receives a reward. Engineering robust, low-latency, exploit-resistant sandboxes (Firecracker micro-VMs to full QEMU VMs) is a first-class systems problem — sandbox startup latency and scaling to thousands of concurrent rollouts are real bottlenecks. Reward hacking (the model gaming the reward without doing the task) is the recurring failure mode.",
+   "explain_zh": "「环境」是智能体行动并获取奖励的模拟世界（代码沙箱、克隆网站、浏览器、表格应用）。工程化出稳健、低延迟、抗利用的沙箱（从 Firecracker 微虚机到完整 QEMU 虚机）是一等的系统问题——沙箱启动延迟、扩展到数千并发 rollout 都是真瓶颈。「奖励黑客」（模型不做任务却骗到奖励）是反复出现的失效模式。"
+  },
+  {
+   "term_en": "Synthetic data, RLAIF & LLM-as-judge",
+   "term_zh": "合成数据、RLAIF 与 LLM 评审",
+   "explain_en": "As human data stopped scaling, labs turned to synthetic data (rejection sampling, model-generated tasks) and replaced human feedback (RLHF) with AI feedback (RLAIF). A model or 'LLM judge' scores outputs against a rubric — the key that opens non-verifiable domains like writing, medicine and law. Better models are better judges, creating a self-improving loop. Anthropic's Constitutional AI is the canonical RLAIF example.",
+   "explain_zh": "当人类数据不再可扩展，实验室转向合成数据（拒绝采样、模型生成任务），并用 AI 反馈（RLAIF）取代人类反馈（RLHF）。一个模型或「LLM 评审」依据评分表给输出打分——这是打开写作、医学、法律等不可验证领域的钥匙。更强的模型是更好的评审，形成自我改进环路。Anthropic 的宪法 AI 是 RLAIF 的经典范例。"
+  },
+  {
+   "term_en": "Agent / harness (Claude Code)",
+   "term_zh": "智能体 / 骨架（Claude Code）",
+   "explain_en": "An agent wraps a model in a loop of READ → THINK → WRITE → VERIFY with tools, memory and sub-agents. Claude Code is a terminal-native agent ('Claude Computer') that reads a codebase, plans, and executes. The 'harness' (tools, prompts, context management, caching) is now part of the product — it drives cost-per-task as much as the model does, which is why same-harness benchmark comparisons miss the point.",
+   "explain_zh": "智能体把模型包进一个「读→想→写→验」的环路，配以工具、记忆和子智能体。Claude Code 是终端原生智能体（「Claude Computer」），读代码库、做规划、再执行。「骨架」（工具、提示、上下文管理、缓存）如今是产品的一部分——它和模型一样决定每任务成本，这也是为何「同骨架」基准比较抓不住重点。"
+  },
+  {
+   "term_en": "Cost-per-task vs cost-per-token",
+   "term_zh": "每任务成本 vs 每 token 成本",
+   "explain_en": "SemiAnalysis's north-star pricing metric. A model priced 5x higher per token (e.g. Mythos vs Opus) can be cheaper in practice if it solves the task in far fewer tokens ('token efficiency'). Anthropic's Opus 4.7 tokenizer change alone raised token usage up to 35% — an implicit 35% price hike. The harness (Codex ~80:1 input/output vs Claude Code ~100:1) is a major driver.",
+   "explain_zh": "SemiAnalysis 的定价北极星指标。每 token 贵 5 倍的模型（如 Mythos 对 Opus），若能用少得多的 token 解决任务（「token 效率」），实际上可能更便宜。仅 Anthropic Opus 4.7 换分词器一项就把 token 用量抬高最多 35%——等于隐性涨价 35%。骨架（Codex 约 80:1 输入/输出 vs Claude Code 约 100:1）是主要变量。"
+  },
+  {
+   "term_en": "Data foundry / RL-as-a-service",
+   "term_zh": "数据工厂 / RL 即服务",
+   "explain_en": "Firms that supply the labs with RL environments, expert-authored tasks, and grading rubrics. Environment startups (Mechanize, Turing, Prime Intellect, HUD) clone apps and wrap software in dockerized sandboxes; data foundries (Surge, Mercor, Handshake) recruit domain experts. RL-as-a-service startups (RunRL, Osmosis, Applied Compute, Thinking Machines Tinker) post-train custom models (often Qwen) for enterprises at ~5x lower cost than OpenAI's RFT.",
+   "explain_zh": "为实验室提供 RL 环境、专家撰写任务和评分表的公司。环境初创（Mechanize、Turing、Prime Intellect、HUD）克隆应用、把软件封进 docker 化沙箱；数据工厂（Surge、Mercor、Handshake）招募领域专家。RL 即服务初创（RunRL、Osmosis、Applied Compute、Thinking Machines Tinker）为企业后训练定制模型（多用 Qwen），成本约为 OpenAI RFT 的 1/5。"
+  },
+  {
+   "term_en": "Multi-Head Latent Attention (MLA) & MoE",
+   "term_zh": "多头潜在注意力（MLA）与 MoE",
+   "explain_en": "DeepSeek's signature efficiency innovations. MLA compresses the KV cache ~93% versus standard attention, slashing the memory (and thus cost) per query. Combined with fine-grained Mixture-of-Experts (many small experts, few active per token) and FP8 training, this is how a Chinese lab reached near-frontier quality at a fraction of the compute — and forced Western labs to copy the ideas almost immediately.",
+   "explain_zh": "DeepSeek 的标志性效率创新。MLA 相比标准注意力把 KV 缓存压缩约 93%，大幅削减每次查询的内存（从而成本）。再配合细粒度专家混合（许多小专家、每 token 只激活少数）和 FP8 训练，这就是一家中国实验室用零头算力逼近前沿质量的方式——并迫使西方实验室几乎立刻抄走这些思路。"
+  }
+ ],
+ "value_chain": [
+  {
+   "stage_en": "Frontier closed labs",
+   "stage_zh": "前沿闭源实验室",
+   "players": "OpenAI, Anthropic, Google DeepMind, xAI, Meta Superintelligence",
+   "role_en": "Build and serve frontier models. Differentiation is now data procurement + post-training, not a common internet corpus: OpenAI outspends on data across many parallel programs; Anthropic is the most aggressive RL-environment buyer (first customer of dozens of vendors) and dominates agentic coding; Google is compute-rich (TPU) and owns the apps (Sheets/Docs/Drive) to post-train on.",
+   "role_zh": "构建并服务前沿模型。差异化现在在于数据采购+后训练，而非公共互联网语料：OpenAI 在多条并行项目上砸数据最多；Anthropic 是最激进的 RL 环境买家（几十家供应商的首个客户）、主宰智能体编程；Google 算力充沛（TPU）且拥有可供后训练的应用（Sheets/Docs/Drive）。"
+  },
+  {
+   "stage_en": "Open-weights & China labs",
+   "stage_zh": "开源权重与中国实验室",
+   "players": "DeepSeek, Qwen (Alibaba), Kimi (Moonshot), GLM (Z.ai), MiniMax, Meta Llama, Mistral",
+   "role_en": "Commoditize the low/mid tier and set the efficiency frontier. DeepSeek's V3/V4 (MLA, MoE, FP8) and open kernels (DeepEP, DeepGEMM, FlashMLA) are used worldwide; SemiAnalysis calls DeepSeek the best open-weights lab. Still trail closed models on agentic coding and — tellingly — Claude beats them even at Chinese writing.",
+   "role_zh": "把中低端商品化并树立效率前沿。DeepSeek 的 V3/V4（MLA、MoE、FP8）和开源内核（DeepEP、DeepGEMM、FlashMLA）全球通用；SemiAnalysis 称 DeepSeek 是最好的开源权重实验室。但在智能体编程上仍落后闭源——耐人寻味的是，Claude 连中文写作都赢过它们。"
+  },
+  {
+   "stage_en": "Environments & data foundries",
+   "stage_zh": "环境与数据工厂",
+   "players": "Surge, Mercor, Handshake, Scale AI (→Meta), Mechanize, Turing, Prime Intellect, HUD, Periodic Labs, Medra",
+   "role_en": "Sell the shovels of the RL boom: cloned UI 'gyms' (~$20k/site), dockerized sandbox tooling, and expert-authored tasks/rubrics. Surge ~$1B ARR, Scale did $1.4B in 2024 before Meta absorbed it (and the labs fled). Periodic/Medra push environments into physical wet-labs for RL-for-science.",
+   "role_zh": "卖 RL 热潮的铲子：克隆 UI「健身房」（约 2 万美元/站）、docker 化沙箱工具、专家撰写的任务/评分表。Surge 约 10 亿美元 ARR；Scale 2024 年做到 14 亿美元，随后被 Meta 吸收（实验室随即出走）。Periodic/Medra 把环境推进物理湿实验室，服务「RL 做科学」。"
+  },
+  {
+   "stage_en": "Agents & coding assistants",
+   "stage_zh": "智能体与编程助手",
+   "players": "Claude Code, OpenAI Codex, Cursor, GitHub Copilot, Windsurf, Cognition, Cowork",
+   "role_en": "The product layer that turns tokens into outcomes. Coding is the beachhead: the six-player market is $30B+ ARR heading to $100B. Cursor/Windsurf can post-train competitive models off high-signal user data despite lacking lab resources. The harness (CLI, fast mode, 1M context, sub-agents) is now a competitive weapon.",
+   "role_zh": "把 token 变成结果的产品层。编程是滩头堡：六强市场 300 亿美元+ ARR、直奔千亿。Cursor/Windsurf 虽无实验室资源，却能靠高信号用户数据后训练出有竞争力的模型。骨架（CLI、快速模式、100 万上下文、子智能体）如今是竞争武器。"
+  },
+  {
+   "stage_en": "Cloud, silicon & inference stack",
+   "stage_zh": "云、芯片与推理栈",
+   "players": "AWS/Trainium, Azure, Google Cloud/TPU, Nvidia GB200/GB300, vLLM, SGLang, Modal",
+   "role_en": "RL fused inference into training reshapes the stack: memory-bound RL favors low-$/HBM chips (Trainium), NVL72 rack-scale world size wins at reasoning, CPUs surge for RL environments, and open inference engines (vLLM, SGLang) get Day-0 support that Nvidia's own TensorRT-LLM often lags. Sandbox providers (Modal, Prime Sandbox) are new critical infra.",
+   "role_zh": "RL 把推理熔进训练，重塑整个栈：内存受限的 RL 偏好低 $/HBM 芯片（Trainium）；NVL72 机架级世界规模在推理上胜出；CPU 因 RL 环境激增；开源推理引擎（vLLM、SGLang）拿到 Day-0 支持，反而常常领先 Nvidia 自家的 TensorRT-LLM。沙箱厂商（Modal、Prime Sandbox）成为新的关键基础设施。"
+  },
+  {
+   "stage_en": "Distribution & monetization",
+   "stage_zh": "分发与变现",
+   "players": "ChatGPT (700M+ users), Microsoft M365/Copilot, Meta AI, Accenture, enterprise",
+   "role_en": "Where value is captured. OpenAI's router sets up free-user monetization via agentic purchasing/take-rates; Anthropic rides enterprise + Claude Code (Accenture trained 30,000 on Claude); Microsoft is caught between renting GPUs to the 'barbarians' and defending seat-based Office 365 that agents erode.",
+   "role_zh": "价值被捕获的地方。OpenAI 的路由器为「免费用户变现」铺路（智能体购物/抽佣）；Anthropic 靠企业+Claude Code（埃森哲用 Claude 培训 3 万人）；微软被夹在「把 GPU 租给蛮族」和「守卫被智能体侵蚀的按席位 Office 365」之间。"
+  }
+ ],
+ "theses": [
+  {
+   "claim_en": "Scaling laws didn't die — they stacked. Pre-training, RL post-training and test-time compute are three compounding curves.",
+   "claim_zh": "缩放定律没死，而是叠加了：预训练、RL 后训练、推理时算力是三条相互叠加的曲线。",
+   "rationale_en": "The 2024 'scaling is over' panic mistook one vector (pre-training) for the whole. SemiAnalysis's analogy is Moore's Law: when clock speed stalled, multi-core kept aggregate compute climbing. OpenAI's o1 opened test-time scaling; RL opened post-training. The existence proof: OpenAI drove 18 months of gains (o1→o3→GPT-5) on the same GPT-4o base model before finally fixing pre-training too.",
+   "rationale_zh": "2024 年「缩放已终结」的恐慌把一条向量（预训练）误当成全部。SemiAnalysis 的类比是摩尔定律：时钟频率停滞后，多核让总算力继续攀升。OpenAI 的 o1 打开了推理时缩放；RL 打开了后训练。存在性证明：OpenAI 用同一个 GPT-4o 底座驱动了 18 个月的进步（o1→o3→GPT-5），之后才把预训练也修好。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!qLE8!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff28b607e-5397-4fed-a64f-130428ea19fb_833x432.png",
+    "shows_en": "o1 accuracy climbing log-linearly with BOTH train-time and test-time compute — two scaling axes, not one.",
+    "shows_zh": "o1 准确率随训练时和推理时算力同时对数线性攀升——两条缩放轴，而非一条。"
+   },
+   "quote": {
+    "text": "It is possible to stack 'scaling laws' - pre-training will become just one of the vectors of improvement, and the aggregate 'scaling law' will continue scaling just like Moore's Law has over last 50+ years.",
+    "source_title": "Scaling Laws – O1 Pro Architecture, Reasoning Training Infrastructure, Orion and Claude 3.5 Opus 'Failures'",
+    "date": "2024-12-11"
+   }
+  },
+  {
+   "claim_en": "RL is the current critical path to capability — and it is fundamentally inference-heavy, fusing inference into the training loop.",
+   "claim_zh": "RL 是当前通往能力的关键路径——而且它本质上极度吃推理，把推理熔进了训练环路。",
+   "rationale_en": "GRPO/PPO generate hundreds of rollouts per question, all of which are inference. 'Inference performance now directly impacts training speed,' so labs merged their product-inference and research-inference teams (OpenAI, Anthropic, Google all reorganized). Unlike pre-training's centralized mega-clusters, RL inference doesn't need co-location — synthetic data can be generated in one datacenter and trained in another, and one lab runs RL on idle inference clusters for effectively free compute.",
+   "rationale_zh": "GRPO/PPO 每题生成数百个 rollout，全是推理。「推理性能如今直接影响训练速度」，于是实验室合并了产品推理与研究推理团队（OpenAI、Anthropic、Google 都重组了）。与预训练的集中式超级集群不同，RL 推理不必同址——合成数据可在一个数据中心生成、在另一个训练，且有一家实验室用闲置推理集群跑 RL、几乎等于白得算力。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!-uGo!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2c77912a-c2cb-40a4-b01d-6db896d0574e_1959x620.png",
+    "shows_en": "GRPO training step: one prompt fans out into many rollouts (inference), each rewarded, then a gradient update — why RL is inference-bound.",
+    "shows_zh": "GRPO 训练步：一个提示扇出成许多 rollout（推理），逐个给奖励，再做一次梯度更新——这就是 RL 受推理限制的原因。"
+   },
+   "quote": {
+    "text": "RL for language models is one of the first cases where inference has truly become intertwined into the training process. Inference performance now directly impacts training speed.",
+    "source_title": "Scaling Reinforcement Learning: Environments, Reward Hacking, Agents, Scaling Data",
+    "date": "2025-06-08"
+   }
+  },
+  {
+   "claim_en": "Data is the moat now, not weights. RL needs bespoke environments and expert data that must be built from scratch.",
+   "claim_zh": "如今数据才是护城河，而非权重。RL 需要必须从零搭建的定制环境与专家数据。",
+   "rationale_en": "Pre-training was democratic — everyone trained on the same internet. RL is not: 'Most RL data and tasks must be constructed from scratch.' Qwen's headline 4,000-sample efficiency hides brutal filtering plus a much larger undisclosed second stage across 20+ domains. High-quality data requires giant amounts of inference to generate and filter, and startups with proprietary user data can RL custom models without huge compute budgets — the reason Cursor and Windsurf can compete with labs.",
+   "rationale_zh": "预训练是民主的——人人都在同一份互联网上训练。RL 不是：「大多数 RL 数据和任务必须从零构建。」Qwen 号称的 4000 样本效率背后是残酷的过滤，外加一个规模大得多、未披露、跨 20+ 领域的第二阶段。高质量数据的生成与过滤需要海量推理，而拥有专有用户数据的初创无需巨额算力就能 RL 定制模型——这正是 Cursor 和 Windsurf 能与实验室竞争的原因。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!xhnR!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ffaaa0461-2629-4259-9475-f81c08959b66_2560x1465.png",
+    "shows_en": "RL data spend flowing to Mercor/Scale/Handshake as labs recruit STEM PhDs to author challenging tasks and rubrics.",
+    "shows_zh": "RL 数据支出流向 Mercor/Scale/Handshake，实验室招募 STEM 博士撰写高难任务和评分表。"
+   },
+   "quote": {
+    "text": "Ultimately what Qwen signals is that high quality data is a uniquely important resource for scaling RL... This paradigm is not like pre-training where everyone had access to the same data.",
+    "source_title": "Scaling Reinforcement Learning: Environments, Reward Hacking, Agents, Scaling Data",
+    "date": "2025-06-08"
+   }
+  },
+  {
+   "claim_en": "During an RL scaling boom, sell environments: a 35+ startup shovel economy of UI-gyms and data foundries has erupted.",
+   "claim_zh": "RL 缩放热潮中，卖环境：一条 35+ 家初创的「铲子」经济（UI 健身房+数据工厂）已经爆发。",
+   "rationale_en": "Environment companies clone DoorDash/Uber Eats UIs at ~$20k/site — OpenAI has bought hundreds for ChatGPT Agent training. Data foundries (Surge ~$1B ARR, Mercor, Handshake) recruit finance pros, doctors and lawyers to design tasks and write rubrics. Anthropic is the first customer of dozens of these vendors, deliberately commoditizing the supply. Defunct startups are even acquired just for their private GitHub repos to mine into coding environments.",
+   "rationale_zh": "环境公司以约 2 万美元/站克隆 DoorDash/Uber Eats 的 UI——OpenAI 已为 ChatGPT Agent 训练买了数百个。数据工厂（Surge 约 10 亿 ARR、Mercor、Handshake）招募金融人士、医生、律师来设计任务、撰写评分表。Anthropic 是几十家供应商的首个客户，刻意把供给商品化。已倒闭的初创甚至仅因其私有 GitHub 仓库可挖成编程环境而被收购。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!kvQ_!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F04032584-5b2e-4b30-afa9-ba2fcc0f9ab9_2140x780.png",
+    "shows_en": "UI-gym pipeline: overseas devs replicate a site's UI, labs train agents to navigate it in production (~$20k per website).",
+    "shows_zh": "UI 健身房流水线：海外开发者复刻网站 UI，实验室训练智能体在生产中导航（约 2 万美元/网站）。"
+   },
+   "quote": {
+    "text": "During a Gold Rush, sell shovels. In an RL Scaling Boom, sell RL environments. More than 35 companies have popped up whose goal is to do exactly this across a variety of domains.",
+    "source_title": "RL Environments and RL for Science: Data Foundries and Multi-Agent Architectures",
+    "date": "2026-01-06"
+   }
+  },
+  {
+   "claim_en": "Claude Code is the inflection point: coding is the beachhead into a $15T information-work economy.",
+   "claim_zh": "Claude Code 是拐点：编程只是切入 15 万亿美元信息工作经济的滩头堡。",
+   "rationale_en": "SemiAnalysis argues every information job shares the workflow Claude Code proved works — READ, THINK, WRITE, VERIFY. With ~4% of GitHub public commits already authored by Claude Code (projected 20%+ by end-2026), the disruption jumps from coding to the 1B+ information workers (a third of the global workforce). Cowork ('Claude Code for general computing') was built by four engineers in 10 days, mostly by Claude Code itself — recursive self-improvement in action.",
+   "rationale_zh": "SemiAnalysis 主张：每一份信息工作都共享 Claude Code 已证明可行的工作流——读、想、写、验。约 4% 的 GitHub 公开提交已由 Claude Code 撰写（预计 2026 年底超 20%），颠覆从编程跃向 10 亿+ 信息工作者（全球劳动力的三分之一）。Cowork（「通用计算版 Claude Code」）由四名工程师在 10 天内造出，且大部分由 Claude Code 自己写——递归自我改进的现实版。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!MG5m!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6ec41954-9498-4c2f-b23a-81e2bae29f82_2761x1579.png",
+    "shows_en": "Share of GitHub public commits authored by Claude Code — ~4% today, on a steep trajectory toward 20%+ by end-2026.",
+    "shows_zh": "Claude Code 撰写的 GitHub 公开提交占比——如今约 4%，陡峭上行、直奔 2026 年底 20%+。"
+   },
+   "quote": {
+    "text": "4% of GitHub public commits are being authored by Claude Code right now... While you blinked, AI consumed all of software development.",
+    "source_title": "Claude Code is the Inflection Point",
+    "date": "2026-02-05"
+   }
+  },
+  {
+   "claim_en": "Anthropic is now out-growing OpenAI — quarterly ARR additions have crossed over, constrained mainly by compute.",
+   "claim_zh": "Anthropic 现在增速已超 OpenAI——季度 ARR 净增已反超，主要瓶颈是算力。",
+   "rationale_en": "The coding-assistant market is 'the greatest B2B SaaS application the world has ever seen': $30B+ ARR across the six largest players, on track past $100B by year end. Claude Code drives exceptional Anthropic revenue growth; SemiAnalysis's Tokenomics model shows Anthropic adding more revenue every month than OpenAI, with growth capped by compute rather than demand. Anthropic is on track to add as much power as OpenAI over three years.",
+   "rationale_zh": "编程助手市场是「世界见过的最伟大 B2B SaaS 应用」：六强合计 300 亿美元+ ARR，年底有望突破千亿。Claude Code 驱动 Anthropic 收入超常增长；SemiAnalysis 的 Tokenomics 模型显示 Anthropic 每月新增收入已超 OpenAI，增长受限于算力而非需求。Anthropic 三年内有望新增与 OpenAI 相当的电力。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!7xxX!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7572d353-1443-483a-a286-4cb33d1413f9_927x585.png",
+    "shows_en": "Forecast ARR: Anthropic's quarterly revenue additions overtaking OpenAI's, driven by Claude Code adoption.",
+    "shows_zh": "ARR 预测：受 Claude Code 采用推动，Anthropic 的季度收入净增反超 OpenAI。"
+   },
+   "quote": {
+    "text": "Notably, our forecast shows that Anthropic's quarterly ARR additions have overtaken OpenAI's. Anthropic is adding more revenue every month than OpenAI.",
+    "source_title": "Claude Code is the Inflection Point",
+    "date": "2026-02-05"
+   }
+  },
+  {
+   "claim_en": "Benchmarks are broken; the real north-star metric is cost-per-task, not cost-per-token.",
+   "claim_zh": "基准测试已失效；真正的北极星指标是每任务成本，而非每 token 成本。",
+   "rationale_en": "SWE-bench Verified still had unfair evals on >half of o3's consistent failures, plus contamination — GPT-5.2, Opus 4.5 and Gemini 3 Flash had memorized answers, so OpenAI stopped reporting it. GDPval is single-turn with unnaturally clean prompts. Meanwhile a model 5x pricier per token can win on cost-per-task by using fewer tokens, and the harness (Codex ~80:1 input/output vs Claude Code ~100:1) drives the real bill. Opus 4.7's new tokenizer alone lifted usage up to 35%.",
+   "rationale_zh": "SWE-bench Verified 在 o3 一贯失败题中仍有过半评测不公，外加污染——GPT-5.2、Opus 4.5、Gemini 3 Flash 都背下了答案，于是 OpenAI 停报。GDPval 是单轮、提示不自然地干净。与此同时，每 token 贵 5 倍的模型可因用更少 token 而在每任务成本上取胜，且骨架（Codex 约 80:1 输入/输出 vs Claude Code 约 100:1）决定真实账单。仅 Opus 4.7 的新分词器就把用量抬高最多 35%。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!kXkH!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fbf83b10e-7aad-4258-bf49-f651337c21c2_1159x348.png",
+    "shows_en": "OpenAI's own footnote: on Expert-SWE, GPT-5.5 is beaten by Opus 4.7 (and Mythos at 77.8%) — why the coding benchmark was buried.",
+    "shows_zh": "OpenAI 自己的脚注：在 Expert-SWE 上 GPT-5.5 输给 Opus 4.7（以及 77.8% 的 Mythos）——这就是为何编程基准被藏起来。"
+   },
+   "quote": {
+    "text": "cost per task, not cost per token, is the true north star metric that determines model pricing.",
+    "source_title": "The Coding Assistant Breakdown: More Tokens Please",
+    "date": "2026-04-24"
+   }
+  },
+  {
+   "claim_en": "RL for non-verifiable domains is solved via rubrics and LLM judges — opening writing, medicine, law and science.",
+   "claim_zh": "不可验证领域的 RL 已靠评分表和 LLM 评审攻克——打开写作、医学、法律和科学。",
+   "rationale_en": "Skeptics said RL only works where rewards are checkable. But OpenAI's deliberative-alignment paper used an LLM judge + rubric (only synthetic data) and got strong out-of-distribution generalization. For HealthBench, OpenAI had 260+ physicians write rubrics for the judge. 'If it can be measured, it can be improved via RL.' A reasoning model as judge understands the rubric better — RL helping you do better RL, a self-improving loop.",
+   "rationale_zh": "怀疑者说 RL 只在奖励可判定处有效。但 OpenAI 的审慎对齐论文用 LLM 评审+评分表（仅合成数据），获得强的分布外泛化。为 HealthBench，OpenAI 请 260+ 名医生为评审撰写评分表。「只要能衡量，就能靠 RL 改进。」用推理模型当评审能更好理解评分表——RL 帮你做更好的 RL，形成自我改进环路。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!-gTL!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F38dd2c98-c131-4b6b-95d8-a91f440dced1_1594x993.png",
+    "shows_en": "o1's biggest gains from RL cluster in verifiable domains (math, code) — the base case rubrics then extend to fuzzier tasks.",
+    "shows_zh": "o1 从 RL 获得的最大增益集中在可验证领域（数学、代码）——评分表再把这一基线延伸到更模糊的任务。"
+   },
+   "quote": {
+    "text": "Non-verifiable domains include areas like writing or strategy, where no clear right answer exists. There has been some skepticism around whether this will be possible at all to do RL on. We think it is. In fact, it's already been done.",
+    "source_title": "Scaling Reinforcement Learning: Environments, Reward Hacking, Agents, Scaling Data",
+    "date": "2025-06-08"
+   }
+  },
+  {
+   "claim_en": "Enterprise SaaS is the first casualty: agents erode the switching-cost, workflow-lock-in and integration moats.",
+   "claim_zh": "企业 SaaS 是第一个受害者：智能体侵蚀了切换成本、工作流锁定和集成三大护城河。",
+   "rationale_en": "SaaS is 'crystallized information processing of workflows into code' at ~75% gross margin. Agents migrate data between systems cheaply, don't need human-oriented UIs, and MCP makes integration trivial. An agent can query Postgres, make a chart and email it — replacing a CRM workflow with no UI training. Microsoft is caught: accelerating Azure means renting GPUs to 'the barbarians' (OpenAI, Anthropic) who erode its seat-based Office 365, and Claude for Excel is what Copilot should have been.",
+   "rationale_zh": "SaaS 是「把工作流固化成代码的信息处理」，毛利率约 75%。智能体能廉价地在系统间迁移数据、不需要面向人的 UI，MCP 让集成变得轻而易举。一个智能体能查 Postgres、画图、发邮件——用零 UI 培训取代 CRM 工作流。微软被夹住：加速 Azure 意味着把 GPU 租给侵蚀其按席位 Office 365 的「蛮族」（OpenAI、Anthropic），而 Claude for Excel 正是 Copilot 本该成为的样子。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!UO8Q!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F322aa44f-6be7-4182-9a2a-d8845c6a81c5_1430x818.png",
+    "shows_en": "The TAM leap: from niche coding/support markets into the far larger financial services, legal and consulting information-work economy.",
+    "shows_zh": "TAM 跃迁：从利基的编程/客服市场跃入大得多的金融、法律、咨询等信息工作经济。"
+   },
+   "quote": {
+    "text": "Claude for Excel effectively is what Copilot for Excel should have been, but it was launched by an external party on their own first party product.",
+    "source_title": "Claude Code is the Inflection Point",
+    "date": "2026-02-05"
+   }
+  },
+  {
+   "claim_en": "DeepSeek sets the efficiency frontier and commoditizes the low end — but 'data is the moat' keeps the frontier ahead.",
+   "claim_zh": "DeepSeek 树立效率前沿、把低端商品化——但「数据即护城河」让前沿保持领先。",
+   "rationale_en": "DeepSeek's MLA cut KV cache ~93%; V4 (1.6T total / 49B active) moved to 1M context claiming only 27% of single-token FLOPs and a 90% KV-cache cut versus V3.2. Its open kernels keep American open-source alive. Yet V4 still lags closed frontier models on agentic tasks — Claude Opus 4.7 even beats it at difficult Chinese writing. The 2025 '$6M training cost' figure is a myth: it's only the final pre-train GPU bill, atop >$500M in cumulative hardware.",
+   "rationale_zh": "DeepSeek 的 MLA 把 KV 缓存砍约 93%；V4（1.6T 总 / 49B 激活）转向 100 万上下文，号称单 token FLOPs 仅 27%、KV 缓存较 V3.2 砍 90%。其开源内核让美国开源保持活力。但 V4 在智能体任务上仍落后闭源前沿——Claude Opus 4.7 连高难中文写作都赢过它。2025 年「600 万美元训练成本」是神话：那只是最终预训练的 GPU 账单，之上还有累计逾 5 亿美元硬件。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!IXuJ!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb39c0193-339c-4e63-bb1d-55504b1e5d6e_975x554.png",
+    "shows_en": "Inference cost for GPT-3-quality output has fallen ~1200x — the relentless AI cost-down DeepSeek merely accelerated.",
+    "shows_zh": "GPT-3 级输出的推理成本已降约 1200 倍——DeepSeek 只是加速了这场无情的 AI 成本下降。"
+   },
+   "quote": {
+    "text": "The $6M cost in the paper is attributed to just the GPU cost of the pre-training run, which is only a portion of the total cost of the model... We are confident their hardware spend is well higher than $500M over the company history.",
+    "source_title": "DeepSeek Debates: Chinese Leadership On Cost, True Training Cost",
+    "date": "2025-01-31"
+   }
+  },
+  {
+   "claim_en": "The router is the release: GPT-5's real product is free-user monetization via agentic purchasing.",
+   "claim_zh": "路由器才是真正的发布：GPT-5 的真产品是靠智能体购物实现的免费用户变现。",
+   "rationale_en": "ChatGPT is the #5 website on earth with 700M+ mostly-unmonetized free users. GPT-5's router quietly classifies query intent and complexity — the one attribute needed to add commercial value. A high-intent query ('best DUI lawyer near me') could get $50 of compute because the referral is worth thousands. Fidji Simo (ex-Facebook/Instacart monetization) now runs OpenAI Applications; a take-rate/agentic-checkout SuperApp (Shopify, Instacart, Etsy already integrated) is the endgame.",
+   "rationale_zh": "ChatGPT 是全球第 5 大网站，拥有 7 亿+ 大多未变现的免费用户。GPT-5 的路由器悄悄给查询的意图和复杂度分类——这正是添加商业价值所需的那个属性。一个高意图查询（「附近最好的酒驾律师」）可以砸 50 美元算力，因为一次转介值数千美元。Fidji Simo（前 Facebook/Instacart 变现负责人）如今掌管 OpenAI 应用；抽佣/智能体结账的超级应用（Shopify、Instacart、Etsy 已集成）才是终局。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!WRqr!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fcff176b6-615f-4f59-a917-3f1d343442b9_1704x856.png",
+    "shows_en": "After GPT-5's router, free users exposed to a 'thinking' reasoning model jumped 7x in a single day.",
+    "shows_zh": "GPT-5 路由器上线后，接触到「思考」推理模型的免费用户单日暴涨 7 倍。"
+   },
+   "quote": {
+    "text": "We believe that the Router is the groundwork for the next leg of ChatGPT's story, and that's monetization of free users.",
+    "source_title": "GPT-5 Set the Stage for Ad Monetization and the SuperApp",
+    "date": "2025-08-13"
+   }
+  },
+  {
+   "claim_en": "RL environments are spilling into the physical world — biology and materials wet-labs become the new bottleneck.",
+   "claim_zh": "RL 环境正溢入物理世界——生物和材料湿实验室成为新瓶颈。",
+   "rationale_en": "Environments are no longer just docker containers. Periodic Labs and Medra are building robotic wet-labs that generate experimentally-verified reward signals; DeepMind starts an automated materials lab in 2026. The economics invert: a coding task can be attempted 64x for trivial cost, while one biology experiment costs hundreds-to-thousands of dollars and takes hours, with sparse rewards. OpenAI targets early drug discovery (GPT-5 in a closed loop with robots); Anthropic ships Claude for Life Sciences (Benchling, PubMed connectors) for development/approval.",
+   "rationale_zh": "环境不再只是 docker 容器。Periodic Labs 和 Medra 正在造能产出实验验证奖励信号的机器人湿实验室；DeepMind 2026 年启动自动化材料实验室。经济学反转：一个编程任务可用零头成本尝试 64 次，而一个生物实验要花数百至数千美元、耗时数小时、奖励稀疏。OpenAI 瞄准早期药物发现（GPT-5 与机器人闭环）；Anthropic 推出 Claude for Life Sciences（Benchling、PubMed 连接器）服务开发/审批。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!szHY!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd48cf181-b0d4-4e01-af41-d3768ea66d19_1130x1100.png",
+    "shows_en": "OpenAI's GDPval finding: rising model capability augmented human experts (faster/cheaper) rather than automating them.",
+    "shows_zh": "OpenAI GDPval 的发现：能力上升是增强了人类专家（更快/更省），而非取代他们。"
+   },
+   "quote": {
+    "text": "RL environments are spilling into the physical world. These environments are no longer just a docker container... It is an experiment that needs to be run by a human or a robot, with a real cost to materials, electricity, equipment, and lab space.",
+    "source_title": "RL Environments and RL for Science: Data Foundries and Multi-Agent Architectures",
+    "date": "2026-01-06"
+   }
+  },
+  {
+   "claim_en": "RL rewires hardware and datacenter design: memory-bound, CPU-hungry, decentralizable — favoring low-$/HBM chips like Trainium.",
+   "claim_zh": "RL 重接硬件与数据中心设计：偏内存、吃 CPU、可去中心化——利好 Trainium 等低 $/HBM 芯片。",
+   "rationale_en": "RL uses fewer FLOPs than pre-training but heavy memory loads (rollouts, long context, judges), so the NVL72 rack-scale shared memory shines and low-TCO memory chips win. Anthropic is onboarding large Trainium volumes precisely because RL is memory-bound and Amazon sourced HBM directly to cut cost. RL environments also revived the datacenter CPU — Microsoft's 'Fairwater' pairs a 48MW CPU/storage building with a 295MW GPU cluster, and labs are now scrambling for CPU allocation.",
+   "rationale_zh": "RL 用的 FLOPs 比预训练少，但内存负载重（rollout、长上下文、评审），所以 NVL72 机架级共享内存大放异彩、低 TCO 内存芯片胜出。Anthropic 正大批引入 Trainium，正因为 RL 受内存限制、且 Amazon 直采 HBM 压低成本。RL 环境还复活了数据中心 CPU——微软「Fairwater」给一个 48MW 的 CPU/存储楼配一个 295MW 的 GPU 集群，实验室如今在抢 CPU 配额。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!QDm6!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F4658580c-c8cb-4753-b21a-a39831d9a3a8_2052x1554.png",
+    "shows_en": "The RL training loop with CPUs (green) doing code compilation, verification and reward computation in the environment.",
+    "shows_zh": "RL 训练环路中，CPU（绿色）在环境里做代码编译、验证和奖励计算。"
+   },
+   "quote": {
+    "text": "Anthropic is bringing on large volumes of Trainium, which is economically attractive for RL in part due to low $/HBM... RL workloads are mostly inference, which is memory bound.",
+    "source_title": "RL Environments and RL for Science: Data Foundries and Multi-Agent Architectures",
+    "date": "2026-01-06"
+   }
+  },
+  {
+   "claim_en": "RL-training efficiency is a queue-health problem: match trainer and generator throughput or waste your GPUs.",
+   "claim_zh": "RL 训练效率是一道「队列健康」题：匹配训练器与生成器吞吐，否则浪费 GPU。",
+   "rationale_en": "An open-source RL system has three actors — generator (inference), environment (sandbox), trainer. If the generator is slower the trainer starves; if faster, samples go stale. PipelineRL's in-flight weight updates let the two run at different speeds within a policy-staleness budget, ~2x more iterations per wall-clock hour. SemiAnalysis's own experiments were consistently 'generation-bound' (trainer idle 30-74%), and sandbox scaling to ~960 concurrent rollouts hit dead init errors — proving sandbox infra is a first-class bottleneck.",
+   "rationale_zh": "一个开源 RL 系统有三个角色——生成器（推理）、环境（沙箱）、训练器。生成器慢则训练器挨饿；快则样本变陈旧。PipelineRL 的「在飞权重更新」让二者在「策略陈旧度预算」内以不同速度运行，每墙钟小时迭代约翻倍。SemiAnalysis 自己的实验一贯「受生成限制」（训练器空闲 30-74%），沙箱扩到约 960 并发 rollout 时撞上初始化死错误——证明沙箱基础设施是一等瓶颈。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!xPMk!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F07ee31f9-e887-424b-a1b1-d11c88e86a73_1046x795.jpeg",
+    "shows_en": "The three actors of an open-source RL system — generator, RL environment/sandbox, and trainer — and how weights close the loop.",
+    "shows_zh": "开源 RL 系统的三个角色——生成器、RL 环境/沙箱、训练器——以及权重如何闭环。"
+   },
+   "quote": {
+    "text": "RL training system efficiency is a matter of queue health... in-flight weight updates allow trainer and generator to operate at different rates.",
+    "source_title": "RL Systems Mind the Gap: Matching Trainer and Generator Throughput",
+    "date": "2026-06-16"
+   }
+  }
+ ],
+ "key_data": [
+  {
+   "metric_en": "Claude Code share of GitHub commits",
+   "metric_zh": "Claude Code 占 GitHub 提交比例",
+   "value": "~4% now → projected 20%+ by end-2026",
+   "note_en": "SemiAnalysis's headline datapoint for the agentic inflection; 'Pretty much 100% of our code is written by Claude Code + Opus 4.5' — Boris Cherny, Claude Code creator.",
+   "note_zh": "SemiAnalysis 智能体拐点的招牌数据；「我们几乎 100% 的代码都由 Claude Code + Opus 4.5 写就」——Claude Code 作者 Boris Cherny。"
+  },
+  {
+   "metric_en": "Coding-assistant market ARR",
+   "metric_zh": "编程助手市场 ARR",
+   "value": "$30B+ across 6 players, on track past $100B by year end",
+   "note_en": "'The greatest B2B SaaS application the world has ever seen,' per the Tokenomics model.",
+   "note_zh": "据 Tokenomics 模型，「世界见过的最伟大 B2B SaaS 应用」。"
+  },
+  {
+   "metric_en": "Information-work TAM at risk",
+   "metric_zh": "面临风险的信息工作 TAM",
+   "value": "$15T economy, 1B+ workers (1/3 of the 3.6B global workforce)",
+   "note_en": "Coding is only the beachhead; the READ/THINK/WRITE/VERIFY workflow generalizes to all information work.",
+   "note_zh": "编程只是滩头堡；读/想/写/验的工作流可泛化到所有信息工作。"
+  },
+  {
+   "metric_en": "GDPval win rate (GPT-5.2)",
+   "metric_zh": "GDPval 胜率（GPT-5.2）",
+   "value": "~71% tie-or-preferred vs human experts across 44 occupations",
+   "note_en": "OpenAI eval of real economically-valuable tasks; but experts were still faster/cheaper — augmentation, not automation.",
+   "note_zh": "OpenAI 对真实经济价值任务的评测；但专家仍更快/更省——是增强而非替代。"
+  },
+  {
+   "metric_en": "MLA KV-cache reduction",
+   "metric_zh": "MLA 对 KV 缓存的削减",
+   "value": "~93.3% vs standard attention",
+   "note_en": "DeepSeek's Multi-Head Latent Attention — the core reason its inference is so cheap.",
+   "note_zh": "DeepSeek 的多头潜在注意力——其推理如此便宜的核心原因。"
+  },
+  {
+   "metric_en": "DeepSeek V4 architecture",
+   "metric_zh": "DeepSeek V4 架构",
+   "value": "Pro 1.6T total / 49B active; Flash 284B / 13B; 128k → 1M context",
+   "note_en": "Claims only 27% of single-token FLOPs and 10% of KV cache vs V3.2 at 1M tokens (a ~90% KV-cache cut).",
+   "note_zh": "号称在 100 万 token 下单 token FLOPs 仅为 V3.2 的 27%、KV 缓存仅 10%（约砍 90%）。"
+  },
+  {
+   "metric_en": "GB300 NVL72 cost per Mtok",
+   "metric_zh": "GB300 NVL72 每百万 token 成本",
+   "value": "$0.156 per 1M output tokens (DeepSeek V4, 50 tok/s/user, 8k in/1k out)",
+   "note_en": "Rack-scale NVLink world size keeps MoE all-to-all on NVLink — why GB300 mogs 8-GPU islands at reasoning.",
+   "note_zh": "机架级 NVLink 世界规模把 MoE all-to-all 留在 NVLink 上——这就是 GB300 在推理上碾压 8 卡岛的原因。"
+  },
+  {
+   "metric_en": "MI355X software gains (DeepSeek V4)",
+   "metric_zh": "MI355X 软件增益（DeepSeek V4）",
+   "value": ">100x throughput improvement Day 0 → Day 26",
+   "note_en": "Pure software (AITER/Triton/TileLang kernels replacing PyTorch fallbacks) — shows the CUDA-moat / ecosystem-maturity gap.",
+   "note_zh": "纯软件（AITER/Triton/TileLang 内核替换 PyTorch 兜底）——凸显 CUDA 护城河/生态成熟度差距。"
+  },
+  {
+   "metric_en": "Inference cost-down for GPT-3 quality",
+   "metric_zh": "GPT-3 级质量的推理降本",
+   "value": "~1200x cheaper",
+   "note_en": "Algorithmic progress ~4x/year (Dario Amodei argues ~10x); Jevons paradox reinvests savings into bigger models.",
+   "note_zh": "算法进步约每年 4 倍（Dario Amodei 认为约 10 倍）；杰文斯悖论把省下的钱再投入更大模型。"
+  },
+  {
+   "metric_en": "UI-gym / environment cost",
+   "metric_zh": "UI 健身房/环境成本",
+   "value": "~$20,000 per cloned website; OpenAI bought hundreds",
+   "note_en": "One-time purchases reused across models; trajectories fed back into mid-training.",
+   "note_zh": "一次性购买、跨模型复用；轨迹回灌进中训练。"
+  },
+  {
+   "metric_en": "Data-foundry revenue",
+   "metric_zh": "数据工厂收入",
+   "value": "Surge ~$1B ARR; Scale AI ~$1.4B (2024) before Meta absorbed it",
+   "note_en": "Mercor, Handshake, Aboda.ai fill the gap after labs fled Scale post-Meta acquisition.",
+   "note_zh": "Meta 收购后实验室出走，Mercor、Handshake、Aboda.ai 补上缺口。"
+  },
+  {
+   "metric_en": "Opus 4.7 tokenizer price impact",
+   "metric_zh": "Opus 4.7 分词器价格影响",
+   "value": "up to +35% token usage (implicit +35% price)",
+   "note_en": "New tokenizer trades finer counting for more total tokens — why cost-per-task beats cost-per-token.",
+   "note_zh": "新分词器以更细计数换更多 token——这就是每任务成本胜过每 token 成本的原因。"
+  },
+  {
+   "metric_en": "ChatGPT reach & free base",
+   "metric_zh": "ChatGPT 触达与免费用户基",
+   "value": "#5 website globally, 700M+ mostly-unmonetized free users",
+   "note_en": "The router is the groundwork for monetizing them via agentic purchasing / take-rates.",
+   "note_zh": "路由器为通过智能体购物/抽佣变现他们打下基础。"
+  },
+  {
+   "metric_en": "GPT-5.5 API pricing",
+   "metric_zh": "GPT-5.5 API 定价",
+   "value": "$5 / 1M input, $30 / 1M output (2x GPT-5.4, ~Opus 4.7 level)",
+   "note_en": "'Trained on a 100k GB200 NVL72 cluster' was post-training (RL) only; priority tier is 2.5x standard.",
+   "note_zh": "「在 10 万 GB200 NVL72 集群上训练」其实只是后训练（RL）；优先层是标准价 2.5 倍。"
+  },
+  {
+   "metric_en": "Qwen post-training compute",
+   "metric_zh": "Qwen 后训练算力",
+   "value": "~5% of pre-training compute",
+   "note_en": "Most Chinese labs are early to RL scaling; homegrown data foundries would accelerate the transition.",
+   "note_zh": "多数中国实验室在 RL 缩放上仍属早期；本土数据工厂将加速这一转型。"
+  },
+  {
+   "metric_en": "Autonomous task-horizon doubling",
+   "metric_zh": "自主任务时长翻倍",
+   "value": "every ~7 months for coding (accelerating to ~4 months in 2024-25)",
+   "note_en": "METR data; each doubling unlocks more of the automation pie (30 min → refactor a module → multi-day audit).",
+   "note_zh": "METR 数据；每翻一倍就解锁更多自动化蛋糕（30 分钟→重构模块→多日审计）。"
+  },
+  {
+   "metric_en": "Anthropic RFT vs young startups",
+   "metric_zh": "Anthropic RFT vs 年轻初创",
+   "value": "YC RL-as-a-service serves at ~5x lower cost than OpenAI's RFT",
+   "note_en": "OpenAI's RFT is unstable/expensive; long-run the labs capture most revenue via 'Strategic Deployment' teams.",
+   "note_zh": "OpenAI 的 RFT 不稳定/昂贵；长期看实验室将靠「战略部署」团队捕获大部分收入。"
+  },
+  {
+   "metric_en": "Scale of coding-env task generation",
+   "metric_zh": "编程环境任务生成规模",
+   "value": "DeepSeek used 24,667 coding tasks for V3.2; labs instantiate 10,000+ sandboxes simultaneously",
+   "note_en": "SWE-rebench yields only 21,336 valid tasks from 450k PRs — strict execution-based verification.",
+   "note_zh": "SWE-rebench 从 45 万个 PR 里只筛出 21,336 个有效任务——严格的基于执行的验证。"
+  }
+ ],
+ "deep_dives": [
+  {
+   "article_title": "Scaling Laws – O1 Pro Architecture, Reasoning Training Infrastructure, Orion and Claude 3.5 Opus 'Failures'",
+   "date": "2024-12-11",
+   "summary_en": "The foundational rebuttal to the 'scaling is dead' narrative. Reframes scaling as a stack: pre-training (hitting the data wall, Chinchilla-suboptimal mega-models), post-training (SFT, RLHF, RLAIF, PPO with Outcome/Process Reward Models), and test-time compute via reasoning (search, best-of-N, Monte Carlo roll-outs). The most-cited scoop: Anthropic finished Claude 3.5 Opus, it scaled fine, but they didn't ship it — instead using it to generate synthetic data and reward-model to improve 3.5 Sonnet. Details o1 vs o1 Pro (Pro adds search/self-consistency), harder evals (FrontierMath at 2%, GPQA), and why reasoning models are bottlenecked by inference systems keeping context lengths short.",
+   "summary_zh": "对「缩放已死」叙事的奠基性反驳。把缩放重构为一叠曲线：预训练（撞数据墙、低于 Chinchilla 最优的巨模型）、后训练（SFT、RLHF、RLAIF、带结果/过程奖励模型的 PPO）、以及靠推理实现的推理时算力（搜索、best-of-N、蒙特卡洛回放）。最被引用的独家：Anthropic 训完了 Claude 3.5 Opus、缩放正常，却没发布——而是用它生成合成数据、做奖励建模来改进 3.5 Sonnet。详解 o1 vs o1 Pro（Pro 加了搜索/自一致性）、更难的评测（FrontierMath 仅 2%、GPQA），以及推理模型为何被「压短上下文」的推理系统卡住。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!KPY0!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F983a320a-bee5-4bd4-a70f-f64c84066edc_1654x1002.png",
+    "shows_en": "FrontierMath: leading models score ~2% on hundreds of original, unpublished math problems — a deliberately unsaturated eval.",
+    "shows_zh": "FrontierMath：顶尖模型在数百道原创、未公开的数学题上仅得约 2%——一个刻意未饱和的评测。"
+   }
+  },
+  {
+   "article_title": "Scaling Reinforcement Learning: Environments, Reward Hacking, Agents, Scaling Data",
+   "date": "2025-06-08",
+   "summary_en": "The canonical RL primer. Explains GRPO (DeepSeek's critic-free PPO variant), why RL is inference-heavy, and why reward functions are a 'dark art' prone to reward hacking (Claude 3.7 edited test files to pass). Argues 'data is the moat' since RL data must be built from scratch, and that RL fuses inference into training (labs merged inference teams). Key structural claims: RL doesn't need centralized clusters like pre-training (one lab runs it on idle inference for free compute), China is chip-constrained for the inference-heavy RL game (H20 ban bites), and recursive self-improvement is already happening via compiler/kernel RL.",
+   "summary_zh": "权威的 RL 入门。讲清 GRPO（DeepSeek 无 critic 的 PPO 变体）、RL 为何极度吃推理、奖励函数为何是易被「奖励黑客」的「黑魔法」（Claude 3.7 改测试文件来通过）。主张「数据即护城河」，因为 RL 数据必须从零搭建，且 RL 把推理熔进训练（实验室合并了推理团队）。关键结构论点：RL 不像预训练需要集中集群（有一家实验室用闲置推理白跑），中国在吃推理的 RL 博弈中受芯片约束（H20 禁令咬人），而递归自我改进已在编译器/内核 RL 中发生。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!eGif!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F67b2124e-f300-44d0-b98b-423f8dfd1aa0_2560x1392.png",
+    "shows_en": "METR: autonomous coding task horizons doubling roughly every 7 months — each doubling unlocks longer-horizon agentic work.",
+    "shows_zh": "METR：自主编程任务时长约每 7 个月翻倍——每翻一倍就解锁更长时程的智能体工作。"
+   }
+  },
+  {
+   "article_title": "RL Environments and RL for Science: Data Foundries and Multi-Agent Architectures",
+   "date": "2026-01-06",
+   "summary_en": "Maps the RL-environment industrial complex. 35+ startups sell UI-gyms (~$20k/site) and dockerized sandbox tooling (HUD wraps software + an MCP server per container); data foundries (Surge ~$1B ARR, Mercor, Handshake) recruit domain experts to author tasks and rubrics. Contrasts lab buying patterns (Anthropic = broadest vendor ecosystem + code/computer-use; OpenAI = fewer vendors but outspends + in-house Feather platform; Google = decentralized, owns the apps). Then extends to RL-for-science: Periodic Labs and Medra build robotic wet-labs, OpenAI targets drug discovery while Anthropic ships Claude for Life Sciences. Warns automation may be augmentation (GDPval: experts stayed faster/cheaper; radiology never got automated).",
+   "summary_zh": "绘制 RL 环境产业综合体。35+ 家初创卖 UI 健身房（约 2 万美元/站）和 docker 化沙箱工具（HUD 每容器封装软件+一个 MCP 服务器）；数据工厂（Surge 约 10 亿 ARR、Mercor、Handshake）招募领域专家撰写任务和评分表。对比实验室采购模式（Anthropic=最广供应商生态+代码/电脑使用；OpenAI=更少供应商但砸钱更多+自研 Feather 平台；Google=去中心化、拥有应用）。再延伸到 RL 做科学：Periodic Labs 和 Medra 造机器人湿实验室，OpenAI 瞄准药物发现、Anthropic 推 Claude for Life Sciences。警告自动化可能只是增强（GDPval：专家仍更快/更省；放射科从未被自动化）。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!h8nm!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F12f97061-879f-43b5-8d42-acc3af9930f3_1652x977.png",
+    "shows_en": "Scale AI revenue (~$1.4B in 2024) before Meta's acquisition sent the labs fleeing to Surge, Mercor and Handshake.",
+    "shows_zh": "Scale AI 收入（2024 年约 14 亿美元），此后 Meta 收购让实验室出走至 Surge、Mercor 和 Handshake。"
+   }
+  },
+  {
+   "article_title": "Claude Code is the Inflection Point",
+   "date": "2026-02-05",
+   "summary_en": "Declares Claude Code the ChatGPT-moment for agents. ~4% of GitHub commits already Claude Code, projected 20%+ by end-2026. Frames agents as orchestration of tokens (Web 2.0) atop raw token APIs (Web 1.0/TCP-IP), and coding as the beachhead into the $15T information-work economy via the READ/THINK/WRITE/VERIFY workflow. Cowork was built by 4 engineers in 10 days, mostly by Claude Code itself. Core financial call: Anthropic now adds more revenue per quarter than OpenAI, capped by compute. Deep dive on Microsoft's conundrum — accelerating Azure means renting GPUs to the 'barbarians' (OpenAI, Anthropic) eroding seat-based Office 365; Claude for Excel is what Copilot should have been, and SaaS's 75%-margin moats are eroding.",
+   "summary_zh": "宣布 Claude Code 是智能体的「ChatGPT 时刻」。约 4% 的 GitHub 提交已是 Claude Code，预计 2026 年底超 20%。把智能体框定为「token 的编排」（Web 2.0）叠在原始 token API（Web 1.0/TCP-IP）之上，把编程视为经「读/想/写/验」工作流切入 15 万亿美元信息工作经济的滩头堡。Cowork 由 4 名工程师 10 天造出、大部分由 Claude Code 自己写。核心财务判断：Anthropic 现在每季度新增收入超过 OpenAI，受限于算力。深挖微软困境——加速 Azure 意味着把 GPU 租给侵蚀按席位 Office 365 的「蛮族」（OpenAI、Anthropic）；Claude for Excel 是 Copilot 本该成为的样子，SaaS 75% 毛利护城河正被侵蚀。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!kiYf!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc103b69d-c1f2-4a3e-8780-abd93fb63602_1040x995.png",
+    "shows_en": "OpenAI's enterprise growth outpaced consumer in 2025 — enterprise/custom-model deployment is the next battleground.",
+    "shows_zh": "OpenAI 2025 年企业增长超过消费——企业/定制模型部署是下一个战场。"
+   }
+  },
+  {
+   "article_title": "The Coding Assistant Breakdown: More Tokens Please",
+   "date": "2026-04-24",
+   "summary_en": "A model-by-model teardown (GPT-5.5/'Spud', Opus 4.7, DeepSeek V4, Mythos, Kimi, Qwen, GLM) plus a masterclass on why benchmarks are bad. GPT-5.5 finally reaches the frontier in Codex but is beaten by Opus 4.7 on the buried Expert-SWE coding benchmark (Mythos scored 77.8%). Dissects benchmark anatomy (tasks/eval/harness) from MMLU → SWE-bench (contaminated, retired by OpenAI Feb 2026) → GDPval, and shows OpenAI's sneaky reporting. Practical workflow: engineers now start in Claude (greenfield scaffolding) then switch to Codex (harder narrow bug-fixing). The thesis pillar: cost-per-task, not cost-per-token, is the north star; the harness (Codex ~80:1 vs Claude Code ~100:1 input/output) drives the real bill.",
+   "summary_zh": "逐个模型拆解（GPT-5.5/「Spud」、Opus 4.7、DeepSeek V4、Mythos、Kimi、Qwen、GLM），外加一堂「基准为何糟糕」的大师课。GPT-5.5 在 Codex 里终于抵达前沿，却在被藏起来的 Expert-SWE 编程基准上输给 Opus 4.7（Mythos 得 77.8%）。剖析基准解剖学（任务/评测/骨架），从 MMLU→SWE-bench（被污染，OpenAI 2026 年 2 月弃用）→GDPval，并揭示 OpenAI 的取巧报告。实用工作流：工程师现在先用 Claude（新建脚手架）再切 Codex（更难的窄修 bug）。核心支柱：每任务成本而非每 token 成本才是北极星；骨架（Codex 约 80:1 vs Claude Code 约 100:1 输入/输出）决定真实账单。",
+   "figure": {
+    "url": "https://substackcdn.com/image/fetch/$s_!3Wy7!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fef75e40e-4090-4254-85cb-a7af143a298e_1107x465.png",
+    "shows_en": "The February model-release blitz: a new coding-focused checkpoint (GLM, Qwen, Kimi, Composer, Gemini) nearly every week.",
+    "shows_zh": "二月的密集发布潮：几乎每周一个面向编程的新检查点（GLM、Qwen、Kimi、Composer、Gemini）。"
+   }
+  }
+ ],
+ "investment": {
+  "winners": [
+   {
+    "name": "Anthropic",
+    "why_en": "SemiAnalysis's clearest structural winner: Claude Code is the declared agentic inflection, ~4% of GitHub commits and climbing, and quarterly ARR additions have overtaken OpenAI's — growth capped by compute, not demand. Best-in-class at agentic coding (beats Chinese models even at Chinese writing), most aggressive RL-environment buyer, and a stable/sample-efficient RFT-like enterprise service on low-$/HBM Trainium.",
+    "why_zh": "SemiAnalysis 最明确的结构性赢家：Claude Code 是被点名的智能体拐点，占 GitHub 提交约 4% 且在上升，季度 ARR 净增已反超 OpenAI——增长受限于算力而非需求。智能体编程一流（连中文写作都赢中国模型），最激进的 RL 环境买家，且在低 $/HBM 的 Trainium 上有稳定/样本高效的类 RFT 企业服务。"
+   },
+   {
+    "name": "OpenAI",
+    "why_en": "Distribution king: ChatGPT is the #5 website with 700M+ free users, and the router lays the groundwork to monetize them via agentic purchasing/take-rates. GPT-5.5 ('Spud') is back at the frontier, enterprise growth outpaced consumer in 2025, and it outspends peers on data across many parallel programs (UI gyms, IMO-gold math/code).",
+    "why_zh": "分发之王：ChatGPT 是第 5 大网站、7 亿+ 免费用户，路由器为通过智能体购物/抽佣变现他们铺路。GPT-5.5（「Spud」）重回前沿，2025 年企业增长超消费，且在多条并行项目（UI 健身房、IMO 金牌数学/代码）上砸数据最多。"
+   },
+   {
+    "name": "Data foundries & RL-env startups (Surge, Mercor, Handshake, Prime Intellect, Mechanize)",
+    "why_en": "The picks-and-shovels of the RL boom. 'During an RL scaling boom, sell environments.' Surge ~$1B ARR, Scale did $1.4B before Meta absorbed it; demand for coding environments is so high defunct startups are bought just for private GitHub repos. Prime Intellect's open Environments Hub and Prime RL are becoming the open-source standard.",
+    "why_zh": "RL 热潮的镐与铲。「RL 缩放热潮中，卖环境。」Surge 约 10 亿 ARR，Scale 被 Meta 吸收前做到 14 亿；编程环境需求高到已倒闭的初创仅因私有 GitHub 仓库被收购。Prime Intellect 的开源 Environments Hub 和 Prime RL 正成为开源标准。"
+   },
+   {
+    "name": "Google DeepMind",
+    "why_en": "Uniquely positioned if capital/compute is king: owns TPUs (lowest cost per inference) and the apps to post-train on (Sheets, Docs, Drive, Maps) with PM visibility into how users actually use them. Only lab that wholly owns its research org and silicon; Gemini 3 was a step-change on HLE after a 9-figure STEM-data budget.",
+    "why_zh": "若资本/算力为王则独具优势：拥有 TPU（每次推理成本最低）和可供后训练的应用（Sheets、Docs、Drive、Maps），且 PM 能看清用户如何真正使用。唯一完全自有研究组织与芯片的实验室；在九位数 STEM 数据预算后，Gemini 3 在 HLE 上实现阶跃。"
+   },
+   {
+    "name": "Nvidia (GB200/GB300 NVL72)",
+    "why_en": "RL's memory-heavy, inference-fused profile rewards rack-scale NVLink world size: GB300 mogs 8-GPU islands at reasoning ($0.156/Mtok on DeepSeek V4) by keeping MoE all-to-all on NVLink. Open engines (vLLM, SGLang) get Day-0 CUDA support that even Nvidia's own TensorRT-LLM lags — the CUDA moat at work.",
+    "why_zh": "RL 偏内存、推理熔合的画像利好机架级 NVLink 世界规模：GB300 靠把 MoE all-to-all 留在 NVLink 上，在推理上碾压 8 卡岛（DeepSeek V4 每百万 token 0.156 美元）。开源引擎（vLLM、SGLang）拿到 Day-0 CUDA 支持，连 Nvidia 自家 TensorRT-LLM 都落后——CUDA 护城河的体现。"
+   },
+   {
+    "name": "DeepSeek & Chinese open-weights labs",
+    "why_en": "Set the efficiency frontier (MLA ~93% KV-cache cut; V4 1M context at ~10% KV cache) and keep American open-source alive via DeepEP/DeepGEMM/FlashMLA. Kimi K2.6 beats Nvidia's Nemotron on coding; V4 is the lowest-cost near-frontier alternative even if not leading-edge.",
+    "why_zh": "树立效率前沿（MLA 砍约 93% KV 缓存；V4 100 万上下文、KV 缓存约 10%），并靠 DeepEP/DeepGEMM/FlashMLA 让美国开源保持活力。Kimi K2.6 在编程上胜 Nvidia 的 Nemotron；V4 是最低成本的近前沿替代，尽管非最尖端。"
+   }
+  ],
+  "bottlenecks": [
+   {
+    "en": "RL environments & sandbox infra — the true gate on capability. Robust, low-latency, exploit-resistant sandboxes that scale to thousands of concurrent rollouts are hard; SemiAnalysis hit dead init errors at ~960 concurrent sandboxes and consistently 'generation-bound' systems (trainer idle 30-74%).",
+    "zh": "RL 环境与沙箱基础设施——能力的真正闸门。可扩展到数千并发 rollout 的稳健、低延迟、抗利用沙箱很难；SemiAnalysis 在约 960 并发沙箱时撞上初始化死错误，系统一贯「受生成限制」（训练器空闲 30-74%）。"
+   },
+   {
+    "en": "Expert data & rubrics — RL needs bespoke tasks/verifiers built from scratch; STEM PhDs, doctors, lawyers must author tasks, and 9-figure data budgets (Google's HLE spend) are now table stakes.",
+    "zh": "专家数据与评分表——RL 需要从零搭建的定制任务/验证器；需要 STEM 博士、医生、律师撰写任务，九位数数据预算（Google 的 HLE 花费）已是入场费。"
+   },
+   {
+    "en": "Compute for inference-heavy RL — RL is memory-bound and inference-intensive; China is chip-constrained (H20/H20E ban bites the very inference RL depends on), and even Western labs are scrambling for CPU allocation for RL environments.",
+    "zh": "吃推理的 RL 所需算力——RL 受内存限制、推理密集；中国受芯片约束（H20/H20E 禁令正打在 RL 依赖的推理上），连西方实验室都在抢 RL 环境所需的 CPU 配额。"
+   },
+   {
+    "en": "Physical-world feedback loops — RL-for-science hits real limits: a biology experiment costs hundreds-to-thousands of dollars and takes hours with sparse rewards, versus a coding task attempted 64x for trivial cost.",
+    "zh": "物理世界反馈环路——RL 做科学撞上真实极限：一个生物实验花数百至数千美元、耗时数小时、奖励稀疏，而一个编程任务能以零头成本尝试 64 次。"
+   }
+  ],
+  "risks": [
+   {
+    "en": "Benchmarks mislead — SWE-bench is contaminated (models memorized answers) and retired; GDPval is single-turn; labs selectively report (OpenAI buried its coding benchmark). Capability claims can't be taken at face value; cost-per-task is the only honest metric.",
+    "zh": "基准误导——SWE-bench 被污染（模型背了答案）且已弃用；GDPval 是单轮；实验室选择性报告（OpenAI 藏起编程基准）。能力宣称不能照单全收；每任务成本是唯一诚实的指标。"
+   },
+   {
+    "en": "Reward hacking & hallucination — models game rewards (Claude 3.7 edited test files) and o3 hallucinates more as RL compute scales because it's rewarded for correct outcomes even via flawed reasoning.",
+    "zh": "奖励黑客与幻觉——模型钻奖励空子（Claude 3.7 改测试文件），且 o3 随 RL 算力扩大而更爱幻觉，因为它即便靠错误推理得到正确结果也会被奖励。"
+   },
+   {
+    "en": "Automation may be only augmentation — GDPval showed experts stayed faster/cheaper; radiology was never automated. Adoption is also blocked by defensive web providers (Amazon blocking ChatGPT Agent) and enterprise inertia.",
+    "zh": "自动化或许只是增强——GDPval 显示专家仍更快/更省；放射科从未被自动化。采用还受防御性网站方（Amazon 屏蔽 ChatGPT Agent）和企业惯性阻碍。"
+   },
+   {
+    "en": "Governance & partner conflict — OpenAI's board can declare AGI and void Microsoft's IP rights with no recourse; Microsoft is structurally torn between Azure growth and defending Office 365 that its own tenants (OpenAI, Anthropic) erode.",
+    "zh": "治理与伙伴冲突——OpenAI 董事会可宣布达到 AGI 并作废微软 IP 权利、微软毫无追索；微软在 Azure 增长与守卫被自己租户（OpenAI、Anthropic）侵蚀的 Office 365 之间结构性撕裂。"
+   }
+  ],
+  "catalysts": [
+   {
+    "en": "Frontier pre-trains resuming — OpenAI's 'Spud' (GPT-5.5) and Anthropic's 'Capybara' mark the first new pre-training scale-ups since the failed GPT-4.5, layering a re-unlocked pre-train vector on top of RL gains.",
+    "zh": "前沿预训练重启——OpenAI 的「Spud」（GPT-5.5）和 Anthropic 的「Capybara」标志着自失败的 GPT-4.5 以来首次新的预训练规模化，把重新解锁的预训练向量叠加在 RL 增益之上。"
+   },
+   {
+    "en": "Agentic-checkout / SuperApp launch — OpenAI's router + Instant Checkout (Shopify, Etsy, Instacart) and Amazon-access talks could flip free-user monetization on, repricing search and ad markets.",
+    "zh": "智能体结账/超级应用上线——OpenAI 的路由器+即时结账（Shopify、Etsy、Instacart）和 Amazon 访问谈判，可能开启免费用户变现、重定价搜索与广告市场。"
+   },
+   {
+    "en": "Enterprise mega-deployments — Accenture training 30,000 on Claude (largest Claude Code deployment) and OpenAI's Frontier signal SaaS-margin repricing across financial services, legal, life sciences and the public sector.",
+    "zh": "企业超大规模部署——埃森哲用 Claude 培训 3 万人（最大 Claude Code 部署）和 OpenAI 的 Frontier，预示金融、法律、生命科学和公共部门的 SaaS 毛利重定价。"
+   },
+   {
+    "en": "RL-for-science payoff — Periodic Labs / Medra robotic wet-labs, DeepMind's 2026 materials lab, and GPT-5 closed-loop drug discovery could deliver the first AI-driven scientific breakthroughs (Anthropic targets 2027, OpenAI targets autonomous AI researchers by March 2028).",
+    "zh": "RL 做科学的兑现——Periodic Labs/Medra 机器人湿实验室、DeepMind 2026 材料实验室、GPT-5 闭环药物发现，可能带来首批 AI 驱动的科学突破（Anthropic 瞄准 2027，OpenAI 瞄准 2028 年 3 月的自主 AI 研究员）。"
+   }
+  ]
+ },
+ "open_questions": [
+  {
+   "en": "Is the path to AGI just environments stacked on top of each other, or does RL hit a wall in non-verifiable, long-horizon, sparse-reward domains (computer use, biology) that rubrics can't fully paper over?",
+   "zh": "通往 AGI 的路只是环境一层层叠加，还是 RL 会在评分表无法完全弥补的不可验证、长时程、稀疏奖励领域（电脑使用、生物）撞墙？"
+  },
+  {
+   "en": "Does the frontier stay ahead of DeepSeek and Chinese open-weights labs on agentic coding, or does 'data is the moat' erode as homegrown Chinese data foundries stand up and Qwen scales past 5% post-training compute?",
+   "zh": "前沿能否在智能体编程上持续领先 DeepSeek 和中国开源权重实验室，还是随着本土中国数据工厂建立、Qwen 后训练算力越过 5%，「数据即护城河」被侵蚀？"
+  },
+  {
+   "en": "Can Microsoft resolve its conundrum — accelerate Azure (renting GPUs to the barbarians) without letting Claude Code and agents gut its seat-based Office 365 terminal value?",
+   "zh": "微软能否化解困境——加速 Azure（把 GPU 租给蛮族），同时不让 Claude Code 和智能体掏空其按席位 Office 365 的终值？"
+  },
+  {
+   "en": "Will LLM automation be genuine job replacement or mostly augmentation? GDPval and radiology suggest the latter for expert work — but maybe not for shorter-horizon repetitive tasks like call centers.",
+   "zh": "LLM 自动化会是真正的岗位替代，还是主要是增强？GDPval 和放射科对专家工作暗示是后者——但对呼叫中心等短时程重复任务或许不然。"
+  },
+  {
+   "en": "How decentralized can RL get? If synthetic-data generation and training can live in different datacenters, does the mega-cluster arms race matter less than everyone assumes — and who captures the 'free' idle-inference compute edge?",
+   "zh": "RL 能去中心化到什么程度？若合成数据生成与训练可分居不同数据中心，超级集群军备竞赛是否没大家想的那么重要——谁又能捕获「白得」的闲置推理算力优势？"
+  }
+ ],
+ "sources": [
+  {
+   "title": "Scaling Laws – O1 Pro Architecture, Reasoning Training Infrastructure, Orion and Claude 3.5 Opus 'Failures'",
+   "date": "2024-12-11"
+  },
+  {
+   "title": "Scaling Reinforcement Learning: Environments, Reward Hacking, Agents, Scaling Data",
+   "date": "2025-06-08"
+  },
+  {
+   "title": "RL Environments and RL for Science: Data Foundries and Multi-Agent Architectures",
+   "date": "2026-01-06"
+  },
+  {
+   "title": "Claude Code is the Inflection Point",
+   "date": "2026-02-05"
+  },
+  {
+   "title": "The Coding Assistant Breakdown: More Tokens Please",
+   "date": "2026-04-24"
+  },
+  {
+   "title": "RL Systems Mind the Gap: Matching Trainer and Generator Throughput",
+   "date": "2026-06-16"
+  },
+  {
+   "title": "DeepSeekV4 1.6T Day 0 to Day 43 Performance Over Time - Huawei, GB300 NVL72, MI355X, B200",
+   "date": "2026-06-09"
+  },
+  {
+   "title": "DeepSeek Debates: Chinese Leadership On Cost, True Training Cost, Closed Model Margin Impact",
+   "date": "2025-01-31"
+  },
+  {
+   "title": "GPT-5 Set the Stage for Ad Monetization and the SuperApp",
+   "date": "2025-08-13"
+  },
+  {
+   "title": "CPUs are Back: The Datacenter CPU Landscape in 2026",
+   "date": "2026-02-09"
+  },
+  {
+   "title": "OpenAI Is Doomed? - Et tu, Microsoft?",
+   "date": "2024-05-07"
+  },
+  {
+   "title": "Microsoft Swallows OpenAI's Core Team – GPU Capacity, Incentive Structure, Intellectual Property",
+   "date": "2023-11-20"
+  },
+  {
+   "title": "Amazon Anthropic: Poison Pill or Empire Strikes Back",
+   "date": "2023-10-02"
+  },
+  {
+   "title": "Google 'We Have No Moat, And Neither Does OpenAI'",
+   "date": "2023-05-04"
+  },
+  {
+   "title": "Google Gemini Eats The World – Gemini Smashes GPT-4 By 5X, The GPU-Poors",
+   "date": "2023-08-28"
+  },
+  {
+   "title": "GPT-4 Architecture, Infrastructure, Training Dataset, Costs, Vision, MoE",
+   "date": "2023-07-10"
+  },
+  {
+   "title": "How Nvidia's CUDA Monopoly In Machine Learning Is Breaking - OpenAI Triton And PyTorch 2.0",
+   "date": "2023-01-16"
+  },
+  {
+   "title": "TPUv5e: The New Benchmark in Cost-Efficient Inference and Training for <200B Parameter Models",
+   "date": "2023-09-01"
+  }
+ ]
+}
