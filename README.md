@@ -4,6 +4,8 @@
 
 📖 **Read it live:** [yichengyang-ethan.github.io/ai-supply-chain](https://yichengyang-ethan.github.io/ai-supply-chain) · ⚖️ **Credibility audit:** [How Reliable Is SemiAnalysis?](https://yichengyang-ethan.github.io/ai-supply-chain-credibility)
 
+📕 **PDF (Public Edition):** [AI_Supply_Chain_Research_Complete_Public_Edition.pdf](AI_Supply_Chain_Research_Complete_Public_Edition.pdf) — the full 135-page book (English), with per-chapter linked sources; third-party images removed for licensing, replaced by links to the original charts.
+
 By [Yicheng Yang](https://yichengyang-ethan.github.io) · independent, not affiliated with SemiAnalysis · nothing here is investment advice.
 
 ---
