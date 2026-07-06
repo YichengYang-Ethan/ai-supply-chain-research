@@ -1,0 +1,121 @@
+{
+ "module_id": "04",
+ "title_en": "Training vs Inference",
+ "title_zh": "训练 vs 推理",
+ "tagline_en": "After this module you can look at any AI chip announcement and know which of the two workloads it is really built for — and read a $/Mtok chart the way the buyers do.",
+ "tagline_zh": "读完本讲，你看到任何一颗 AI 芯片的发布，都能判断它到底是为训练还是为推理而生——并像采购方一样读懂 $/Mtok 曲线。",
+ "sections": [
+  {
+   "heading_en": "One Factory, Two Businesses",
+   "heading_zh": "一座工厂，两门生意",
+   "body_en": "Every AI chip in the world is doing one of exactly two jobs. Training is how a model is made: show it trillions of examples and adjust its internal numbers (weights) until it predicts well. Inference is how a model is used: freeze those weights and answer queries. The industry's favorite analogy is a refinery versus gas stations. Training a frontier model is a one-off capital project — months of time on tens of thousands of chips, a cost paid once and amortized forever after. Inference is retail: billions of small transactions whose profitability lives or dies on unit cost. The unit is the token — roughly three-quarters of an English word — and the two businesses even quote prices in different currencies: training capacity trades in dollars per GPU-hour, inference in dollars per million tokens ($/Mtok). The reason this module exists: the two workloads stress opposite parts of a chip. Training wants raw arithmetic (FLOPS) and a network that can keep tens of thousands of chips in lockstep. Inference — specifically its decode phase — wants memory bandwidth and cheap capacity. A chip, rack, or datacenter optimized for one can be mediocre at the other, and as we will see, the industry's center of gravity has swung decisively toward inference.",
+   "body_zh": "全世界每一颗 AI 芯片，干的都是两件事之一。训练是「造模型」：给它看上万亿条例子，不断调整内部的几千亿个参数（权重），直到它预测得足够好；推理是「用模型」：把权重冻结，拿来回答请求。业内最常用的类比是炼油厂和加油站——训练一个前沿模型是一次性的重资产工程，几万颗芯片连转数月，成本一次付清、之后摊进每一个卖出的 token；推理则是零售生意，数十亿笔小额交易，盈亏全看单位成本。这里的「单位」就是 token（约等于四分之三个英文单词）。两门生意甚至用不同的货币报价：训练算力按「美元/GPU·小时」成交，推理按「美元/百万 token」（$/Mtok）结算。之所以要单独讲这一讲，是因为这两种负载压榨的是芯片完全相反的部位：训练要的是裸算力（FLOPS）和能让几万颗芯片步调一致的网络；推理——尤其是它的 decode 阶段——要的是内存带宽和便宜的容量。为其中一种优化的芯片、机架乃至数据中心，干另一种活可能平庸；而整个行业的重心，正在决定性地摆向推理。"
+  },
+  {
+   "heading_en": "Pretraining: the Largest Synchronized Machine Ever Built",
+   "heading_zh": "预训练：人类造过的最大同步机器",
+   "body_en": "Pretraining is the famous part: next-token prediction. Feed the model a slice of the internet, ask it to guess the next token, measure the error, and nudge every weight to reduce it — repeated quadrillions of times. Computationally, each step is dominated by enormous matrix multiplications, which perform a huge amount of arithmetic on every byte fetched from memory. That makes pretraining compute-bound: the limiting resource is floating-point operations, which is why training chips race on FLOPS and why lower-precision number formats (FP8, FP4) that multiply arithmetic throughput matter so much.\n\nThe catch is the word 'every.' Modern runs split identical copies of the model across tens of thousands of GPUs, each chewing a different slice of data. After every step — every few seconds — all copies must average their proposed weight updates in a collective operation called gradient synchronization (all-reduce). The entire cluster marches in lockstep: one slow GPU, one flaky optical link, one crashed node stalls the whole machine. This is why training clusters obsess over networking and reliability, and why 'goodput' (useful work actually completed) diverges so far from paper specs.\n\nThe honest efficiency yardstick is MFU — Model FLOPS Utilization, the share of a chip's theoretical arithmetic actually spent on the model's math. Even elite labs live between 30% and 55%. And it moves: SemiAnalysis's benchmarks across 2,000+ H100s show BF16 MFU climbing from 34% to 54% in twelve months purely from software — Nvidia's kernel engineers, no new silicon — a 57% free throughput gain. In cost terms, training GPT-3 175B fell from 72¢ to 54.2¢ per million tokens over 2024, or $218k to $162k for the full original 300B-token run.",
+   "body_zh": "预训练就是最出名的那部分：下一个 token 预测。喂给模型一段互联网文本，让它猜下一个 token，量出误差，再把每个权重朝减小误差的方向拨一点——如此重复千万亿次。从计算上看，每一步都由巨型矩阵乘法主导：每从内存搬一个字节，就要做海量的算术运算，所以预训练是算力受限（compute-bound）的——瓶颈是浮点运算。这也是训练芯片死磕 FLOPS、低精度数值格式（FP8、FP4，算力成倍提升）如此重要的原因。\n\n关键在「每个」两个字。现代训练把同一份模型复制到几万张 GPU 上，各啃一块不同的数据；每走一步——也就是每隔几秒——所有副本必须把各自算出的权重更新汇总平均，这个集体通信操作叫梯度同步（all-reduce）。整个集群齐步走：一张慢卡、一根抖动的光纤、一台宕机的节点，就能让上万张卡集体罚站。这就是训练集群对网络和可靠性近乎偏执的原因，也是「goodput」（真正完成的有效工作）与纸面规格差距巨大的原因。\n\n衡量效率的诚实标尺是 MFU（Model FLOPS Utilization）：芯片理论算力中真正花在模型数学上的比例。顶级实验室也只在 30%-55% 之间。而且它会动：SemiAnalysis 在 2000+ 张 H100 上的基准显示，BF16 MFU 十二个月内从 34% 爬到 54%，纯靠软件——英伟达的 kernel 工程师，一颗新芯片都没换——白捡 57% 的吞吐。换算成钱：2024 年一年间，训练 GPT-3 175B 的成本从每百万 token 72 美分降到 54.2 美分，按原始 3000 亿 token 整跑一遍，从 21.8 万美元降到 16.2 万。"
+  },
+  {
+   "heading_en": "Post-Training and RL: the Wall Comes Down",
+   "heading_zh": "后训练与强化学习：训练和推理的墙塌了",
+   "body_en": "Around 2024 pretraining hit the data wall — the internet had been read. Capability gains shifted to post-training: supervised fine-tuning on curated examples, RLHF, and above all reinforcement learning on verifiable rewards. The mechanism is simple to state: give the model a task where success is machine-checkable — does the code pass the tests? is the math answer right? — let it generate many attempts ('rollouts'), score each one, and shift the weights toward what worked.\n\nNotice what those rollouts are: inference. RL training spends most of its compute generating hundreds of candidate answers per question, which means production-grade inference now runs inside the training loop. The clean wall between the two workloads has fallen — and hardware demand followed, tilting toward memory-heavy, inference-friendly chips even within 'training' budgets.\n\nThe proof this vector works: OpenAI rode the same GPT-4o base model for 18 months through o1, o3 and GPT-5 — nearly all the headline capability gains of the reasoning era came from post-training, not a bigger pretrain. And the vector is young: Qwen, China's leading open-weights family, still spends only ~5% of its pretraining compute on post-training. As that ratio rises industry-wide — SemiAnalysis expects it will — the compute mix of making models will look ever more like the compute mix of serving them.",
+   "body_zh": "2024 年前后，预训练撞上了数据墙——互联网已经被读完了。能力增长转向后训练：在精选样本上做监督微调（SFT）、RLHF，以及最重要的、在「可验证奖励」上做强化学习。机制说穿了很简单：给模型一个成败可以机器判定的任务——代码过不过测试？数学答案对不对？——让它生成许多次尝试（rollout），逐个打分，再把权重朝成功的方向推。\n\n注意这些 rollout 的本质：它们就是推理。RL 训练把大部分算力花在为每道题生成几百个候选答案上，也就是说，生产级的推理系统如今直接跑在训练循环内部。训练与推理之间那堵干净的墙塌了——硬件需求随之倾斜，连「训练预算」都开始买偏内存、亲推理的芯片。\n\n这条路线有效的铁证：OpenAI 用同一个 GPT-4o 底座跑了 18 个月，一路推出 o1、o3 直到 GPT-5——推理模型时代几乎所有的招牌能力提升都来自后训练，而非更大的预训练。而且这条曲线还很年轻：中国最强的开源权重系列 Qwen，后训练算力只占预训练的约 5%。当全行业把这个比例提上去——SemiAnalysis 判断一定会——「造模型」的算力构成，会越来越像「卖模型」的算力构成。"
+  },
+  {
+   "heading_en": "Inside One Request: Prefill, Decode, and the KV Cache",
+   "heading_zh": "解剖一次请求：Prefill、Decode 与 KV 缓存",
+   "body_en": "Now the workload that pays for everything. When you send a prompt to a model, inference happens in two radically different phases.\n\nPrefill: the model reads your entire prompt at once. All input tokens flow through the network in parallel, in big dense matrix multiplications — computationally this looks like training, i.e., compute-bound. Prefill's output is not text; it is the KV cache: the attention mechanism's stored 'reading notes' (keys and values) for every token seen so far. The cache exists so the model doesn't reread the whole conversation from scratch for each new token; the price is memory — it grows with context length, and a long agentic session can pin gigabytes of precious HBM per user.\n\nDecode: generation, one token at a time. Each new token requires streaming essentially all of the model's active weights plus the entire KV cache out of memory, to do a comparatively tiny amount of arithmetic. Bytes moved dwarf math done: decode is memory-bandwidth-bound, and the chip's expensive FLOPS sit idle waiting on HBM.\n\nOperators fight this with batching: serve dozens of users in one pass so the weight-streaming cost is shared. Bigger batch = cheaper tokens — but each user waits their turn, so interactivity (tokens/sec/user) drops. Think of a kitchen cooking in ever-bigger batches: cost per plate falls, diners wait longer. Every serving stack picks a point on this cost-vs-speed curve, which is why the same model can cost several times more when served 'fast.'\n\nBecause prefill and decode want opposite chips, frontier labs (OpenAI, Anthropic, xAI, DeepSeek) run disaggregated serving in production — separate GPU pools per phase — and silicon has followed: Nvidia's Rubin CPX is a prefill-only part with 128GB of cheap GDDR7 instead of HBM (>50% lower memory cost per GB), attacking the memory-cost wall directly. On the model side, DeepSeek's Multi-Head Latent Attention (MLA) compresses the KV cache by ~93.3% — the single biggest reason its tokens are so cheap.",
+   "body_zh": "现在讲真正赚钱的负载。你把一段 prompt 发给模型，推理会经历两个性格截然相反的阶段。\n\nPrefill（预填充）：模型一口气读完你的整个 prompt。所有输入 token 并行流过网络，做的是大块稠密矩阵乘法——计算特征跟训练一模一样，算力受限。Prefill 的产出不是文字，而是 KV 缓存：注意力机制为已读过的每个 token 存下的「读书笔记」（key 和 value）。有了它，模型不必为每个新 token 把整段对话重读一遍；代价是内存——它随上下文长度线性膨胀，一个长 agent 会话能为单个用户锁死好几 GB 昂贵的 HBM。\n\nDecode（解码）：逐 token 生成。每产出一个新 token，都要把模型几乎全部活跃权重加上整个 KV 缓存从显存里过一遍，而对应的算术量小得可怜。搬运的字节远超做的数学：decode 是内存带宽受限的，芯片上昂贵的 FLOPS 只能干等 HBM，大量闲置。\n\n运营方用批处理（batching）对抗：几十个用户拼一班车，权重搬运的成本大家分摊。批越大，token 越便宜——但每个用户都要排队，交互速度（tok/s/user）下降。像后厨越做越大锅：每盘成本降了，食客等得更久。每套推理系统都在这条「成本-速度」曲线上选一个点，这也是同一个模型的「快版」能贵好几倍的原因。\n\n因为 prefill 和 decode 想要的是两种相反的芯片，前沿实验室（OpenAI、Anthropic、xAI、DeepSeek）在生产环境里做分离式服务（disaggregated serving）——两个阶段各用一池 GPU——硅片也跟着分家：英伟达的 Rubin CPX 是一颗纯 prefill 芯片，用 128GB 便宜的 GDDR7 取代 HBM（每 GB 内存成本低 50% 以上），直击内存成本墙。模型侧，DeepSeek 的多头潜在注意力（MLA）把 KV 缓存压掉约 93.3%——这是它的 token 卖得便宜的最大单一原因。"
+  },
+  {
+   "heading_en": "$/Mtok: the Number That Now Designs Chips",
+   "heading_zh": "$/Mtok：如今反过来设计芯片的数字",
+   "body_en": "Add it up and inference has one economic scoreboard: dollars per million tokens, at a given speed. Every optimization in this module — MFU, batching, KV-cache compression, disaggregation, FP4 — cashes out on this curve, and SemiAnalysis now benchmarks entire racks on it: a GB300 NVL72 rack serves DeepSeek V4 at $0.156 per million output tokens at 50 tokens/sec/user, partly because its 72-GPU NVLink domain keeps mixture-of-experts traffic on one fast fabric where 8-GPU servers must spill onto slower networks.\n\nTwo twists complete the economics. First, sticker prices lie: agentic workloads read far more than they write (Claude Code runs ~300 input tokens per output token) and constantly re-read the same context (90%+ cache-hit rates), so Anthropic's Opus lists at $5/$25 per Mtok but realizes ~$0.99 blended. Caching is not plumbing; it is pricing. Second, the curve falls relentlessly: tokens of GPT-3 quality are ~1200x cheaper than at GPT-3's launch, and the savings are reinvested in bigger models and longer agent sessions — Jevons paradox as a business plan.\n\nThis is why inference economics now design chips. HBM capacity and bandwidth became the largest item in the GB300 package bill-of-materials; 'world size' (how many chips share one fast domain) became the headline spec; and entire product lines — prefill-only GDDR7 parts, SRAM-based speed demons like Groq's LPU, which Nvidia bought for $20B — exist only because what buyers actually purchase is not peak FLOPS but $/Mtok at a target interactivity.",
+   "body_zh": "把这一切加总，推理只有一块经济记分牌：在给定速度下，每百万 token 多少美元。本讲所有的优化——MFU、批处理、KV 缓存压缩、分离式服务、FP4——最终都在这条曲线上兑现。SemiAnalysis 现在直接按整机架跑分：一台 GB300 NVL72 服务 DeepSeek V4，在 50 tok/s/user 的交互速度下，每百万输出 token 只要 0.156 美元——部分原因是 72 卡的 NVLink 域把混合专家（MoE）的 all-to-all 流量留在同一张高速内网上，而 8 卡服务器不得不外溢到慢得多的网络。\n\n经济学还有两个反直觉的补丁。第一，表价会骗人：agentic 负载读远多于写（Claude Code 的输入输出比约 300:1），又反复重读同一段上下文（缓存命中率 90%+），于是 Opus 挂牌 $5/$25 每百万 token，实际混合成交价约 $0.99。缓存不是管道工程，是定价工程。第二，曲线在无情下坠：GPT-3 品质的 token 比它发布时便宜了约 1200 倍，省下的钱又被投进更大的模型和更长的 agent 会话——杰文斯悖论成了商业计划本身。\n\n这就是「推理经济学反过来设计芯片」的含义：HBM 的容量与带宽成了 GB300 封装 BOM 里最大的一项；「world size」（多少颗芯片共享同一个高速域）成了发布会的头条规格；纯 prefill 的 GDDR7 芯片、用 SRAM 换极致速度的 Groq LPU（被英伟达以 200 亿美元收编）这类整条产品线之所以存在，只因为买家采购的从来不是峰值 FLOPS，而是目标交互速度下的 $/Mtok。"
+  }
+ ],
+ "key_numbers": [
+  {
+   "metric_en": "H100 BF16 training MFU gain from software alone (12 months)",
+   "metric_zh": "H100 BF16 训练 MFU 纯软件提升（12 个月）",
+   "value": "34% → 54% MFU (+57% throughput)",
+   "source_name": "SemiAnalysis — H100 vs GB200 NVL72 Training Benchmarks - Power, TCO, and Reliability Analysis",
+   "source_url": "https://semianalysis.com/2025/08/20/h100-vs-gb200-nvl72-training-benchmarks/"
+  },
+  {
+   "metric_en": "Cost to train GPT-3 175B (FP8 on H100, over 2024)",
+   "metric_zh": "训练 GPT-3 175B 的成本（H100 FP8，2024 全年）",
+   "value": "72¢ → 54.2¢ per 1M training tokens ($218k → $162k full 300B-token run)",
+   "source_name": "SemiAnalysis — H100 vs GB200 NVL72 Training Benchmarks - Power, TCO, and Reliability Analysis",
+   "source_url": "https://semianalysis.com/2025/08/20/h100-vs-gb200-nvl72-training-benchmarks/"
+  },
+  {
+   "metric_en": "KV-cache reduction from DeepSeek's Multi-Head Latent Attention (MLA)",
+   "metric_zh": "DeepSeek 多头潜在注意力（MLA）对 KV 缓存的削减",
+   "value": "~93.3% vs standard attention",
+   "source_name": "SemiAnalysis — DeepSeek Debates: Chinese Leadership On Cost, True Training Cost, Closed Model Margin Impact",
+   "source_url": "https://semianalysis.com/2025/01/31/deepseek-debates/"
+  },
+  {
+   "metric_en": "Price decline for GPT-3-quality inference since GPT-3 launch",
+   "metric_zh": "GPT-3 品质推理自发布以来的价格降幅",
+   "value": "~1200x cheaper",
+   "source_name": "SemiAnalysis — DeepSeek Debates: Chinese Leadership On Cost, True Training Cost, Closed Model Margin Impact",
+   "source_url": "https://semianalysis.com/2025/01/31/deepseek-debates/"
+  },
+  {
+   "metric_en": "Opus 4.7 realized vs sticker token price on agentic workloads",
+   "metric_zh": "Opus 4.7 在 agentic 负载上的实际 vs 挂牌 token 价格",
+   "value": "~$0.99/Mtok blended vs $5/$25 sticker (≈300:1 input:output, 90%+ cache hits)",
+   "source_name": "SemiAnalysis — AI Value Capture - The Shift To Model Labs",
+   "source_url": "https://newsletter.semianalysis.com/p/ai-value-capture-the-shift-to-model"
+  },
+  {
+   "metric_en": "GB300 NVL72 serving cost for DeepSeek V4",
+   "metric_zh": "GB300 NVL72 服务 DeepSeek V4 的成本",
+   "value": "$0.156 per 1M output tokens at 50 tok/s/user (8k in / 1k out, MTP on)",
+   "source_name": "SemiAnalysis — DeepSeekV4 1.6T Day 0 to Day 43 Performance Over Time - Huawei, GB300 NVL72, MI355X, B200",
+   "source_url": "https://newsletter.semianalysis.com/p/deepseekv4-16t-day-0-to-day-43-performance"
+  },
+  {
+   "metric_en": "Rubin CPX, Nvidia's prefill-specialized accelerator",
+   "metric_zh": "Rubin CPX：英伟达的 prefill 专用加速器",
+   "value": "20 PFLOPS dense FP4, 128GB GDDR7 (no HBM), >50% lower memory cost per GB",
+   "source_name": "SemiAnalysis — Another Giant Leap: The Rubin CPX Specialized Accelerator & Rack",
+   "source_url": "https://semianalysis.com/2025/09/10/another-giant-leap-the-rubin-cpx-specialized-accelerator-rack/"
+  }
+ ],
+ "images": [
+  {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/1/1e/Eindr%C3%BCcke_von_der_COMPUTEX_2024_%28_%E6%9E%81%E5%AE%A2%E6%B9%BEGeekerwan%29_20.png",
+   "source_name": "Wikimedia Commons — 极客湾 Geekerwan (CC BY 3.0)",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Eindr%C3%BCcke_von_der_COMPUTEX_2024_(_%E6%9E%81%E5%AE%A2%E6%B9%BEGeekerwan)_20.png",
+   "caption_en": "Nvidia's GB200 NVL72 rack at COMPUTEX 2024 — 72 GPUs cabled into a single NVLink domain. 'World size' (how many chips share one fast fabric) became a headline spec because rack-scale interconnect slashes $/Mtok on mixture-of-experts inference.",
+   "caption_zh": "COMPUTEX 2024 上的英伟达 GB200 NVL72 机架——72 张 GPU 被布线进同一个 NVLink 域。「world size」（多少颗芯片共享一张高速内网）之所以成为头条规格，是因为机架级互连能大幅压低 MoE 推理的 $/Mtok。"
+  },
+  {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/b/be/Tensor_Processing_Unit_3.0.jpg",
+   "source_name": "Wikimedia Commons (CC BY-SA 4.0)",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Tensor_Processing_Unit_3.0.jpg",
+   "caption_en": "A Google TPU v3 board. Google's systolic-array TPU line — scaled today to 9,216-chip Ironwood pods — trained Gemini 3 end-to-end: proof that frontier training no longer runs on GPUs alone.",
+   "caption_zh": "谷歌 TPU v3 加速板。谷歌的脉动阵列 TPU 家族如今已扩展到 9216 颗一体的 Ironwood pod，并完整训练了 Gemini 3——前沿训练早已不只跑在 GPU 上。"
+  }
+ ],
+ "own_fig": {
+  "id": "pm04",
+  "concept_en": "Anatomy of the two workloads: a lockstep training step vs a two-phase inference request, with the batch-size dial",
+  "concept_zh": "两种负载的解剖图：齐步走的训练步 vs 两阶段的推理请求，外加批大小旋钮",
+  "spec": "Two-panel diagram, left-right. LEFT PANEL 'Training step (compute-bound)': circular flow of boxes — 'Data batch' → 'Forward pass (giant matmuls)' → 'Loss' → 'Backward pass' → wide highlighted box 'Gradient all-reduce across 10,000s of GPUs — LOCKSTEP: one slow chip stalls all' → 'Weight update' → back to start. Side annotation: 'Yardstick = MFU. H100 BF16: 34%→54% in 12 mo, software only (SemiAnalysis, H100 vs GB200 NVL72 Training Benchmarks).' RIGHT PANEL 'One inference request': horizontal timeline. Segment 1 'PREFILL — whole prompt in parallel, compute-bound (like training)' with arrow down to a cylinder 'KV cache = stored keys/values per token; grows with context; MLA cuts it ~93.3% (SemiAnalysis, DeepSeek Debates)'. Segment 2 'DECODE — one token at a time' drawn as N repeated small ticks; each tick fed by an arrow from a box 'HBM: all weights + KV cache streamed per token — memory-bandwidth-bound, FLOPS idle'. BOTTOM STRIP spanning right panel: a horizontal dial/axis labeled 'batch size'; left end 'small batch: fast per user (high tok/s/user), expensive $/Mtok'; right end 'big batch: cheap $/Mtok, slow per user'; a marked point 'GB300 NVL72 serving DeepSeek V4: $0.156/Mtok @ 50 tok/s/user (SemiAnalysis, DeepSeekV4 Day 0→43)'. Color-code compute-bound elements one color, memory-bound another; add legend."
+ },
+ "why_en": "'Training vs inference' is the lens behind every other module in this series. Training demand drove the 2023-25 capex supercycle; inference economics decide whether that capex ever earns a return — and the 2025-26 rotation of profits toward the model labs (Anthropic's inference gross margin went from 38% to above 70%) happened precisely because serving costs collapsed while agents multiplied token demand. The actionable habit for an investor is metric hygiene: demand MFU and goodput behind training claims, and '$/Mtok at what tok/s/user?' behind inference claims; read spec sheets through HBM content and world size. Chip winners are now picked on the token P&L.",
+ "why_zh": "「训练 vs 推理」是本系列其余所有模块背后的那副眼镜。训练需求驱动了 2023-25 年的资本开支超级周期；而这些 capex 能否赚回来，由推理经济学裁决——2025-26 年利润向模型实验室的大轮动（Anthropic 推理毛利率从 38% 升破 70%），正是发生在服务成本崩塌、同时 agent 把 token 需求成倍放大之际。对投资者，可操作的习惯是「指标卫生」：看训练宣传就追问 MFU 和 goodput；看推理宣传必须问「在多少 tok/s/user 下的 $/Mtok」；读规格表则盯 HBM 含量与 world size。芯片的胜负，如今在 token 损益表上分出。",
+ "related_sectors": [
+  "01_accelerators",
+  "03_memory",
+  "06_networking",
+  "08_hyperscalers_econ",
+  "09_models_software"
+ ]
+}

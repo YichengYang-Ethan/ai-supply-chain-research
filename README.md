@@ -4,7 +4,9 @@
 
 📖 **Read it live:** [yichengyang-ethan.github.io/ai-supply-chain](https://yichengyang-ethan.github.io/ai-supply-chain) · ⚖️ **Credibility audit:** [How Reliable Is SemiAnalysis?](https://yichengyang-ethan.github.io/ai-supply-chain-credibility)
 
-📕 **PDF (Public Edition):** [AI_Supply_Chain_Research_Complete_Public_Edition.pdf](AI_Supply_Chain_Research_Complete_Public_Edition.pdf) — the full 135-page book (English), with per-chapter linked sources; third-party images removed for licensing, replaced by links to the original charts.
+📕 **PDF (Public Edition):** [AI_Supply_Chain_Research_Complete_Public_Edition.pdf](AI_Supply_Chain_Research_Complete_Public_Edition.pdf) — the full 199-page book (English): an 11-module **Foundations Primer** (no background assumed), the panorama, ten sector deep-dives, and the credibility audit. Per-chapter linked sources.
+
+🎓 **New to AI hardware?** Start with the primer: [live](https://yichengyang-ethan.github.io/ai-supply-chain-primer) · data in [`data/primer/`](data/primer/) — 11 textbook-style modules, **76/76 key numbers source-verified**, own-drawn diagrams (labeled), and attributed institutional images.
 
 By [Yicheng Yang](https://yichengyang-ethan.github.io) · independent, not affiliated with SemiAnalysis · nothing here is investment advice.
 
@@ -48,6 +50,7 @@ Before trusting one source this much, I audited it: an independent event study o
 
 ```
 data/
+  primer/           primer_XX.json — 11 Foundations modules (EN + ZH), every number sourced
   sectors/          content_XX.json — ten verified sector briefs (EN + ZH), the canonical data
   synthesis/        cross-sector through-lines, chain-wide investment map, audit narrative
   source_links.json title → SemiAnalysis URL map (~190 articles)

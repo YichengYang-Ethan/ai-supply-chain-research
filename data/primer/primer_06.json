@@ -1,0 +1,134 @@
+{
+ "module_id": "06",
+ "title_en": "Advanced Packaging 101",
+ "title_zh": "先进封装 101",
+ "tagline_en": "Why the last step of chipmaking became the chokepoint of AI compute — and what chiplets, CoWoS, HBM integration and hybrid bonding actually are.",
+ "tagline_zh": "看懂造芯的最后一道工序如何变成 AI 算力的咽喉——chiplet、CoWoS、HBM 集成与混合键合到底是什么。",
+ "sections": [
+  {
+   "heading_en": "Why packaging hit the front page",
+   "heading_zh": "封装为什么上了头条",
+   "body_en": "For fifty years, 'more computing' had a single recipe: shrink the transistor. Packaging — the final step that wraps a finished die in a protective shell and connects it to the circuit board — was an afterthought, outsourced to low-margin assembly houses. Around 2020 that quietly inverted, because three walls closed in at once.\n\nFirst, the reticle limit. A lithography scanner projects a chip design through a photomask onto the wafer one exposure at a time, and the largest field it can expose is 26mm × 33mm — about 858mm². You physically cannot print a bigger single chip. Nvidia's datacenter GPUs have been pressed against this ceiling for years; 'just make it bigger' is no longer an option.\n\nSecond, yield. Defects scatter across a wafer roughly at random, like darts at a board. Double a die's area and you roughly double its odds of catching a killer defect, so the cost of a good chip rises much faster than its size. The biggest chips are exactly the ones you can least afford to build.\n\nThird, and least appreciated: IO stopped scaling. Transistor density doubled about every two years, but chip-to-package data rates doubled only every four — and the solder bumps that carry signals off the die barely shrank from 2000 to 2021 (stuck at 150-200µm pitch). Many designs became 'pad-limited': die area set by connection pads, not by logic. Add that wafer prices jumped from ~$9,500 (N7) to ~$16,000 (N5), ending the free fall in cost-per-transistor, and the industry's only remaining lever is how dies get wired together. That lever is advanced packaging.",
+   "body_zh": "五十年来,「算力更多」的配方只有一条:把晶体管做小。封装——把切好的裸片(die)装壳、接引脚、连上电路板的最后一步——一直是低毛利的外包环节,没人多看一眼。2020 年前后这件事悄然反转,因为三堵墙同时压了过来。\n\n第一堵是光罩极限(reticle limit)。光刻机是隔着光罩一次一次往晶圆上「投影」电路的,单次曝光的最大视场是 26mm × 33mm,约 858mm²——物理上就印不出更大的单颗芯片。英伟达的数据中心 GPU 已经贴着这个天花板走了多年,「再做大一点」这条路不存在了。\n\n第二堵是良率。缺陷近似随机地散落在晶圆上,像飞镖砸靶:die 面积翻倍,中「致命镖」的概率也差不多翻倍,好芯片的成本涨得远比面积快。越大的芯片,越造不起。\n\n第三堵最隐蔽:IO 不再微缩。晶体管密度约每两年翻倍,芯片对外的数据速率却每四年才翻倍;把信号引出裸片的焊料凸点(bump),间距从 2000 年到 2021 年几乎没动(卡在 150-200µm)。大量设计变成 pad-limited(管脚受限):die 面积的下限由焊点数量决定,而不是逻辑电路。再叠加晶圆价格从 N7 约 $9,500 跳到 N5 约 $16,000、每晶体管成本停止下降——行业手里仅剩的杠杆,就是「怎么把几颗 die 连在一起」。这根杠杆,就是先进封装。"
+  },
+  {
+   "heading_en": "Chiplets: bargaining with defect math",
+   "heading_zh": "Chiplet:跟缺陷数学讨价还价",
+   "body_en": "The first response is to stop building monoliths. Split one huge die into several small 'chiplets' and the defect lottery changes in your favor: a dart that lands on a small die scraps a cheap fragment, not an $800 flagship. Just as important, each piece can be tested before assembly, so you only combine Known Good Die (KGD) — a three-letter idea that quietly governs almost every packaging decision in this module. AMD ships everything from 8-core desktops to 64-core servers by reusing one small compute chiplet, covering with 3 chip designs a market Intel needed 5 monolithic designs to span — and it mixes process nodes, putting compute on the newest node and IO on an older, cheaper one.\n\nBut chiplets are a tool, not a religion. Every split adds interface circuits that burn area and power, plus a packaging step that can itself fail. SemiAnalysis's cost model exposes a subtler tax: lithography is roughly a third of wafer cost, and the scanner exposes fixed 26×33mm fields — a chiplet that tiles that field badly needs 1.875× the exposures, repricing the wafer from $17,000 to $21,364 and shrinking the chiplet's silicon saving from $136 to $26 per part, before packaging costs are even counted. Intel's Emerald Rapids server chip actually re-aggregated four chiplets back into two large dies. Whether to split depends on yield, reticle geometry and interface overhead — and the answer can flip either way.",
+   "body_zh": "第一招是不再造「巨无霸」。把一颗大 die 拆成几颗小的 chiplet(芯粒),缺陷抽签的规则就变了:飞镖砸中小 die,报废的是一小块便宜硅片,而不是一颗 $800 的旗舰。更关键的是,每一小块都能在组装前先行测试,只把已知良品裸片(KGD, Known Good Die)拼在一起——这个三字母缩写,静悄悄地支配着本章后面几乎所有封装决策。AMD 靠复用同一颗小计算 chiplet,从 8 核桌面铺到 64 核服务器,用 3 次流片覆盖了 Intel 要 5 颗单片设计才能覆盖的市场;还能混搭工艺:计算用最新节点,IO 用更老更便宜的节点。\n\n但 chiplet 是工具,不是信仰。每拆一刀都要添接口电路(费面积、费功耗),还多一道可能失败的封装工序。SemiAnalysis 的成本模型算出一笔更隐蔽的税:光刻约占晶圆成本三分之一,而光刻机按固定的 26×33mm 视场曝光——chiplet 若铺不满这个视场,曝光次数要乘 1.875,晶圆从 $17,000 重定价到 $21,364,chiplet 每颗产品的硅片省额从 $136 缩水到只剩 $26,这还没算封装费。Intel 的服务器芯片 Emerald Rapids 干脆从四颗 chiplet「聚合」回两颗大 die。拆还是不拆,取决于良率、光罩几何和接口开销——答案可以朝任何一边翻。"
+  },
+  {
+   "heading_en": "2.5D and CoWoS: a silicon table for GPU and HBM",
+   "heading_zh": "2.5D 与 CoWoS:给 GPU 和 HBM 搭一张硅桌子",
+   "body_en": "AI made one wiring problem urgent: a GPU must talk to its memory over an extremely wide, extremely short bus. High Bandwidth Memory (HBM) gets its bandwidth from width, not clock speed — each stack connects through over a thousand data wires (HBM4 doubles that again). No ordinary package substrate or circuit board can route a thousand traces per stack; the wires would be too coarse and too long.\n\nThe 2.5D answer: lay the compute die and the HBM stacks side by side on top of another piece of silicon. Because that base slab is patterned with chip lithography, its wires can be ~100× finer than a substrate's. The slab — the 'interposer' — does no computing; it is pure wiring, plus TSVs (through-silicon vias): vertical copper shafts that pass power and signals up from the package below. TSMC's brand for this sandwich is CoWoS — Chip-on-Wafer-on-Substrate. Essentially every Nvidia and AMD AI accelerator is compute dies plus HBM sitting on some flavor of it.\n\nInterposers are expensive: TSV formation is slow, tool-hungry and, per SemiAnalysis, a genuine bottleneck for both CoWoS and HBM output. Hence the variants. CoWoS-R swaps silicon for cheaper organic RDL wiring; bridge approaches — Intel's EMIB, TSMC's CoWoS-L — embed only a small sliver of silicon where two die edges actually meet. And as AI packages outgrow the reticle itself, interposers are 'stitched' together from multiple exposures: the interposer under a 2016 Tesla P100 was already ~1,166mm², larger than any chip that can be printed in one shot.",
+   "body_zh": "AI 把一个布线问题逼到了台前:GPU 必须通过一条极宽、极短的总线跟内存对话。高带宽内存(HBM)的带宽不是靠跑得快,而是靠路修得宽——每一摞 HBM 要用一千多根数据线跟主芯片相连(HBM4 还要再翻倍)。普通封装基板和电路板根本排不下这么密的线:线太粗、距离太远。\n\n2.5D 的答案是:把计算 die 和 HBM 并排摆在另一块硅片上。这块「垫底」的硅用的是造芯片的光刻,布线能比基板细约百倍。它不做计算、只管连线,叫中介层(interposer);层内竖着一根根 TSV(through-silicon via,硅通孔)铜柱,把下方基板送来的电力和信号垂直引上来。台积电给这套三明治起的商标就是 CoWoS——Chip on Wafer on Substrate(芯片、晶圆、基板三层叠)。今天英伟达、AMD 的每一颗 AI 加速器,本质上都是「计算 die + HBM,坐在某种 CoWoS 上」。\n\n中介层贵:TSV 工序又慢又吃设备,SemiAnalysis 直言它同时卡着 CoWoS 和 HBM 的产出。于是有了变体:CoWoS-R 用更便宜的有机 RDL 布线替代整片硅;桥接方案——Intel 的 EMIB、台积电的 CoWoS-L——只在两颗 die 相邻的边缘底下埋一小条硅桥。而当 AI 封装面积超过光罩本身,中介层就得用多次曝光「缝」出来:2016 年 Tesla P100 底下那片中介层已有约 1,166mm²,比任何一次曝光能印出的芯片都大。"
+  },
+  {
+   "heading_en": "3D: micro-bumps vs bumpless hybrid bonding",
+   "heading_zh": "3D:微凸点与无凸点混合键合",
+   "body_en": "2.5D still spreads dies sideways; the tightest connection is to stack them vertically, dropping interconnect distances from millimeters to microns and collapsing the energy each bit costs to move.\n\nGeneration one is micro-bump 3D: the same solder-ball idea, miniaturized to ~36µm pitch — 31× the connection density of standard flip chip. But solder has a floor: much below ~20µm pitch the bumps short into each other, and every joint adds resistance.\n\nHybrid bonding removes solder entirely. Both surfaces are polished to sub-nanometer flatness; the dielectric faces bond on contact, and copper pads recessed ~5 nanometers below the surface expand during a bake until they fuse — copper to copper, 'bumpless'. Pitches drop below 10µm with a roadmap into the hundreds of nanometers. AMD's 3D V-Cache, the first mass-market product, runs a 17µm pitch — ~138× flip-chip density. SemiAnalysis calls hybrid bonding the most transformative manufacturing innovation since EUV.\n\nIt comes with brutal physics. A particle just 1µm tall creates a bond void ~10mm across — one speck of dust kills a fingernail-sized patch of connections. That demands ISO 1-3 cleanrooms and front-end fab tools (deposition, electroplating, precision CMP polishing) that traditional packaging houses — OSATs like ASE and Amkor — simply don't own. This is the structural punchline: hybrid bonding moved leading-edge packaging inside the fab (TSMC's SoIC, Intel's Foveros Direct), turning 'assembly' from cheap outsourced labor into foundry business. One trade-off to remember: wafer-on-wafer bonding aligns whole wafers to under 50nm but cannot screen out bad dies, while die-to-wafer places only Known Good Die but is slower and dirtier.",
+   "body_zh": "2.5D 终究是横着摆;要把两颗 die 连得最紧,就得竖着叠——互连距离从毫米级掉到微米级,每比特搬运数据的能耗随之跳水。\n\n第一代是微凸点(micro-bump)3D:还是焊球思路,只是缩到约 36µm 间距,连接密度是标准倒装的 31 倍。但焊料有物理下限:间距逼近 20µm 以下,凸点会互相短路,而且每个焊点都是一段电阻。\n\n混合键合(hybrid bonding)干脆去掉焊料。两个表面都抛光到亚纳米级平整;介质面一贴即合,铜垫事先凹陷在表面下约 5 纳米,退火时受热膨胀、直至彼此熔为一体——铜对铜,「无凸点」。间距进入 10µm 以内,路线图直指数百纳米。首个大众市场产品 AMD 3D V-Cache 用 17µm 间距,密度约为倒装的 138 倍。SemiAnalysis 称混合键合是「EUV 以来最具变革性的制造创新」。\n\n代价是残酷的物理:一颗高度仅 1µm 的颗粒,会撑出直径约 10mm 的键合空洞——一粒尘埃报废指甲盖大小的一片连接。这要求 ISO 1-3 级洁净室,以及沉积、电镀、精密 CMP 抛光这些传统封测厂(OSAT,如日月光、Amkor)根本不具备的前道设备。结构性的落点就在这里:混合键合把最先进的封装搬进了晶圆厂——台积电叫 SoIC,Intel 叫 Foveros Direct——「组装」从廉价外包变成了晶圆厂生意。还有一个要记住的取舍:晶圆对晶圆(W2W)整片对准精度可到 50nm 以内,但没法剔除坏 die;裸片对晶圆(D2W)只放 KGD,却更慢、更脏。"
+  },
+  {
+   "heading_en": "The family album: InFO, EMIB, Foveros",
+   "heading_zh": "族谱速览:InFO、EMIB、Foveros",
+   "body_en": "Three names you will meet constantly — one paragraph each.\n\nInFO (TSMC, 'Integrated Fan-Out') solves a different problem: a die that needs more connections than its own footprint can hold. The die is embedded in molding compound and its IO is 'fanned out' across that larger artificial surface through fine RDL wiring — no substrate needed, thinner and cheaper than 2.5D. Every iPhone processor since 2016's A10 ships in InFO, and the wafer-scale variant, InFO_SoW, packaged the 25-die training tile of Tesla's Dojo supercomputer.\n\nEMIB (Intel, 'Embedded Multi-die Interconnect Bridge') is the anti-interposer: instead of a full slab of silicon under everything, embed a fingernail-sized silicon bridge into the organic substrate exactly under the seam where two dies meet. You get interposer-class wiring density where the traffic actually flows, and cheap substrate everywhere else. Intel's Sapphire Rapids Xeons mix 55µm-pitch EMIB regions with 100µm standard bumps on a single package.\n\nFoveros (Intel) is the 3D entry: true die-on-die stacking on ~36µm micro-bumps — Meteor Lake stacks its compute tile on a base tile — with Foveros Direct as the bumpless, hybrid-bonded successor. A mental map for everything above: CoWoS and EMIB place dies side-by-side (2.5D); Foveros and SoIC stack them vertically (3D); InFO spreads one die's connections outward (fan-out).",
+   "body_zh": "三个高频名词,各用一段讲透。\n\nInFO(台积电,集成扇出)解决的是另一类问题:die 需要的引脚比自己的底面积装得下的还多。做法是把 die 埋进塑封料里,用细密的 RDL 布线把 IO「扇出」到这块更大的人造表面上——不需要基板,比 2.5D 更薄更便宜。2016 年 A10 起,每一代 iPhone 处理器都封在 InFO 里;晶圆级变体 InFO_SoW 则封出了特斯拉 Dojo 超算的 25-die 训练 tile。\n\nEMIB(Intel,嵌入式多芯片互连桥)是「反中介层」:与其在所有 die 底下垫一整片硅,不如只在两颗 die 交界的缝隙正下方、往有机基板里嵌一条指甲盖大小的硅桥。数据真正流动的地方拿到中介层级的布线密度,其余部分继续用便宜基板。Intel 的 Sapphire Rapids 至强就在同一封装上混用 55µm 间距的 EMIB 区和 100µm 的标准凸点。\n\nFoveros(Intel)是 3D 这一支:真正的 die 叠 die,走约 36µm 微凸点——Meteor Lake 把计算 tile 叠在基底 tile 上;无凸点的混合键合版叫 Foveros Direct。把上面所有名词装进一张心智地图:CoWoS 和 EMIB 是并排(2.5D);Foveros 和 SoIC 是竖叠(3D);InFO 是摊开(扇出)。"
+  },
+  {
+   "heading_en": "The new bottleneck — and the new profit pool",
+   "heading_zh": "新瓶颈,也是新利润池",
+   "body_en": "Since 2023, whenever Nvidia GPUs were scarce, the binding constraint was usually not wafers — TSMC could print the compute dies — but CoWoS capacity and HBM supply. 'Advanced packaging' became, in effect, the production schedule of AI compute.\n\nThe money followed. TSMC's CoWoS revenue grew from about $0.6B in 2018 to $9.6B in 2025 — 2.5× what Apple's InFO brings in — and advanced packaging passed 10% of TSMC's total revenue. A step once priced in cents per chip now prices in hundreds of dollars per AI accelerator.\n\nInside the flow, the chokepoints are specific and investable. TSV formation — the etch-and-plate sequence that drills the vertical vias — bottlenecks both HBM and CoWoS. HBM's stacking arithmetic compounds the problem: 12-high stacks force each DRAM die to be thinned to 30µm, too fragile for fast conventional bonders, mandating slow thermocompression bonding (TCB) tools. And hybrid-bonding die placers trade throughput against accuracy so brutally that rated speeds roughly halve in practice.\n\nBecause hybrid bonding is a front-end process, each new generation shifts value away from OSATs toward foundries and fab-tool vendors — deposition, CMP, dicing, bonders. So when a headline says 'TSMC doubles CoWoS capacity', read it as: that is the ceiling on next year's AI accelerator shipments — and the toll for that ceiling accrues to a shrinking list of companies.",
+   "body_zh": "2023 年以来英伟达 GPU 每次缺货,卡脖子的通常不是晶圆——计算 die 台积电印得出来——而是 CoWoS 产能和 HBM 供给。「先进封装」四个字,实际上就是 AI 算力的排产表。\n\n钱也跟着来了。台积电 CoWoS 营收从 2018 年约 $0.6B 涨到 2025 年 $9.6B,是苹果 InFO 贡献的 2.5 倍;先进封装占台积电总营收突破一成。一道曾经按「分」计价的工序,如今在每颗 AI 加速器上以数百美元计。\n\n流程内部的堵点具体而可投资:TSV 制程——刻蚀加电镀打竖孔的那一段——同时卡住 HBM 和 CoWoS;HBM 的堆叠数学层层加码,12 层堆叠把每颗 DRAM die 减薄到 30µm,快速的常规贴片机根本抓不住,只能上慢速的热压键合(TCB)设备;混合键合贴片机在吞吐与精度之间的取舍狠到额定速度实测大约打对折。\n\n而由于混合键合本质是前道工艺,每往前走一代,价值就从 OSAT 向晶圆厂和前道设备商(沉积、CMP、切割、键合机)迁移一分。下次看到「台积电 CoWoS 产能翻倍」的标题,请读成:这是明年 AI 加速器出货量的天花板——而收这份「天花板过路费」的公司,名单正在变短。"
+  }
+ ],
+ "key_numbers": [
+  {
+   "metric_en": "Reticle limit (largest printable die)",
+   "metric_zh": "光罩极限(单次曝光最大芯片面积)",
+   "value": "26mm × 33mm ≈ 858mm² per exposure field",
+   "source_name": "SemiAnalysis — Die Size And Reticle Conundrum – Cost Model With Lithography Scanner Throughput",
+   "source_url": "https://semianalysis.com/2022/06/19/die-size-and-reticle-conundrum-cost/"
+  },
+  {
+   "metric_en": "Transistor vs IO scaling",
+   "metric_zh": "晶体管对 IO 微缩速度",
+   "value": "Transistor density 2× every ~2 years; chip IO data rates 2× every ~4 years",
+   "source_name": "SemiAnalysis — Advanced Packaging Part 1 – Pad Limited Designs",
+   "source_url": "https://semianalysis.com/2021/12/15/advanced-packaging-part-1-pad-limited/"
+  },
+  {
+   "metric_en": "Interconnect density ladder (vs standard 150-200µm flip chip)",
+   "metric_zh": "互连密度阶梯(对 150-200µm 标准倒装)",
+   "value": "Fanout ~8× → 2.5D interposer ~16× → 36µm micro-bump 3D 31× → 17µm hybrid bonding (V-Cache) 138× → Sony 6.3µm CIS 567×",
+   "source_name": "SemiAnalysis — Advanced Packaging Part 1 – Pad Limited Designs",
+   "source_url": "https://semianalysis.com/2021/12/15/advanced-packaging-part-1-pad-limited/"
+  },
+  {
+   "metric_en": "Wafer price, N7 vs N5",
+   "metric_zh": "晶圆价格:N7 对 N5",
+   "value": "~$9,500 (N7) vs ~$16,000 (N5) — cost-per-transistor stopped falling",
+   "source_name": "SemiAnalysis — Advanced Packaging Part 1 – Pad Limited Designs",
+   "source_url": "https://semianalysis.com/2021/12/15/advanced-packaging-part-1-pad-limited/"
+  },
+  {
+   "metric_en": "TSMC CoWoS revenue, 2025",
+   "metric_zh": "台积电 CoWoS 营收(2025)",
+   "value": "$9.6B — 2.5× InFO, up from ~$0.6B in 2018",
+   "source_name": "SemiAnalysis — Apple-TSMC: The Partnership That Built Modern Semiconductors",
+   "source_url": "https://newsletter.semianalysis.com/p/apple-tsmc-the-partnership-that-built"
+  },
+  {
+   "metric_en": "Hybrid bonding particle sensitivity",
+   "metric_zh": "混合键合颗粒敏感度",
+   "value": "A particle just 1µm tall → a bond void ~10mm in diameter",
+   "source_name": "SemiAnalysis — Hybrid Bonding Process Flow - Advanced Packaging Part 5",
+   "source_url": "https://semianalysis.com/2024/02/09/hybrid-bonding-process-flow-advanced/"
+  },
+  {
+   "metric_en": "HBM die thinning (SK Hynix 12-hi HBM3)",
+   "metric_zh": "HBM 减薄(海力士 12 层 HBM3)",
+   "value": "Each DRAM die thinned to 30µm — mandating TCB bonders",
+   "source_name": "SemiAnalysis — Advanced Packaging Part 3 – Intel's Curious Bet on Thermocompression Bonding",
+   "source_url": "https://semianalysis.com/2022/01/19/advanced-packaging-part-3-intels/"
+  }
+ ],
+ "images": [
+  {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Nvidia%4016nm%40Pascal%40GP100%40Tesla_P100%40T_Taiwan_1912A1_PN9G70.S6W_GP100-897-A1_DSCx10_topmetal%40Interposer_5x.jpg/1920px-Nvidia%4016nm%40Pascal%40GP100%40Tesla_P100%40T_Taiwan_1912A1_PN9G70.S6W_GP100-897-A1_DSCx10_topmetal%40Interposer_5x.jpg",
+   "source_name": "Wikimedia Commons — Fritzchens Fritz (CC0)",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Nvidia@16nm@Pascal@GP100@Tesla_P100@T_Taiwan_1912A1_PN9G70.S6W_GP100-897-A1_DSCx10_topmetal@Interposer_5x.jpg",
+   "caption_en": "The bare silicon interposer of an Nvidia Tesla P100 (GP100) with the dies removed: the large central field of micro-bump pads carried the GPU, the four side fields its HBM2 stacks. At ~1,166mm² it is larger than the reticle limit — a piece of silicon that is pure wiring, stitched together from multiple exposures.",
+   "caption_zh": "移除裸片后的英伟达 Tesla P100(GP100)硅中介层:中央大片微凸点区原本承载 GPU,两侧四块区域承载 HBM2 堆叠。约 1,166mm² 的面积超过光罩极限——这块硅只做布线,靠多次曝光拼接而成。"
+  },
+  {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Simplyfied_diagram_of_HBM_section_view.png/1920px-Simplyfied_diagram_of_HBM_section_view.png",
+   "source_name": "Wikimedia Commons — 思考的苇丛 (CC BY-SA 4.0)",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Simplyfied_diagram_of_HBM_section_view.png",
+   "caption_en": "Simplified cross-section of HBM integration: thinned DRAM dies stacked on a base logic die and laced with TSVs, connected by micro-bumps to the interposer, which fans the signals down into the package substrate — 2.5D packaging in one picture.",
+   "caption_zh": "HBM 集成的简化剖面:减薄的 DRAM die 堆叠在基底逻辑 die 上、以 TSV 垂直贯通,经微凸点落在中介层上,再由中介层把信号引入封装基板——一张图看懂 2.5D。"
+  },
+  {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/b/b6/AMD_Epyc_7702_delidded.jpg",
+   "source_name": "Wikimedia Commons — Fritzchens Fritz (CC0)",
+   "source_url": "https://commons.wikimedia.org/wiki/File:AMD_Epyc_7702_delidded.jpg",
+   "caption_en": "Chiplets in the flesh: a delidded AMD EPYC 7702 — eight small 7nm compute chiplets surrounding one 12nm IO die. Small dies win the defect lottery, and the IO die doesn't need the expensive node.",
+   "caption_zh": "Chiplet 实物:开盖的 AMD EPYC 7702——八颗 7nm 小计算 chiplet 围着一颗 12nm IO die。小 die 在缺陷抽签中占便宜,IO die 则用不着昂贵的先进节点。"
+  }
+ ],
+ "own_fig": {
+  "id": "pm06",
+  "concept_en": "One package, three geometries: 2D flip chip vs 2.5D CoWoS vs 3D hybrid bonding, plus the interconnect-density ladder",
+  "concept_zh": "一张图三种几何:2D 倒装 vs 2.5D CoWoS vs 3D 混合键合,附互连密度阶梯",
+  "spec": "Top row: three side-by-side cross-section schematics sharing one visual grammar (package substrate = green slab; silicon dies = gray; solder = orange circles; copper = brown). (a) 2D flip chip: one die on the substrate via coarse 150-200µm solder bumps; callout on this panel: 'reticle limit: largest printable die = 26×33mm ≈ 858mm²'. (b) 2.5D CoWoS: a GPU die plus two HBM stacks (each drawn as 8 thin DRAM dies over a base die, with vertical TSV dots) sitting on a silicon interposer via ~45-55µm micro-bumps; the interposer has TSVs down to larger C4 bumps on the substrate; label: 'interposer = pure wiring'. (c) 3D SoIC/hybrid bonding: an SRAM die fused face-to-face onto a compute die with a flat, bumpless Cu-Cu interface (no circles at the joint); label: '<10µm pitch, no solder'. Bottom row: horizontal log-scale bar chart titled 'Relative interconnect density vs standard flip chip (150-200µm) = 1×' with bars: fanout (90-60µm) 8×; 2.5D interposer (55-50µm) 16×; 3D micro-bump (36µm) 31×; hybrid bonding V-Cache (17µm) 138×; Sony CIS (6.3µm) 567×. Data source for the ladder: SemiAnalysis, 'Advanced Packaging Part 1 – Pad Limited Designs' (https://semianalysis.com/2021/12/15/advanced-packaging-part-1-pad-limited/)."
+ },
+ "why_en": "Packaging is where AI scarcity gets set and where semiconductor value is migrating. Since 2023, accelerator shipments have been capped less by wafer starts than by CoWoS and HBM capacity — so packaging announcements are, in effect, Nvidia's production schedule. The technology transition matters as much as the volume: hybrid bonding's fab-grade cleanliness pulls the highest-value packaging out of OSATs and into TSMC and Intel, and converts packaging capex into front-end tool orders (deposition, CMP, bonders, dicing). Reading a packaging roadmap tells you who collects the toll — foundries and tool vendors — and who gets commoditized.",
+ "why_zh": "封装是 AI 稀缺性定价的地方,也是半导体价值迁移的方向。2023 年以来,加速器出货的上限往往不在晶圆投片,而在 CoWoS 与 HBM 产能——封装扩产公告实际上就是英伟达的排产表。技术路线的切换与产能数字同样重要:混合键合的晶圆厂级洁净度门槛,把最高价值的封装环节从 OSAT 手里拉进台积电与 Intel,并把封装资本开支变成前道设备订单(沉积、CMP、键合、切割)。读懂封装路线图,你就知道过路费归谁——晶圆厂与设备商——而谁在被商品化。",
+ "related_sectors": [
+  "04_packaging",
+  "02_foundry",
+  "03_memory",
+  "01_accelerators",
+  "05_equipment"
+ ]
+}

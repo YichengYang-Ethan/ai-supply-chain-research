@@ -1,0 +1,121 @@
+{
+ "module_id": "03",
+ "title_en": "Anatomy of an AI Accelerator",
+ "title_zh": "AI 加速器解剖",
+ "tagline_en": "Read a GPU spec sheet like an architect: what SIMT, Tensor Cores, HBM bandwidth, FP4 and 'NVL72' actually mean — and which of them is the real bottleneck.",
+ "tagline_zh": "像架构师一样读懂 GPU 规格表：SIMT、Tensor Core、HBM 带宽、FP4、NVL72 各自在说什么——以及真正卡脖子的到底是哪一个。",
+ "sections": [
+  {
+   "heading_en": "A GPU is a width machine, not a speed machine",
+   "heading_zh": "GPU 拼的不是快，而是宽",
+   "body_en": "Start with the misconception. A CPU is built to finish one task as soon as possible: a handful of sophisticated cores stuffed with machinery — branch predictors, deep caches, out-of-order execution — whose only job is to hide latency. A GPU makes the opposite bet. It strips most of that machinery out and spends the silicon on thousands of simple arithmetic units, accepting that any single task runs slower, as long as the total volume of work per second is enormous. A CPU is a sports car; a GPU is a freight train.\n\nThe organizing unit is the Streaming Multiprocessor (SM) — an H100 carries 132 of them. Inside an SM, threads are not scheduled one by one: they are bundled in groups of 32 called warps, and the hardware issues one instruction that all 32 threads execute simultaneously, each on its own piece of data. Nvidia calls this SIMT — single instruction, multiple threads. The point is amortization: fetching and decoding an instruction is expensive, so you do it once and harvest 32 results.\n\nThis design fits neural networks almost embarrassingly well. Training and inference consist of applying the same multiply-and-add to millions of numbers, with essentially no branching — exactly the shape of work a SIMT machine devours.\n\nFinally, hold the three-level memory picture: each thread has private registers; threads in a block share a fast scratchpad inside their SM; and everything ultimately loads from the big off-chip memory stack, HBM. The entire economics of AI hardware hangs on how rarely you can afford to touch that outermost level.",
+   "body_zh": "先纠正一个直觉误区。CPU 的设计目标是让单个任务尽快完成：少数几个复杂核心，塞满了分支预测、多级缓存、乱序执行这些「为掩盖延迟而生」的机关。GPU 反其道而行：把这些机关大幅裁掉，省下的硅面积全部拿去堆几千个简单的算术单元——单个任务慢一点没关系，只要每秒完成的总工作量足够庞大。打个比方：CPU 是跑车，GPU 是货运列车。\n\nGPU 的组织单元叫流式多处理器（SM），一颗 H100 上有 132 个。SM 内部的线程不是一个个调度的，而是每 32 个捆成一束，称为 warp：硬件发射一条指令，32 个线程同时执行，各自处理自己那份数据。英伟达称之为 SIMT（单指令多线程）。要义在于摊薄成本：取指令、译码很贵，做一次就能收获 32 份结果。\n\n这套设计与神经网络的契合近乎「作弊」：训练和推理的本质，就是对上亿个数字反复施加同一种乘加运算，几乎没有分支判断——正是 SIMT 机器天生最能吞吐的工作形态。\n\n最后记住三级存储结构：每个线程有私有寄存器；同一线程块共享 SM 内的高速便签内存；所有数据最终都要从片外的大内存 HBM 读入。AI 硬件的全部经济学，都系在「你能多久不去碰最外面那一层」上。"
+  },
+  {
+   "heading_en": "Tensor Cores and systolic arrays: engines that do nothing but matrix math",
+   "heading_zh": "Tensor Core 与脉动阵列：只会做矩阵乘法的引擎",
+   "body_en": "Why did GPUs sprout dedicated matrix hardware? Energy accounting. In a GPU pipeline, issuing an instruction costs roughly 30 picojoules, while the floating-point multiply-add it triggers costs only about 1.5 pJ — a 20x overhead. The paperwork costs twenty times more than the work. The fix is fatter instructions: with Volta (2017), Nvidia introduced the Tensor Core, hardware that executes one fused instruction performing an entire small matrix-multiply-and-accumulate. One instruction issue now buys hundreds of operations, and the overhead is amortized away. Every generation since — Ampere, Hopper, Blackwell — has enlarged the matrix 'tile' each instruction chews through.\n\nGoogle's TPU pushes the same logic to its endpoint. Its Matrix Multiply Unit is a systolic array: a fixed 256x256 grid of multiply-accumulate cells. Weights are pre-loaded and stay put; input data pulses through the grid in rhythmic waves (hence 'systolic', as in heartbeat), and partial results pass directly between neighboring cells — never visiting a register file, never waiting on an instruction. Control overhead approaches zero. Per SemiAnalysis, Nvidia's effective array went from roughly 32x32 in Hopper to 64x64 in Blackwell, still far below the TPU's 256x256: bigger arrays reuse data better and burn less energy per operation, but are harder to program and fit fewer workload shapes.\n\nThat is the whole GPU-versus-ASIC divide in one sentence: the GPU wraps its matrix engines in a flexible SIMT machine that can run anything; the TPU bets nearly the entire die on a single operation, executed with unmatched efficiency.",
+   "body_zh": "GPU 为什么要长出专门的矩阵硬件？答案是一笔能耗账。在 GPU 流水线里，发射一条指令约耗 30 皮焦，而它触发的那次浮点乘加只耗约 1.5 皮焦——「办手续」的开销是「干活」本身的 20 倍。解决办法是把指令做「粗」：2017 年 Volta 架构引入 Tensor Core，一条融合指令直接完成一整块小矩阵的乘加运算，一次指令发射换来成百上千次计算，开销被摊薄到可以忽略。此后每一代——Ampere、Hopper、Blackwell——都在加大每条指令啃下的矩阵「瓦片」尺寸。\n\n谷歌 TPU 把同一逻辑推到极致。它的矩阵乘单元（MXU）是一个脉动阵列：256×256 个乘加单元排成固定网格，权重预先装载、原地不动，输入数据像脉搏一样一波波流过网格（systolic 一词即取自心脏搏动），部分结果直接传给相邻单元——不经过寄存器堆，也不等待任何指令，控制开销趋近于零。据 SemiAnalysis 拆解，英伟达的等效阵列从 Hopper 的约 32×32 扩到 Blackwell 的约 64×64，仍远小于 TPU 的 256×256：阵列越大，数据复用越充分、单位运算能耗越低，但编程越难，适配的负载形状也越窄。\n\nGPU 与 ASIC 之争因此一句话可以讲完：GPU 用灵活的 SIMT 机器包裹矩阵引擎，什么都能跑；TPU 把几乎整颗芯片押注在一种运算上，换取无可匹敌的效率。"
+  },
+  {
+   "heading_en": "The real speed limit: arithmetic intensity and the roofline",
+   "heading_zh": "真正的限速器：算术强度与屋顶线",
+   "body_en": "Every spec sheet leads with FLOPS — floating-point operations per second. But FLOPS only answer 'how fast could the chip compute if the data were already in place.' The other number, memory bandwidth, answers 'how fast can data arrive.' Picture a restaurant kitchen: FLOPS are chefs, bandwidth is the waiters carrying ingredients. Hire a hundred chefs with three waiters and the chefs mostly stand idle.\n\nThe bridge between the two is arithmetic intensity: how many operations you perform per byte fetched from memory. The roofline model then compresses everything into one line: attainable performance = min(peak FLOPS, intensity x bandwidth). Plotted, it is a slanted roof that climbs with intensity (bandwidth-limited), then flattens at the compute ceiling.\n\nPlug in an H100 SXM: about 1,979 TFLOPS of dense FP8 compute against 3.35 TB/s of HBM3 bandwidth. You need roughly 590 FP8 operations per byte moved just to keep the arithmetic units busy. Below that threshold you are memory-bound, and buying more FLOPS is money wasted; above it, compute-bound.\n\nMatrix multiplication is the rare workload that can climb the roof: as matrices grow, compute rises with n cubed while data movement rises with n squared, so intensity grows with scale. That is why large-batch training and prompt processing (prefill) run compute-bound. But generating tokens one at a time (decode) re-reads the entire model's weights plus a growing KV cache for every single token while doing trivial math per byte — intensity of order one, hopelessly memory-bound. This one distinction explains why HBM became the industry's chokepoint, and why inference silicon is splitting in two: Nvidia's Rubin CPX piles cheap GDDR7 and raw FLOPS into a dedicated prefill chip, while decode hardware piles on HBM bandwidth.",
+   "body_zh": "每张规格表都把 FLOPS（每秒浮点运算次数）放在第一行，但 FLOPS 只回答「数据就位时芯片能算多快」；另一个数字——内存带宽——回答「数据能多快送到」。把芯片想成餐厅后厨：FLOPS 是厨师，带宽是端菜送料的服务员。雇一百个厨师却只配三个服务员，厨师大部分时间只能干瞪眼。\n\n连接两者的概念叫算术强度：每从内存搬 1 字节数据，能做几次运算。屋顶线（roofline）模型把一切压缩成一行公式：可达性能 = min(峰值算力, 算术强度 × 带宽)。画在图上，先是一段随强度爬升的斜屋顶（带宽受限区），到顶后变成平屋顶（算力受限区）。\n\n代入 H100 SXM 的真实数字：稠密 FP8 算力约 1,979 TFLOPS，HBM3 带宽 3.35 TB/s——每搬 1 字节要做约 590 次 FP8 运算，算术单元才不闲置。低于这个门槛就是「内存受限」，再买 FLOPS 也是浪费；高于它才轮到「算力受限」。\n\n矩阵乘法是少数能沿屋顶往上爬的负载：规模变大时，计算量按 n³ 增长、数据搬运只按 n² 增长，算术强度随规模线性提高。所以大批量训练和提示词处理（prefill）能吃满算力。而逐 token 生成（decode）每出一个字都要重读整个模型权重和不断变长的 KV cache，每字节却只做一两次运算——强度低到绝望，注定内存受限。这一个区别，解释了 HBM 为何成为全行业的咽喉，也解释了推理芯片正在一分为二：英伟达 Rubin CPX 用便宜的 GDDR7 堆算力专跑 prefill，decode 硬件则拼命堆 HBM 带宽。"
+  },
+  {
+   "heading_en": "Shrinking the numbers: FP32 to FP4",
+   "heading_zh": "把数字越写越短：FP32 到 FP4",
+   "body_en": "A floating-point number is binary scientific notation: one sign bit, exponent bits that set the range, mantissa bits that set the precision. FP32 spends 32 bits per number. Cut the bits and everything improves at once: more multipliers fit in the same silicon area, and more numbers fit through every byte of memory and bandwidth — you raise the compute ceiling and effectively fatten the memory pipe in the same stroke. Each halving of precision roughly doubles throughput.\n\nNeural networks tolerate this surprisingly well because they are statistical systems that absorb noise. So training moved from FP32 to BF16; Hopper introduced FP8; Blackwell introduced FP4. An FP4 number can take only 16 distinct values — used naively, that crushes the data. The trick is microscaling (the MXFP formats, and Nvidia's more accurate NVFP4): numbers are stored in small blocks that share one scaling factor, recovering dynamic range while keeping 4-bit throughput.\n\nThe payoff is measured, not theoretical. SemiAnalysis's InferenceX v2 benchmark, run across roughly 1,000 GPUs, shows a GB300 NVL72 delivering up to 100x an H100's inference throughput when the H100 runs FP8 and Blackwell runs FP4 — and 65x when both run FP8. Read the gap between those two numbers carefully: a large share of each 'hardware' generation's gain is really the number format, which only pays off once software and numerical methods mature. The flip side is triage under a fixed silicon budget: to make room for low precision, Nvidia has been shrinking FP64 (scientific-computing precision) support generation by generation.",
+   "body_zh": "浮点数就是二进制的科学计数法：1 位符号，若干位指数管「范围」，若干位尾数管「精细度」。FP32 每个数花 32 位。把位数砍短，所有指标同时改善：同样的硅面积塞得下更多乘法器，同样的内存和带宽装得下更多数字——等于同时抬高算力天花板、变相加粗内存管道。精度每减半，吞吐大致翻倍。\n\n神经网络对此出奇地宽容，因为它本质是统计系统，容得下噪声。于是训练从 FP32 走到 BF16，Hopper 一代引入 FP8，Blackwell 引入 FP4。一个 FP4 数只有 16 种取值，直接使用会把数据压碎；诀窍在微缩放格式（MXFP 系列，以及精度更高的英伟达自家 NVFP4）：把数字按小块分组，每块共享一个缩放因子，既保住动态范围，又享受 4 位的吞吐。\n\n回报是实测出来的，不是理论值。SemiAnalysis 的 InferenceX v2 基准覆盖约 1,000 张 GPU：当 H100 跑 FP8、Blackwell 跑 FP4 时，GB300 NVL72 的推理吞吐最高可达 H100 的 100 倍；若两边都跑 FP8，则是 65 倍。仔细读这两个数字之间的差距：每代「硬件」进步里，相当一部分其实是数字格式的功劳——而格式红利要等软件和数值方法成熟才能兑现。硬币的另一面是硅面积预算下的取舍：为了给低精度腾地方，英伟达正在逐代削减 FP64（科学计算精度）的硬件支持。"
+  },
+  {
+   "heading_en": "The accelerator is now a rack",
+   "heading_zh": "加速器已经是一整个机架",
+   "body_en": "No single chip can hold, let alone serve, a frontier model. Its weights are sharded across dozens to thousands of chips that must exchange partial results after every layer of computation — so the wires between chips became part of the computer, and vendors now compete on scale-up world size: how many accelerators are fused into one high-bandwidth domain that software can treat as a single giant chip.\n\nNvidia's GB200 NVL72 is the emblem of this shift: one liquid-cooled rack holding 72 Blackwell GPUs and 36 Grace CPUs on a single NVLink domain — Nvidia's own press materials describe it as 'acting as a single GPU' with 1.4 exaFLOPS and 30 TB of fast memory. Google answers with the TPUv7 pod: 9,216 chips arranged in a 3D torus and stitched together by 48 optical circuit switches. AMD's MI355X still tops out at 8 — a single number that, per SemiAnalysis, keeps it out of frontier reasoning inference until the MI450X rack arrives.\n\nTwo consequences follow. First, TCO replaces price: a GB200 NVL72 costs about 1.6x an H100 cluster all-in, so it must prove itself more than 1.6x faster to be worth buying, and the reliability of a 72-GPU rack is the hidden tax. Second, the system includes software: H100 training efficiency (MFU) climbed from 34% to 54% in BF16 within twelve months with zero hardware change, purely from CUDA library updates — a compounding moat no spec sheet shows. Die plus HBM plus packaging plus fabric plus power plus compiler stack: the sector chapters that follow dissect that full system one layer at a time.",
+   "body_zh": "没有任何单颗芯片装得下、更伺候不动一个前沿模型。权重被切分到几十乃至上千颗芯片上，每算完一层就要交换部分结果——芯片之间的「电线」从此成了计算机本体的一部分，厂商真正比拼的指标变成 scale-up 世界规模：多少颗加速器被熔成一个高带宽域，让软件可以当作一颗巨型芯片来使唤。\n\n英伟达 GB200 NVL72 是这一转向的图腾：一个液冷机架装下 72 颗 Blackwell GPU 加 36 颗 Grace CPU，全部落在同一个 NVLink 域内——官方新闻稿的说法是「像一颗 GPU 一样工作」，算力 1.4 exaFLOPS、快内存 30TB。谷歌的回应是 TPUv7 pod：9,216 颗芯片排成 3D 环面，由 48 台光路交换机（OCS）缝合。AMD 的 MI355X 至今停在 8 颗——按 SemiAnalysis 的判断，单是这一个数字就把它挡在前沿推理市场之外，直到 MI450X 的机架问世。\n\n由此推出两层含义。其一，TCO 取代单价：GB200 NVL72 的全口径成本约为 H100 集群的 1.6 倍，必须证明自己快过 1.6 倍才值回票价，而 72 卡机架的可靠性是隐藏税负。其二，系统包含软件：硬件分毫未动，H100 的训练效率（MFU）在 12 个月内从 BF16 的 34% 提到 54%，纯靠 CUDA 库升级——这是规格表上看不见的复利护城河。裸片 + HBM + 封装 + 互连 + 供电散热 + 编译器栈：后面的行业章节，正是把这套完整系统逐层拆开。"
+  }
+ ],
+ "key_numbers": [
+  {
+   "metric_en": "Energy to issue one GPU instruction vs the FP16 math op it triggers",
+   "metric_zh": "发射一条 GPU 指令 vs 它触发的 FP16 运算的能耗",
+   "value": "~30 pJ vs ~1.5 pJ (20x overhead) — the reason Tensor Cores exist",
+   "source_name": "SemiAnalysis — NVIDIA Tensor Core Evolution: From Volta To Blackwell",
+   "source_url": "https://semianalysis.com/2025/06/23/nvidia-tensor-core-evolution-from-volta-to-blackwell/"
+  },
+  {
+   "metric_en": "H100 SXM: peak FP8 compute vs HBM3 bandwidth",
+   "metric_zh": "H100 SXM：FP8 峰值算力 vs HBM3 带宽",
+   "value": "3,958 TFLOPS FP8 (with sparsity) vs 3.35 TB/s; 80 GB HBM3",
+   "source_name": "NVIDIA — H100 Tensor Core GPU (official specifications)",
+   "source_url": "https://www.nvidia.com/en-us/data-center/h100/"
+  },
+  {
+   "metric_en": "Matrix-engine array size: Nvidia vs Google TPU",
+   "metric_zh": "矩阵引擎阵列尺寸：英伟达 vs 谷歌 TPU",
+   "value": "Hopper ~32x32 → Blackwell ~64x64; TPU 256x256",
+   "source_name": "SemiAnalysis — NVIDIA GTC 2025 - Built For Reasoning, Vera Rubin, Kyber, CPO, Dynamo Inference",
+   "source_url": "https://semianalysis.com/2025/03/19/nvidia-gtc-2025-built-for-reasoning-vera-rubin-kyber-cpo-dynamo-inference-jensen-math-feynman/"
+  },
+  {
+   "metric_en": "GB200 NVL72 rack contents ('acts as a single GPU')",
+   "metric_zh": "GB200 NVL72 机架构成（「像一颗 GPU 一样工作」）",
+   "value": "72 Blackwell GPUs + 36 Grace CPUs, one NVLink domain; 1.4 exaFLOPS, 30 TB fast memory",
+   "source_name": "NVIDIA Newsroom — NVIDIA Blackwell Platform Arrives to Power a New Era of Computing",
+   "source_url": "https://nvidianews.nvidia.com/news/nvidia-blackwell-platform-arrives-to-power-a-new-era-of-computing"
+  },
+  {
+   "metric_en": "TPUv7 Ironwood maximum scale-up pod",
+   "metric_zh": "TPUv7 Ironwood 最大 scale-up pod",
+   "value": "9,216 TPUs in one 3D-torus domain, via 48 optical circuit switches",
+   "source_name": "SemiAnalysis — TPUv7: Google Takes a Swing at the King",
+   "source_url": "https://newsletter.semianalysis.com/p/tpuv7-google-takes-a-swing-at-the"
+  },
+  {
+   "metric_en": "H100 training-efficiency (MFU) gain from software alone, 12 months",
+   "metric_zh": "H100 训练效率（MFU）12 个月纯软件提升",
+   "value": "BF16 MFU 34% → 54% (+57% throughput), zero hardware change",
+   "source_name": "SemiAnalysis — MI300X vs H100 vs H200 Benchmark Part 1: Training - CUDA Moat Still Alive",
+   "source_url": "https://semianalysis.com/2024/12/22/mi300x-vs-h100-vs-h200-benchmark-part-1-training/"
+  },
+  {
+   "metric_en": "GB300 NVL72 vs H100 inference throughput (format included)",
+   "metric_zh": "GB300 NVL72 对 H100 推理吞吐（含格式红利）",
+   "value": "up to 100x (H100 FP8 → GB300 FP4); 65x if both run FP8",
+   "source_name": "SemiAnalysis — InferenceX v2: NVIDIA Blackwell Vs AMD vs Hopper",
+   "source_url": "https://newsletter.semianalysis.com/p/inferencex-v2-nvidia-blackwell-vs"
+  }
+ ],
+ "images": [
+  {
+   "url": "https://iprsoftwaremedia.com/219/files/20242/202403180530/65f7d1913d633238713719f6_NVIDIA-GB200-NVL72/NVIDIA-GB200-NVL72_mid.jpg",
+   "source_name": "NVIDIA Newsroom",
+   "source_url": "https://nvidianews.nvidia.com/news/nvidia-blackwell-platform-arrives-to-power-a-new-era-of-computing",
+   "caption_en": "Nvidia's GB200 NVL72: 72 Blackwell GPUs and 36 Grace CPUs fused into one liquid-cooled, rack-scale 'single GPU' — the compute-tray stack and the NVLink interconnect spine that makes it one machine.",
+   "caption_zh": "英伟达 GB200 NVL72：72 颗 Blackwell GPU 与 36 颗 Grace CPU 熔成一台液冷机架级「单一 GPU」——计算托盘堆栈与让它成为一台机器的 NVLink 互连背脊。"
+  },
+  {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/9/99/TPU_v4.png",
+   "source_name": "Wikimedia Commons (CC BY 4.0; Jouppi et al., Google TPUv4 paper)",
+   "source_url": "https://commons.wikimedia.org/wiki/File:TPU_v4.png",
+   "caption_en": "A Google TPU v4 board: four liquid-cooled TPU packages. Each chip is built around fixed systolic-array matrix engines — the ASIC alternative to the GPU's flexible SIMT cores.",
+   "caption_zh": "谷歌 TPU v4 板卡：四颗液冷 TPU 封装。每颗芯片围绕固定的脉动阵列矩阵引擎构建——与 GPU 灵活 SIMT 核心相对的 ASIC 路线。"
+  }
+ ],
+ "own_fig": {
+  "id": "pm03",
+  "concept_en": "The roofline of an H100: where FLOPS stop mattering and memory bandwidth takes over",
+  "concept_zh": "H100 的屋顶线：FLOPS 从哪一点开始失效，内存带宽从哪一点开始接管",
+  "spec": "Log-log roofline chart for a single H100 SXM GPU. X-axis: arithmetic intensity (FLOPs per byte), 0.5 to 10,000. Y-axis: attainable performance (TFLOPS), 1 to 4,000. Draw (a) a slanted roof y = 3.35 TB/s x intensity (memory-bound wall); (b) a flat roof at 1,979 TFLOPS dense FP8; (c) a dashed lower roof at 989 TFLOPS dense BF16 to show how the FP8 format doubles the ceiling; ridge point where roofs meet at ~590 FLOPs/byte (annotate value). Plot three labeled workload dots: 'LLM decode, small batch' at intensity ~1-2, pinned to the slanted roof (~3-7 TFLOPS attained, <0.5% of peak); 'prefill / large-batch GEMM' at intensity ~1,000+ sitting on the flat roof; 'mid-size training step' near the ridge. Two callout arrows: on the slanted roof 'more HBM bandwidth lifts this wall (see Memory & HBM chapter)'; on the flat roof 'more FLOPS or narrower formats (FP8→FP4) raise this ceiling'. Data: H100 SXM = 3,958 TFLOPS FP8 with sparsity (dense = 1,979), 1,979 TFLOPS BF16 with sparsity (dense = 989), 3.35 TB/s HBM3 — source: NVIDIA H100 product page, https://www.nvidia.com/en-us/data-center/h100/ ; ridge point = 1,979e12 / 3.35e12 ≈ 590 FLOPs/byte (computed)."
+ },
+ "why_en": "Peak FLOPS is the most quoted and least decisive number in AI hardware. The binding constraint rotates — compute, memory bandwidth, number format, interconnect — and each rotation redraws the profit pool. The roofline explains why HBM and advanced packaging captured pricing power; format transitions (FP8 to FP4) produce step-function drops in inference cost that break any static demand model; and the shift to rack-scale systems explains why Nvidia's moat is NVLink plus CUDA rather than the die itself, why a 1.6x-TCO rack must prove a 1.6x speedup, and why every challenger is now judged on scale-up world size, not TFLOPS. Each sector brief that follows hangs off one of these four constraints.",
+ "why_zh": "峰值 FLOPS 是 AI 硬件里被引用最多、却最不决定胜负的数字。真正的约束在四者之间轮转——算力、内存带宽、数字格式、互连——每轮转一次，利润池就重画一次。屋顶线解释了 HBM 与先进封装为何拿到定价权；格式迁移（FP8 到 FP4）让推理成本呈台阶式下跌，任何静态需求模型都会被击穿；而机架级转向解释了英伟达的护城河为何是 NVLink 加 CUDA 而非裸片本身、1.6 倍 TCO 的机架为何必须证明 1.6 倍加速、以及挑战者如今为何按 scale-up 世界规模而非 TFLOPS 被打分。后续每一份行业简报，都挂在这四个约束中的某一个上。",
+ "related_sectors": [
+  "01_accelerators",
+  "03_memory",
+  "04_packaging",
+  "06_networking",
+  "07_datacenter_power"
+ ]
+}

@@ -1,0 +1,119 @@
+{
+ "module_id": "00",
+ "title_en": "How to Read This Series",
+ "title_zh": "怎么读这个系列",
+ "tagline_en": "The ten sectors as one machine: what it looks like, which primer module unlocks which door, and the shortest reading path for your job.",
+ "tagline_zh": "十个板块拼成一台机器——这张地图告诉你它长什么样、基础篇每一讲解锁哪扇门、以及按你的岗位怎么走最短路径。",
+ "sections": [
+  {
+   "heading_en": "First, see the whole machine",
+   "heading_zh": "先看整台机器,再看十个截面",
+   "body_en": "This series covers ten sectors, but it does not tell ten separate stories. It describes one machine viewed from ten angles — a machine that turns sand and electricity into intelligence, sold by the token. Trace the physical path once and the table of contents explains itself. Quartz is refined into silicon wafers, which a foundry (Sector 02) patterns into logic chips using semiconductor equipment (Sector 05) — lithography, etch and deposition tools. The compute die is useless alone: advanced packaging (Sector 04) bonds it to stacks of high-bandwidth memory (Sector 03), and only then does it become an AI accelerator (Sector 01). Thousands of accelerators are wired together by networking and optics (Sector 06) into racks, which live in datacenters drawing gigawatts from the grid (Sector 07). Hyperscalers (Sector 08) rent that capacity to AI labs (Sector 09), whose models emit the tokens people actually pay for. And the whole machine operates inside a geopolitical force field (Sector 10) that decides who may buy which parts. In 2025-26 a demand shock hit the machine's output end: agentic AI started genuinely working. Anthropic's ARR ran from $9B toward $44B+, and coding became more than 70% of frontier-lab revenue. The shock propagated upstream and every layer broke at roughly the same time: H100 rentals rose ~40% into a sold-out 2026; AI is modeled to claim 86% of TSMC's N3 wafer output by 2027; DRAM entered a 'once-in-four-decades' shortage; and roughly a terawatt of grid-connection requests now queues against a US peak load of 745 GW. Why synchronized? Because every layer's supply lead time is measured in years — fabs, HBM lines, transformers, gas turbines — and none of them held slack. A demand shock in a chain with no inventory arrives everywhere at once. Hold that picture — sand in at one end, tokens out at the other, ten toll booths in between — and every chapter becomes a question about one toll booth: what does it charge, who runs it, and can anyone build a bypass?",
+   "body_zh": "这个系列写了十个板块,但讲的不是十个行业,而是同一台机器的十个横截面——这台机器把沙子和电变成智能,按 token 计价出售。沿实物路径走一遍,目录就自动成立了:石英提纯成硅晶圆,晶圆代工厂(板块02)用光刻、刻蚀、沉积这些半导体设备(板块05)在上面刻出逻辑芯片;算力裸片单独没用,要靠先进封装(板块04)把它和一摞摞高带宽存储 HBM(板块03)键合在一起,才成为一颗 AI 加速器(板块01);成千上万颗加速器再由网络与光互连(板块06)接成机柜,装进从电网取电的吉瓦级数据中心(板块07);超大规模云厂商(板块08)把算力租给模型实验室(板块09),实验室吐出 token 换钱;而整台机器泡在地缘政治的力场里(板块10),由它决定谁能买到哪些零件。2025-26 年,一记需求重锤砸在机器的出货口:agentic AI 真的跑通了。Anthropic 的 ARR 从 90 亿美元冲向 440 亿以上,编程占了前沿实验室收入的七成以上。冲击沿链向上游传导,每一层几乎同时断裂:H100 租金涨约 40%、2026 年产能售罄;模型测算 2027 年 AI 将吃掉台积电 N3 产出的 86%;DRAM 进入「四十年一遇」的短缺;约 1 太瓦的并网申请排在 745GW 的美国电网峰值面前。为什么是同步断裂?因为每一层的供给周期都以年计——晶圆厂、HBM 产线、变压器、燃气轮机——而且谁手里都没有冗余。一条零库存的链条挨了一记重锤,疼是全身一起疼的。把这幅图记牢——一头进沙子,一头出 token,中间十道收费站——之后每一章都只是在问同一个问题:这道收费站收多少钱、归谁管、有没有人能绕过去。"
+  },
+  {
+   "heading_en": "Six through-lines: the real spine of the book",
+   "heading_zh": "六条主线:全书真正的骨架",
+   "body_en": "Each sector brief stands alone, but six arguments recur so often they form the series' real spine. One: a single demand shock produced a synchronized, whole-chain shortage — remember the mechanism (no slack plus multi-year lead times), not just the headlines. Two: Moore's Law broke economically — N3 delivered roughly 15% cost-per-transistor improvement, the weakest step in over fifty years, and SRAM stopped shrinking outright — so the industry now buys performance with packaging, HBM, optics and 800-volt power instead of smaller transistors, and value migrates to this 'repair crew.' Three: the unit of competition climbed from the chip to the rack to the gigawatt campus; Nvidia's 72-GPU NVLink domain, Huawei's 16-rack CloudMatrix 384 and xAI's 122-day Colossus build are the same law expressed at three scales. Four: who keeps the margin is a policy choice, not an accident — Nvidia (~75% gross margin) and TSMC deliberately under-price into scarcity like a 'central bank of AI,' custom silicon disciplines them from below, and in late 2025 the profit pool rotated violently toward the labs. Five: software is the durable moat — CUDA below the API line, data and harnesses above it; hardware gaps close within a product cycle, software gaps compound. Six: China's trajectory bifurcates — choked at the HBM node even though its logic fabs can print millions of dies, yet effectively unopposed in robotics. When a sector brief makes a claim, ask which through-line it serves. And when two chapters seem to disagree, the resolution is almost always that they sit at different layers of the same machine.",
+   "body_zh": "每个板块简报都可以独立阅读,但有六条论证反复出现,它们才是全书真正的骨架。第一,一场需求冲击造成了全链条的同步短缺——要记住的是机制(零冗余加上以年计的供给周期),而不只是新闻标题。第二,摩尔定律在经济意义上断了:N3 的单位晶体管降本只有约 15%,是五十多年来最弱的一代,SRAM 干脆停止缩小——于是这个产业改用封装、HBM、光互连和 800V 供电来「购买」性能,价值向这支修复队迁移。第三,竞争单位从芯片爬升到机柜、再到吉瓦级园区:英伟达 72 卡的 NVLink 域、华为 16 个机柜的 CloudMatrix 384、xAI 122 天建成的 Colossus,是同一条定律在三个尺度上的表达。第四,利润归谁是策略选择而非市场偶然——英伟达(约 75% 毛利)和台积电在极度稀缺中刻意不涨价,像「AI 的央行」;自研芯片从下方施加纪律;2025 年底利润池又猛烈甩向实验室。第五,软件才是耐久护城河——API 之下是 CUDA,之上是数据与 harness;硬件差距一个产品周期就能追平,软件差距却在复利。第六,中国的路径分岔:逻辑晶圆厂印得出几百万颗裸片,却被卡死在 HBM 这个节点;而在机器人这条战线上几乎无人对垒。读到任何一个论断,先问它服务于哪条主线;当两章看起来互相矛盾时,答案几乎总是:它们站在同一台机器的不同楼层。"
+  },
+  {
+   "heading_en": "The primer is the map legend: which module unlocks which sector",
+   "heading_zh": "基础篇是地图图例:哪一讲解锁哪个板块",
+   "body_en": "The primer's ten modules travel the same path as the machine, and they come in pairs. Modules 01 (from sand to silicon) and 02 (the end of cheap scaling) unlock Foundry (02) and Equipment (05): you need to know what a process step is before you can care who sells etch tools, and you need the economics of scaling before TSMC's pricing power or the lithography roadmap makes sense. Modules 03 (anatomy of an AI accelerator) and 04 (training vs inference) unlock Accelerators (01) and Models & Software (09): once you can tell a compute-bound workload from a memory-bound one, GPU spec sheets stop being alphabet soup. Modules 05 (the memory hierarchy, and why HBM exists) and 06 (2.5D packaging: how HBM meets the GPU) unlock Memory (03) and Packaging (04) — the two sectors where the post-Moore repair crew earns its money; HBM already accounts for over 60% of a Blackwell GPU's manufacturing cost. Modules 07 (scale-up vs scale-out) and 08 (the datacenter power chain) unlock Networking (06) and Datacenter & Power (07), the physics chapters. Finally, modules 09 (the industry map: who does what) and 10 (the investor's dashboard: which metrics matter) unlock Hyperscalers & AI Economics (08) and China & Export Controls (10), where the analysis is more strategy than silicon. Every module is self-contained and carries its own diagrams. Treat the primer as a toolbox, not an entrance exam: if a sector brief throws a term you don't know, come back, read one module, and return.",
+   "body_zh": "基础篇十讲沿着机器的同一条路径展开,而且两两成组。§01(从沙子到硅片)加 §02(「便宜缩放」的终结)解锁代工(02)和设备(05):先知道一道工序是什么,才谈得上关心谁在卖刻蚀机;先理解单位晶体管成本为什么不再下降,台积电的定价权和光刻路线图才讲得通。§03(AI 加速器解剖)加 §04(训练与推理)解锁加速器(01)和模型与软件(09):一旦你分得清算力受限和内存受限两种负载,GPU 规格表就不再是字母汤。§05(存储层级,以及 HBM 为什么存在)加 §06(2.5D 封装:HBM 与 GPU 如何相遇)解锁存储(03)和封装(04)——后摩尔时代的修复队正是在这两个板块里赚钱:HBM 已占 Blackwell GPU 制造成本的六成以上。§07(纵向扩展 vs 横向扩展)加 §08(数据中心供电链)解锁网络(06)和数据中心与电力(07),这是两章「物理课」。最后,§09(行业地图:谁在做什么)加 §10(投研仪表盘:哪些指标重要)解锁超大规模与 AI 经济学(08)和中国与出口管制(10)——这两章的分析更多是战略而非硅片。每一讲都自成一体、自带图解。把基础篇当工具箱用,而不是先修课考试:板块简报里撞上不认识的词,回来读一讲,再回去接着读。"
+  },
+  {
+   "heading_en": "Three reading paths",
+   "heading_zh": "三条阅读路径",
+   "body_en": "For a generalist researcher building durable coverage, read the primer in order (01→10), then the sectors in book order (01→10); after each sector, file its main claims under one of the six through-lines — that filing is what turns reading into a mental model. If you prefer narrative to numbering, follow the money upstream instead: Models (09) → Hyperscalers (08) → Accelerators (01) → the silicon layers (02-05) → the physical plant (06-07) → Geopolitics (10) last, as the force field around everything. For a time-poor PM, the spine is: this module, then primer modules 09 and 10 (industry map and metrics), then the two or three sectors nearest your book — for most portfolios today that means Accelerators (01), Memory (03) and Hyperscalers (08), the layers where the margin pool is actually moving. Within each brief, read the key numbers and the investment section first, and only read backwards into mechanism when a number surprises you; a surprising number is the market telling you your model of the machine is wrong somewhere, and that is precisely where the money is. For an engineer, invert the order: you likely know how a chip works, so skip primer 01 and 03 and start with 04 (training vs inference) and 07-08 (networks and power) — system-level economics are usually the gap. Then read Networking (06), Datacenter (07) and Packaging (04), the chapters where physics binds hardest, and finish with Hyperscalers (08) and China (10) for the strategy layer your stack traces don't show.",
+   "body_zh": "如果你是要建立长期覆盖的通才研究员:按顺序读完基础篇(§01→§10),再按书的顺序读十个板块(01→10);每读完一个板块,把它的核心论断归档到六条主线之下——这个归档动作,才是把「读过」变成「脑中模型」的关键。若你偏好叙事而非编号,也可以顺着钱往上游走:模型(09)→超大规模(08)→加速器(01)→硅片各层(02-05)→物理基础设施(06-07),最后读地缘(10),它是包裹一切的力场。如果你是时间紧张的基金经理:主干是本讲加基础篇 §09、§10(行业地图和指标盘),然后直接读离你持仓最近的两三个板块——对今天多数组合而言就是加速器(01)、存储(03)、超大规模(08),利润池正在移动的三层。每章先读关键数字和投资含义段,只有当某个数字出乎意料时才回读机制——数字让你意外,就是市场在告诉你:你脑中那台机器的模型有一处装错了,而钱恰恰在那一处。如果你是工程师:反着来。芯片怎么造你多半已经懂,跳过 §01 和 §03,从 §04(训练 vs 推理)和 §07-§08(网络与电力)补课——系统层面的经济学通常才是你的盲区。然后读网络(06)、数据中心(07)、封装(04)这三章物理约束最硬的章节,最后用超大规模(08)和中国(10)补上堆栈日志里看不到的战略层。"
+  },
+  {
+   "heading_en": "How to read the numbers",
+   "heading_zh": "怎么用书里的数字",
+   "body_en": "Every key number in this series carries a date and a source — mostly SemiAnalysis field data and models from 2022-2026, plus company filings and standards bodies. Keep two registers in your head. Physics numbers — the reticle limit, an SRAM bitcell's area, copper's roughly two-meter reach at modern data rates — change on decade timescales and are worth memorizing. Market numbers — rental prices, ARR, DRAM contract prices — are snapshots with a half-life of months: treat each as 'true as of its date,' never as a constant. Wide ranges in the text are honesty, not vagueness; they usually mark where the primary data genuinely disagrees. And one working rule above all: mechanism first, number second. If you remember only that H100 rents rose ~40%, the fact expires; if you remember why — sold-out capacity meeting supply that takes years to add — you can re-derive tomorrow's number yourself.",
+   "body_zh": "全书的关键数字都注明日期与出处——绝大多数来自 SemiAnalysis 2022-2026 年的实测数据与模型,辅以公司财报和标准组织文件。脑子里要分两个档位。物理数字——光罩极限、SRAM 位元胞面积、铜缆在现代速率下约两米的传输距离——十年一变,值得背下来。市场数字——租金、ARR、DRAM 合约价——是半衰期以月计的快照:每一个都只在「截至其标注日期」为真,绝不能当常数用。书里的宽区间是诚实,不是含糊:那通常意味着一手数据本身就存在真实分歧。最重要的一条工作守则:先记机制,再记数字。只记住「H100 租金涨了约 40%」,这个事实很快就过期;记住为什么——售罄的产能撞上要花数年才能新增的供给——明天的数字你可以自己推出来。"
+  }
+ ],
+ "key_numbers": [
+  {
+   "metric_en": "H100 1-year rental price (Oct-25 → Mar-26)",
+   "metric_zh": "H100 一年期租金(2025-10 → 2026-03)",
+   "value": "$1.70 → $2.35/hr/GPU (+~40%), capacity sold out into late 2026",
+   "source_name": "SemiAnalysis — The Great GPU Shortage – Rental Capacity",
+   "source_url": "https://newsletter.semianalysis.com/p/the-great-gpu-shortage-rental-capacity"
+  },
+  {
+   "metric_en": "AI share of TSMC N3 wafer output",
+   "metric_zh": "AI 占台积电 N3 晶圆产出比重",
+   "value": "~60% (2026) → 86% (2027), squeezing out smartphone and CPU wafers",
+   "source_name": "SemiAnalysis — The Great AI Silicon Shortage",
+   "source_url": "https://newsletter.semianalysis.com/p/the-great-ai-silicon-shortage"
+  },
+  {
+   "metric_en": "DRAM shortage severity",
+   "metric_zh": "DRAM 短缺烈度",
+   "value": "A 'once-in-four-decades' shortage; memory prices set to double again",
+   "source_name": "SemiAnalysis — Memory Mania: How a Once-in-Four-Decades Shortage Is Fueling a Memory Boom",
+   "source_url": "https://newsletter.semianalysis.com/p/memory-mania-how-a-once-in-four-decades"
+  },
+  {
+   "metric_en": "HBM share of AI GPU manufacturing cost",
+   "metric_zh": "HBM 占 AI GPU 制造成本比重",
+   "value": "H100 ~50%+ → Blackwell ~60%+",
+   "source_name": "SemiAnalysis — Scaling the Memory Wall: The Rise and Roadmap of HBM",
+   "source_url": "https://semianalysis.com/2025/08/12/scaling-the-memory-wall-the-rise-and-roadmap-of-hbm/"
+  },
+  {
+   "metric_en": "US grid: queued load requests vs peak load",
+   "metric_zh": "美国电网:排队负荷申请 vs 峰值负荷",
+   "value": "~1 terawatt of load requests vs 745 GW US peak",
+   "source_name": "SemiAnalysis — US Grid Constraints: Towards 40GW+ of Behind-The-Meter Datacenter by 2028?",
+   "source_url": "https://newsletter.semianalysis.com/p/us-grid-constraints-towards-40gw"
+  },
+  {
+   "metric_en": "Anthropic ARR and inference gross margin (2025→26)",
+   "metric_zh": "Anthropic ARR 与推理毛利率(2025→26)",
+   "value": "ARR $9B → $44B+; inference gross margin 38% → 70%+",
+   "source_name": "SemiAnalysis — AI Value Capture - The Shift To Model Labs",
+   "source_url": "https://newsletter.semianalysis.com/p/ai-value-capture-the-shift-to-model"
+  }
+ ],
+ "images": [
+  {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/TSMC_Fab_18_May_2025.jpg/1920px-TSMC_Fab_18_May_2025.jpg",
+   "source_name": "Wikimedia Commons (CC BY 4.0)",
+   "source_url": "https://commons.wikimedia.org/wiki/File:TSMC_Fab_18_May_2025.jpg",
+   "caption_en": "TSMC's Fab 18 campus in Tainan, Taiwan — home of the N5/N3 nodes where nearly every leading AI accelerator begins life. AI demand is modeled to claim 86% of N3 wafer output by 2027.",
+   "caption_zh": "台积电台南 Fab 18 厂区——N5/N3 制程所在地,几乎所有主流 AI 加速器都从这里出生;模型测算 2027 年 AI 将占 N3 产出的 86%。"
+  },
+  {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Nvidia_DGX_GB200.jpg",
+   "source_name": "Wikimedia Commons (CC BY-SA 4.0)",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Nvidia_DGX_GB200.jpg",
+   "caption_en": "An Nvidia GB200 NVL72 rack: 72 GPUs wired into a single NVLink domain. The rack — not the chip — is now the unit of competition, a through-line that recurs across half the sectors in this series.",
+   "caption_zh": "英伟达 GB200 NVL72 机柜:72 颗 GPU 连成一个 NVLink 域。如今竞争的单位是机柜而非芯片——这条主线贯穿本系列近半数板块。"
+  }
+ ],
+ "own_fig": {
+  "id": "pm00",
+  "concept_en": "One machine, ten cross-sections: how the primer's module pairs unlock the ten sector deep-dives",
+  "concept_zh": "一台机器,十个横截面:基础篇的成对模块如何解锁十个板块深研",
+  "spec": "Two-column unlock map with a physical-chain strip on top. Top strip: small boxes joined by left-to-right arrows tracing the machine — sand/quartz → wafer (foundry) → patterned die (equipment) → +HBM & advanced packaging → AI accelerator → rack & network fabric → datacenter & grid power → hyperscaler cloud → model labs → tokens — annotated 'one machine, sand in, tokens out'. Main panel, left column (5 boxes, primer module pairs): §01-02 Silicon & scaling; §03-04 Compute & workloads; §05-06 Memory & packaging; §07-08 Networks & power; §09-10 Industry & metrics. Right column (5 boxes, sector pairs): Foundry (02) · Equipment (05); Accelerators (01) · Models & Software (09); Memory/HBM (03) · Packaging (04); Networking (06) · Datacenter & Power (07); Hyperscalers (08) · China & Export Controls (10). One horizontal arrow per row, left to right, labeled 'unlocks'. Qualitative diagram, no data series; footer 'Own illustration · Yicheng Yang'."
+ },
+ "why_en": "Most expensive mistakes in AI investing are layer confusions: pricing a physics constraint as if it were a market cycle (the HBM shortage), pricing a strategic choice as if it were scarcity (Nvidia's margin umbrella), or crediting a hardware company with a software moat. The map in this module tells you which layer of the machine a company actually lives in, which through-line governs its economics, and therefore what kind of evidence would change the thesis. Ten minutes here buys leverage on every later chapter: you will read each sector brief knowing where its numbers come from, what they connect to, and which of them will still be true next year.",
+ "why_zh": "AI 投资里最贵的错误,大多是「楼层搞混」:把物理约束当成市场周期来定价(HBM 短缺)、把策略选择当成稀缺来定价(英伟达的毛利伞),或者给一家硬件公司记上软件护城河。本讲这张地图告诉你:一家公司到底住在机器的哪一层、哪条主线支配它的经济学、因而什么样的证据才足以推翻论点。在这里花十分钟,后面每一章都有杠杆:你会清楚每个板块简报的数字从哪来、连着什么、以及其中哪些明年依然为真。",
+ "related_sectors": [
+  "01_accelerators",
+  "02_foundry",
+  "03_memory",
+  "04_packaging",
+  "05_equipment",
+  "06_networking",
+  "07_datacenter_power",
+  "08_hyperscalers_econ",
+  "09_models_software",
+  "10_china_geopolitics"
+ ]
+}

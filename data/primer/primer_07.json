@@ -1,0 +1,127 @@
+{
+ "module_id": "07",
+ "title_en": "Interconnect: Scale-Up vs Scale-Out",
+ "title_zh": "互连:纵向与横向",
+ "tagline_en": "After this module, any interconnect headline — '900 GB/s NVLink', 'CPO kills pluggables' — instantly tells you which of the datacenter's two networks is in play, and whose revenue moves.",
+ "tagline_zh": "读完本讲,再看到「900 GB/s NVLink」或「CPO 取代可插拔」这类新闻,你能立刻分清它说的是哪张网、动的是谁的收入。",
+ "sections": [
+  {
+   "heading_en": "One Computer, Two Networks",
+   "heading_zh": "一台计算机,两张网",
+   "body_en": "Training a frontier model does not happen on 'a GPU'; it happens on tens of thousands of GPUs that must behave like a single machine. The awkward truth is that no single network can do that job, so every AI datacenter runs two networks with opposite designs and opposite economics.\n\nThe first is scale-up. Take one rack: Nvidia's GB200 NVL72 wires 72 GPUs together so tightly — every GPU can talk to every other GPU at 900 GB/s, within an order of magnitude of how fast a GPU talks to its own memory — that software can treat the whole rack as one giant GPU. This domain is the NVLink domain, and the number of GPUs inside it (72 here) is called the 'world size'. Think of it as one open-plan office: anyone can shout across the desks and be heard instantly.\n\nThe second is scale-out. To go beyond one rack, you stitch thousands of racks together with InfiniBand or Ethernet — the same family of technology as ordinary datacenter networking, hardened for AI. Per GPU, this fabric carries about 100 GB/s — roughly one-ninth of scale-up. It is the postal system between office buildings: enormous total capacity, but data gets packaged up and waits its turn.\n\nWhy tolerate a 9x gap instead of making everything fast? Because the chatter is not uniform. Splitting a single matrix multiplication across chips (tensor parallelism) requires constant, latency-critical exchange — that traffic must live on scale-up. Synchronizing gradients between whole copies of a model (data parallelism) happens far less often and tolerates the slower fabric. The art of cluster design is matching each kind of traffic to the cheapest network that can carry it.",
+   "body_zh": "训练一个前沿大模型,靠的从来不是「一颗 GPU」,而是几万颗 GPU 装成一台机器来用。尴尬之处在于:没有任何一张网络能独自干完这件事,所以每个 AI 数据中心都同时跑着两张设计思路和经济学完全相反的网。\n\n第一张叫 scale-up(纵向扩展)。以一个机架为例:英伟达 GB200 NVL72 把 72 颗 GPU 连得死紧——任意两颗 GPU 之间都能以 900 GB/s 对话,和 GPU 访问自家显存的速度只差一个数量级——软件因此可以把整个机架当成「一颗巨型 GPU」来用。这个域叫 NVLink 域,域内的 GPU 数量(这里是 72)行话叫 world size。可以把它想成一间开放式办公室:任何人隔着工位喊一嗓子,立刻所有人都听得见。\n\n第二张叫 scale-out(横向扩展)。要超出一个机架,就得用 InfiniBand 或以太网把成千上万个机架缝起来——技术上与普通数据中心网络同宗,只是为 AI 做了强化。摊到每颗 GPU 头上,这张网大约只有 100 GB/s,差不多是 scale-up 的九分之一。它更像楼与楼之间的邮政系统:总运力惊人,但数据要打包、要排队。\n\n为什么容忍 9 倍的落差,而不是把所有链路都做快?因为通信需求本身就不均匀。把一个矩阵乘法拆到多颗芯片上算(张量并行),需要不停地、对时延极其敏感地交换中间结果——这类流量必须留在 scale-up 上;而模型副本之间同步梯度(数据并行)频率低得多,慢一点的网也扛得住。集群设计的艺术,就是把每种流量放到能承载它的最便宜的那张网上。"
+  },
+  {
+   "heading_en": "The Bandwidth Math: 900 vs 100 (and the Bits-vs-Bytes Trap)",
+   "heading_zh": "带宽账:900 对 100,先排掉比特与字节的坑",
+   "body_en": "First, the unit trap that catches every newcomer: networking people speak in bits per second (Gbit/s), chip people in bytes per second (GB/s), and 8 bits = 1 byte. So the '800G' scale-out NIC attached to each Blackwell GPU means 800 Gbit/s = 100 GB/s, while NVLink 5 gives each GPU 7.2 Tbit/s = 900 GB/s of scale-up bandwidth (Nvidia's marketing figure of '1.8 TB/s' counts both directions at once). That is the 9x gap, computed in one line.\n\nNow the roadmap. Rubin's NVLink 6 doubles scale-up to 14.4 Tbit/s per GPU; scale-out doubles to 1.6 Tbit/s not via a faster NIC but by giving each GPU two 800G ConnectX-9 NICs. Meanwhile HBM memory feeds each GPU at roughly 8 TB/s. Notice the hierarchy: memory ≈ 8,000 GB/s, scale-up ≈ 900, scale-out ≈ 100. Each step down the ladder loses roughly an order of magnitude — and each step is a place where a badly placed communication pattern leaves million-dollar silicon sitting idle, which is why engineers obsess over 'keeping traffic on the fast tier'.\n\nThis hierarchy also explains the industry's obsession with world size. When the NVLink domain jumped from 8 GPUs (H100 generation) to 72 (GB200), mixture-of-experts models — whose all-to-all traffic between experts is brutal — could suddenly keep that chatter entirely on the fast tier. A bigger world size is worth real money in training throughput, which is exactly why the fight over what physically carries it — copper or light — is the central drama of this module.",
+   "body_zh": "先排掉一个新手必踩的单位坑:网络界说话用比特每秒(Gbit/s),芯片界用字节每秒(GB/s),8 比特 = 1 字节。所以每颗 Blackwell GPU 上那块「800G」scale-out 网卡,实际是 800 Gbit/s = 100 GB/s;而 NVLink 5 给每颗 GPU 的 scale-up 带宽是 7.2 Tbit/s = 900 GB/s(英伟达宣传口径的「1.8 TB/s」是把收、发两个方向加在一起)。9 倍差距,一行算式就算清了。\n\n再看路线图。Rubin 一代的 NVLink 6 把 scale-up 翻倍到每 GPU 14.4 Tbit/s;scale-out 翻倍到 1.6 Tbit/s 的方式不是换更快的网卡,而是给每颗 GPU 直接配两块 800G 的 ConnectX-9。与此同时,HBM 显存给每颗 GPU 供数的速度约为 8 TB/s。注意这个层级:显存 ≈ 8,000 GB/s,scale-up ≈ 900,scale-out ≈ 100——每往下一级差不多掉一个数量级,而每一级都是一个「通信模式放错位置,几百万美元的硅片就干等着」的坑。工程师们成天念叨的「把流量留在快车道」,说的就是这件事。\n\n这个层级也解释了业界对 world size 的执念。当 NVLink 域从 8 颗 GPU(H100 世代)跳到 72 颗(GB200),那些专家之间 all-to-all 通信极其凶猛的 MoE(混合专家)模型,忽然就能把这些流量整个留在快车道上。更大的 world size 直接兑换成训练吞吐、兑换成真金白银——这也正是「用铜还是用光来承载它」成为本讲核心剧情的原因。"
+  },
+  {
+   "heading_en": "Why Copper Refuses to Die: Within Two Meters, Copper Is King",
+   "heading_zh": "铜为什么还没死:两米之内,铜是王",
+   "body_en": "A copper wire is the cheapest, most reliable, lowest-power way to move bits — as long as the distance is short. The physics is simple: the faster you toggle a signal, the more the wire attenuates and smears it. At today's 200 Gbit/s-per-lane speeds, a passive copper cable is good for only about 2 meters. Conveniently, a rack is about 2 meters tall.\n\nSo Nvidia built the NVL72's spine entirely of copper: 5,184 differential pairs run through a backplane connecting 72 GPUs to the NVLink switch chips. Copper needs no laser and no photodetector, and adds essentially zero power. SemiAnalysis ran the counterfactual: building that same spine with optics would take 648 1.6T optical transceivers, roughly $550k of extra bill-of-materials and ~20 kW of extra power per rack. 'One giant GPU' is buildable today precisely because it is built of copper.\n\nTwo definitions make copper's limits legible. A SerDes (serializer/deserializer) is the circuit at the edge of every chip that converts wide, slow internal data into one blistering-fast serial stream — the chip's mouth and ears; its per-lane speed (112G, now 224G) sets how much data each wire can carry. NVLink's bandwidth grew 11x over five generations almost entirely by speeding up the SerDes, not by adding wires. But the next doubling — 224G to 448G per lane — is in genuine trouble: it likely requires new modulation schemes (PAM6/PAM8), and reach shrinks further still. Nvidia's Rubin-generation '448G' is actually a clever dodge: transmitting 224G in each direction simultaneously over the same wire pair, using echo cancellation — the same trick as a telephone line. When SerDes stops improving while copper's reach keeps shrinking, world sizes can no longer grow inside copper. That is the opening for optics — and, SemiAnalysis argues, a crack in Nvidia's NVLink moat that AMD and the hyperscalers fully intend to widen.",
+   "body_zh": "只要距离够短,铜线就是搬运比特最便宜、最可靠、最省电的方式。物理原理很直白:信号翻转得越快,导线对它的衰减和畸变就越狠。在今天每 lane 200 Gbit/s 的速率下,无源铜缆只能走大约 2 米。巧的是,一个机架的高度差不多正是 2 米。\n\n于是英伟达把 NVL72 的「脊柱」整个用铜造:5,184 对差分线穿过背板,把 72 颗 GPU 接到 NVLink 交换芯片上。铜不需要激光器、不需要光电探测器,附加功耗几乎为零。SemiAnalysis 算过反事实的账:同一条脊柱改用光,需要 648 个 1.6T 光收发器、约 55 万美元的额外物料、每机架多烧约 20 kW。「一颗巨型 GPU」今天之所以造得出来,恰恰因为它是用铜造的。\n\n两个定义能把铜的极限讲透。SerDes(串行器/解串器)是每颗芯片边缘负责把内部又宽又慢的数据变成一路极快串行信号的电路——相当于芯片的嘴和耳朵;它的单 lane 速率(112G,现在 224G)决定了每根线能灌进多少数据。NVLink 五代带宽涨了 11 倍,几乎全靠 SerDes 提速,而不是加线。但下一次翻倍——每 lane 从 224G 到 448G——真的遇到麻烦了:大概率要换新的调制方式(PAM6/PAM8),传输距离还会进一步缩短。Rubin 世代的「448G」其实是个聪明的取巧:在同一对线上同时双向各跑 224G,用回声抵消把收发分开——和电话线一个原理。一旦 SerDes 停止进步、铜的距离持续缩水,world size 就没法在铜里继续长大。这就是光的突破口——SemiAnalysis 也提醒:这是英伟达 NVLink 护城河上的一道裂缝,AMD 和各家超大厂都盯着要把它撬大。"
+  },
+  {
+   "heading_en": "Optics: Pluggables → LPO → CPO",
+   "heading_zh": "光:可插拔 → LPO → CPO 三级跳",
+   "body_en": "Beyond roughly 2 meters, you must convert electrons into photons. Today that is done with pluggable transceivers: thumb-sized modules slotted into switch faceplates, each containing a laser, a modulator (which writes bits onto light), and a DSP chip that cleans up and retimes the electrical signal. A large cluster contains hundreds of thousands of them, and they dominate scale-out economics: about 60% of scale-out networking cost sits in these modules, and the DSP alone eats ~50% of an 800G module's power and 20-30% of its bill of materials — SemiAnalysis calls the DSP 'public enemy number one' of cost and power.\n\nThe industry's answer is a three-step progression. LPO (linear pluggable optics) keeps the pluggable form factor but deletes the DSP, letting the switch chip's own SerDes drive the optics directly — cheaper and cooler, but engineering-fragile, and adoption has lagged predictions. CPO (co-packaged optics) goes further: it moves the optical engine onto the same package as the switch or GPU silicon, shrinking the electrical path from ~20 centimeters to millimeters. With no DSP and no long, lossy trace, optical-link energy falls 65-73%.\n\nHere is the nuance most headlines miss. In scale-out, CPO's savings dilute to a rounding error — networking is only ~9% of cluster power, so CPO saves just 2-4% of cluster power and 3-7% of cluster cost. Against that stand real fears: a failed pluggable is hot-swapped in minutes, while a failed CPO engine takes the whole switch down with it — and 80% of returned pluggable modules turn out to be 'no trouble found' anyway. The real prize is scale-up: optics removes copper's 2-meter leash, letting the 'one giant GPU' span many racks. That is why CPO's true arrival is tied to Rubin Ultra/Feynman and AWS's Trainium 4 late this decade, not to today's Ethernet switches.\n\nEither way, reliability is the gate: on a 100,000-GPU cluster, flaky optical links produce the first training-job failure in roughly 26 minutes. What hyperscalers are actually buying is not speed — it is uptime.",
+   "body_zh": "超过大约 2 米,就必须把电子换成光子。今天的主流做法是可插拔光模块:拇指大小,插在交换机面板上,里面装着激光器、调制器(把比特「写」到光上)和一颗负责整形重定时的 DSP 芯片。一个大集群里有几十万个这种模块,它们主宰着 scale-out 的经济学:scale-out 网络成本约 60% 都在这些模块里,其中仅 DSP 一项就吃掉 800G 模块约 50% 的功耗和 20–30% 的物料成本——SemiAnalysis 称 DSP 为成本与功耗的「头号公敌」。\n\n业界的回应是三级跳。LPO(线性可插拔)保留可插拔形态但删掉 DSP,让交换芯片自己的 SerDes 直接驱动光器件——更便宜也更凉快,但工程上娇贵,落地进度一直低于预期。CPO(共封装光学)更进一步:把光引擎搬进与交换芯片或 GPU 同一个封装,电信号路径从约 20 厘米缩到几毫米。没有了 DSP、没有了又长又损耗的走线,光链路能耗直降 65–73%。\n\n但多数头条漏掉了关键一层:在 scale-out 上,CPO 的节省会被稀释成毛毛雨——网络本来只占集群功耗约 9%,CPO 最终只省下集群总功耗的 2–4%、总成本的 3–7%;而对面站着实打实的顾虑:可插拔模块坏了,几分钟就能热插拔换掉;CPO 光引擎坏了,整台交换机跟着陪葬——何况退回来的可插拔模块 80% 根本「查无故障」。真正的金矿在 scale-up:光解除了铜的两米「狗链」,让「一颗巨型 GPU」跨越多个机架。这正是 CPO 的真正登场被绑在十年末的 Rubin Ultra/Feynman 和 AWS Trainium 4 上、而不是今天的以太网交换机上的原因。\n\n无论走哪条路,可靠性都是那道闸:在 10 万卡 H100 集群上,光链路的抖动会让第一次训练任务失败在约 26 分钟内到来。超大厂真正掏钱买的从来不是速度,而是不停机。"
+  },
+  {
+   "heading_en": "Who Sells What: Reading the Market Map",
+   "heading_zh": "谁在卖什么:一张自己会说话的版图",
+   "body_en": "With the mechanisms in hand, the vendor map reads itself. Nvidia owns scale-up — NVLink is the moat — and sells both flavors of scale-out (Quantum InfiniBand and Spectrum-X Ethernet; the Ethernet flavor now out-ships InfiniBand). Broadcom is the anti-Nvidia bet: hyperscalers buy its Tomahawk switch chips to escape the 'Nvidia tax', it shipped the first production CPO switches, and it co-designs Google's TPU. Marvell dominates the DSP — precisely the chip the whole industry is trying to delete — which is why it paid billions for Celestial AI to leap directly to scale-up CPO. Transceiver assemblers (InnoLight, Eoptolink, Fabrinet, Coherent) ride GPU unit growth; the recurring 'optics demand will collapse' scare is wrong because every GPU still ships with its scale-out ports — copper only ever displaced optics inside the rack. Copper itself is Amphenol's franchise (the NVLink backplane). TSMC quietly won CPO integration with its COUPE packaging platform. And the standards fights — Ethernet/UEC versus InfiniBand for scale-out, UALink/SUE versus NVLink for scale-up — are all the same story told twice: an industry trying to commoditize what Nvidia keeps proprietary.",
+   "body_zh": "机制搞懂了,厂商版图就能自己读出来。英伟达握着 scale-up——NVLink 就是护城河本河——同时 scale-out 两种口味都卖(Quantum InfiniBand 和 Spectrum-X 以太网,后者出货量已反超前者)。博通是「反英伟达」的标的:超大厂买它的 Tomahawk 交换芯片来绕开「英伟达税」,它出了第一批量产 CPO 交换机,还替谷歌操刀 TPU。马维尔垄断着 DSP——恰恰是全行业都想删掉的那颗芯片——所以它斥数十亿美元收购 Celestial AI,直接跳向 scale-up CPO。光模块组装厂(旭创、新易盛、Fabrinet、Coherent)吃的是 GPU 出货量的贝塔;每隔一阵就来一次的「光需求要崩」恐慌是错的,因为每颗 GPU 出厂时照样带着 scale-out 端口——铜从来只在机架之内取代光。铜本身是安费诺的地盘(NVLink 背板)。台积电则靠 COUPE 封装平台悄悄拿下了 CPO 集成。至于标准之争——scale-out 上以太网/UEC 对 InfiniBand,scale-up 上 UALink/SUE 对 NVLink——其实是同一个故事讲了两遍:整个行业都在试图把英伟达的私有货色变成大宗商品。"
+  }
+ ],
+ "key_numbers": [
+  {
+   "metric_en": "NVLink 5 scale-up bandwidth per GPU",
+   "metric_zh": "NVLink 5 单 GPU scale-up 带宽",
+   "value": "900 GB/s (7.2 Tbit/s) — 9x the 800 Gbit/s scale-out link",
+   "source_name": "SemiAnalysis — Co-Packaged Optics (CPO) Book – Scaling with Light",
+   "source_url": "https://newsletter.semianalysis.com/p/co-packaged-optics-cpo-book-scaling"
+  },
+  {
+   "metric_en": "Passive copper reach at 200G/lane",
+   "metric_zh": "200G/lane 下无源铜缆传输极限",
+   "value": "~2 m — caps the NVLink domain at 1-2 racks",
+   "source_name": "SemiAnalysis — Co-Packaged Optics (CPO) Book – Scaling with Light",
+   "source_url": "https://newsletter.semianalysis.com/p/co-packaged-optics-cpo-book-scaling"
+  },
+  {
+   "metric_en": "GB200 NVL72 copper NVLink spine vs the optical counterfactual",
+   "metric_zh": "GB200 NVL72 铜 NVLink 脊 vs 改用光的代价",
+   "value": "5,184 copper differential pairs; optics would need 648 1.6T transceivers, ~$550k BoM & ~20 kW per rack",
+   "source_name": "SemiAnalysis — GB200 Hardware Architecture - Component Supply Chain & BOM",
+   "source_url": "https://semianalysis.com/2024/07/17/gb200-hardware-architecture-and-component/"
+  },
+  {
+   "metric_en": "DSP share of an 800G pluggable module",
+   "metric_zh": "DSP 占 800G 可插拔模块比重",
+   "value": "~50% of power / 20-30% of BoM",
+   "source_name": "SemiAnalysis — Co-Packaged Optics (CPO) Book – Scaling with Light",
+   "source_url": "https://newsletter.semianalysis.com/p/co-packaged-optics-cpo-book-scaling"
+  },
+  {
+   "metric_en": "CPO optical-link energy saving vs DSP pluggable",
+   "metric_zh": "CPO 光链路相对 DSP 可插拔的能耗节省",
+   "value": "65-73%",
+   "source_name": "SemiAnalysis — Co-Packaged Optics (CPO) Book – Scaling with Light",
+   "source_url": "https://newsletter.semianalysis.com/p/co-packaged-optics-cpo-book-scaling"
+  },
+  {
+   "metric_en": "CPO saving after cluster-level dilution (scale-out)",
+   "metric_zh": "CPO 在集群层被稀释后的节省(scale-out)",
+   "value": "2-4% of cluster power / 3-7% of cluster cost",
+   "source_name": "SemiAnalysis — Co-Packaged Optics (CPO) Book – Scaling with Light",
+   "source_url": "https://newsletter.semianalysis.com/p/co-packaged-optics-cpo-book-scaling"
+  },
+  {
+   "metric_en": "Copper vs optical link reliability (MTTF)",
+   "metric_zh": "铜互连 vs 光模块可靠性(平均无故障时间)",
+   "value": "passive/active copper: ~1-10M hours MTTF, dramatically above optical transceivers",
+   "source_name": "SemiAnalysis — 100,000 H100 Clusters",
+   "source_url": "https://semianalysis.com/2024/06/17/100000-h100-clusters-power-network/"
+  }
+ ],
+ "images": [
+  {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Nvidia_DGX_GB200.jpg",
+   "source_name": "Wikimedia Commons (CC BY-SA 4.0, User:Pokiiri)",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Nvidia_DGX_GB200.jpg",
+   "caption_en": "Nvidia GB200 NVL72: 72 liquid-cooled GPUs fused into a single scale-up domain by a copper NVLink backplane — the 'one giant GPU' rack.",
+   "caption_zh": "英伟达 GB200 NVL72:72 颗液冷 GPU 由铜制 NVLink 背板熔成一个 scale-up 域——「一颗巨型 GPU」机架。"
+  },
+  {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/5/59/Infiniband_switch_%26_cables_%282717795166%29.jpg",
+   "source_name": "Wikimedia Commons (CC BY 2.0, ChrisDag)",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Infiniband_switch_%26_cables_(2717795166).jpg",
+   "caption_en": "The scale-out side: an InfiniBand switch and its cabling — thousands of such links stitch racks into a training cluster.",
+   "caption_zh": "scale-out 的那一面:InfiniBand 交换机与线缆——成千上万条这样的链路把机架缝成训练集群。"
+  },
+  {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/0/0e/QSFP-40G-SR4_Transceiver.jpg",
+   "source_name": "Wikimedia Commons (CC BY-SA 3.0, Jesseschulman)",
+   "source_url": "https://commons.wikimedia.org/wiki/File:QSFP-40G-SR4_Transceiver.jpg",
+   "caption_en": "A pluggable optical transceiver (QSFP): laser + modulator + DSP in a thumb-sized module. Modules like this carry ~60% of scale-out networking cost.",
+   "caption_zh": "可插拔光模块(QSFP):激光器+调制器+DSP 装进拇指大小的壳里。这类模块占 scale-out 网络成本约 60%。"
+  }
+ ],
+ "own_fig": {
+  "id": "pm07",
+  "concept_en": "The two networks at a glance: what copper carries, what light carries, and the per-GPU bandwidth ladder",
+  "concept_zh": "两张网一图看懂:铜承载什么、光承载什么,以及单 GPU 带宽阶梯",
+  "spec": "Two panels + one inset bar chart. LEFT PANEL 'Scale-up / NVLink domain (world size = 72)': one tall rack outline containing 72 small GPU squares, all connected through a central 'NVLink switch' bar; connection lines drawn as solid copper-colored strokes labeled 'copper backplane, 5,184 differential pairs, reach <= 2 m @ 200G/lane' and 'plus 900 GB/s (7.2 Tbit/s) per GPU'. RIGHT PANEL 'Scale-out (InfiniBand / Ethernet)': 4 rack icons on the bottom row connected up to 2 leaf switches then 1 spine switch (leaf-spine tree); links drawn as thin wavy light-blue strokes labeled 'optical pluggable transceivers, reach 100s of m' and '100 GB/s (800 Gbit/s) per GPU'. BOTTOM INSET horizontal bar chart 'Bandwidth per GPU (GB/s, log scale)': HBM memory = 8,000; NVLink scale-up = 900; scale-out NIC = 100 — annotate 'each tier drops ~10x'. Data sources: 900 GB/s vs 800 Gbit/s (9x) and ~2 m copper reach from SemiAnalysis 'Co-Packaged Optics (CPO) Book – Scaling with Light' (newsletter.semianalysis.com/p/co-packaged-optics-cpo-book-scaling); 5,184 differential pairs from SemiAnalysis 'GB200 Hardware Architecture' (semianalysis.com/2024/07/17/gb200-hardware-architecture-and-component/); 8 TB/s HBM (GB200/GB300 generation) per Nvidia Blackwell specs as cited in the accelerator sector brief."
+ },
+ "why_en": "Interconnect is where the next architecture war is being fought. Whether copper stretches to 448G or optics moves onto the package decides billions of dollars of content shifts: CPO threatens transceiver assemblers and DSP vendors while lifting TSMC, laser makers and optical-engine startups. The scale-up/scale-out lens explains why Nvidia's NVLink moat exists, why Broadcom is the anti-Nvidia trade, and why Marvell paid billions for Celestial AI. It also inoculates you against this sector's most repeated investor mistake: extrapolating — or panic-selling — optics demand from a headline without first asking which of the two networks it is actually about.",
+ "why_zh": "互连是下一场架构战争的主战场。铜能不能撑到 448G、光会不会搬进封装,决定着数十亿美元级的价值转移:CPO 威胁光模块组装厂和 DSP 厂商,却抬升台积电、激光器厂和光引擎创业公司。「纵向/横向」这副透镜解释了英伟达 NVLink 护城河从何而来、为什么博通是反英伟达交易、马维尔为何肯为 Celestial AI 掏数十亿美元。它还能帮你免疫这个板块最常见的投资错误:看到一条光模块新闻就外推需求或恐慌抛售,却没先问一句——它说的到底是两张网里的哪一张?",
+ "related_sectors": [
+  "06_networking",
+  "01_accelerators",
+  "04_packaging",
+  "07_datacenter_power"
+ ]
+}

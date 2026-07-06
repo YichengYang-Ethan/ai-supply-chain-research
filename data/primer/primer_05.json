@@ -1,0 +1,127 @@
+{
+ "module_id": "05",
+ "title_en": "The Memory Hierarchy and HBM",
+ "title_zh": "存储层级与 HBM",
+ "tagline_en": "Understand the register-to-SSD speed pyramid, why DRAM stopped shrinking, and how stacked HBM became 50-60%+ of an AI GPU's manufacturing cost.",
+ "tagline_zh": "看懂从寄存器到 SSD 的速度金字塔、DRAM 为何缩不动,以及垂直堆叠出来的 HBM 如何吃掉 AI GPU 一半以上的制造成本。",
+ "sections": [
+  {
+   "heading_en": "Why computers need a memory pyramid",
+   "heading_zh": "为什么计算机需要一座「存储金字塔」",
+   "body_en": "A processor can only compute on data it is holding right now. The trouble is that memory fast enough to keep up with a processor is astronomically expensive per bit, and memory cheap enough to buy in bulk is painfully slow. Engineers resolve this with a hierarchy — a pyramid of layers, each one bigger, cheaper, and slower than the one above it.\n\nAt the tip sit registers: a few kilobytes inside the CPU or GPU core itself, reachable in under a nanosecond — the pages you are literally holding in your hands. Next comes SRAM cache (tens of megabytes, roughly 1-30 nanoseconds) — the desk in front of you. SRAM is fast because every bit is an actively powered six-transistor circuit; but that is exactly why it stays small, costing roughly 20x more silicon area per bit than DRAM. Below that lies main memory built from DRAM: tens to hundreds of gigabytes at roughly 100 nanoseconds — the bookshelf across the room. At the base, NAND-flash SSDs hold terabytes at around 100 microseconds — a warehouse across town: a thousand times slower again, but nearly free per bit.\n\nThe pyramid works because programs normally reuse the same data over and over ('locality'). AI broke that comfort. A trillion-parameter model fits in no cache, and inference streams essentially the whole model through the chip for every single token it generates. AI needed a new layer wedged between SRAM and ordinary DRAM — DRAM re-packaged for extreme bandwidth. That layer is HBM.",
+   "body_zh": "处理器只能对「此刻拿在手里」的数据做运算。麻烦在于:跟得上处理器速度的存储,每比特贵得离谱;便宜到可以大批量买的存储,又慢得要命。工程师的解法是分层——一座金字塔,每往下一层,容量更大、单价更低、速度更慢。\n\n塔尖是寄存器:CPU/GPU 核心内部区区几 KB,不到 1 纳秒就能取到,相当于你手里正捏着的那几页纸。往下是 SRAM 缓存(几十 MB,约 1~30 纳秒),是你面前的书桌。SRAM 快,是因为每个比特都是一个持续供电的 6 晶体管电路;但也正因如此它大不起来——每比特占用的硅面积约是 DRAM 的 20 倍。再往下是用 DRAM 做的主存:几十到几百 GB、约 100 纳秒,像房间另一头的书架。塔底是 NAND 闪存 SSD:TB 级容量、约 100 微秒——又慢一千倍,但每比特便宜到近乎不要钱,像城另一头的仓库。\n\n金字塔能运转,靠的是程序通常会反复使用同一批数据(「局部性」)。AI 把这份默契打破了:万亿参数的模型塞不进任何缓存,而推理每生成一个 token,都要把几乎整个模型从头到尾读一遍。于是 SRAM 与普通 DRAM 之间必须插入一个新层级:为极致带宽重新封装过的 DRAM。它就是 HBM。"
+  },
+  {
+   "heading_en": "One transistor, one capacitor — and why DRAM stopped shrinking",
+   "heading_zh": "一管一容:DRAM 为什么缩不动了",
+   "body_en": "DRAM's beauty is its brutal simplicity. Each bit is one transistor plus one capacitor — the '1T1C' cell. The capacitor stores electric charge (charged means 1, empty means 0); the transistor is the gate that reads or writes it. Because capacitors leak, every cell must be re-written thousands of times per second — that is the 'dynamic' in Dynamic RAM. This one-transistor design is why DRAM is ~20x denser than SRAM and cheap enough to buy by the gigabyte.\n\nThe same capacitor is what killed DRAM scaling. To produce a signal the sense amplifier can still detect, a cell must trap on the order of 40,000 electrons. Shrink the cell's footprint and the capacitor can only keep its surface area by growing taller — modern DRAM capacitors are wells with roughly 100:1 aspect ratios, skyscrapers in silicon. In the golden age, DRAM density doubled every 18 months, about 100x per decade. Over the last decade it managed roughly 2x. As SemiAnalysis puts it, Moore's Law for DRAM died over a decade ago — with zero fanfare.\n\nThe investment consequence is enormous. With no cost-down left to cushion prices, DRAM behaves like a commodity with almost perfectly inelastic supply: the only way to add bits is to build new fabs, which takes years. That is the structural reason the industry consolidated into three players controlling over 95% of supply — SK Hynix, Samsung, Micron — and why the memory cycle swings so violently.",
+   "body_zh": "DRAM 的美在于粗暴的简单。每个比特 = 一个晶体管 + 一个电容,即「1T1C」单元:电容存电荷,有电是 1、没电是 0;晶体管是读写的闸门。电容会漏电,所以每个单元每秒要被重写几千次——这就是 Dynamic(动态)一词的来历。正是这种单管设计,让 DRAM 密度约为 SRAM 的 20 倍,便宜到可以论 GB 买。\n\n但也是这颗电容,杀死了 DRAM 的微缩。要让灵敏放大器还能读出信号,一个单元大约得存住 4 万个电子;占地面积一缩,电容想保住表面积就只能往高里长——如今的 DRAM 电容是深宽比约 100:1 的深井,硅里的摩天楼。黄金年代 DRAM 密度每 18 个月翻一倍、十年约 100 倍;过去十年只做到约 2 倍。用 SemiAnalysis 的话说:DRAM 的摩尔定律十多年前就死了,而且死得悄无声息。\n\n投资含义极重。没有成本下降来缓冲价格,DRAM 就成了一种供给几乎完全无弹性的大宗商品:想加产量只能建新厂,而建厂要好几年。这就是行业收敛为三家(SK 海力士、三星、美光)握有 95% 以上供给、且存储周期波动如此暴烈的结构性原因。"
+  },
+  {
+   "heading_en": "HBM: when you can't shrink, stack",
+   "heading_zh": "HBM:缩不动,就往上堆",
+   "body_en": "HBM (High Bandwidth Memory) does not fix DRAM's physics; it re-packages them. Take 8 to 16 DRAM dies, grind each down to a fraction of a hair's thickness, drill thousands of vertical copper channels straight through them — through-silicon vias (TSVs), the elevator shafts of the stack — and mount the tower on a base die that manages traffic in and out. The result is a cube of memory.\n\nThe real trick is the bus. An ordinary DDR module talks to the CPU over roughly 64 data wires driven very fast across centimeters of circuit board. HBM inverts the design: 1,024 wires (2,048 in HBM4), each running at a moderate speed, over just a few millimeters. Wide-and-slow beats narrow-and-fast on both total bandwidth and energy per bit. But a thousand-plus wires cannot be routed through a printed circuit board — its traces are far too coarse. So the cube must sit right next to the GPU on a silicon interposer, a slice of silicon whose wiring is fine enough, joined by TSMC's CoWoS packaging process (the subject of Module 04).\n\nThat creates a peculiar constraint: HBM must crowd along the GPU die's edges — its 'shoreline' — and only two of the four edges are available, because the others carry off-package I/O. How much memory a GPU can carry is now partly a geometry problem. And it was this packaging capacity, not GPU dies, that actually gated AI accelerator supply in 2023-24.",
+   "body_zh": "HBM(高带宽存储)并没有修好 DRAM 的物理,它只是换了种封装思路。把 8~16 片 DRAM die 磨薄到头发丝的几分之一,在上面打穿几千条垂直铜柱——硅通孔(TSV),整栋楼的电梯井——再把这摞塔架在一颗负责进出调度的基底 die 上,得到一块「存储立方体」。\n\n真正的精髓在总线。普通 DDR 内存条与 CPU 之间用约 64 根数据线,以极高频率跑过几厘米长的电路板;HBM 反其道而行:1024 根线(HBM4 加倍到 2048 根),每根速度适中,只走几毫米。「宽而慢」在总带宽和每比特能耗上都完胜「窄而快」。但一千多根线是 PCB 走不动的——它的走线太粗。所以这块立方体必须紧贴 GPU,一起放在硅中介层上——一片布线足够精细的硅,由台积电的 CoWoS 封装工艺连接(那是第 04 模块的主角)。\n\n由此出现一个古怪的约束:HBM 只能沿着 GPU die 的边缘排布——所谓「岸线」——而四条边里只有两条可用,另两条要留给对外 I/O。一颗 GPU 能带多少内存,如今一半是道几何题。而 2023-24 年真正卡住 AI 加速器供给的,正是这道封装产能,不是 GPU die 本身。"
+  },
+  {
+   "heading_en": "The generations: HBM2E to HBM4E",
+   "heading_zh": "代际演进:从 HBM2E 到 HBM4E",
+   "body_en": "Follow one manufacturer's product line and the trajectory is stark. In 2020, SK hynix mass-produced HBM2E: eight dies, 16GB per stack, 3.6 Gb/s per pin, just over 460 GB/s of bandwidth. HBM3 — the H100 generation — roughly doubled the pin speed to 6.4 Gb/s. By late 2024, HBM3E stacked twelve 3GB dies, each ground 40% thinner so that twelve fit in the height of the old eight: 36GB per cube at 9.6 Gb/s, about 1.2 TB/s per stack.\n\nHBM4, standardized by JEDEC in April 2025 (JESD270-4), is the architectural break. The bus doubles to 2,048 bits, independent channels double to 32, and the spec allows 16-high stacks of 32Gb dies — up to 64GB and 2 TB/s per stack. Vendors are already beating the spec: Samsung's ISSCC 2026 paper demonstrated 13 Gb/s per pin and 3.3 TB/s. Just as important, HBM4 moves the base die from a DRAM process onto a foundry logic node — SK hynix to TSMC's N12, Samsung to its own SF4 — opening the door to custom base dies for Nvidia, OpenAI, AMD, and Amazon.\n\nNow multiply per-stack progress by more stacks per GPU. An A100 in 2020 carried 80GB of HBM2E. Nvidia's Rubin Ultra roadmap, per SemiAnalysis, carries 1,024GB of HBM4E — a 13x jump in per-GPU capacity in roughly six years, every gigabyte of it billed to the AI buildout.",
+   "body_zh": "沿着一家厂的产品线看,轨迹一目了然。2020 年,SK 海力士量产 HBM2E:8 层 die、单栈 16GB、每 pin 3.6 Gb/s、带宽 460+ GB/s。HBM3——H100 那一代——把 pin 速大致翻倍到 6.4 Gb/s。到 2024 年底,HBM3E 把 12 片 3GB 的 die 各自再磨薄 40%,塞进原本 8 层的高度:单栈 36GB、9.6 Gb/s,约 1.2 TB/s。\n\n2025 年 4 月 JEDEC 定稿的 HBM4(JESD270-4)是一次架构级跨越:总线翻倍到 2048 位、独立通道翻倍到 32 个,规范允许 32Gb 的 die 叠 16 层——单栈最高 64GB、2 TB/s。厂商已经在「超纲」:三星在 ISSCC 2026 上演示了 13 Gb/s/pin、3.3 TB/s。同样重要的是,HBM4 把基底 die 从 DRAM 工艺迁到代工逻辑节点——海力士交给台积电 N12,三星用自家 SF4——为英伟达、OpenAI、AMD、亚马逊的定制基底 die 打开了大门。\n\n再把单栈的进步乘以每颗 GPU 更多的栈数:2020 年的 A100 带 80GB HBM2E;据 SemiAnalysis,英伟达路线图上的 Rubin Ultra 将带 1024GB HBM4E——六年左右,单 GPU 容量翻了 13 倍,而每一个 GB 都记在 AI 基建的账单上。"
+  },
+  {
+   "heading_en": "Why memory is half the GPU's bill of materials",
+   "heading_zh": "为什么存储吃掉 GPU 一半以上的物料清单",
+   "body_en": "SemiAnalysis's bill-of-materials work lands on a startling number: over 50% of an H100's manufacturing cost is HBM, and on Blackwell it grows past 60%. When you buy an 'AI GPU,' you are mostly buying DRAM.\n\nTwo forces produce that number. On the demand side stands the memory wall: LLM inference reads every model weight — plus a KV cache that grows with every token of context — for each token generated, so most inference is bandwidth-bound, not compute-bound. The GPU is quite literally waiting on HBM. No other DRAM delivers the bandwidth, so buyers pay 3x+ per gigabyte over DDR5 with no substitute available.\n\nOn the supply side, HBM is the hardest DRAM ever made. Yield compounds with height: even at 99% per bonded layer, an 8-high stack yields 92% and a 12-high only 87% — and reality is worse, because the bigger problem is front-end yield on the TSVs and the power-delivery network that must feed current up through the tower. Every maker runs HBM yields far below its ordinary DRAM.\n\nThe economics are perversely elegant: because pricing more than covers the yield loss, difficulty itself is the moat. HBM is the highest-margin product the memory industry has ever sold; from Ampere to Blackwell Ultra, the single biggest BOM increase is HBM — a wealth transfer from Nvidia's customers to SK Hynix above all. And the treadmill never stops: every capacity bump is immediately consumed by bigger models, so memory is always the next bottleneck.",
+   "body_zh": "SemiAnalysis 拆过物料账,得出一个惊人的数字:H100 制造成本的 50% 以上是 HBM,到 Blackwell 更是超过 60%。换句话说,你买的「AI 芯片」,大半价钱付给了 DRAM。\n\n这个数字由两股力量共同挤出。需求端立着「存储墙」:LLM 推理每生成一个 token,都要把全部模型权重——外加随上下文逐 token 变大的 KV 缓存——完整读一遍,所以大多数推理受带宽而非算力约束,GPU 是真的在干等 HBM。没有别的 DRAM 给得出这个带宽,买家只能付出对 DDR5 每 GB 3 倍以上的溢价,而且无可替代。\n\n供给端,HBM 是史上最难做的 DRAM。良率随高度累乘:即便每层键合良率 99%,8 层堆叠只剩 92%,12 层只剩 87%——现实还更糟,因为更大的麻烦在前道:TSV 和要把电流一路送上塔顶的供电网络。所有厂商的 HBM 绝对良率都远低于自家普通 DRAM。\n\n这里的经济学反直觉得漂亮:因为售价远超良率损耗,「难」本身就是护城河。HBM 是存储业史上利润率最高的产品;从 Ampere 到 Blackwell Ultra,物料清单增量最大的单项就是 HBM——等于英伟达的客户在向存储厂(首先是 SK 海力士)转移财富。而且这台跑步机停不下来:每次扩容都立刻被更大的模型吃掉,内存永远是下一个瓶颈。"
+  },
+  {
+   "heading_en": "NAND vs DRAM: two memories, two jobs",
+   "heading_zh": "NAND 与 DRAM:两种存储,两种分工",
+   "body_en": "One more distinction completes the map. DRAM is working memory: volatile (contents vanish at power-off), byte-addressable, ~100 nanoseconds. NAND flash is storage: non-volatile, read in whole pages, ~100 microseconds — a thousand times slower — but far cheaper per bit; it is what fills SSDs. In an AI datacenter, DRAM and HBM hold the model and the conversation state while computing; NAND holds training datasets, checkpoints, and increasingly the evicted 'cold' context — Nvidia's Dynamo software tiers the KV cache from HBM down to DDR/LPDDR and then to NVMe SSDs. SemiAnalysis's key judgment: these tiers are complements, not substitutes — like L1 cache versus DRAM, more of one does not cannibalize the other.\n\nThe structural difference is the more interesting one. NAND solved its own scaling crisis a decade ago by going 3D: a charge-trap cell needs no capacitor, so layers can simply be grown upward — SanDisk/Kioxia's latest BiCS10 stacks 332 of them. DRAM cannot copy this yet, because its capacitor refuses to lie down; that is exactly why HBM stacks finished dies with bumps and TSVs instead of growing layers monolithically, and why '3D DRAM,' expected around 2030-2035, is the technology race that could reshuffle DRAM market share. The investment texture differs accordingly: NAND has five-plus makers and chronically weaker pricing; DRAM has three plus CXMT — and, right now, a once-in-four-decades shortage.",
+   "body_zh": "最后一块拼图,把地图补完整。DRAM 是工作内存:易失(断电即空)、按字节寻址、约 100 纳秒。NAND 闪存是仓储:非易失、按页整块读写、约 100 微秒——慢一千倍——但每比特便宜得多,SSD 里装的就是它。在 AI 数据中心里,计算时 DRAM/HBM 托着模型和会话状态;NAND 存训练数据集、checkpoint,以及越来越多被逐出的「冷」上下文——英伟达的 Dynamo 软件把 KV 缓存从 HBM 逐层卸到 DDR/LPDDR,再到 NVMe SSD。SemiAnalysis 的关键判断是:这些层级是互补而非替代——就像 L1 缓存与 DRAM 的关系,多买这层不会蚕食那层。\n\n更有意思的是结构性差异。NAND 十年前就靠「转 3D」解决了自己的微缩危机:电荷俘获单元不需要电容,层数可以直接往上长——闪迪/铠侠最新的 BiCS10 已叠到 332 层。DRAM 至今学不来,因为它的电容不肯躺平;这正是 HBM 只能把造好的 die 用凸点和 TSV 事后摞起来、而非单片长出层数的原因,也是约 2030-2035 年的「3D DRAM」会成为一场重洗 DRAM 份额之竞赛的原因。投资质地也随之不同:NAND 有五家以上玩家、定价权长期偏弱;DRAM 只有三家外加长鑫——而且眼下正处在「四十年一遇」的短缺之中。"
+  }
+ ],
+ "key_numbers": [
+  {
+   "metric_en": "HBM share of AI GPU manufacturing cost",
+   "metric_zh": "HBM 占 AI GPU 制造成本比重",
+   "value": "H100 ~50%+ -> Blackwell ~60%+",
+   "source_name": "SemiAnalysis — The Memory Wall: Past, Present, and Future of DRAM",
+   "source_url": "https://semianalysis.com/2024/09/03/the-memory-wall/"
+  },
+  {
+   "metric_en": "DRAM density scaling collapse",
+   "metric_zh": "DRAM 密度微缩的崩塌",
+   "value": "~2x over the last decade, vs 2x every 18 months (~100x/decade) in the golden age",
+   "source_name": "SemiAnalysis — The Memory Wall: Past, Present, and Future of DRAM",
+   "source_url": "https://semianalysis.com/2024/09/03/the-memory-wall/"
+  },
+  {
+   "metric_en": "HBM price premium over DDR5",
+   "metric_zh": "HBM 对 DDR5 的价格溢价",
+   "value": "3x+ per GB",
+   "source_name": "SemiAnalysis — The Memory Wall: Past, Present, and Future of DRAM",
+   "source_url": "https://semianalysis.com/2024/09/03/the-memory-wall/"
+  },
+  {
+   "metric_en": "HBM stack-yield compounding",
+   "metric_zh": "HBM 堆叠良率累乘",
+   "value": "99% per bonded layer -> 92% at 8-high, 87% at 12-high (real yields degrade faster)",
+   "source_name": "SemiAnalysis — Scaling the Memory Wall: The Rise and Roadmap of HBM",
+   "source_url": "https://semianalysis.com/2025/08/12/scaling-the-memory-wall-the-rise-and-roadmap-of-hbm/"
+  },
+  {
+   "metric_en": "HBM2E per stack (2020 volume production)",
+   "metric_zh": "HBM2E 单栈规格(2020 年量产)",
+   "value": "16GB (8x 16Gb dies), 3.6 Gb/s per pin, 460+ GB/s per stack",
+   "source_name": "SK hynix Newsroom — SK hynix Starts Mass-Production of High-Speed DRAM 'HBM2E'",
+   "source_url": "https://news.skhynix.com/sk-hynix-starts-mass-production-of-high-speed-dram-hbm2e/"
+  },
+  {
+   "metric_en": "HBM3E 12-high per stack (2024 volume production)",
+   "metric_zh": "HBM3E 12 层单栈规格(2024 年量产)",
+   "value": "36GB (12x 3GB dies, each 40% thinner), 9.6 Gb/s per pin",
+   "source_name": "SK hynix Newsroom — SK hynix Begins Volume Production of the World's First 12-Layer HBM3E",
+   "source_url": "https://news.skhynix.com/sk-hynix-begins-volume-production-of-the-world-first-12-layer-hbm3e/"
+  },
+  {
+   "metric_en": "JEDEC HBM4 standard (JESD270-4, April 2025)",
+   "metric_zh": "JEDEC HBM4 标准(JESD270-4,2025 年 4 月)",
+   "value": "2,048-bit interface, up to 8 Gb/s per pin = 2 TB/s per stack; up to 64GB (16-high of 32Gb dies)",
+   "source_name": "TrendForce — JEDEC Finalizes HBM4 Standard, Potentially Easing Pressure on Hybrid Bonding Adoption",
+   "source_url": "https://www.trendforce.com/news/2025/04/21/news-jedec-finalizes-hbm4-standard-potentially-easing-pressure-on-hybrid-bonding-adoption/"
+  }
+ ],
+ "images": [
+  {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/High_Bandwidth_Memory_schematic.svg/1280px-High_Bandwidth_Memory_schematic.svg.png",
+   "source_name": "Wikimedia Commons",
+   "source_url": "https://commons.wikimedia.org/wiki/File:High_Bandwidth_Memory_schematic.svg",
+   "caption_en": "Cross-section schematic of HBM: DRAM dies stacked on a base die and linked by through-silicon vias (TSVs), sitting beside the GPU/CPU on a silicon interposer over the package substrate.",
+   "caption_zh": "HBM 剖面示意图:DRAM die 堆叠在基底 die 之上、由硅通孔(TSV)互连,与 GPU/CPU 一同置于封装基板上方的硅中介层上。"
+  },
+  {
+   "url": "https://d36ae2cxtn9mcr.cloudfront.net/wp-content/uploads/2024/09/25093327/SK-hynix-Begins-Volume-Production-of-the-World%E2%80%99s-First-12-Layer-HBM3E_01.jpg",
+   "source_name": "SK hynix Newsroom",
+   "source_url": "https://news.skhynix.com/sk-hynix-begins-volume-production-of-the-world-first-12-layer-hbm3e/",
+   "caption_en": "SK hynix's 12-layer HBM3E, the first 36GB stack in volume production (September 2024): twelve 3GB DRAM dies, each ground 40% thinner, in the same height as the previous 8-layer product.",
+   "caption_zh": "SK 海力士 12 层 HBM3E,全球首个量产的 36GB 堆叠(2024 年 9 月):12 片 3GB DRAM die 各磨薄 40%,叠进与上一代 8 层产品相同的高度。"
+  }
+ ],
+ "own_fig": {
+  "id": "pm05",
+  "concept_en": "The memory pyramid with HBM's inserted tier, paired with per-stack HBM bandwidth by generation",
+  "concept_zh": "插入 HBM 层级的存储金字塔,配 HBM 各代单栈带宽演进",
+  "spec": "Two-panel figure. LEFT: a 5-tier pyramid, top to bottom: (1) Registers — ~KB, <1 ns; (2) SRAM cache — ~10-100 MB, ~1-30 ns; (3) HBM — highlighted band labeled 'the tier AI inserted', 10s-100s of GB per package, ~TB/s per stack, 3x+ $/GB vs DDR5 (SemiAnalysis, The Memory Wall); (4) DDR/LPDDR main memory — ~TBs per server, ~100 ns; (5) NAND SSD — 10s of TB, ~100 us. Left edge arrow 'faster, more $/bit'; right edge arrow 'bigger, cheaper'. Latency/capacity figures are order-of-magnitude textbook approximations — label them 'approx.'. RIGHT: bar chart, bandwidth per HBM stack by generation: HBM2E = 0.46 TB/s (SK hynix Newsroom 2020, https://news.skhynix.com/sk-hynix-starts-mass-production-of-high-speed-dram-hbm2e/); HBM3E 12-hi = ~1.2 TB/s (computed: 9.6 Gb/s x 1,024-bit / 8; pin speed from SK hynix Newsroom 2024, https://news.skhynix.com/sk-hynix-begins-volume-production-of-the-world-first-12-layer-hbm3e/); HBM4 JEDEC spec = 2.0 TB/s (TrendForce on JESD270-4, https://www.trendforce.com/news/2025/04/21/news-jedec-finalizes-hbm4-standard-potentially-easing-pressure-on-hybrid-bonding-adoption/); Samsung HBM4 ISSCC 2026 demo = 3.3 TB/s (SemiAnalysis ISSCC 2026, https://newsletter.semianalysis.com/p/isscc-2026-nvidia-and-broadcom-cpo). Under each bar, secondary label for capacity per stack: 16GB -> 36GB -> up to 64GB -> 36GB demo. Annotation arrow above bars: 'per-GPU HBM: A100 80GB (2020) -> Rubin Ultra 1,024GB HBM4E (SemiAnalysis, https://semianalysis.com/2025/08/12/scaling-the-memory-wall-the-rise-and-roadmap-of-hbm/)'."
+ },
+ "why_en": "Memory is where the AI buildout's economics concentrate. If HBM is 50-60%+ of a flagship GPU's manufacturing cost, every accelerator sold is mostly a memory transaction — and the pricing power sits with a three-firm oligopoly whose output is yield-limited, not demand-limited. This module gives you the mechanism behind the numbers: why DRAM supply cannot respond quickly (scaling died; fabs take years), why difficulty protects margins (compounding stack yields), and why demand is structural (bandwidth-bound inference plus ever-larger models). With that framework you can judge SK Hynix, Micron, and Samsung earnings, the 2026 shortage, CXMT headlines, and each 'next-gen HBM' announcement on mechanism rather than on anyone's word.",
+ "why_zh": "存储是 AI 基建经济学最集中的地方。当 HBM 占旗舰 GPU 制造成本的 50%~60% 以上,每卖出一颗加速器,大半是一笔存储交易——而定价权握在一个产出受良率(而非需求)约束的三家寡头手里。本模块给你数字背后的机制:DRAM 供给为何反应不过来(微缩已死、建厂要数年)、「难」为何守护利润(堆叠良率逐层累乘)、需求为何是结构性的(受带宽约束的推理加上越养越大的模型)。有了这套框架,你就能靠机制而非听人转述,去评判海力士/美光/三星的财报、2026 年的短缺、长鑫的新闻,以及每一次「下一代 HBM」的发布。",
+ "related_sectors": [
+  "03_memory",
+  "01_accelerators",
+  "04_packaging",
+  "02_foundry",
+  "10_china_geopolitics"
+ ]
+}
