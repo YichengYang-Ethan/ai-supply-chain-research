@@ -414,8 +414,8 @@
    "metric_en": "Reticle utilization cost penalty",
    "metric_zh": "光罩利用率成本罚金",
    "value": "Bad field tiling → 1.875x scan steps → wafer repriced $17,000 → $21,364 (litho ≈ 1/3 of wafer cost)",
-   "note_en": "The worked example where the 2-chiplet design's silicon advantage collapses from $136 to $26 ($541 vs $567) — and very likely flips to a loss once packaging costs are included.",
-   "note_zh": "该算例中双 chiplet 设计的硅片优势从 $136 塌缩到只剩 $26（$541 对 $567）——一旦算上封装成本，很可能翻成劣势。"
+   "note_en": "Chiplet silicon saving collapses $136 → $26 ($541 vs $567); likely flips negative once packaging costs are added.",
+   "note_zh": "chiplet 硅片优势从 $136 塌到 $26($541 vs $567);计入封装成本后很可能反超转负。"
   },
   {
    "metric_en": "Emerald Rapids re-aggregation",
