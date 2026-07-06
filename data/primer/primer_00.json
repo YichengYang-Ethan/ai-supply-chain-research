@@ -38,43 +38,43 @@
  ],
  "key_numbers": [
   {
-   "metric_en": "H100 1-year rental price (Oct-25 → Mar-26)",
-   "metric_zh": "H100 一年期租金(2025-10 → 2026-03)",
+   "metric_en": "H100 1-year rental price (Oct-25 → Mar-26)  (→ taught in Module 09)",
+   "metric_zh": "H100 一年期租金(2025-10 → 2026-03)(→ 模块 09 讲透)",
    "value": "$1.70 → $2.35/hr/GPU (+~40%), capacity sold out into late 2026",
    "source_name": "SemiAnalysis — The Great GPU Shortage – Rental Capacity",
    "source_url": "https://newsletter.semianalysis.com/p/the-great-gpu-shortage-rental-capacity"
   },
   {
-   "metric_en": "AI share of TSMC N3 wafer output",
-   "metric_zh": "AI 占台积电 N3 晶圆产出比重",
+   "metric_en": "AI share of TSMC N3 wafer output  (→ taught in Module 02)",
+   "metric_zh": "AI 占台积电 N3 晶圆产出比重(→ 模块 02 讲透)",
    "value": "~60% (2026) → 86% (2027), squeezing out smartphone and CPU wafers",
    "source_name": "SemiAnalysis — The Great AI Silicon Shortage",
    "source_url": "https://newsletter.semianalysis.com/p/the-great-ai-silicon-shortage"
   },
   {
-   "metric_en": "DRAM shortage severity",
-   "metric_zh": "DRAM 短缺烈度",
+   "metric_en": "DRAM shortage severity  (→ taught in Module 05)",
+   "metric_zh": "DRAM 短缺烈度(→ 模块 05 讲透)",
    "value": "A 'once-in-four-decades' shortage; memory prices set to double again",
    "source_name": "SemiAnalysis — Memory Mania: How a Once-in-Four-Decades Shortage Is Fueling a Memory Boom",
    "source_url": "https://newsletter.semianalysis.com/p/memory-mania-how-a-once-in-four-decades"
   },
   {
-   "metric_en": "HBM share of AI GPU manufacturing cost",
-   "metric_zh": "HBM 占 AI GPU 制造成本比重",
+   "metric_en": "HBM share of AI GPU manufacturing cost  (→ taught in Module 05)",
+   "metric_zh": "HBM 占 AI GPU 制造成本比重(→ 模块 05 讲透)",
    "value": "H100 ~50%+ → Blackwell ~60%+",
    "source_name": "SemiAnalysis — Scaling the Memory Wall: The Rise and Roadmap of HBM",
    "source_url": "https://semianalysis.com/2025/08/12/scaling-the-memory-wall-the-rise-and-roadmap-of-hbm/"
   },
   {
-   "metric_en": "US grid: queued load requests vs peak load",
-   "metric_zh": "美国电网:排队负荷申请 vs 峰值负荷",
+   "metric_en": "US grid: queued load requests vs peak load  (→ taught in Module 08)",
+   "metric_zh": "美国电网:排队负荷申请 vs 峰值负荷(→ 模块 08 讲透)",
    "value": "~1 terawatt of load requests vs 745 GW US peak",
    "source_name": "SemiAnalysis — US Grid Constraints: Towards 40GW+ of Behind-The-Meter Datacenter by 2028?",
    "source_url": "https://newsletter.semianalysis.com/p/us-grid-constraints-towards-40gw"
   },
   {
-   "metric_en": "Anthropic ARR and inference gross margin (2025→26)",
-   "metric_zh": "Anthropic ARR 与推理毛利率(2025→26)",
+   "metric_en": "Anthropic ARR and inference gross margin (2025→26)  (→ taught in Module 09)",
+   "metric_zh": "Anthropic ARR 与推理毛利率(2025→26)(→ 模块 09 讲透)",
    "value": "ARR $9B → $44B+; inference gross margin 38% → 70%+",
    "source_name": "SemiAnalysis — AI Value Capture - The Shift To Model Labs",
    "source_url": "https://newsletter.semianalysis.com/p/ai-value-capture-the-shift-to-model"
@@ -115,5 +115,7 @@
   "08_hyperscalers_econ",
   "09_models_software",
   "10_china_geopolitics"
- ]
+ ],
+ "key_numbers_heading_en": "Four numbers you can't parse yet — and will fully understand by the end",
+ "key_numbers_heading_zh": "四个你现在看不懂、读完基础篇会彻底看懂的数字"
 }
