@@ -26,14 +26,14 @@
   {
    "heading_en": "Planar → FinFET → GAA: a three-dimensional war on leakage",
    "heading_zh": "平面 → FinFET → GAA：一场对漏电的立体化战争",
-   "body_en": "The leakage that killed Dennard scaling set off a twenty-year redesign of the transistor's geometry, with one goal: give the gate more control over the channel so the switch shuts off properly.\n\nThe original planar transistor — the dominant design into the early 2010s — lays the channel flat on the silicon surface, the gate touching one side only. Below roughly the 28nm generation, that single-sided grip becomes too weak: electrons sneak beneath the gate's reach. The FinFET, adopted from 22nm (around 2011) onward, raises the channel into a thin vertical fin so the gate drapes over it on three sides — a far firmer grip, much less leakage, and another decade of scaling. But fins are rigid: their height is fixed by the process, and by the 3nm generation engineers had run out of ways to improve them. Gate-all-around (GAA) is the endgame of this logic: the channel becomes a stack of horizontal nanosheets, each completely surrounded by the gate on all four sides, and designers can vary sheet width to trade drive strength against density. Every 2nm-generation node — TSMC N2, Intel 18A, Samsung SF2 — is GAA, arriving 2025-2026, most paired with a second change: backside power delivery, which moves power wiring to the wafer's back and frees the front for signals, worth roughly 15-20% in power — the first interconnect paradigm shift since copper in 1997.\n\nOne habit to build now: node names like '3nm' and '2nm' are marketing labels, not measurements — nothing on an N3 chip is actually 3 nanometers. Compare nodes on density, power and cost, never on the name.",
-   "body_zh": "杀死登纳德缩放的漏电，引发了对晶体管几何形状长达二十年的重构，目标只有一个：让栅极更牢地攥住沟道，让开关真正关得严。\n\n最初的平面晶体管——从集成电路诞生到 2010 年代初的主流——把沟道平铺在硅片表面，栅极只从上方压住一面。到大约 28nm 世代以下，这种「单面手掌」握不住了：电子会从栅极够不到的下方溜过去。FinFET 从 22nm（约 2011 年）起接棒：把沟道立起来做成薄薄的鳍，栅极像手一样从三面包住它——控制力大增、漏电大降，又换来十年微缩。但鳍是「死」的：高度由工艺定死，到 3nm 世代已无油水可榨。环栅晶体管（GAA）是这条逻辑的终点：沟道变成一叠水平的纳米片，每片被栅极四面完全包裹，设计者还能调节片宽，在驱动力与密度之间做交换。所有 2nm 世代节点——台积电 N2、英特尔 18A、三星 SF2——都采用 GAA，于 2025-2026 年落地；多数还搭配第二项变革「背面供电」：把供电走线挪到晶圆背面，正面全部让给信号，带来约 15-20% 的功耗收益——这是自 1997 年铜互连以来互连领域的第一次范式转变。\n\n现在就养成一个习惯：「3nm」「2nm」这些节点名是营销标签，不是尺寸——N3 芯片上没有任何东西真的是 3 纳米。比较节点只看密度、功耗、成本，永远别看名字。"
+   "body_en": "The leakage that killed Dennard scaling set off a twenty-year redesign of the transistor's geometry, with one goal: give the gate more control over the channel so the switch shuts off properly.\n\nThe original planar transistor — the dominant design into the early 2010s — lays the channel flat on the silicon surface, the gate touching one side only. Below roughly the 28nm generation, that single-sided grip becomes too weak: electrons sneak beneath the gate's reach. The FinFET, adopted from 22nm (around 2011) onward, raises the channel into a thin vertical fin so the gate drapes over it on three sides — a far firmer grip, much less leakage, and another decade of scaling. But fins are rigid: their height is fixed by the process, and by the 3nm generation engineers had run out of ways to improve them. Gate-all-around (GAA) is the endgame of this logic: the channel becomes a stack of horizontal nanosheets, each completely surrounded by the gate on all four sides, and designers can vary sheet width to trade drive strength against density. The 2nm-generation nodes — TSMC N2, Intel 18A, Samsung SF2 — are all GAA, arriving 2025-2026. Intel 18A pairs GAA with a second change — backside power delivery (~15-20% power benefit; the first interconnect paradigm shift since copper in 1997) — which TSMC and Samsung follow with A16 (2026) and SF2Z (2027).\n\nOne habit to build now: node names like '3nm' and '2nm' are marketing labels, not measurements — nothing on an N3 chip is actually 3 nanometers. Compare nodes on density, power and cost, never on the name.",
+   "body_zh": "杀死登纳德缩放的漏电，引发了对晶体管几何形状长达二十年的重构，目标只有一个：让栅极更牢地攥住沟道，让开关真正关得严。\n\n最初的平面晶体管——从集成电路诞生到 2010 年代初的主流——把沟道平铺在硅片表面，栅极只从上方压住一面。到大约 28nm 世代以下，这种「单面手掌」握不住了：电子会从栅极够不到的下方溜过去。FinFET 从 22nm（约 2011 年）起接棒：把沟道立起来做成薄薄的鳍，栅极像手一样从三面包住它——控制力大增、漏电大降，又换来十年微缩。但鳍是「死」的：高度由工艺定死，到 3nm 世代已无油水可榨。环栅晶体管（GAA）是这条逻辑的终点：沟道变成一叠水平的纳米片，每片被栅极四面完全包裹，设计者还能调节片宽，在驱动力与密度之间做交换。所有 2nm 世代节点——台积电 N2、英特尔 18A、三星 SF2——都采用 GAA，于 2025-2026 年落地。英特尔 18A 率先把 GAA 与第二项变革「背面供电」搭配（约 15-20% 的功耗收益——这是自 1997 年铜互连以来互连领域的第一次范式转变）；台积电与三星则分别用 A16（2026）与 SF2Z（2027）随后跟进。\n\n现在就养成一个习惯：「3nm」「2nm」这些节点名是营销标签，不是尺寸——N3 芯片上没有任何东西真的是 3 纳米。比较节点只看密度、功耗、成本，永远别看名字。"
   },
   {
    "heading_en": "The number that broke: cost per transistor — and SRAM's dead stop",
    "heading_zh": "真正断掉的那根线：每晶体管成本，以及彻底停摆的 SRAM",
-   "body_en": "Now put the economics and the physics together, and look at what happened at TSMC's 3nm.\n\nN3 raised total spend per wafer-start by 38-55% versus N5 — EUV lithography layers nearly doubled on the first version, each layer another pass through machines costing hundreds of millions of dollars. Density rose about 56%, but only in the best configuration; typical designs saw around 30%. Divide cost by density and the result is a ~15% improvement in cost per transistor in the best case — the weakest scaling for a major node in the industry's fifty-plus-year history — and roughly zero for the average design. The deflation engine that had made each generation of computing cheaper than the last had, for practical purposes, stalled.\n\nInside that average hides something worse. SRAM — the six-transistor memory cell used for on-chip cache, often a third to half of a modern processor's area — stopped shrinking entirely: the high-density SRAM cell on N3E measures 0.021 µm², identical to N5. SRAM cells need matched, noise-tolerant transistors and cannot use the layout tricks that keep logic scaling, so each new node now shrinks the logic while dragging the cache along at full size. Chip-level gains are therefore even weaker than the headline transistor numbers suggest.\n\nThe investor translation: paying up for N3 or N2 buys power efficiency and density — which AI desperately needs — but it no longer buys cheaper transistors. Compute demand began exploding at precisely the moment compute's unit cost stopped falling. Everything in the AI supply chain follows from that collision.",
-   "body_zh": "现在把经济学和物理学放在一起，看台积电 3nm 上发生了什么。\n\nN3 的每片晶圆总投入比 N5 上涨 38-55%——第一版 N3 的 EUV 光刻层数几乎翻倍，而每多一层，就要在单价数亿美元的设备里多走一遍。密度提升约 56%，但只在最优配置下成立，典型设计只拿到约 30%。用成本除以密度：最好情况下，每晶体管成本仅改善约 15%——五十多年来主要制程节点最弱的一次微缩；对平均水平的设计而言，约等于零。那台让计算一代比一代便宜的通缩引擎，实际上熄火了。\n\n平均数底下还藏着更糟的事。SRAM——片上缓存用的六管存储单元，常占现代处理器面积的三分之一到一半——已经完全停止微缩：N3E 的高密度 SRAM 单元是 0.021 平方微米，与 N5 一模一样。SRAM 单元需要一组彼此匹配、抗噪声的晶体管，用不上那些让逻辑继续微缩的版图技巧；于是每个新节点都在「缩小逻辑、拖着原尺寸的缓存前进」，芯片整体的收益比晶体管口径的数字更弱。\n\n翻译成投资语言：花大价钱上 N3、N2，买到的是功耗与密度——AI 恰恰极度需要这两样——但买不到更便宜的晶体管。算力需求开始爆炸的时点，恰好撞上算力单位成本停止下降的时点。AI 供应链的一切，都从这次对撞出发。"
+   "body_en": "Now put the economics and the physics together, and look at what happened at TSMC's 3nm.\n\nN3 raised total spend per wafer-start by 38-55% versus N5 — EUV lithography layers nearly doubled on the first version, each layer another pass through machines costing hundreds of millions of dollars. Density rose about 56%, but only in the best configuration; typical designs saw around 30%. Divide cost by density and the result is a ~15% improvement in cost per transistor in the best case — the weakest scaling for a major node in the industry's fifty-plus-year history — and roughly zero for the average design. The deflation engine that had made each generation of computing cheaper than the last had, for practical purposes, stalled.\n\nInside that average hides something worse. SRAM — the six-transistor memory cell used for on-chip cache, often around a third of a modern processor's area (30% SRAM in SemiAnalysis's standard monolithic chip mix), and approaching half in cache-heavy designs — stopped shrinking entirely: the high-density SRAM cell on N3E measures 0.021 µm², identical to N5. SRAM cells need matched, noise-tolerant transistors and cannot use the layout tricks that keep logic scaling, so each new node now shrinks the logic while dragging the cache along at full size. Chip-level gains are therefore even weaker than the headline transistor numbers suggest.\n\nThe investor translation: paying up for N3 or N2 buys power efficiency and density — which AI desperately needs — but it no longer buys cheaper transistors. Compute demand began exploding at precisely the moment compute's unit cost stopped falling. Everything in the AI supply chain follows from that collision.",
+   "body_zh": "现在把经济学和物理学放在一起，看台积电 3nm 上发生了什么。\n\nN3 的每片晶圆总投入比 N5 上涨 38-55%——第一版 N3 的 EUV 光刻层数几乎翻倍，而每多一层，就要在单价数亿美元的设备里多走一遍。密度提升约 56%，但只在最优配置下成立，典型设计只拿到约 30%。用成本除以密度：最好情况下，每晶体管成本仅改善约 15%——五十多年来主要制程节点最弱的一次微缩；对平均水平的设计而言，约等于零。那台让计算一代比一代便宜的通缩引擎，实际上熄火了。\n\n平均数底下还藏着更糟的事。SRAM——片上缓存用的六管存储单元，常占现代处理器面积的约三分之一（SemiAnalysis 标准单片芯片构成里 SRAM 占 30%），缓存密集设计可接近一半——已经完全停止微缩：N3E 的高密度 SRAM 单元是 0.021 平方微米，与 N5 一模一样。SRAM 单元需要一组彼此匹配、抗噪声的晶体管，用不上那些让逻辑继续微缩的版图技巧；于是每个新节点都在「缩小逻辑、拖着原尺寸的缓存前进」，芯片整体的收益比晶体管口径的数字更弱。\n\n翻译成投资语言：花大价钱上 N3、N2，买到的是功耗与密度——AI 恰恰极度需要这两样——但买不到更便宜的晶体管。算力需求开始爆炸的时点，恰好撞上算力单位成本停止下降的时点。AI 供应链的一切，都从这次对撞出发。"
   },
   {
    "heading_en": "What the industry does instead: package, stack, co-design",
@@ -98,13 +98,13 @@
    "url": "https://upload.wikimedia.org/wikipedia/commons/0/00/Moore%27s_Law_Transistor_Count_1970-2020.png",
    "source_name": "Our World in Data (Hannah Ritchie & Max Roser), CC BY 4.0, via Wikimedia Commons",
    "source_url": "https://commons.wikimedia.org/wiki/File:Moore%27s_Law_Transistor_Count_1970-2020.png",
-   "caption_en": "Moore's Law in one chart: transistor counts per microchip, 1970-2020, on a log scale — a straight line meaning a doubling roughly every two years, from the 4004's thousands to 50-billion-transistor processors.",
-   "caption_zh": "一张图看摩尔定律：1970-2020 年单颗微芯片的晶体管数（对数坐标）——直线即约每两年翻倍，从 4004 的数千个到 500 亿晶体管的处理器。"
+   "caption_en": "Moore's Law in one chart: transistor counts per microchip, 1970-2020, on a log scale — a straight line meaning a doubling roughly every two years, from the 4004's thousands to processors near 40 billion transistors (the chart's axis tops at 50 billion).",
+   "caption_zh": "一张图看摩尔定律：1970-2020 年单颗微芯片的晶体管数（对数坐标）——直线即约每两年翻倍，从 4004 的数千个到接近 400 亿晶体管的处理器（纵轴上限 500 亿）。"
   },
   {
    "url": "https://img.global.news.samsung.com/global/wp-content/uploads/2019/05/GAA_thumb728F.jpg",
    "source_name": "Samsung Newsroom",
-   "source_url": "https://news.samsung.com/global/samsung-begins-chip-production-using-3nm-process-technology-with-gaa-architecture",
+   "source_url": "https://news.samsung.com/global/editorial-making-semiconductor-history-contextualizing-samsungs-latest-transistor-technology",
    "caption_en": "Samsung's official graphic of the transistor's geometric evolution: planar FET (gate touches the channel on 1 side) → FinFET (3 sides) → GAAFET (gate fully surrounds stacked nanosheet channels) — each step regains electrostatic control lost to leakage.",
    "caption_zh": "三星官方的晶体管几何演化图：平面 FET（栅极只接触沟道一面）→ FinFET（三面）→ GAAFET（栅极完全包裹堆叠的纳米片沟道）——每一步都是为了夺回被漏电侵蚀的静电控制力。"
   }
@@ -123,5 +123,27 @@
   "03_memory",
   "04_packaging",
   "05_equipment"
+ ],
+ "extra_sources": [
+  {
+   "source_name": "NVIDIA Newsroom — NVIDIA Blackwell Platform Arrives (B200: 208 billion transistors)",
+   "source_url": "https://nvidianews.nvidia.com/news/nvidia-blackwell-platform-arrives-to-power-a-new-era-of-computing"
+  },
+  {
+   "source_name": "Wikipedia — Moore's law (1975 revision to doubling every two years)",
+   "source_url": "https://en.wikipedia.org/wiki/Moore%27s_law"
+  },
+  {
+   "source_name": "Intel — 22nm Tri-Gate Technology Backgrounder",
+   "source_url": "https://www.intel.com/content/www/us/en/silicon-innovations/standards-22-nanometers-technology-backgrounder.html"
+  },
+  {
+   "source_name": "Samsung Newsroom — Samsung Begins Chip Production Using 3nm Process Technology With GAA Architecture (June 30, 2022)",
+   "source_url": "https://news.samsung.com/global/samsung-begins-chip-production-using-3nm-process-technology-with-gaa-architecture"
+  },
+  {
+   "source_name": "Karl Rupp — 50 Years of Microprocessor Trend Data (frequency plateau)",
+   "source_url": "https://github.com/karlrupp/microprocessor-trend-data"
+  }
  ]
 }

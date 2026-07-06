@@ -114,7 +114,7 @@
   "id": "pm01",
   "concept_en": "The sand-to-silicon pipeline and the fab loop",
   "concept_zh": "从沙子到硅片的流水线与晶圆厂循环",
-  "spec": "Two-panel box-and-arrow diagram, no axes. PANEL A (top, left-to-right linear flow, 6 boxes with small icons): [Quartz sand (SiO2)] → [Metallurgical silicon, 98–99% pure, arc furnace] → [Gas distillation (trichlorosilane), Siemens process] → [Hyperpure polysilicon, >99.9999999999% (source: Wacker press release 2025-07-17)] → [Czochralski pull at ~1,414°C → 300mm single-crystal ingot] → [Wire-saw + polish → mirror-flat blank wafer]. PANEL B (bottom): a circular loop of 5 stations labeled Deposit → Pattern (litho: resist + photomask + EUV 13.5nm light, image shrunk 4x) → Etch → Implant + anneal → CMP polish, with a bold annotation on the loop: 'repeat for >60 lithography layers (source: SemiAnalysis, The Dark Side of the Semiconductor Design Renaissance) ≈ on the order of 1,000 steps, ~3 months per wafer'. Loop exit arrow → [Patterned wafer with die grid] → [Test → dice → package]. Three cost callout tags pinned to Panel B: 'EUV tool $225M, prints >$650M wafers/yr (SemiAnalysis, How to Kill 2 Monopolies with 1 Tool)'; 'litho ≈35% of 3nm process cost (SemiAnalysis, Sculpta article)'; '3nm mask set ≈$40M (SemiAnalysis, Dark Side article)'. Color code: purification steps in sand/amber, crystal/wafer steps in gray-blue, loop stations in teal, cost tags in red."
+  "spec": "Two-panel box-and-arrow diagram, no axes. PANEL A (top, left-to-right linear flow, 6 boxes with small icons): [Quartz sand (SiO2)] → [Metallurgical silicon, 98–99% pure, arc furnace] → [Gas distillation (trichlorosilane), Siemens process] → [Hyperpure polysilicon, >99.9999999999% (12N, Wacker 2025)] → [Czochralski pull at ~1,414°C → 300mm single-crystal ingot] → [Wire-saw + polish → mirror-flat blank wafer]. PANEL B (bottom): a circular loop of 5 stations labeled Deposit → Pattern (litho: resist + photomask + EUV 13.5nm light, image shrunk 4x) → Etch → Implant + anneal → CMP polish, with a bold annotation on the loop: 'repeat for >60 lithography layers (source: SemiAnalysis, The Dark Side of the Semiconductor Design Renaissance) ≈ on the order of 1,000 steps, ~3 months per wafer'. Loop exit arrow → [Patterned wafer with die grid] → [Test → dice → package]. Three cost callout tags pinned to Panel B: 'EUV tool $225M, prints >$650M wafers/yr (SemiAnalysis, How to Kill 2 Monopolies with 1 Tool)'; 'litho ≈35% of 3nm process cost (SemiAnalysis, Sculpta article)'; '3nm mask set ≈$40M (SemiAnalysis, Dark Side article)'. Color code: purification steps in sand/amber, crystal/wafer steps in gray-blue, loop stations in teal, cost tags in red."
  },
  "why_en": "This module is the foundation under every sector brief. Equipment capex cycles (05) are a function of node transitions; the gross margin and ramp timing of each new accelerator (01) is set by the yield learning curve; advanced packaging (04) exists because of the exponential area tax on big dies; foundry cyclicality and moats (02) follow from a depreciation-dominated cost structure and a flywheel where only locked-in demand can fund the next fab; and the difficulty of subsidized fab relocation (10) is the difficulty of moving cleanrooms, hyperpure supply chains, and thousand-step recipes. When a company reports 'defect density on track' or 'N2 ramping,' you can now translate that into margins and capacity.",
  "why_zh": "这一篇是读懂全系列的地基。设备篇(05)的资本开支周期,本质上是节点迁移的函数;加速器篇(01)里每颗新芯片的毛利率与爬产节奏,由良率学习曲线决定;封装篇(04)的存在理由,就是大裸片那笔指数级的「面积税」;代工篇(02)的周期性与护城河,来自折旧主导的成本结构,以及「只有锁定需求者才建得起下一座厂」的飞轮;地缘篇(10)里补贴迁厂之难,难在洁净室、超纯材料链和上千道工序的「配方」无法整体搬运。以后再看到「缺陷密度符合预期」「N2 开始爬产」这类新闻,你可以直接把它翻译成毛利率与产能的变化。",
@@ -125,5 +125,51 @@
   "04_packaging",
   "05_equipment",
   "10_china_geopolitics"
+ ],
+ "extra_sources": [
+  {
+   "source_name": "SemiAnalysis — Advanced Packaging Part 2 (verbatim: 'maximum size a chip can be printed... is 33mm by 26mm (858mm2)')",
+   "source_url": "https://semianalysis.com/2022/01/06/advanced-packaging-part-2-review/"
+  },
+  {
+   "source_name": "SemiAnalysis — Die Size and Reticle Conundrum",
+   "source_url": "https://semianalysis.com/2022/06/19/die-size-and-reticle-conundrum-cost/"
+  },
+  {
+   "source_name": "SemiAnalysis — SPIE 2025 conference report",
+   "source_url": "https://semianalysis.com/2025/04/14/spie2025/"
+  },
+  {
+   "source_name": "SemiAnalysis — TSMC's 3nm Conundrum (quoting TSMC at IEDM)",
+   "source_url": "https://semianalysis.com/2022/12/21/tsmcs-3nm-conundrum-does-it-even/"
+  },
+  {
+   "source_name": "SemiAnalysis — Meteor Lake Die Shot and Architecture Analysis",
+   "source_url": "https://semianalysis.com/2022/05/26/meteor-lake-die-shot-and-architecture/"
+  },
+  {
+   "source_name": "SemiAnalysis — Cerebras, Faster Tokens Please ('dense processors that are near reticle sized have sort yields of well below 50%')",
+   "source_url": "https://newsletter.semianalysis.com/p/cerebras-faster-tokens-please"
+  },
+  {
+   "source_name": "Wikipedia — Semiconductor device fabrication",
+   "source_url": "https://en.wikipedia.org/wiki/Semiconductor_device_fabrication"
+  },
+  {
+   "source_name": "SemiAnalysis — Rebuilding Intel: Foundry vs IDM",
+   "source_url": "https://semianalysis.com/2023/06/22/rebuilding-intel-foundry-vs-idm-decades/"
+  },
+  {
+   "source_name": "Wikipedia — Silicon",
+   "source_url": "https://en.wikipedia.org/wiki/Silicon"
+  },
+  {
+   "source_name": "Wikipedia — Wafer (electronics)",
+   "source_url": "https://en.wikipedia.org/wiki/Wafer_(electronics)"
+  },
+  {
+   "source_name": "SemiAnalysis — The Gaps in the New China Lithography Ban / IEDM 2022 Part 1",
+   "source_url": "https://semianalysis.com/2023/02/02/iedm2022p1/"
+  }
  ]
 }

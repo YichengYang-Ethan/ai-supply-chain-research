@@ -76,8 +76,8 @@
    "metric_en": "H100 training-efficiency (MFU) gain from software alone, 12 months",
    "metric_zh": "H100 训练效率（MFU）12 个月纯软件提升",
    "value": "BF16 MFU 34% → 54% (+57% throughput), zero hardware change",
-   "source_name": "SemiAnalysis — MI300X vs H100 vs H200 Benchmark Part 1: Training - CUDA Moat Still Alive",
-   "source_url": "https://semianalysis.com/2024/12/22/mi300x-vs-h100-vs-h200-benchmark-part-1-training/"
+   "source_name": "SemiAnalysis — H100 vs GB200 NVL72 Training Benchmarks: Power, TCO, and Reliability Analysis, Software Improvement Over Time",
+   "source_url": "https://semianalysis.com/2025/08/20/h100-vs-gb200-nvl72-training-benchmarks/"
   },
   {
    "metric_en": "GB300 NVL72 vs H100 inference throughput (format included)",
@@ -117,5 +117,27 @@
   "04_packaging",
   "06_networking",
   "07_datacenter_power"
+ ],
+ "extra_sources": [
+  {
+   "source_name": "Wikipedia — Hopper (microarchitecture), H100 SXM5 specs",
+   "source_url": "https://en.wikipedia.org/wiki/Hopper_(microarchitecture)"
+  },
+  {
+   "source_name": "Wikipedia — Single instruction, multiple threads ('warp' composed of 32 hardware threads executed in lock-step)",
+   "source_url": "https://en.wikipedia.org/wiki/Single_instruction,_multiple_threads"
+  },
+  {
+   "source_name": "Google Cloud — TPU system architecture documentation",
+   "source_url": "https://cloud.google.com/tpu/docs/system-architecture-tpu-vm"
+  },
+  {
+   "source_name": "SemiAnalysis — Another Giant Leap: The Rubin CPX Specialized Accelerator & Rack",
+   "source_url": "https://semianalysis.com/2025/09/10/another-giant-leap-the-rubin-cpx-specialized-accelerator-rack/"
+  },
+  {
+   "source_name": "SemiAnalysis — H100 vs GB200 NVL72 Training Benchmarks: Power, TCO, and Reliability Analysis",
+   "source_url": "https://semianalysis.com/2025/08/20/h100-vs-gb200-nvl72-training-benchmarks/"
+  }
  ]
 }

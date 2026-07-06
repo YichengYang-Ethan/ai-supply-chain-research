@@ -70,7 +70,7 @@ def pm01(lang):
     f,a=fig_ax(11,6.2)
     title(a,L("From sand to silicon: the manufacturing flow","从沙子到硅片:制造全流程",lang),
           L("The patterning loop repeats ~40-80x to build ~1,000 process steps","图形化循环重复约 40-80 次,累计约 1,000 道工序",lang))
-    top=[(L("Quartz","石英砂",lang),L("refine","提纯",lang)),(L("Polysilicon","多晶硅",lang),"99.9999999%"),
+    top=[(L("Quartz","石英砂",lang),L("refine","提纯",lang)),(L("Polysilicon","多晶硅",lang),"12N (Wacker)"),
          (L("Ingot","单晶锭",lang),L("Czochralski pull","直拉法",lang)),(L("Wafer","晶圆",lang),"300mm")]
     for i,(t,s) in enumerate(top):
         box(a,4+i*20,74,16,12,t,s);
@@ -199,7 +199,7 @@ def pm06(lang):
         a.plot([x,x],[36.4,38],color=LINE,lw=0.8)
     a.text(50,10,L("micro-bumps ~40-55um pitch · interposer routes GPU↔HBM at ~TB/s",
                    "微凸点间距 ~40-55um · 中介层以 ~TB/s 级带宽连接 GPU↔HBM",lang),color=SUB,fontsize=9,ha="center")
-    a.text(50,60,L("3D (SoIC/hybrid bonding) stacks dies directly — bumpless, ~10x denser",
+    a.text(50,60,L("3D (SoIC/hybrid bonding) stacks dies directly — bumpless, ~4.5x denser now (17 vs 36um), >10x on roadmap",
                    "3D(SoIC/混合键合)把 die 直接叠起——无凸点,密度再高一个量级",lang),color=SUB,fontsize=9,ha="center")
     f.tight_layout(); footer(f,OWN(lang)); return f
 
@@ -252,19 +252,19 @@ def pm09(lang):
     f,a=fig_ax(11,6.6)
     title(a,L("The industry map: who does what","行业地图:谁在做什么",lang),
           L("Margin pools differ because moats differ","利润池不同,因为护城河不同",lang))
-    rows=[(L("Design tools & IP","设计工具与 IP",lang),"Cadence · Synopsys · Arm",L("~90% GM — oligopoly toll","毛利 ~90%——寡头过路费",lang),GREEN),
-          (L("Chip designers (fabless)","芯片设计(fabless)",lang),"Nvidia · AMD · Broadcom",L("~55-75% GM — product moats","毛利 ~55-75%——产品护城河",lang),GREEN),
-          (L("Foundry","晶圆代工",lang),"TSMC · Samsung · Intel",L("~50%+ GM at scale — process moat","规模化毛利 ~50%+——工艺护城河",lang),GREEN),
-          (L("Memory (IDM)","存储(IDM)",lang),"SK Hynix · Samsung · Micron",L("cyclical: -20%~+60% GM","强周期:毛利 -20%~+60%",lang),BLUE),
+    rows=[(L("Design tools & IP","设计工具与 IP",lang),"Cadence · Synopsys · Arm",L("~80-90% GM — oligopoly toll","毛利 ~80-90%——寡头过路费",lang),GREEN),
+          (L("Chip designers (fabless)","芯片设计(fabless)",lang),"Nvidia · AMD · Broadcom",L("~50-75% GM — product moats","毛利 ~50-75%——产品护城河",lang),GREEN),
+          (L("Foundry","晶圆代工",lang),"TSMC · Samsung · Intel",L("~50-62% (TSMC) — process moat","毛利 ~50-62%(台积电)——工艺护城河",lang),GREEN),
+          (L("Memory (IDM)","存储(IDM)",lang),"SK Hynix · Samsung · Micron",L("cyclical: <0% to >50% GM","强周期:毛利 <0% 到 >50%",lang),BLUE),
           (L("Packaging/OSAT","封装/OSAT",lang),"ASE · Amkor (+TSMC CoWoS)",L("~10-25% GM — capacity business","毛利 ~10-25%——产能生意",lang),RED),
-          (L("Equipment","设备",lang),"ASML · AMAT · LAM · KLA · TEL",L("~45-50% GM — monopoly niches","毛利 ~45-50%——细分垄断",lang),GREEN),
+          (L("Equipment","设备",lang),"ASML · AMAT · LAM · KLA · TEL",L("~45-60% GM — monopoly niches","毛利 ~45-60%——细分垄断",lang),GREEN),
           (L("Clouds & AI labs","云与 AI 实验室",lang),"AWS/Azure/GCP · OpenAI/Anthropic",L("where the end demand forms","终端需求在这里形成",lang),BLUE)]
     for i,(t,names,s,c) in enumerate(rows):
         y=76-i*10.5
         box(a,4,y,30,8.5,t,fs=10)
         box(a,36,y,34,8.5,names,"",fc=PANEL2,ec=LINE,lc=INK,fs=8.5)
         box(a,72,y,25,8.5,s,"",fc=PANEL2,ec=c,lc=c,fs=7.6)
-    f.tight_layout(); footer(f,OWN(lang,L("typical ranges from company filings","典型区间,来自各公司财报",lang))); return f
+    f.tight_layout(); footer(f,OWN(lang,L("GAAP GM ranges from company 10-K/10-Q filings","GAAP 毛利区间,来自各公司 10-K/10-Q",lang))); return f
 
 # ---------- pm10: metrics toolkit ----------
 def pm10(lang):

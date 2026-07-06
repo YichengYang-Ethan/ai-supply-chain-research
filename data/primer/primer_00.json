@@ -62,15 +62,15 @@
    "metric_en": "HBM share of AI GPU manufacturing cost  (→ taught in Module 05)",
    "metric_zh": "HBM 占 AI GPU 制造成本比重(→ 模块 05 讲透)",
    "value": "H100 ~50%+ → Blackwell ~60%+",
-   "source_name": "SemiAnalysis — Scaling the Memory Wall: The Rise and Roadmap of HBM",
-   "source_url": "https://semianalysis.com/2025/08/12/scaling-the-memory-wall-the-rise-and-roadmap-of-hbm/"
+   "source_name": "SemiAnalysis — The Memory Wall: Past, Present, and Future of DRAM",
+   "source_url": "https://semianalysis.com/2024/09/03/the-memory-wall/"
   },
   {
    "metric_en": "US grid: queued load requests vs peak load  (→ taught in Module 08)",
    "metric_zh": "美国电网:排队负荷申请 vs 峰值负荷(→ 模块 08 讲透)",
    "value": "~1 terawatt of load requests vs 745 GW US peak",
-   "source_name": "SemiAnalysis — US Grid Constraints: Towards 40GW+ of Behind-The-Meter Datacenter by 2028?",
-   "source_url": "https://newsletter.semianalysis.com/p/us-grid-constraints-towards-40gw"
+   "source_name": "SemiAnalysis — How AI Labs Are Solving the Power Crisis: The Onsite Gas Deep Dive",
+   "source_url": "https://newsletter.semianalysis.com/p/how-ai-labs-are-solving-the-power"
   },
   {
    "metric_en": "Anthropic ARR and inference gross margin (2025→26)  (→ taught in Module 09)",
@@ -116,6 +116,40 @@
   "09_models_software",
   "10_china_geopolitics"
  ],
- "key_numbers_heading_en": "Four numbers you can't parse yet — and will fully understand by the end",
- "key_numbers_heading_zh": "四个你现在看不懂、读完基础篇会彻底看懂的数字"
+ "key_numbers_heading_en": "Six numbers you can't parse yet — and will fully understand by the end",
+ "key_numbers_heading_zh": "六个你现在看不懂、读完基础篇会彻底看懂的数字",
+ "extra_sources": [
+  {
+   "source_name": "SemiAnalysis — TokenBudgeting: Our Conversations with Enterprises on Token Spend",
+   "source_url": "https://newsletter.semianalysis.com/p/tokenbudgeting-our-conversations"
+  },
+  {
+   "source_name": "SemiAnalysis — TSMC's 3nm Conundrum, Does It Even Make Sense? N3 & N3E Process Technology & Cost Detailed",
+   "source_url": "https://semianalysis.com/2022/12/21/tsmcs-3nm-conundrum-does-it-even/"
+  },
+  {
+   "source_name": "SemiAnalysis — Clash of the Foundries: Gate All Around + Backside Power at 2nm",
+   "source_url": "https://semianalysis.com/2024/10/01/clash-of-the-foundries/"
+  },
+  {
+   "source_name": "SemiAnalysis — Huawei AI CloudMatrix 384: China's Answer to Nvidia GB200 NVL72",
+   "source_url": "https://semianalysis.com/2025/04/16/huawei-ai-cloudmatrix-384-chinas-answer-to-nvidia-gb200-nvl72/"
+  },
+  {
+   "source_name": "SemiAnalysis — xAI's Colossus 2: First Gigawatt Datacenter In The World",
+   "source_url": "https://semianalysis.com/2025/09/16/xais-colossus-2-first-gigawatt-datacenter/"
+  },
+  {
+   "source_name": "SemiAnalysis — GB200 Hardware Architecture: Component Supply Chain & BOM",
+   "source_url": "https://semianalysis.com/2024/07/17/gb200-hardware-architecture-and-component/"
+  },
+  {
+   "source_name": "SemiAnalysis — The Memory Wall: Past, Present, and Future of DRAM",
+   "source_url": "https://semianalysis.com/2024/09/03/the-memory-wall/"
+  },
+  {
+   "source_name": "SemiAnalysis — How AI Labs Are Solving the Power Crisis: The Onsite Gas Deep Dive (1 TW) + AI Training Load Fluctuations at Gigawatt-scale (745 GW)",
+   "source_url": "https://newsletter.semianalysis.com/p/how-ai-labs-are-solving-the-power"
+  }
+ ]
 }
