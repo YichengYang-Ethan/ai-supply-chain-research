@@ -446,6 +446,20 @@
    "value": "~60% (2026) → ~86% (2027)",
    "note_en": "Silicon, not power, is the binding constraint; AI ~0.3% of global generation today → ~5% by 2030.",
    "note_zh": "硅而非电力是约束;AI 目前约占全球发电 0.3% → 2030 年约 5%。"
+  },
+  {
+   "metric_en": "Microfluidic / direct-die cooling",
+   "metric_zh": "微流体 / 芯片直触液冷",
+   "value": "TSMC CoWoS-R micropillar cold plate: 4 kW @ 4 LPM, 5.3 kW @ 8 LPM (passes MSL4); Microsoft GH200 microfluidic: ~50% lower package thermal resistance",
+   "note_en": "Reliability shown as 9 potential clog events across ~4,370 observations over 6 months (ECTC 2026, SemiAnalysis).",
+   "note_zh": "可靠性:6 个月内约 4,370 次观测中出现 9 次潜在堵塞事件(ECTC 2026,SemiAnalysis)。"
+  },
+  {
+   "metric_en": "Meta 'titan' gigawatt clusters",
+   "metric_zh": "Meta「泰坦」吉瓦级集群",
+   "value": "5 clusters of 1GW+ (Prometheus >3GW, Ohio; Hyperion, Louisiana, 400MW single buildings; El Paso / Iowa / Indiana); Iowa built 1GW in one year",
+   "note_en": "Gigawatt single-site build cadence (Meta Superintelligence 1-yr update, SemiAnalysis).",
+   "note_zh": "吉瓦级单站点建设节奏(Meta 超级智能一周年更新,SemiAnalysis)。"
   }
  ],
  "deep_dives": [
@@ -485,8 +499,8 @@
   {
    "article_title": "AI Training Load Fluctuations at Gigawatt-scale - Risk of Power Grid Blackout?",
    "date": "2025-06-25",
-   "summary_en": "Why synchronous GPU training is uniquely dangerous for the grid. AI loads swing ~15x more than a cloud datacenter (Google: 1.5MW→15MW) with MW-scale sub-second spikes from batch cycles, checkpointing and AllReduce. Inverter-based solar/BESS lack the inertia spinning generators provide. ERCOT modeled a West Texas 345kV fault: ≥1.5GW of datacenter load disconnects near-instantly; on a duck-curve day, 2.5GW (all of West Texas) trips at once. Beyond 2.6GW system-wide (2.0GW West Texas), frequency exceeds the 60.4Hz danger zone and risks cascade — mirroring the April 2025 Iberian blackout (2.2GW tripped, 27-second collapse). Solutions: synchronous condensers ($10-20M/GW, still leave 1.3-1.9GW at risk), and BESS — the most flexible fix (MW/ms→MW/min) but ~$1B at GW-scale, additive to UPS/gensets. Demand response could free 6.5-14.7GW in ERCOT but utility DRMS is immature.",
-   "summary_zh": "为何同步 GPU 训练对电网独具危险。AI 负荷比云数据中心波动大约 15 倍(Google:1.5MW→15MW),批处理、检查点与 AllReduce 带来兆瓦级亚秒尖峰。逆变器接入的光伏/BESS 缺乏旋转发电机的惯量。ERCOT 建模西得州 345kV 故障:≥1.5GW 数据中心负荷近乎瞬时脱网;鸭形曲线日 2.5GW(整个西得州)同时跳闸。系统级超 2.6GW(西得州 2.0GW)频率即超 60.4Hz 危险区、有连锁风险——重演 2025 年 4 月伊比利亚停电(2.2GW 跳闸,27 秒崩溃)。解法:同步调相机($10-20M/GW,仍留 1.3-1.9GW 风险),以及 BESS——最灵活(MW/毫秒→MW/分钟)但吉瓦级约 10 亿美元、叠加于 UPS/柴油机。需求响应可在 ERCOT 释放 6.5-14.7GW 但公用事业 DRMS 不成熟。",
+   "summary_en": "Why synchronous GPU training is uniquely dangerous for the grid. AI loads swing ~15x more than a cloud datacenter (Google: 1.5MW→15MW) with MW-scale sub-second spikes from batch cycles, checkpointing and AllReduce. Inverter-based solar/BESS lack the intrinsic mechanical inertia spinning generators provide, though grid-forming inverters can supply synthetic/virtual inertia and fast frequency response. ERCOT modeled a West Texas 345kV fault: ≥1.5GW of datacenter load disconnects near-instantly; on a duck-curve day, 2.5GW (all of West Texas) trips at once. Beyond 2.6GW system-wide (2.0GW West Texas), frequency exceeds the 60.4Hz danger zone and risks cascade — mirroring the April 2025 Iberian blackout (2.2GW tripped, 27-second collapse). Solutions: synchronous condensers ($10-20M/GW, still leave 1.3-1.9GW at risk), and BESS — the most flexible fix (MW/ms→MW/min) but ~$1B at GW-scale, additive to UPS/gensets. Demand response could free 6.5-14.7GW in ERCOT but utility DRMS is immature.",
+   "summary_zh": "为何同步 GPU 训练对电网独具危险。AI 负荷比云数据中心波动大约 15 倍(Google:1.5MW→15MW),批处理、检查点与 AllReduce 带来兆瓦级亚秒尖峰。逆变器接入的光伏/BESS 缺乏旋转发电机的固有机械惯量,但构网型逆变器可提供合成/虚拟惯量与快速频率响应。ERCOT 建模西得州 345kV 故障:≥1.5GW 数据中心负荷近乎瞬时脱网;鸭形曲线日 2.5GW(整个西得州)同时跳闸。系统级超 2.6GW(西得州 2.0GW)频率即超 60.4Hz 危险区、有连锁风险——重演 2025 年 4 月伊比利亚停电(2.2GW 跳闸,27 秒崩溃)。解法:同步调相机($10-20M/GW,仍留 1.3-1.9GW 风险),以及 BESS——最灵活(MW/毫秒→MW/分钟)但吉瓦级约 10 亿美元、叠加于 UPS/柴油机。需求响应可在 ERCOT 释放 6.5-14.7GW 但公用事业 DRMS 不成熟。",
    "figure": {
     "url": "https://substackcdn.com/image/fetch/$s_!rMCH!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb1db6fab-e1ed-4760-bd1c-1ba4c7919624_1970x486.png",
     "shows_en": "ERCOT base-case datacenter disconnection risk under an LVRT fault (≥1.5GW disconnects in all scenarios).",
@@ -635,6 +649,10 @@
    {
     "en": "Load-flexibility / demand response reform — 20-90hrs/yr curtailment could unlock 6.5-14.7GW in ERCOT; PJM's Expedited Interconnection Track (June 2026).",
     "zh": "负荷灵活性/需求响应改革——每年 20-90 小时削峰可在 ERCOT 释放 6.5-14.7GW;PJM 加速接入通道(2026 年 6 月)。"
+   },
+   {
+    "en": "Microfluidic / direct-to-silicon cooling — the step beyond cold plates as chip TDP heads past 1,500W (TSMC CoWoS-R micropillar 5.3kW, Microsoft GH200 ~50% lower thermal resistance at ECTC 2026).",
+    "zh": "微流体 / 芯片直触液冷——随芯片 TDP 越过 1,500W,成为冷板之后的下一步(台积电 CoWoS-R 微柱 5.3kW、微软 GH200 封装热阻降约 50%,ECTC 2026)。"
    }
   ]
  },
@@ -740,6 +758,14 @@
   {
    "title": "Datacenter Industry Model",
    "date": "2024-02-03"
+  },
+  {
+   "title": "ECTC 2026: EMIB-T Roadmap, Custom HBM, HBM4 Packaging, Microfluidic Cooling, Photonic Interconnects",
+   "date": "2026-07-02"
+  },
+  {
+   "title": "The Future of Meta Superintelligence: A 1 Year Progress Update",
+   "date": "2026-07-09"
   }
  ]
 }

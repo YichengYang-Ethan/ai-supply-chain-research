@@ -410,6 +410,20 @@
    "value": "2.75 GHz (2025) → ~5 GHz (2031)",
    "note_en": "Via 3D active-logic stacking, not planar scaling; claims '14A-equivalent' density per package footprint by 2031.",
    "note_zh": "靠 3D 有源逻辑堆叠而非平面微缩；宣称到 2031 年按封装占地达「等效 14A」密度。"
+  },
+  {
+   "metric_en": "Intel 2026 capital raise & balance sheet",
+   "metric_zh": "英特尔 2026 融资与资产负债表",
+   "value": "raised ~$20B (US gov 433M shares @$20.47, SoftBank @$23.00, Nvidia @$23.28); bought back Apollo's 49% of Fab 34 for $14.2B (~$7.7B cash + $6.5B bridge); net debt ~$51.5B; a 4-5% dilution would add ~$25B",
+   "note_en": "Funding the foundry turnaround under CEO Lip Bu Tan and a rebuilt board (Intel Should Raise Capital, SemiAnalysis).",
+   "note_zh": "为陈立武（Lip Bu Tan）任 CEO 及重组董事会下的代工转型出资（Intel Should Raise Capital，SemiAnalysis）。"
+  },
+  {
+   "metric_en": "Intel Foundry / product demand wins (2026)",
+   "metric_zh": "英特尔代工/产品需求斩获（2026）",
+   "value": "Nvidia DGX Rubin NVL8 lists dual Intel Xeon 6 host CPUs; Google signed a multiyear Xeon + custom-IPU deal",
+   "note_en": "External validation for Intel Foundry / product (Intel Should Raise Capital, SemiAnalysis).",
+   "note_zh": "对英特尔代工/产品的外部验证（Intel Should Raise Capital，SemiAnalysis）。"
   }
  ],
  "deep_dives": [
@@ -594,6 +608,10 @@
   }
  ],
  "sources": [
+  {
+   "title": "Intel Should Raise Capital",
+   "date": "2026-06-11"
+  },
   {
    "title": "Is SMIC N+3's Metal Pitch Smaller than Intel 18A's? (STEEL teardown)",
    "date": "2026-06-14"
