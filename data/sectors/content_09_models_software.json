@@ -452,6 +452,13 @@
    "value": "DeepSeek used 24,667 coding tasks for V3.2; labs instantiate 10,000+ sandboxes simultaneously",
    "note_en": "SWE-rebench yields only 21,336 valid tasks from 450k PRs — strict execution-based verification.",
    "note_zh": "SWE-rebench 从 45 万个 PR 里只筛出 21,336 个有效任务——严格的基于执行的验证。"
+  },
+  {
+   "metric_en": "Meta Muse Spark (Apr 2026)",
+   "metric_zh": "Meta Muse Spark（2026 年 4 月）",
+   "value": "≈ Opus 4.6 / GLM 5.2 for general agentic use; priced just under GLM 5.2; lagged DeepSeek v4 Pro and Kimi K2.6 on most benchmarks at launch",
+   "note_en": "Meta's post-Llama-4 flagship from Meta Superintelligence Labs; ~3,000 engineers work full-time authoring RL tasks (Meta Superintelligence 1-yr update, SemiAnalysis).",
+   "note_zh": "Meta 后 Llama-4 时代的旗舰，出自 Meta Superintelligence Labs；约 3,000 名工程师全职撰写 RL 任务（Meta Superintelligence 一周年更新，SemiAnalysis）。"
   }
  ],
  "deep_dives": [
@@ -693,6 +700,10 @@
   {
    "title": "TPUv5e: The New Benchmark in Cost-Efficient Inference and Training for <200B Parameter Models",
    "date": "2023-09-01"
+  },
+  {
+   "title": "The Future of Meta Superintelligence: A 1 Year Progress Update",
+   "date": "2026-07-09"
   }
  ]
 }

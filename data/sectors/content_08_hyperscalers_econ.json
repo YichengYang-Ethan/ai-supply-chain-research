@@ -309,6 +309,14 @@
     "source_title": "Microsoft's AI Strategy Deconstructed - From Energy to Tokens",
     "date": "2025-11-12"
    }
+  },
+  {
+   "claim_en": "GPU-backed debt is the missing financing leg: Nvidia's backstop completes the 'AI Project Trinity' of capital, offtake and datacenters.",
+   "claim_zh": "GPU 抵押债是缺失的融资一环：英伟达的兜底补全了「AI 项目三位一体」——资本、offtake 与数据中心。",
+   "rationale_en": "With ~$11.1T of cumulative AI capex modeled for 2024-29 and >$7T of AI debt by 2029, financing — not just silicon — gates the buildout. Nvidia's ~6-year backstop pre-agrees GPU-rental price floors and shares upside above them with neoclouds, giving lenders a debt-service-coverage floor that makes GPU-backed debt underwritable. Early deals: SharonAI ($4.88B backstop / 40,000 GB300 / 72MW Australia) and Firmus (360MW, Batam).",
+   "rationale_zh": "模型测算 2024-29 年累计 AI capex 约 11.1 万亿美元、到 2029 年 AI 债务超 7 万亿美元，卡住基建的是融资——而不只是硅片。英伟达约 6 年的兜底预先约定 GPU 租金价格下限，并把高于下限的上行与 neocloud 分成，给了放款人一个偿债覆盖底线，让 GPU 抵押债变得可承销。早期交易：SharonAI（48.8 亿美元兜底 / 40,000 片 GB300 / 澳大利亚 72MW）与 Firmus（印尼巴淡岛 360MW）。",
+   "figure": null,
+   "quote": null
   }
  ],
  "key_data": [
@@ -437,6 +445,27 @@
    "value": "400k Trainium2 chips",
    "note_en": "Funded by Amazon's $4B+ circular Anthropic investment.",
    "note_zh": "由亚马逊 40 亿美元+ 循环式 Anthropic 投资买单。"
+  },
+  {
+   "metric_en": "AI financing scale",
+   "metric_zh": "AI 融资规模",
+   "value": ">$7T AI debt by 2029; ~$11.1T cumulative AI capex 2024-29; >$2T/yr by 2028",
+   "note_en": "Nvidia GPU debt backstop framing (SemiAnalysis).",
+   "note_zh": "英伟达 GPU 债兜底框架（SemiAnalysis）。"
+  },
+  {
+   "metric_en": "Meta compute contracting",
+   "metric_zh": "Meta 算力签约",
+   "value": ">5GW of Cloud+Colo contracted in H1 2026; 2.5GW under construction across two largest campuses",
+   "note_en": "Hyperscalers turning into neoclouds; Meta in final talks with Anthropic for private Claude instances (Bedrock-type token service) (Meta Compute).",
+   "note_zh": "超大规模云正在变成 neocloud；Meta 与 Anthropic 就私有 Claude 实例（类 Bedrock 的 token 服务）进入最后谈判（Meta Compute）。"
+  },
+  {
+   "metric_en": "Anthropic 3Q26 economics",
+   "metric_zh": "Anthropic 3Q26 经济",
+   "value": "profit >$1B in 3Q26; confidentially filed for IPO 2026-06-01; Anthropic + OpenAI ≈ $100B combined ARR",
+   "note_en": "SemiAnalysis floats a $6T valuation as a base-case possibility (Anthropic 3Q26).",
+   "note_zh": "SemiAnalysis 提出 6 万亿美元估值作为一种基准情形可能（Anthropic 3Q26）。"
   }
  ],
  "deep_dives": [
@@ -599,6 +628,10 @@
    {
     "en": "ClusterMAX 3.0 (B300/GB300, 800Gb) re-rating neocloud tiers and TCO leadership.",
     "zh": "ClusterMAX 3.0（B300/GB300、800Gb）重估 neocloud 分级与 TCO 领导地位。"
+   },
+   {
+    "en": "GPU-backed debt markets maturing (pre-agreed price backstops, DSCR-able) unlock non-hyperscaler compute financing.",
+    "zh": "GPU 抵押债市场走向成熟（预先约定价格兜底、可做偿债覆盖）解锁非超大规模云的算力融资。"
    }
   ]
  },
@@ -692,6 +725,18 @@
   {
    "title": "2025 AI Diffusion Export Controls - Microsoft Regulatory Capture, Oracle Tears",
    "date": "2025-01-15"
+  },
+  {
+   "title": "Nvidia GPU Debt Backstop Unleashes the AI Project Trinity: Capital, Offtake and Datacenters",
+   "date": "2026-07-06"
+  },
+  {
+   "title": "Meta Compute: Everyone Wants To Be A Neocloud",
+   "date": "2026-07-02"
+  },
+  {
+   "title": "Anthropic 3Q26 Profit Over $1B: The Anthropic IPO Financials Sneak Peek",
+   "date": "2026-07-08"
   }
  ]
 }

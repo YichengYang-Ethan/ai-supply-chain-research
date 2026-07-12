@@ -421,6 +421,20 @@
    "value": "~2.5 pJ/bit E-O-E (+0.7 laser) vs ~10 pJ/bit copper",
    "note_en": "Marvell buy: $500M run-rate exiting FY28, guided to $1B by CY28-end; Trainium 4 target.",
    "note_zh": "马维尔收购：FY28 末 5 亿美元运行率，指引 CY28 末达 10 亿美元；目标 Trainium 4。"
+  },
+  {
+   "metric_en": "Lightmatter Passage M1000 photonic interposer",
+   "metric_zh": "Lightmatter Passage M1000 光子互连基板",
+   "value": "~2,100 mm² photonic interposer, 4 tiles, 32 optical waveguides/tile @127µm pitch, >95% electrical-assembly yield, ~680W cooled from the concentrated test area",
+   "note_en": "Co-packaged optical interposer packaging details (ECTC 2026, SemiAnalysis).",
+   "note_zh": "共封装光学互连基板的封装细节（ECTC 2026，SemiAnalysis）。"
+  },
+  {
+   "metric_en": "Marvell optical I/O (OMIB / Photonic Fabric)",
+   "metric_zh": "马维尔光 I/O（OMIB / Photonic Fabric）",
+   "value": "OMIB reaches 1.8 Tbps/mm² bandwidth density; Photonic Fabric uses electro-absorption modulators (EAMs), 224 Gb/s bidirectional per test chip",
+   "note_en": "EAM path vs micro-ring modulators (ECTC 2026, SemiAnalysis).",
+   "note_zh": "EAM 路线对微环调制器（ECTC 2026，SemiAnalysis）。"
   }
  ],
  "deep_dives": [
@@ -674,6 +688,10 @@
   {
    "title": "Aehr Multi-Wafer Level Burn-in Test for Silicon Carbide and Silicon Photonics",
    "date": "2021-09-29"
+  },
+  {
+   "title": "ECTC 2026: EMIB-T Roadmap, Custom HBM, HBM4 Packaging, Microfluidic Cooling, Photonic Interconnects",
+   "date": "2026-07-02"
   }
  ]
 }

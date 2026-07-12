@@ -447,6 +447,20 @@
    "value": "MRAM 0.49 Gb/mm2 > Micron D1b DRAM 0.435; ships in MB not GB",
    "note_en": "FeRAM matched D1b density at IEDM 2023 but too costly; not DRAM replacements.",
    "note_zh": "FeRAM 在 IEDM 2023 追平 D1β 密度但太贵；都不是 DRAM 替代。"
+  },
+  {
+   "metric_en": "Marvell Custom HBM",
+   "metric_zh": "Marvell 定制 HBM",
+   "value": "1,024 channels @ 32 Gb/s ~= 4.1 TB/s per stack; ~60% smaller host-ASIC HBM-PHY footprint",
+   "note_en": "Custom base die + organic RDL (ECTC 2026, SemiAnalysis).",
+   "note_zh": "定制基底 die + 有机 RDL（ECTC 2026,SemiAnalysis）。"
+  },
+  {
+   "metric_en": "Samsung HBM4E interposer/thermal",
+   "metric_zh": "三星 HBM4E 中介层/散热",
+   "value": "HBM4E needs ~2x the interposer layers of HBM3E; hybrid-copper-bond (HCB) cuts in-stack thermal resistance ~12%",
+   "note_en": "Packaging/thermal cost of HBM4E (ECTC 2026, SemiAnalysis).",
+   "note_zh": "HBM4E 的封装/散热代价（ECTC 2026,SemiAnalysis）。"
   }
  ],
  "deep_dives": [
@@ -691,6 +705,10 @@
   {
    "title": "Moore's Law is Dead for DRAM and that is Great for SemiCap",
    "date": "2020-05-22"
+  },
+  {
+   "title": "ECTC 2026: EMIB-T Roadmap, Custom HBM, HBM4 Packaging, Microfluidic Cooling, Photonic Interconnects",
+   "date": "2026-07-02"
   }
  ]
 }

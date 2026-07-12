@@ -458,6 +458,20 @@
    "value": "vs monolithic: MCM +2.1% power/+5.6% area; 2.5D +1.1%/+2.4%; 3D +0.04% power/+2.4% area",
    "note_en": "Ideal-case numbers, but they quantify why 3D stacking is the endgame: near-zero power overhead.",
    "note_zh": "虽是理想值，却量化了 3D 堆叠为何是终局：功耗开销近乎为零。"
+  },
+  {
+   "metric_en": "Intel EMIB-T (bridge + backside-power TSVs)",
+   "metric_zh": "Intel EMIB-T（硅桥 + 背面供电 TSV）",
+   "value": "36/35µm bump pitch on 2x reticle (+65% bump density vs 45µm Granite Rapids); 25µm in test; through-bridge TSVs cut DC IR-drop 68-80%; ~67% eye width at 12 Gb/s HBM4E",
+   "note_en": "EMIB with backside power TSVs, disclosed at ECTC 2026 (SemiAnalysis).",
+   "note_zh": "带背面供电 TSV 的 EMIB，ECTC 2026 披露（SemiAnalysis）。"
+  },
+  {
+   "metric_en": "Marvell custom-HBM packaging",
+   "metric_zh": "Marvell 定制 HBM 封装",
+   "value": "Organic RDL instead of silicon interposer; HBM interposer channel shortened 6.5mm → 1.5mm",
+   "note_en": "Substrate-side path that eases CoWoS-S interposer dependence (ECTC 2026, SemiAnalysis).",
+   "note_zh": "基板侧路径，缓解对 CoWoS-S 硅中介层的依赖（ECTC 2026，SemiAnalysis）。"
   }
  ],
  "deep_dives": [
@@ -613,6 +627,10 @@
    {
     "en": "Panel-level fanout and coreless ABF hitting cost crossover; co-packaged optics / optical interposers (Lightmatter Passage, Ayar Labs) getting a first volume design win.",
     "zh": "面板级扇出与无芯 ABF 到达成本交叉点；共封装光学/光学中介层（Lightmatter Passage、Ayar Labs）拿下第一个量产设计。"
+   },
+   {
+    "en": "EMIB-T (bridge + through-bridge TSVs) and organic-RDL custom HBM maturing at ECTC 2026 as alternatives to reticle-limited silicon interposers.",
+    "zh": "EMIB-T（硅桥 + 穿桥 TSV）与有机 RDL 定制 HBM 在 ECTC 2026 走向成熟，成为受光罩尺寸约束的硅中介层的替代方案。"
    }
   ]
  },
@@ -639,6 +657,10 @@
   }
  ],
  "sources": [
+  {
+   "title": "ECTC 2026: EMIB-T Roadmap, Custom HBM, HBM4 Packaging, Microfluidic Cooling, Photonic Interconnects",
+   "date": "2026-07-02"
+  },
   {
    "title": "Hybrid Bonding Process Flow - Advanced Packaging Part 5",
    "date": "2024-02-09"
