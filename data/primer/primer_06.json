@@ -38,8 +38,8 @@
   {
    "heading_en": "The new bottleneck — and the new profit pool",
    "heading_zh": "新瓶颈,也是新利润池",
-   "body_en": "Since 2023, whenever Nvidia GPUs were scarce, the binding constraint was usually not wafers — TSMC could print the compute dies — but CoWoS capacity and HBM supply. 'Advanced packaging' became, in effect, the production schedule of AI compute.\n\nThe money followed. TSMC's CoWoS revenue grew from about $0.6B in 2018 to $9.6B in 2025 — 2.5× what Apple's InFO brings in — and advanced packaging passed 10% of TSMC's total revenue. A step once priced in cents per chip now prices in hundreds of dollars per AI accelerator.\n\nInside the flow, the chokepoints are specific and investable. TSV formation — the etch-and-plate sequence that drills the vertical vias — bottlenecks both HBM and CoWoS. HBM's stacking arithmetic compounds the problem: 12-high stacks force each DRAM die to be thinned to 30µm, too fragile for fast conventional bonders, mandating slow thermocompression bonding (TCB) tools. And hybrid-bonding die placers trade throughput against accuracy so brutally that rated speeds roughly halve in practice.\n\nBecause hybrid bonding is a front-end process, each new generation shifts value away from OSATs toward foundries and fab-tool vendors — deposition, CMP, dicing, bonders. So when a headline says 'TSMC doubles CoWoS capacity', read it as: that is the ceiling on next year's AI accelerator shipments — and the toll for that ceiling accrues to a shrinking list of companies.",
-   "body_zh": "2023 年以来英伟达 GPU 每次缺货,卡脖子的通常不是晶圆——计算 die 台积电印得出来——而是 CoWoS 产能和 HBM 供给。「先进封装」四个字,实际上就是 AI 算力的排产表。\n\n钱也跟着来了。台积电 CoWoS 营收从 2018 年约 $0.6B 涨到 2025 年 $9.6B,是苹果 InFO 贡献的 2.5 倍;先进封装占台积电总营收突破一成。一道曾经按「分」计价的工序,如今在每颗 AI 加速器上以数百美元计。\n\n流程内部的堵点具体而可投资:TSV 制程——刻蚀加电镀打竖孔的那一段——同时卡住 HBM 和 CoWoS;HBM 的堆叠数学层层加码,12 层堆叠把每颗 DRAM die 减薄到 30µm,快速的常规贴片机根本抓不住,只能上慢速的热压键合(TCB)设备;混合键合贴片机在吞吐与精度之间的取舍狠到额定速度实测大约打对折。\n\n而由于混合键合本质是前道工艺,每往前走一代,价值就从 OSAT 向晶圆厂和前道设备商(沉积、CMP、切割、键合机)迁移一分。下次看到「台积电 CoWoS 产能翻倍」的标题,请读成:这是明年 AI 加速器出货量的天花板——而收这份「天花板过路费」的公司,名单正在变短。"
+   "body_en": "Since 2023, whenever Nvidia GPUs were scarce, the binding constraint was usually not wafers — TSMC could print the compute dies — but CoWoS capacity and HBM supply. 'Advanced packaging' became, in effect, the production schedule of AI compute.\n\nThe money followed. TSMC's CoWoS revenue grew from about $0.6B in 2018 to $9.6B in 2025 — 2.5× what Apple's InFO brings in — and advanced packaging passed 10% of TSMC's total revenue. A step once priced in cents per chip now prices in hundreds of dollars per AI accelerator.\n\nInside the flow, the chokepoints are specific and investable. TSV formation — the etch-and-plate sequence that drills the vertical vias — bottlenecks both HBM and CoWoS. HBM's stacking arithmetic compounds the problem: 12-high stacks force each DRAM die to be thinned to 30µm — SK Hynix bonds all layers at once with MR-MUF (mass reflow), while Samsung and Micron use slower thermocompression (TC-NCF/TCB). And hybrid-bonding die placers trade throughput against accuracy so brutally that rated speeds roughly halve in practice.\n\nBecause hybrid bonding is a front-end process, each new generation shifts value away from OSATs toward foundries and fab-tool vendors — deposition, CMP, dicing, bonders. So when a headline says 'TSMC doubles CoWoS capacity', read it as: that is the ceiling on next year's AI accelerator shipments — and the toll for that ceiling accrues to a shrinking list of companies.",
+   "body_zh": "2023 年以来英伟达 GPU 每次缺货,卡脖子的通常不是晶圆——计算 die 台积电印得出来——而是 CoWoS 产能和 HBM 供给。「先进封装」四个字,实际上就是 AI 算力的排产表。\n\n钱也跟着来了。台积电 CoWoS 营收从 2018 年约 $0.6B 涨到 2025 年 $9.6B,是苹果 InFO 贡献的 2.5 倍;先进封装占台积电总营收突破一成。一道曾经按「分」计价的工序,如今在每颗 AI 加速器上以数百美元计。\n\n流程内部的堵点具体而可投资:TSV 制程——刻蚀加电镀打竖孔的那一段——同时卡住 HBM 和 CoWoS;HBM 的堆叠数学层层加码,12 层堆叠把每颗 DRAM die 减薄到 30µm——海力士用 MR-MUF(批量回流)一次性键合所有层,三星与美光则用更慢的热压键合(TC-NCF/TCB);混合键合贴片机在吞吐与精度之间的取舍狠到额定速度实测大约打对折。\n\n而由于混合键合本质是前道工艺,每往前走一代,价值就从 OSAT 向晶圆厂和前道设备商(沉积、CMP、切割、键合机)迁移一分。下次看到「台积电 CoWoS 产能翻倍」的标题,请读成:这是明年 AI 加速器出货量的天花板——而收这份「天花板过路费」的公司,名单正在变短。"
   }
  ],
  "key_numbers": [
@@ -60,7 +60,7 @@
   {
    "metric_en": "Interconnect density ladder (vs standard 150-200µm flip chip)",
    "metric_zh": "互连密度阶梯(对 150-200µm 标准倒装)",
-   "value": "Fanout ~8× → 2.5D interposer ~16× → 36µm micro-bump 3D 31× → 17µm hybrid bonding (V-Cache) 138× → Sony 6.3µm CIS 567×",
+   "value": "Fanout ~8× → 2.5D interposer ~16× → 36µm micro-bump 3D 31× → 17µm hybrid bonding (V-Cache) 138× → Sony 6.3µm CIS 567× (the 150-200µm standard flip-chip baseline is not uniform across rungs)",
    "source_name": "SemiAnalysis — Advanced Packaging Part 1 – Pad Limited Designs",
    "source_url": "https://semianalysis.com/2021/12/15/advanced-packaging-part-1-pad-limited/"
   },
@@ -88,7 +88,7 @@
   {
    "metric_en": "HBM die thinning (SK Hynix 12-hi HBM3)",
    "metric_zh": "HBM 减薄(海力士 12 层 HBM3)",
-   "value": "Each DRAM die thinned to 30µm — mandating TCB bonders",
+   "value": "Each DRAM die thinned to 30µm — SK Hynix bonds 12-hi via MR-MUF (mass reflow); Samsung/Micron use slower thermocompression (TC-NCF/TCB)",
    "source_name": "SemiAnalysis — Advanced Packaging Part 3 – Intel's Curious Bet on Thermocompression Bonding",
    "source_url": "https://semianalysis.com/2022/01/19/advanced-packaging-part-3-intels/"
   }
@@ -112,8 +112,8 @@
    "url": "https://upload.wikimedia.org/wikipedia/commons/b/b6/AMD_Epyc_7702_delidded.jpg",
    "source_name": "Wikimedia Commons — Fritzchens Fritz (CC0)",
    "source_url": "https://commons.wikimedia.org/wiki/File:AMD_Epyc_7702_delidded.jpg",
-   "caption_en": "Chiplets in the flesh: a delidded AMD EPYC 7702 — eight small 7nm compute chiplets surrounding one 12nm IO die. Small dies win the defect lottery, and the IO die doesn't need the expensive node.",
-   "caption_zh": "Chiplet 实物:开盖的 AMD EPYC 7702——八颗 7nm 小计算 chiplet 围着一颗 12nm IO die。小 die 在缺陷抽签中占便宜,IO die 则用不着昂贵的先进节点。"
+   "caption_en": "Chiplets in the flesh: a delidded AMD EPYC 7702 — eight small 7nm compute chiplets (CCDs) surrounding one 14nm server IO die. Small dies win the defect lottery, and the IO die doesn't need the expensive node.",
+   "caption_zh": "Chiplet 实物:开盖的 AMD EPYC 7702——八颗 7nm 小计算 chiplet(CCD)围着一颗 14nm 服务器 IO die。小 die 在缺陷抽签中占便宜,IO die 则用不着昂贵的先进节点。"
   }
  ],
  "own_fig": {

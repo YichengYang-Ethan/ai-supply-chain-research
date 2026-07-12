@@ -22,8 +22,8 @@
   {
    "term_en": "800VDC / ±400VDC & the Power Rack (Sidecar)",
    "term_zh": "800VDC / ±400VDC 与电源柜(Sidecar)",
-   "explain_en": "Distributing ~800V DC to the rack instead of 48-54V. A 600kW rack at 54V needs ~12,500A vs ~750A at 800V (~16.7x less current, I²R losses ~220-278x lower). The 'power rack' (OCP Diablo 400, co-authored by Google/Meta/Microsoft) disaggregates AC-DC rectification, BBUs and supercaps into a dedicated cabinet (~$400-500k ASP, ~10x a standard AC power rack). ±400V bipolar leverages the mature EV supply chain (650V GaN, 400V caps).",
-   "explain_zh": "向机柜配送约 800V 直流,取代 48-54V。600kW 机柜在 54V 下需约 12,500A,而 800V 下仅约 750A(电流少约 16.7 倍,I²R 损耗低约 220-278 倍)。「电源柜」(OCP Diablo 400,由 Google/Meta/微软联合撰写)把 AC-DC 整流、电池备份 (BBU) 与超级电容拆分进专用机柜(ASP 约 40-50 万美元,约为标准交流电源柜的 10 倍)。±400V 双极方案可复用成熟的电动车供应链(650V GaN、400V 电容)。"
+   "explain_en": "Distributing ~800V DC to the rack instead of 48-54V. A 600kW rack at 48-54V needs ~11.1-12.5kA vs ~750A at 800V (~14.8-16.7x less current, I²R losses ~219-278x lower). The 'power rack' (OCP Diablo 400, co-authored by Google/Meta/Microsoft) disaggregates AC-DC rectification, BBUs and supercaps into a dedicated cabinet (~$400-500k ASP, ~10x a standard AC power rack). ±400V bipolar leverages the mature EV supply chain (650V GaN, 400V caps).",
+   "explain_zh": "向机柜配送约 800V 直流,取代 48-54V。600kW 机柜在 48-54V 下需约 11.1-12.5kA,而 800V 下仅约 750A(电流少约 14.8-16.7 倍,I²R 损耗低约 219-278 倍)。「电源柜」(OCP Diablo 400,由 Google/Meta/微软联合撰写)把 AC-DC 整流、电池备份 (BBU) 与超级电容拆分进专用机柜(ASP 约 40-50 万美元,约为标准交流电源柜的 10 倍)。±400V 双极方案可复用成熟的电动车供应链(650V GaN、400V 电容)。"
   },
   {
    "term_en": "Solid-State Transformer (SST)",
@@ -46,8 +46,8 @@
   {
    "term_en": "Load Fluctuations, Inertia & LVRT",
    "term_zh": "负荷波动、惯量与低压穿越 (LVRT)",
-   "explain_en": "Synchronous GPU training swings power ~15x more than a cloud datacenter (Google: 1.5MW→15MW), with MW-scale spikes sub-second. Spinning generators supply inertia; inverter-based solar/BESS do not. A low-voltage ride-through (LVRT) is a transient voltage sag (30ms-5s); if datacenters trip during one, ERCOT modeled 1.5-2.5GW of West Texas load disconnecting near-simultaneously — echoing the April 2025 Iberian blackout (collapse in 27 seconds).",
-   "explain_zh": "同步 GPU 训练的功率摆动比云数据中心大约 15 倍(Google:1.5MW→15MW),兆瓦级尖峰在亚秒内发生。旋转发电机提供惯量;逆变器接入的光伏/BESS 没有。低压穿越 (LVRT) 是瞬时电压跌落(30 毫秒-5 秒);若数据中心在此期间跳闸,ERCOT 建模显示西得州 1.5-2.5GW 负荷会近乎同时脱网——正如 2025 年 4 月伊比利亚大停电(27 秒内崩溃)。"
+   "explain_en": "Synchronous GPU training swings power ~15x more than a cloud datacenter (Google: 1.5MW→15MW), with MW-scale spikes sub-second. Synchronous generators provide intrinsic mechanical inertia; inverter-based solar/BESS provide none intrinsically, but grid-forming inverters can provide synthetic/virtual inertia and fast frequency response. The disturbance is a transient voltage sag (30ms-5s); low-voltage ride-through (LVRT) is the capability/requirement to stay connected through it. If datacenters trip during one, ERCOT modeled 1.5-2.5GW of West Texas load disconnecting near-simultaneously — echoing the April 2025 Iberian blackout (collapse in 27 seconds).",
+   "explain_zh": "同步 GPU 训练的功率摆动比云数据中心大约 15 倍(Google:1.5MW→15MW),兆瓦级尖峰在亚秒内发生。同步发电机提供固有的机械惯量;逆变器接入的光伏/BESS 本身不提供惯量,但构网型逆变器可提供合成/虚拟惯量与快速频率响应。扰动本身是瞬时电压跌落(30 毫秒-5 秒);低压穿越 (LVRT) 是指在此期间保持并网的能力/要求。若数据中心在此期间跳闸,ERCOT 建模显示西得州 1.5-2.5GW 负荷会近乎同时脱网——正如 2025 年 4 月伊比利亚大停电(27 秒内崩溃)。"
   },
   {
    "term_en": "Capacity Auction (PJM BRA) vs Energy-Only (ERCOT)",
@@ -110,8 +110,8 @@
   {
    "claim_en": "The US grid is 'sold out' — headroom goes negative by 2027 and BTM powers half of new datacenters by 2028.",
    "claim_zh": "美国电网已「卖空」——余量到 2027 年转负,BTM 到 2028 年将为过半新增数据中心供电。",
-   "rationale_en": "Roughly a terawatt of load requests are queued against a 745GW US peak; barely ~15GW of net-new ELCC capacity is added per year, and less than 10GW/yr of gas in 2026-27. Interconnection now runs ~5 years (7 in North Virginia). On a UCAP basis, grid headroom turns red across a growing set of subregions by 2027. Since a utility's timeline can slip from 2027 to 2029 with no penalty, the marginal buyer goes behind the meter for speed and certainty; DC BTM equipment TAM is set to cross 50GW/year by 2029.",
-   "rationale_zh": "排队的负荷请求接近 1 太瓦,而美国峰值仅 745GW;每年净新增 ELCC 容量仅约 15GW,2026-27 年天然气新增不足 10GW/年。接入排队已达约 5 年(北弗吉尼亚 7 年)。按 UCAP 口径,到 2027 年越来越多子区域余量转红。由于公用事业可以把工期从 2027 无罚地推到 2029,边际买家为了速度与确定性转向表后;数据中心 BTM 设备 TAM 预计到 2029 年跨过 50GW/年。",
+   "rationale_en": "Roughly a terawatt of load requests are queued against a 759GW US peak; barely ~15GW of net-new ELCC capacity is added per year, and less than 10GW/yr of gas in 2026-27. Interconnection now runs ~5 years (7 in North Virginia). On a UCAP basis, grid headroom turns red across a growing set of subregions by 2027. Since a utility's timeline can slip from 2027 to 2029 with no penalty, the marginal buyer goes behind the meter for speed and certainty; DC BTM equipment TAM is set to cross 50GW/year by 2029.",
+   "rationale_zh": "排队的负荷请求接近 1 太瓦,而美国峰值仅 759GW;每年净新增 ELCC 容量仅约 15GW,2026-27 年天然气新增不足 10GW/年。接入排队已达约 5 年(北弗吉尼亚 7 年)。按 UCAP 口径,到 2027 年越来越多子区域余量转红。由于公用事业可以把工期从 2027 无罚地推到 2029,边际买家为了速度与确定性转向表后;数据中心 BTM 设备 TAM 预计到 2029 年跨过 50GW/年。",
    "figure": {
     "url": "https://substackcdn.com/image/fetch/$s_!tFzC!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F672bdd39-9957-4296-a01b-53ac56fd55f2_1920x1080.png",
     "shows_en": "US grid headroom (accredited supply minus peak demand minus reserves) approaching zero and turning negative by 2027.",
@@ -142,8 +142,8 @@
   {
    "claim_en": "800VDC is inevitable — physics, not preference — because 600kW+ racks break 48-54V distribution.",
    "claim_zh": "800VDC 势在必行——是物理规律而非偏好——因为 600kW+ 机柜击穿了 48-54V 配电。",
-   "rationale_en": "Resistive losses scale with current squared. A 600kW Kyber-class rack draws ~12,500A at 54V but only ~750A at 800V — ~16.7x less current and, at fixed resistance, ~219-278x lower I²R heating. A 1MW rack at 48-54V needs ~200kg of copper busbar; at GW scale that's hundreds of tons. Today's NVL72 already uses up to 8 power shelves; at Kyber power a 48V approach would need ~64U of power hardware — an entire rack, leaving no room for compute. 800VDC also cuts facility power ~5% (~50MW saved at 1GW IT load).",
-   "rationale_zh": "电阻损耗随电流平方增长。600kW Kyber 级机柜在 54V 下取约 12,500A,而 800V 下仅约 750A——电流少约 16.7 倍,在电阻固定时 I²R 发热低约 219-278 倍。1MW 机柜在 48-54V 下需约 200 公斤铜母排;吉瓦级即数百吨。当今 NVL72 已用到 8 个电源架;Kyber 功率下 48V 方案需约 64U 电源硬件——整整一柜,不给算力留空间。800VDC 还能省约 5% 设施功率(1GW IT 负荷时约省 50MW)。",
+   "rationale_en": "Resistive losses scale with current squared. A 600kW Kyber-class rack draws ~11.1-12.5kA at 48-54V but only ~750A at 800V — ~14.8-16.7x less current and, at fixed resistance, ~219-278x lower I²R heating. A 1MW rack at 48-54V needs ~200kg of copper busbar; at GW scale that's hundreds of tons. Today's NVL72 already uses up to 8 power shelves; at Kyber power a 48V approach would need ~64U of power hardware — an entire rack, leaving no room for compute. 800VDC also cuts facility power ~5% (~50MW saved at 1GW IT load).",
+   "rationale_zh": "电阻损耗随电流平方增长。600kW Kyber 级机柜在 48-54V 下取约 11.1-12.5kA,而 800V 下仅约 750A——电流少约 14.8-16.7 倍,在电阻固定时 I²R 发热低约 219-278 倍。1MW 机柜在 48-54V 下需约 200 公斤铜母排;吉瓦级即数百吨。当今 NVL72 已用到 8 个电源架;Kyber 功率下 48V 方案需约 64U 电源硬件——整整一柜,不给算力留空间。800VDC 还能省约 5% 设施功率(1GW IT 负荷时约省 50MW)。",
    "figure": {
     "url": "https://substackcdn.com/image/fetch/$s_!xgBF!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fafb0968c-ec14-46c2-ad51-3b9165c49b52_1363x807.png",
     "shows_en": "Rack power density trajectory toward Kyber Ultra at ~660kW/rack, where copper mass and thermal envelope break 48-54V.",
@@ -230,7 +230,7 @@
     "shows_zh": "PJM 基础剩余拍卖出清价历史——暴涨 9.3 倍至 270 美元/MW·日。"
    },
    "quote": {
-    "text": "In PJM, plants get paid no matter what, even if they fail when needed… PJM's 9.3x capacity price increase was supposed to buy reliability. It did not.",
+    "text": "PJM pays for forward capacity commitments, but subject to testing and event-specific Non-Performance Charges when committed capacity underperforms… PJM's 9.3x capacity price increase was supposed to buy reliability. It did not.",
     "source_title": "Are AI Datacenters Increasing Electric Bills for American Households?",
     "date": "2026-03-03"
    }
@@ -332,8 +332,8 @@
    "metric_en": "US grid load-request queue",
    "metric_zh": "美国电网负荷请求队列",
    "value": "~1 terawatt",
-   "note_en": "Against a 745GW US peak; ERCOT alone has ~108GW of large-load requests (with duplicates).",
-   "note_zh": "对比美国峰值 745GW;仅 ERCOT 就有约 108GW 大负荷请求(含重复)。"
+   "note_en": "Against a 759GW US peak; ERCOT alone has ~108GW of large-load requests (with duplicates).",
+   "note_zh": "对比美国峰值 759GW;仅 ERCOT 就有约 108GW 大负荷请求(含重复)。"
   },
   {
    "metric_en": "Net-new ELCC grid capacity added",
@@ -359,9 +359,9 @@
   {
    "metric_en": "800VDC current/loss reduction",
    "metric_zh": "800VDC 电流/损耗降幅",
-   "value": "~16.7x less current, ~219-278x less I²R",
-   "note_en": "600kW rack: ~12,500A at 54V → ~750A at 800V; enables ~2,300W chips.",
-   "note_zh": "600kW 机柜:54V 下约 12,500A → 800V 下约 750A;支撑约 2,300W 芯片。"
+   "value": "~14.8-16.7x less current, ~219-278x less I²R",
+   "note_en": "600kW rack: ~11.1-12.5kA at 48-54V → ~750A at 800V; enables ~2,300W chips.",
+   "note_zh": "600kW 机柜:48-54V 下约 11.1-12.5kA → 800V 下约 750A;支撑约 2,300W 芯片。"
   },
   {
    "metric_en": "HVDC power rack ASP",

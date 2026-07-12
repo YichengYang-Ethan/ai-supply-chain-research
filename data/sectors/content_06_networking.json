@@ -4,8 +4,8 @@
  "sector_name_zh": "网络·互连·光模块",
  "tagline_en": "Bandwidth, not FLOPs, is the wall — copper reaches its 448G ceiling, and light takes over scale-up.",
  "tagline_zh": "撞墙的是带宽而非算力——铜互连逼近 448G 天花板，光互连接管 scale-up。",
- "overview_en": "In the AI datacenter, networking is the second-largest capex and power bucket behind the accelerators themselves — roughly 15% of a GB300 NVL72 cluster's cost on a 3-layer InfiniBand network, rising to 18% on 4 layers, with the back-end (scale-out) fabric alone accounting for ~85% of networking cost and ~86% of networking power. SemiAnalysis frames the sector around two distinct fabrics with opposite economics. Scale-up (NVLink, UALink, Broadcom SUE) is the ultra-high-bandwidth, low-latency, all-to-all mesh that fuses dozens of GPUs into one 'world size'; NVLink 5 already moves 7.2 Tbit/s (900 GB/s) per GPU — 9x the 800 Gbit/s of scale-out — and doubles again in Rubin. Scale-out (InfiniBand vs. Ethernet) links thousands of racks. The central tension: copper is cheap, cool and reliable but capped at ~2 m reach and is running out of SerDes runway (Nvidia is delivering '448G' in Rubin only via a bi-directional trick, not true 448G), while pluggable optics carry ~60% of scale-out networking cost and burn a DSP that eats ~50% of an 800G module's power. Co-packaged optics (CPO) is SemiAnalysis's marquee thesis: it kills the DSP and the long-reach SerDes, cuts optical-link energy ~65-73%, and — critically — removes the reach limit so scale-up world sizes can span multiple racks. But CPO's TCO win in scale-out is modest (only ~3-7% cluster cost, 2-4% cluster power), so the real prize is scale-up, arriving with Rubin Ultra / Feynman and hyperscaler ASICs (AWS Trainium 4) at the end of the decade. Around this sit the merchant-silicon wars — Broadcom vs. Marvell vs. Nvidia in switch ASICs, DSPs and custom XPUs — the Ethernet-vs-InfiniBand standards fight (UEC, UALink, SUE), Google's optical circuit switching, and a China variant (Huawei CloudMatrix) that throws power and 100%-optics at the problem because it lacks silicon, not electricity.",
- "overview_zh": "在 AI 数据中心里，网络是仅次于加速器本身的第二大资本开支与耗电项——在三层 InfiniBand 网络下约占 GB300 NVL72 集群总成本的 15%，四层则升到 18%，其中仅后端（scale-out）光纤网就吃掉约 85% 的网络成本和约 86% 的网络功耗。SemiAnalysis 把整个板块拆成经济学截然相反的两张网。scale-up（NVLink、UALink、博通 SUE）是把几十颗 GPU 熔成一个「world size」的超高带宽、低时延、全互连网格；NVLink 5 单 GPU 已达 7.2 Tbit/s（900 GB/s），是 scale-out 800 Gbit/s 的 9 倍，到 Rubin 再翻一番。scale-out（InfiniBand 对 Ethernet）则连接成千上万个机架。核心矛盾在于：铜便宜、凉、可靠，但触及约 2 米的传输极限、SerDes 也快没跑道了（Rubin 的「448G」是靠双向 SerDes 取巧，而非真 448G）；而可插拔光模块承担约 60% 的 scale-out 网络成本，其中 DSP 就吞掉 800G 模块约 50% 的功耗。共封装光学（CPO）是 SemiAnalysis 的招牌论点：它砍掉 DSP 和长距 SerDes，把光链路能耗降约 65–73%，更关键的是解除距离限制，让 scale-up 的 world size 跨越多机架。但 CPO 在 scale-out 上的 TCO 收益有限（仅约 3–7% 集群成本、2–4% 集群功耗），真正的金矿是 scale-up——随 Rubin Ultra／Feynman 和超大厂自研 ASIC（AWS Trainium 4）在十年末登场。围绕这条主线，还有交换芯片／DSP／自研 XPU 上博通对马维尔对英伟达的混战、以太网对 InfiniBand 的标准之争（UEC、UALink、SUE）、谷歌的光路交换，以及一个中国变体（华为 CloudMatrix）——它用电力和 100% 光互连硬扛，因为它缺的是硅而不是电。",
+ "overview_en": "In the AI datacenter, networking is the second-largest capex and power bucket behind the accelerators themselves — roughly 15% of a GB300 NVL72 cluster's cost on a 3-layer InfiniBand network, rising to 18% on 4 layers, with the back-end (scale-out) fabric alone accounting for ~85% of networking cost and ~86% of networking power. SemiAnalysis frames the sector around two distinct fabrics with opposite economics. Scale-up (NVLink, UALink, Broadcom SUE) is the ultra-high-bandwidth, low-latency, all-to-all mesh that fuses dozens of GPUs into one 'world size'; NVLink 5 already moves 7.2 Tbit/s (900 GB/s) per GPU — 9x the 800 Gbit/s of scale-out — and doubles again in Rubin. Scale-out (InfiniBand vs. Ethernet) links thousands of racks. The central tension: copper is cheap, cool and reliable but capped at ~2 m reach and is running out of SerDes runway (Nvidia is delivering '448G' in Rubin only via a bi-directional trick, not true 448G), while pluggable optics carry ~60% of scale-out networking cost and burn a DSP that eats ~50% of an 800G module's power. Co-packaged optics (CPO) is SemiAnalysis's marquee thesis: it kills the DSP and the long-reach SerDes, cuts optical-link energy ~65-73%, and — critically — removes the reach limit so scale-up world sizes can span multiple racks. But CPO's TCO win in scale-out is modest (only ~3-7% cluster cost, 2-4% cluster power), so the real prize is scale-up, arriving with Rubin Ultra / Feynman and hyperscaler ASICs (AWS Trainium 4) around late 2027. Around this sit the merchant-silicon wars — Broadcom vs. Marvell vs. Nvidia in switch ASICs, DSPs and custom XPUs — the Ethernet-vs-InfiniBand standards fight (UEC, UALink, SUE), Google's optical circuit switching, and a China variant (Huawei CloudMatrix) that throws power and 100%-optics at the problem because it lacks silicon, not electricity.",
+ "overview_zh": "在 AI 数据中心里，网络是仅次于加速器本身的第二大资本开支与耗电项——在三层 InfiniBand 网络下约占 GB300 NVL72 集群总成本的 15%，四层则升到 18%，其中仅后端（scale-out）光纤网就吃掉约 85% 的网络成本和约 86% 的网络功耗。SemiAnalysis 把整个板块拆成经济学截然相反的两张网。scale-up（NVLink、UALink、博通 SUE）是把几十颗 GPU 熔成一个「world size」的超高带宽、低时延、全互连网格；NVLink 5 单 GPU 已达 7.2 Tbit/s（900 GB/s），是 scale-out 800 Gbit/s 的 9 倍，到 Rubin 再翻一番。scale-out（InfiniBand 对 Ethernet）则连接成千上万个机架。核心矛盾在于：铜便宜、凉、可靠，但触及约 2 米的传输极限、SerDes 也快没跑道了（Rubin 的「448G」是靠双向 SerDes 取巧，而非真 448G）；而可插拔光模块承担约 60% 的 scale-out 网络成本，其中 DSP 就吞掉 800G 模块约 50% 的功耗。共封装光学（CPO）是 SemiAnalysis 的招牌论点：它砍掉 DSP 和长距 SerDes，把光链路能耗降约 65–73%，更关键的是解除距离限制，让 scale-up 的 world size 跨越多机架。但 CPO 在 scale-out 上的 TCO 收益有限（仅约 3–7% 集群成本、2–4% 集群功耗），真正的金矿是 scale-up——随 Rubin Ultra／Feynman 和超大厂自研 ASIC（AWS Trainium 4）在 2027 年末登场。围绕这条主线，还有交换芯片／DSP／自研 XPU 上博通对马维尔对英伟达的混战、以太网对 InfiniBand 的标准之争（UEC、UALink、SUE）、谷歌的光路交换，以及一个中国变体（华为 CloudMatrix）——它用电力和 100% 光互连硬扛，因为它缺的是硅而不是电。",
  "core_knowledge": [
   {
    "term_en": "Scale-up vs Scale-out",
@@ -22,14 +22,14 @@
   {
    "term_en": "DSP / LPO / DR/FR optics",
    "term_zh": "DSP／LPO／DR/FR 光模块",
-   "explain_en": "The DSP retimes and error-corrects the electrical signal inside a pluggable transceiver; it is the single most power-hungry and costly module component (~50% of an 800G SR8's power, 20-30% of BoM). LPO (linear pluggable) tries to delete the DSP by driving optics straight from switch SerDes; DR (parallel single-mode, ~500m-2km) and FR (WDM, 2-10km) are the datacenter reach classes.",
-   "explain_zh": "DSP 在可插拔收发器内重定时并纠错，是模块里最耗电、最贵的元件（占 800G SR8 约 50% 功耗、20–30% 物料成本）。LPO（线性可插拔）试图砍掉 DSP、直接用交换 SerDes 驱动光器件；DR（并行单模，约 500m–2km）和 FR（WDM，2–10km）是数据中心的传输距离档位。"
+   "explain_en": "The DSP retimes and error-corrects the electrical signal inside a pluggable transceiver; it is the single most power-hungry and costly module component (~50% of an 800G SR8's power, 20-30% of BoM). LPO (linear pluggable) tries to delete the DSP by driving optics straight from switch SerDes; DR (parallel single-mode, ~500m), FR (WDM, ~2km) and LR (~6-10km) are the datacenter reach classes.",
+   "explain_zh": "DSP 在可插拔收发器内重定时并纠错，是模块里最耗电、最贵的元件（占 800G SR8 约 50% 功耗、20–30% 物料成本）。LPO（线性可插拔）试图砍掉 DSP、直接用交换 SerDes 驱动光器件；DR（并行单模，约 500m）、FR（WDM，约 2km）和 LR（约 6–10km）是数据中心的传输距离档位。"
   },
   {
    "term_en": "SerDes & the 224G→448G wall",
    "term_zh": "SerDes 与 224G→448G 之墙",
-   "explain_en": "SerDes serialize parallel data onto a differential pair; Nvidia/Broadcom lead at 224G. Higher speeds raise insertion loss and only survive over very short reach. True 448G uni-directional needs PAM6/8 and is uncertain; Nvidia's Rubin '448G per lane' is actually bi-directional 224G+224G sharing one wire — a clever dodge, not a real doubling.",
-   "explain_zh": "SerDes 把并行数据串行化到一对差分线上；英伟达/博通领跑 224G。速率越高插损越大、只能走极短距离。真 448G 单向需 PAM6/8，前景不明；Rubin 的「每 lane 448G」其实是双向 224G+224G 共用一根线——是取巧而非真翻倍。"
+   "explain_en": "SerDes serialize parallel data onto a differential pair; Nvidia/Broadcom lead at 224G. Higher speeds raise insertion loss and only survive over very short reach. A 448 Gb/s raw lane can be run as ~224-GBd PAM4 (2 bits/symbol); PAM6/8 are alternative baud-rate/channel trade-offs, not requirements — the hard part is the baud rate, channel loss and power. Nvidia's Rubin '448G per lane' is actually bi-directional 224G+224G sharing one wire — a clever dodge, not a real doubling.",
+   "explain_zh": "SerDes 把并行数据串行化到一对差分线上；英伟达/博通领跑 224G。速率越高插损越大、只能走极短距离。一条 448 Gb/s 裸速率 lane 可用约 224-GBd PAM4（每符号 2 比特）实现；PAM6/8 只是波特率/通道的替代权衡，并非必需——难点在波特率、通道损耗和功耗。Rubin 的「每 lane 448G」其实是双向 224G+224G 共用一根线——是取巧而非真翻倍。"
   },
   {
    "term_en": "Modulators: MZM vs MRM vs EAM",
@@ -46,8 +46,8 @@
   {
    "term_en": "World size & rail-optimized topology",
    "term_zh": "world size 与 rail-optimized 拓扑",
-   "explain_en": "World size = the number of GPUs in a single all-to-all scale-up domain (GB200 jumped from 8 to 72). Rail-optimized = each server's 8 GPUs connect to 8 different leaf switches so any GPU reaches distant GPUs in one hop — great for MoE all-to-all, but forces optics (vs. cheap copper in a middle-of-rack design). Max hosts = k^L (ports^layers).",
-   "explain_zh": "world size = 单个全互连 scale-up 域内的 GPU 数（GB200 从 8 跳到 72）。rail-optimized = 一台服务器的 8 颗 GPU 分别接 8 台不同的 leaf 交换机，任意 GPU 一跳可达远端——利于 MoE 全互连，但被迫用光（相对 middle-of-rack 设计的廉价铜）。最大主机数 = k^L（端口数^层数）。"
+   "explain_en": "World size = the number of GPUs in a single all-to-all scale-up domain (GB200 jumped from 8 to 72). Rail-optimized = each server's 8 GPUs connect to 8 different leaf switches so any GPU reaches distant GPUs in one hop — great for MoE all-to-all, but forces optics (vs. cheap copper in a middle-of-rack design). A nonblocking k-ary fat tree supports ~k^3/4 hosts; real host count depends on how ports are split among endpoints/uplinks/downlinks and on oversubscription.",
+   "explain_zh": "world size = 单个全互连 scale-up 域内的 GPU 数（GB200 从 8 跳到 72）。rail-optimized = 一台服务器的 8 颗 GPU 分别接 8 台不同的 leaf 交换机，任意 GPU 一跳可达远端——利于 MoE 全互连，但被迫用光（相对 middle-of-rack 设计的廉价铜）。无阻塞的 k 叉胖树约支持 k³/4 台主机；实际主机数取决于端口如何在端点/上行/下行间分配以及超额订阅比。"
   },
   {
    "term_en": "UEC / UALink / SUE",
@@ -257,8 +257,8 @@
   {
    "claim_en": "Huawei's CloudMatrix 384 shows a system-level win — beating GB200 NVL72 on aggregate compute by throwing 100% optics and ~4x the power at the problem.",
    "claim_zh": "华为 CloudMatrix 384 展示了系统级胜利——用 100% 光互连和约 4 倍功耗，在总算力上压过 GB200 NVL72。",
-   "rationale_en": "CM384 wires 384 Ascend 910C chips all-to-all across 16 racks (100% optics, 0% copper, ~6,912 400G LPO transceivers, ~18 per chip). It delivers ~300 PFLOPs dense BF16 (~2x GB200 NVL72), 3.6x memory capacity and 2.1x bandwidth — but at 4.1x the power and 2.5x worse power/FLOP. Because China is silicon-constrained not power-constrained, forgoing copper density for optical scale-up is the rational trade. It resembles Nvidia's abandoned DGX H100 NVL256 'Ranger'.",
-   "rationale_zh": "CM384 把 384 颗昇腾 910C 全互连跨 16 机架（100% 光、0% 铜，约 6,912 个 400G LPO 收发器，每芯片约 18 个）。它给出约 300 PFLOPs 稠密 BF16（约 GB200 NVL72 的 2 倍）、3.6 倍内存容量、2.1 倍带宽——但功耗是 4.1 倍、每 FLOP 功耗差 2.5 倍。因为中国缺硅不缺电，放弃铜密度换光 scale-up 是理性权衡。它很像英伟达放弃的 DGX H100 NVL256「Ranger」。",
+   "rationale_en": "CM384 wires 384 Ascend 910C chips all-to-all across 16 racks (100% optics, 0% copper, ~6,912 400G LPO transceivers, ~18 per chip). It delivers ~300 PFLOPs dense BF16 (~1.7x GB200 NVL72), 3.6x memory capacity and 2.1x bandwidth — but at 4.1x the power and 2.5x worse power/FLOP. Because China is silicon-constrained not power-constrained, forgoing copper density for optical scale-up is the rational trade. It resembles Nvidia's abandoned DGX H100 NVL256 'Ranger'.",
+   "rationale_zh": "CM384 把 384 颗昇腾 910C 全互连跨 16 机架（100% 光、0% 铜，约 6,912 个 400G LPO 收发器，每芯片约 18 个）。它给出约 300 PFLOPs 稠密 BF16（约 GB200 NVL72 的 1.7 倍）、3.6 倍内存容量、2.1 倍带宽——但功耗是 4.1 倍、每 FLOP 功耗差 2.5 倍。因为中国缺硅不缺电，放弃铜密度换光 scale-up 是理性权衡。它很像英伟达放弃的 DGX H100 NVL256「Ranger」。",
    "figure": null,
    "quote": {
     "text": "Huawei is a generation behind in chips, but its scale-up solution is arguably a generation ahead of Nvidia and AMD's current products on the market.",
@@ -285,8 +285,8 @@
   {
    "claim_en": "High-radix 'switch-in-a-box' lets Nvidia flatten networks and hide the shuffle — a real selling point that also raises switching cost.",
    "claim_zh": "高基数「一箱即一网」让英伟达把网络拍扁、把 shuffle 藏进箱内——是真卖点，但也抬高交换成本。",
-   "rationale_en": "Nvidia's CPO switches present as very high port count — Quantum 3450 = 144x800G, Spectrum 6800 = 512x800G — by internally shuffling across 4 ASICs (a multi-plane 'topology in a box'). Spectrum 6800 can connect 131,072 GPUs on 2 layers vs 8,192 for the 6810, letting customers drop from 3 layers to 2 and skip patch panels/octopus cables. Because max hosts = k^L, doubling logical ports 4x's the cluster size — the magic of high radix.",
-   "rationale_zh": "英伟达的 CPO 交换机呈现极高端口数——Quantum 3450 = 144×800G、Spectrum 6800 = 512×800G——靠内部在 4 颗 ASIC 间做 shuffle（「一箱内的多平面拓扑」）。Spectrum 6800 两层可连 131,072 颗 GPU，对比 6810 的 8,192 颗，让客户从 3 层降到 2 层、省掉配线架/章鱼线。因最大主机数 = k^L，逻辑端口翻倍即集群规模翻 4 倍——这就是高基数的魔力。",
+   "rationale_en": "Nvidia's CPO switches present as very high port count — Quantum 3450 = 144x800G, Spectrum 6800 = 512x800G — by internally shuffling across 4 ASICs (a multi-plane 'topology in a box'). Spectrum 6800 can connect 131,072 GPUs on 2 layers vs 8,192 for the 6810, letting customers drop from 3 layers to 2 and skip patch panels/octopus cables. Because a 2-tier fabric scales with the square of switch radix, doubling logical ports ~4x's the cluster size — the magic of high radix.",
+   "rationale_zh": "英伟达的 CPO 交换机呈现极高端口数——Quantum 3450 = 144×800G、Spectrum 6800 = 512×800G——靠内部在 4 颗 ASIC 间做 shuffle（「一箱内的多平面拓扑」）。Spectrum 6800 两层可连 131,072 颗 GPU，对比 6810 的 8,192 颗，让客户从 3 层降到 2 层、省掉配线架/章鱼线。因两层结构下主机数随交换机基数的平方增长，逻辑端口翻倍即集群规模约翻 4 倍——这就是高基数的魔力。",
    "figure": null,
    "quote": {
     "text": "the Spectrum 6800 at 512 ports of 800G can connect 131,072 GPUs.",
@@ -363,8 +363,8 @@
    "metric_en": "Meta/Broadcom CPO reliability (Bailly 51.2T)",
    "metric_zh": "Meta/博通 CPO 可靠性（Bailly 51.2T）",
    "value": "2.6M-hr MTBF vs 0.5-1M for 2xFR4",
-   "note_en": "Zero UCWs to 4M port-device-hours across 15 switches over ~11 months.",
-   "note_zh": "15 台交换机约 11 个月内，到 400 万端口设备小时零不可纠错码字。"
+   "note_en": "Zero UCWs to 4M port-device-hours, within a ~15M port-device-hour campaign across 15 switches over ~11 months.",
+   "note_zh": "在 15 台交换机约 11 个月、约 1,500 万端口设备小时的验证中，到 400 万端口设备小时零不可纠错码字。"
   },
   {
    "metric_en": "TSMC COUPE bandwidth-density gain",
@@ -456,8 +456,8 @@
   {
    "article_title": "100,000 H100 Clusters: Power, Network Topology, Ethernet vs InfiniBand, Reliability",
    "date": "2024-06-17",
-   "summary_en": "Anatomy of frontier training clusters. A 100k H100 cluster needs ~150 MW and swallows 1.59 TWh/yr. Network design follows parallelism (tensor within node/NVLink, pipeline within island, data across islands). Rail-optimized vs middle-of-rack is a copper-vs-optics choice: a non-rail design converts 98,304 transceivers to cheap DAC copper (25-33% of the GPU fabric). Reliability dominates: optics link failures give ~26 min to first job failure, forcing memory-reconstruction recovery. Spectrum-X vs Tomahawk 5: TH5 dodges the 'Nvidia tax' and needs its own NCCL work; Spectrum-X's first gen needs power-hungry BlueField-3 (+5 MW/100k).",
-   "summary_zh": "前沿训练集群解剖。10 万 H100 集群需约 150 MW，年吞 1.59 TWh。网络设计随并行方式走（张量并行在节点内/NVLink，流水线在岛内，数据并行跨岛）。rail-optimized 对 middle-of-rack 是铜对光的抉择：非 rail 设计把 98,304 个收发器换成廉价 DAC 铜（占 GPU 网 25–33%）。可靠性主导：光链路故障使首次任务失败仅约 26 分钟，逼迫用内存重建恢复。Spectrum-X 对 Tomahawk 5：TH5 绕开「英伟达税」但需自做 NCCL；Spectrum-X 一代需耗电的 BlueField-3（每 10 万卡 +5 MW）。",
+   "summary_en": "Anatomy of frontier training clusters. A 100k H100 cluster needs ~150 MW IT load ≈ 1.31 TWh/yr (≈1.59 TWh at ~181.5 MW facility power, PUE≈1.21). Network design follows parallelism (tensor within node/NVLink, pipeline within island, data across islands). Rail-optimized vs middle-of-rack is a copper-vs-optics choice: a non-rail design converts 98,304 transceivers to cheap DAC copper (25-33% of the GPU fabric). Reliability dominates: optics link failures give ~26 min to first job failure, forcing memory-reconstruction recovery. Spectrum-X vs Tomahawk 5: TH5 dodges the 'Nvidia tax' and needs its own NCCL work; Spectrum-X's first gen needs power-hungry BlueField-3 (+5 MW/100k).",
+   "summary_zh": "前沿训练集群解剖。10 万 H100 集群需约 150 MW IT 负载 ≈ 年 1.31 TWh（按约 181.5 MW 设施功耗、PUE≈1.21 则约 1.59 TWh）。网络设计随并行方式走（张量并行在节点内/NVLink，流水线在岛内，数据并行跨岛）。rail-optimized 对 middle-of-rack 是铜对光的抉择：非 rail 设计把 98,304 个收发器换成廉价 DAC 铜（占 GPU 网 25–33%）。可靠性主导：光链路故障使首次任务失败仅约 26 分钟，逼迫用内存重建恢复。Spectrum-X 对 Tomahawk 5：TH5 绕开「英伟达税」但需自做 NCCL；Spectrum-X 一代需耗电的 BlueField-3（每 10 万卡 +5 MW）。",
    "figure": null
   },
   {

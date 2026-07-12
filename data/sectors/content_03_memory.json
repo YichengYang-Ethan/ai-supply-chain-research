@@ -10,8 +10,8 @@
   {
    "term_en": "HBM (High Bandwidth Memory)",
    "term_zh": "HBM（高带宽存储）",
-   "explain_en": "A 3DIC stack of 8-16 DRAM dies on a logic base die, connected by 1,000+ TSV wires and a 1,024-bit bus (2,048-bit in HBM4). It trades a warranted 3x+ price premium over DDR5 for the bandwidth AI accelerators need; every leading GenAI training/inference chip uses it. Must sit at the GPU 'shoreline' via a 2.5D interposer (CoWoS) because a PCB can't route the density.",
-   "explain_zh": "把 8~16 层 DRAM die 堆在一个逻辑基底 die 上的 3DIC 堆叠，用 1000 多根 TSV 走线和 1024 位（HBM4 为 2048 位）总线互连。它以对 DDR5 逾 3 倍的合理溢价，换取 AI 加速器所需的带宽；所有主流生成式 AI 训练/推理芯片都在用。必须通过 2.5D 中介层（CoWoS）贴在 GPU「岸线」旁，因为 PCB 根本走不了这么高的密度。"
+   "explain_en": "A 3DIC stack of 8-16 DRAM dies on a logic base die, connected by 1,000+ TSV wires and a 1,024-bit bus (2,048-bit in HBM4). It trades a warranted 3x+ price premium over DDR5 for the bandwidth AI accelerators need; every leading GenAI training/inference chip uses it. Needs fine-pitch on-package routing near the accelerator; implementations include full silicon interposers (CoWoS), RDL variants, and embedded silicon bridges (EMIB).",
+   "explain_zh": "把 8~16 层 DRAM die 堆在一个逻辑基底 die 上的 3DIC 堆叠，用 1000 多根 TSV 走线和 1024 位（HBM4 为 2048 位）总线互连。它以对 DDR5 逾 3 倍的合理溢价，换取 AI 加速器所需的带宽；所有主流生成式 AI 训练/推理芯片都在用。需要在加速器旁做细间距的封装内布线；实现方式包括完整硅中介层（CoWoS）、RDL 变体以及嵌入式硅桥（EMIB）。"
   },
   {
    "term_en": "The Memory Wall",
@@ -22,8 +22,8 @@
   {
    "term_en": "TSV & stacking yield",
    "term_zh": "TSV 与堆叠良率",
-   "explain_en": "Through-Silicon Vias carry power/signal up the HBM stack; forming them (etch/plate/grind/bond) is the incremental step that converts DDR wafers to HBM, so HBM capacity is quoted in 'TSV capacity.' Yield compounds badly: at 99% per-layer bond yield an 8-hi stack yields 92%, a 12-hi only 87%. Front-end (power-TSV/PDN) is the bigger yield problem, not the stack.",
-   "explain_zh": "硅通孔（TSV）负责把电源/信号送上 HBM 堆叠；成孔（刻蚀/电镀/减薄/键合）是把 DDR 晶圆转成 HBM 的增量工序，所以 HBM 产能以「TSV 产能」计。良率会恶性累乘：每层键合 99% 良率下，8 层堆叠只剩 92%，12 层只剩 87%。前道（电源 TSV／配电网络）才是更大的良率瓶颈，而非堆叠本身。"
+   "explain_en": "Through-Silicon Vias carry power/signal up the HBM stack; forming them (etch/plate/grind/bond) is the incremental step that converts DDR wafers to HBM, so HBM capacity is quoted in 'TSV capacity.' Yield compounds badly: at 99% per-layer bond yield an 8-hi stack yields 92%, a 12-hi only ~89%. Front-end (power-TSV/PDN) is the bigger yield problem, not the stack.",
+   "explain_zh": "硅通孔（TSV）负责把电源/信号送上 HBM 堆叠；成孔（刻蚀/电镀/减薄/键合）是把 DDR 晶圆转成 HBM 的增量工序，所以 HBM 产能以「TSV 产能」计。良率会恶性累乘：每层键合 99% 良率下，8 层堆叠只剩 92%，12 层只剩约 89%。前道（电源 TSV／配电网络）才是更大的良率瓶颈，而非堆叠本身。"
   },
   {
    "term_en": "MR-MUF vs TC-NCF (packaging)",
@@ -40,8 +40,8 @@
   {
    "term_en": "4F2 & Vertical Channel Transistor (VCT)",
    "term_zh": "4F² 单元与垂直沟道晶体管（VCT）",
-   "explain_en": "The next DRAM cell shrink: 4F2 is the theoretical minimum single-bit cell (a 6F2->4F2 move gives ~30% density in theory) and requires a vertical-channel transistor stacked under the capacitor. Paired with hybrid-bonded cell-on-peripheral (COP/PUC), core circuitry hides under the array — Samsung cut core-circuit area from 17.0% to 2.7%. China's CXMT already ships a 4F2 18nm DRAM.",
-   "explain_zh": "DRAM 单元的下一次微缩：4F² 是单比特单元的理论最小面积（6F²→4F² 理论上给约 30% 密度），需要把垂直沟道晶体管竖着堆在电容下方。再配合混合键合的 cell-on-peri（COP/PUC），核心电路藏到阵列下方——三星把核心电路面积从 17.0% 压到 2.7%。中国长鑫已量产 4F² 的 18nm DRAM。"
+   "explain_en": "The next DRAM cell shrink: 4F2 is the theoretical minimum single-bit cell (a 6F2->4F2 move reduces ideal cell area ~33% and raises ideal density ~50% before periphery/layout overhead) and requires a vertical-channel transistor stacked under the capacitor. Paired with hybrid-bonded cell-on-peripheral (COP/PUC), core circuitry hides under the array — Samsung cut core-circuit area from 17.0% to 2.7%. China's CXMT already ships a 4F2 18nm DRAM.",
+   "explain_zh": "DRAM 单元的下一次微缩：4F² 是单比特单元的理论最小面积（6F²→4F² 使理想单元面积减小约 33%、理想密度提升约 50%，尚未计入外围/版图开销），需要把垂直沟道晶体管竖着堆在电容下方。再配合混合键合的 cell-on-peri（COP/PUC），核心电路藏到阵列下方——三星把核心电路面积从 17.0% 压到 2.7%。中国长鑫已量产 4F² 的 18nm DRAM。"
   },
   {
    "term_en": "3D DRAM",
@@ -158,8 +158,8 @@
   {
    "claim_en": "HBM's yield pain — front-end TSV/PDN, not just stacking — is precisely why it's margin-accretive.",
    "claim_zh": "HBM 的良率痛点主要在前道 TSV/配电网络（而非仅仅堆叠）——这恰恰是它增厚利润的原因。",
-   "rationale_en": "All makers run absolute HBM yields well below their conventional DRAM, so it's a game of relative yields and end economics. Yield compounds with layers (99% per-layer -> 92% at 8-hi, 87% at 12-hi). The bigger problem is front-end: delivering power up the stack via power-TSVs. Hynix's all-around power TSVs cut IR drop up to 75% for VPP; Micron's TSV/PDN focus lets it claim 30% lower power. Because pricing more than covers yield loss, HBM is the most valuable, highest-margin product the memory industry has ever had.",
-   "rationale_zh": "所有厂商的 HBM 绝对良率都远低于其常规 DRAM，所以拼的是相对良率与最终经济性。良率随层数累乘（每层 99% → 8 层 92%、12 层 87%）。更大的问题在前道：靠电源 TSV 把电送上堆叠。海力士的全环绕电源 TSV 把 VPP 的 IR 压降最多降低 75%；美光聚焦 TSV/配电，声称功耗低 30%。由于售价远超良率损失，HBM 成为存储业史上最值钱、利润率最高的产品。",
+   "rationale_en": "All makers run absolute HBM yields well below their conventional DRAM, so it's a game of relative yields and end economics. Yield compounds with layers (99% per-layer -> 92% at 8-hi, ~89% at 12-hi). The bigger problem is front-end: delivering power up the stack via power-TSVs. Hynix's all-around power TSVs cut IR drop up to 75% for VPP; Micron's TSV/PDN focus lets it claim 30% lower power. Because pricing more than covers yield loss, HBM is the most valuable, highest-margin product the memory industry has ever had.",
+   "rationale_zh": "所有厂商的 HBM 绝对良率都远低于其常规 DRAM，所以拼的是相对良率与最终经济性。良率随层数累乘（每层 99% → 8 层 92%、12 层约 89%）。更大的问题在前道：靠电源 TSV 把电送上堆叠。海力士的全环绕电源 TSV 把 VPP 的 IR 压降最多降低 75%；美光聚焦 TSV/配电，声称功耗低 30%。由于售价远超良率损失，HBM 成为存储业史上最值钱、利润率最高的产品。",
    "figure": {
     "url": "https://substackcdn.com/image/fetch/$s_!o94Z!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F78b0616b-6cd4-4ed4-b779-d409bcae1d7c_2293x1198.png",
     "shows_en": "Micron's TSV power-delivery network focus (basis for its ~30% lower-power HBM claim).",
@@ -174,8 +174,8 @@
   {
    "claim_en": "HBM4 is a tectonic shift: the base die moves to a foundry logic node, and Samsung has clawed back into contention.",
    "claim_zh": "HBM4 是一次构造级变革：基底 die 迁到代工逻辑节点，而三星已重回竞争。",
-   "rationale_en": "HBM4 splits process nodes — DRAM node for core dies, advanced logic node for the base die. At ISSCC 2026 Samsung showed a 36GB 12-hi HBM4 at 3.3 TB/s with 2,048 IO on 1c DRAM + an SF4 logic base, hitting 13 Gb/s/pin (>2x the JEDEC HBM4 spec of 6.4 Gb/s) while dropping VDDQ 32% from 1.1V to 0.75V. Hynix uses cheaper TSMC N12, Micron an internal CMOS base — both lower-cost than Samsung's SF4. Samsung's 1c yields ran ~50% in 2025, a margin risk, but its technology gap to Hynix has meaningfully closed.",
-   "rationale_zh": "HBM4 把工艺节点拆开——核心 die 用 DRAM 节点，基底 die 用先进逻辑节点。在 ISSCC 2026 上，三星展示了 36GB、12 层、3.3 TB/s、2048 IO 的 HBM4，采用 1c DRAM + SF4 逻辑基底，达到 13 Gb/s/pin（是 JEDEC HBM4 规范 6.4 Gb/s 的 2 倍以上），同时 VDDQ 从 1.1V 降到 0.75V（降 32%）。海力士用更便宜的台积电 N12，美光用自研 CMOS 基底——都比三星的 SF4 便宜。三星 1c 良率 2025 年约 50%，是利润风险，但它与海力士的技术差距已明显缩小。",
+   "rationale_en": "HBM4 splits process nodes — DRAM node for core dies, advanced logic node for the base die. At ISSCC 2026 Samsung showed a 36GB 12-hi HBM4 at 3.3 TB/s with 2,048 IO on 1c DRAM + an SF4 logic base, hitting 13 Gb/s/pin (~1.6x the JEDEC HBM4 baseline of 8 Gb/s) while dropping VDDQ 32% from 1.1V to 0.75V. Hynix uses cheaper TSMC N12, Micron an internal CMOS base — both lower-cost than Samsung's SF4. Samsung's 1c yields ran ~50% in 2025, a margin risk, but its technology gap to Hynix has meaningfully closed.",
+   "rationale_zh": "HBM4 把工艺节点拆开——核心 die 用 DRAM 节点，基底 die 用先进逻辑节点。在 ISSCC 2026 上，三星展示了 36GB、12 层、3.3 TB/s、2048 IO 的 HBM4，采用 1c DRAM + SF4 逻辑基底，达到 13 Gb/s/pin（约为 JEDEC HBM4 基准 8 Gb/s 的 1.6 倍），同时 VDDQ 从 1.1V 降到 0.75V（降 32%）。海力士用更便宜的台积电 N12，美光用自研 CMOS 基底——都比三星的 SF4 便宜。三星 1c 良率 2025 年约 50%，是利润风险，但它与海力士的技术差距已明显缩小。",
    "figure": {
     "url": "https://substackcdn.com/image/fetch/$s_!R4vq!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1d73da51-6e13-4c3f-a013-11188a56fcaf_2880x1620.jpeg",
     "shows_en": "4F2 VCT DRAM cell architecture (vertical-channel transistor with capacitor above drain), the shrink path underpinning next-gen DRAM/HBM core dies.",
@@ -190,8 +190,8 @@
   {
    "claim_en": "The DRAM interface is grotesquely wasteful — 95-99% of read/write energy is spent in the interface, not the cells.",
    "claim_zh": "DRAM 接口极度浪费——读写能耗的 95%~99% 花在接口而非存储单元上。",
-   "rationale_en": "DRAM is a 'dumb' state machine with no on-chip control logic; commands funnel through one ancient half-duplex interface. DDR5 DIMMs burn >99% of read/write energy in the host controller/interface; even HBM is ~95% interface, 5% cell. Worse, an HBM die's 256-bit bus taps only ~1/16 of the banks' true ~4 TB/s potential. This is the opening for compute-in-memory and modernized base-die PHYs (UCIe: ~11 Tbps/mm, ~12x HBM3E; energy/bit from 2pJ to 0.25pJ). 'Someone is going to win big in the IP wars.'",
-   "rationale_zh": "DRAM 是一台「哑」状态机，片上没有控制逻辑；命令全挤过一个古老的半双工接口。DDR5 DIMM 把逾 99% 的读写能耗烧在主控/接口上；即便 HBM 也是约 95% 接口、5% 单元。更糟的是，HBM die 的 256 位总线只用到了 bank 真实约 4 TB/s 潜力的约 1/16。这为存内计算和现代化基底 die PHY 打开了缺口（UCIe：约 11 Tbps/mm，约 HBM3E 的 12 倍；每比特能耗从 2pJ 降到 0.25pJ）。「有人会在这场 IP 战争里大赚一笔。」",
+   "rationale_en": "DRAM lacks an autonomous general-purpose memory controller and leans on the host for scheduling — though the die itself carries substantial command/address decode, timing, refresh, training and on-die RAS logic; commands funnel through one ancient half-duplex interface. DDR5 DIMMs burn >99% of read/write energy in the host controller/interface; even HBM is ~95% interface, 5% cell. Worse, an HBM die's 256-bit bus taps only ~1/16 of the banks' true ~4 TB/s potential. This is the opening for compute-in-memory and modernized base-die PHYs (UCIe: ~11 Tbps/mm, ~12x HBM3E; energy/bit from 2pJ to 0.25pJ). 'Someone is going to win big in the IP wars.'",
+   "rationale_zh": "DRAM 没有自主的通用内存控制器，需依赖主机来调度——尽管 die 本身仍带有大量命令/地址译码、时序、刷新、训练与片上 RAS 逻辑；命令全挤过一个古老的半双工接口。DDR5 DIMM 把逾 99% 的读写能耗烧在主控/接口上；即便 HBM 也是约 95% 接口、5% 单元。更糟的是，HBM die 的 256 位总线只用到了 bank 真实约 4 TB/s 潜力的约 1/16。这为存内计算和现代化基底 die PHY 打开了缺口（UCIe：约 11 Tbps/mm，约 HBM3E 的 12 倍；每比特能耗从 2pJ 降到 0.25pJ）。「有人会在这场 IP 战争里大赚一笔。」",
    "figure": {
     "url": "https://substackcdn.com/image/fetch/$s_!wJ7P!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd2a37746-c1ed-4919-9b53-848a50148fea_842x850.png",
     "shows_en": "'Dumb' DRAM: control logic sits off-chip, so every command crosses a slow, inefficient interface.",
@@ -206,8 +206,8 @@
   {
    "claim_en": "CXMT's explosive earnings are a cycle story, not a competitiveness story — its cost-per-bit is still 30%+ worse.",
    "claim_zh": "长鑫的爆发式盈利是周期故事，不是竞争力故事——其单位比特成本仍高出 30% 以上。",
-   "rationale_en": "CXMT FY25 revenue rose 156% to ~$8.6B, first-ever net profit ~$1B; 1Q26 revenue $7.3B (~700% YoY) at ~70% op-margin. But its 1Q26 bit shipments grew only 11% while ASP rose ~57% — the earnings are ASP, not share. On DDR5, CXMT's cost-per-bit is still >30% higher than the big-3; ~38% gross margin is pricing, not product. The old 'Chinese memory will flood and crush pricing' fear is, this cycle, inaccurate — CXMT ASP sits only 5-10% below the leaders.",
-   "rationale_zh": "长鑫 FY25 营收增 156% 至约 86 亿美元，首次盈利约 10 亿美元；1Q26 营收 73 亿美元（同比约 700%），营业利润率约 70%。但 1Q26 位出货只增 11%，ASP 却涨约 57%——盈利来自 ASP 而非份额。在 DDR5 上，长鑫单位比特成本仍比三巨头高 30% 以上；约 38% 的毛利率是价格给的，不是产品给的。「中国存储会大水漫灌、压垮价格」这个老恐惧，在本轮周期里并不准确——长鑫 ASP 只比龙头低 5%~10%。",
+   "rationale_en": "CXMT FY25 revenue rose 156% to ~$8.6B, first-ever net profit ~1.88B yuan (~$275M) — a turnaround from the 2024 net loss of ~7.14B yuan (~$1B); 1Q26 revenue $7.3B (~700% YoY) at ~70% op-margin. But sequentially (QoQ) its 1Q26 bit shipments grew only ~11% while ASP rose ~57% — so the ~700% YoY revenue jump is price-led, not volume-led; the earnings are ASP, not share. On DDR5, CXMT's cost-per-bit is still >30% higher than the big-3; ~38% gross margin is pricing, not product. The old 'Chinese memory will flood and crush pricing' fear is, this cycle, inaccurate — CXMT ASP sits only 5-10% below the leaders.",
+   "rationale_zh": "长鑫 FY25 营收增 156% 至约 86 亿美元，首次实现净利润约 18.8 亿元（约 2.75 亿美元）——从 2024 年约 71.4 亿元（约 10 亿美元）的净亏损翻正；1Q26 营收 73 亿美元（同比约 700%），营业利润率约 70%。但按环比（QoQ）看，1Q26 位出货只增约 11%、ASP 却涨约 57%——所以约 700% 的同比营收跃升由价格驱动而非出货量；盈利来自 ASP 而非份额。在 DDR5 上，长鑫单位比特成本仍比三巨头高 30% 以上；约 38% 的毛利率是价格给的，不是产品给的。「中国存储会大水漫灌、压垮价格」这个老恐惧，在本轮周期里并不准确——长鑫 ASP 只比龙头低 5%~10%。",
    "figure": {
     "url": "https://substackcdn.com/image/fetch/$s_!x2Kl!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F29a5424f-3557-44d3-b79c-05d617daeebf_1372x211.png",
     "shows_en": "DDR5 cost-per-bit: CXMT still >30% above Samsung/SK Hynix/Micron.",
@@ -353,7 +353,7 @@
   {
    "metric_en": "HBM stack-yield compounding",
    "metric_zh": "HBM 堆叠良率累乘",
-   "value": "99%/layer -> 92% at 8-hi, 87% at 12-hi",
+   "value": "99%/layer -> 92% at 8-hi, ~89% at 12-hi",
    "note_en": "Illustrative; real yield degrades faster as non-critical defects accumulate.",
    "note_zh": "示意值；实际良率因非关键缺陷累积而下降更快。"
   },
@@ -361,8 +361,8 @@
    "metric_en": "Samsung HBM4 (ISSCC 2026)",
    "metric_zh": "三星 HBM4（ISSCC 2026）",
    "value": "36GB 12-hi, 3.3 TB/s, 2,048 IO, 13 Gb/s/pin, VDDQ 0.75V",
-   "note_en": ">2x the JEDEC HBM4 spec (6.4 Gb/s, ~2 TB/s); 1c DRAM + SF4 base die.",
-   "note_zh": "是 JEDEC HBM4 规范（6.4 Gb/s，约 2 TB/s）的 2 倍以上；1c DRAM + SF4 基底 die。"
+   "note_en": "~1.6x the JEDEC HBM4 spec (8 Gb/s, ~2 TB/s); 1c DRAM + SF4 base die.",
+   "note_zh": "约为 JEDEC HBM4 规范（8 Gb/s，约 2 TB/s）的 1.6 倍；1c DRAM + SF4 基底 die。"
   },
   {
    "metric_en": "HBM4 base-die foundry split",
@@ -395,7 +395,7 @@
   {
    "metric_en": "CXMT FY25 financials",
    "metric_zh": "长鑫 FY25 财务",
-   "value": "Revenue ~$8.6B (+156% YoY), first net profit ~$1B, GM 37.8%",
+   "value": "Revenue ~$8.6B (+156% YoY), first-ever net profit ~1.88B yuan (~$275M) — turnaround from 2024 net loss ~7.14B yuan (~$1B), GM 37.8%",
    "note_en": "1Q26: $7.3B rev (~700% YoY), ~70% op-margin — ASP-driven, not share.",
    "note_zh": "1Q26：营收 73 亿美元（同比约 700%），营业利润率约 70%——ASP 驱动，非份额。"
   },
@@ -464,8 +464,8 @@
   {
    "article_title": "The Memory Wall: Past, Present, and Future of DRAM",
    "date": "2024-09-03",
-   "summary_en": "The bucket's intellectual backbone. Traces DRAM from the 1T1C cell + sense-amp inventions to today's stagnation (capacitors at ~100:1 aspect ratio, ~40,000 electrons/cell, sense-amp sensing limits). Lays out the full scaling menu: near-term 4F2 + vertical-channel transistors (~30% theoretical density), medium-term compute-in-memory (banks have ~4 TB/s potential but interfaces tap ~1/16), custom HBM4 base dies, emerging FeRAM/MRAM (denser than DRAM but ship in MB), and long-term 3D DRAM. Key insight: DRAM's 'dumb' half-duplex interface wastes 95-99% of read/write energy — the opening for a new PHY/IP war.",
-   "summary_zh": "本主题的思想主干。从 1T1C 单元 + 灵敏放大器的发明，追到今天的停滞（电容约 100:1 深宽比、每单元约 4 万电子、灵敏放大器的感测极限）。铺开完整的微缩菜单：近期 4F² + 垂直沟道晶体管（理论约 30% 密度）、中期存内计算（bank 有约 4 TB/s 潜力但接口只用到约 1/16）、定制 HBM4 基底 die、新兴 FeRAM/MRAM（比 DRAM 密但以 MB 出货）、以及远期 3D DRAM。核心洞见：DRAM「哑」的半双工接口浪费了读写能耗的 95%~99%——这正是一场新 PHY/IP 战争的入口。",
+   "summary_en": "The bucket's intellectual backbone. Traces DRAM from the 1T1C cell + sense-amp inventions to today's stagnation (capacitors at ~100:1 aspect ratio, ~40,000 electrons/cell, sense-amp sensing limits). Lays out the full scaling menu: near-term 4F2 + vertical-channel transistors (~50% theoretical density gain), medium-term compute-in-memory (banks have ~4 TB/s potential but interfaces tap ~1/16), custom HBM4 base dies, emerging FeRAM/MRAM (denser than DRAM but ship in MB), and long-term 3D DRAM. Key insight: DRAM's 'dumb' half-duplex interface wastes 95-99% of read/write energy — the opening for a new PHY/IP war.",
+   "summary_zh": "本主题的思想主干。从 1T1C 单元 + 灵敏放大器的发明，追到今天的停滞（电容约 100:1 深宽比、每单元约 4 万电子、灵敏放大器的感测极限）。铺开完整的微缩菜单：近期 4F² + 垂直沟道晶体管（理论约 50% 密度提升）、中期存内计算（bank 有约 4 TB/s 潜力但接口只用到约 1/16）、定制 HBM4 基底 die、新兴 FeRAM/MRAM（比 DRAM 密但以 MB 出货）、以及远期 3D DRAM。核心洞见：DRAM「哑」的半双工接口浪费了读写能耗的 95%~99%——这正是一场新 PHY/IP 战争的入口。",
    "figure": {
     "url": "https://substackcdn.com/image/fetch/$s_!1qjj!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc0c73dc0-1ec4-4171-a670-0494a26bc88e_748x694.png",
     "shows_en": "DRAM bank hierarchy: 256-bit HBM die interface taps only ~1/16 of the banks' true bandwidth.",
