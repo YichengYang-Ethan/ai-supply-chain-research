@@ -16,13 +16,13 @@
   {
    "term_en": "EUV / High-NA EUV",
    "term_zh": "EUV / High-NA EUV",
-   "explain_en": "Extreme ultraviolet lithography at 13.5nm wavelength — ASML monopoly. High-NA (0.55 aperture, EXE:5000) images smaller features but halves the exposure field, forcing die-stitching. The critical debate: is it worth ~2x the cost?",
-   "explain_zh": "波长 13.5nm 的极紫外光刻，ASML 独家。High-NA（数值孔径 0.55，EXE:5000）能画更小特征，但曝光视场减半，逼迫\"拼场\"（stitching）。核心争论：值不值约两倍的成本？"
+   "explain_en": "Extreme ultraviolet lithography at 13.5nm wavelength — ASML monopoly. High-NA (0.55 aperture, EXE:5000) images smaller features but halves the exposure field, so large dies exceeding the half-field may require stitching, while smaller dies do not. The critical debate: is it worth ~2x the cost?",
+   "explain_zh": "波长 13.5nm 的极紫外光刻，ASML 独家。High-NA（数值孔径 0.55，EXE:5000）能画更小特征，但曝光视场减半，超过半场的大芯片可能需要\"拼场\"（stitching），而较小的芯片则不需要。核心争论：值不值约两倍的成本？"
   },
   {
    "term_en": "Multi-patterning (LELE/SADP/SALELE)",
    "term_zh": "多重曝光（LELE/SADP/SALELE）",
-   "explain_en": "Using multiple exposures + etch/deposition to print features finer than one exposure allows. Doubles/triples litho cost but keeps each exposure at a cheaper, higher-dose point on the exponential dose-vs-CD curve.",
+   "explain_en": "Using multiple exposures + etch/deposition to print features finer than one exposure allows. Doubles/triples litho cost but keeps each exposure at a cheaper, lower-dose/easier-imaging point on the exponential dose-vs-CD curve.",
    "explain_zh": "用多次曝光+刻蚀/沉积，画出单次曝光做不到的更细特征。使光刻成本翻倍/三倍，但让每次曝光都停在\"剂量-关键尺寸\"指数曲线上更便宜、剂量更低的点。"
   },
   {
@@ -40,14 +40,14 @@
   {
    "term_en": "CAR vs MOR vs Dry Resist",
    "term_zh": "CAR vs MOR vs 干法光刻胶",
-   "explain_en": "Photoresist platforms. CAR (organic, TEL/JSR/TOK incumbent); MOR (metal-oxide, Inpria/JSR, better etch selectivity for thin High-NA films); Dry resist (Lam CVD-deposited metal, ~2x throughput, ~50% dose cut). A $5B+ battle.",
-   "explain_zh": "三种光刻胶路线。CAR（有机，TEL/JSR/TOK 在位者）；MOR（金属氧化物，Inpria/JSR，对 High-NA 薄膜有更好刻蚀选择性）；干法胶（Lam CVD 沉积金属，约 2x 产能、约省 50% 剂量）。50 亿美元+的战争。"
+   "explain_en": "Photoresist platforms. CAR (organic; resist from JSR/TOK/Shin-Etsu, run on TEL's incumbent coat/develop track); MOR (metal-oxide, Inpria/JSR, better etch selectivity for thin High-NA films); Dry resist (Lam CVD-deposited metal, ~2x throughput, ~50% dose cut). A $5B+ battle.",
+   "explain_zh": "三种光刻胶路线。CAR（有机；光刻胶来自 JSR/TOK/信越，在 TEL 在位的涂布/显影 track 上运行）；MOR（金属氧化物，Inpria/JSR，对 High-NA 薄膜有更好刻蚀选择性）；干法胶（Lam CVD 沉积金属，约 2x 产能、约省 50% 剂量）。50 亿美元+的战争。"
   },
   {
    "term_en": "ALD & Batch vs Single-Wafer",
    "term_zh": "ALD 与批量 vs 单片",
-   "explain_en": "Atomic Layer Deposition lays down one atomic layer at a time — highest conformality for high-aspect-ratio 3D structures. Batch (Kokusai ~70% share) processes 100s of wafers for memory; single-wafer (ASMI/AMAT/Lam) for precise logic films.",
-   "explain_zh": "原子层沉积一次只铺一层原子——对高深宽比 3D 结构保形性最好。批量式（Kokusai 约 70% 份额）一次处理数百片，用于存储；单片式（ASMI/AMAT/Lam）用于精密逻辑薄膜。"
+   "explain_en": "Atomic Layer Deposition deposits material through self-limiting cyclic surface reactions, typically Å-scale, sub-monolayer growth per cycle — highest conformality for high-aspect-ratio 3D structures. Batch (Kokusai ~70% share) processes 100s of wafers for memory; single-wafer (ASMI/AMAT/Lam) for precise logic films.",
+   "explain_zh": "原子层沉积通过自限的循环表面反应沉积材料，每个循环通常为埃级、亚单层的生长——对高深宽比 3D 结构保形性最好。批量式（Kokusai 约 70% 份额）一次处理数百片，用于存储；单片式（ASMI/AMAT/Lam）用于精密逻辑薄膜。"
   },
   {
    "term_en": "HAR Etch (High Aspect Ratio)",
@@ -273,8 +273,8 @@
   {
    "claim_en": "AI is coming for metrology capex: virtual/inline AI process control (e.g. Lynceus) can cut defect-detection time 90% and metrology sampling 4x.",
    "claim_zh": "AI 正冲击量检测资本开支：虚拟/在线 AI 过程控制（如 Lynceus）可把缺陷检测时间砍 90%、量测抽样降 4 倍。",
-   "rationale_en": "Metrology/inspection is pure overhead — floorspace and cycle time that doesn't advance the wafer — yet indispensable: a 2,000-step process at 6-sigma per step still yields D0=0.678 (>half the die defective), and one undetected excursion cost TSMC $550M in 2019. Lynceus feeds tool FDC/test data into AI models to predict quality inline, achieving (in two HVM fabs) a 90% cut in time-to-detect (4 days to 3 hours) and a 4x reduction in metrology/inspection sampling. The structural implication: AI virtual metrology is a headwind to the KLA/Onto/Nova sampling-capex growth story even as complexity rises.",
-   "rationale_zh": "量测/检测是纯开销——占地与周期却不推进晶圆——但不可或缺：2000 步工艺即使每步 6-sigma，D0 仍达 0.678（过半芯片报废），且 2019 年一次未察觉的漂移让 TSMC 损失 5.5 亿美元。Lynceus 把工具 FDC/测试数据喂给 AI 模型，在线预测质量，（在两座量产厂）实现检测时间降 90%（4 天→3 小时）、量测/检测抽样降 4 倍。结构含义：AI 虚拟量测对 KLA/Onto/Nova 的\"抽样资本开支增长\"故事构成逆风，哪怕复杂度上升。",
+   "rationale_en": "Metrology/inspection is pure overhead — floorspace and cycle time that doesn't advance the wafer — yet indispensable: a 2,000-step process at ~99.98% yield per step (~194 ppm defects, well short of true six-sigma's 3.4 DPMO / ~99.3% cumulative) still compounds to only ~0.678 die yield (~a third of die defective), and one undetected excursion cost TSMC $550M in 2019. Lynceus feeds tool FDC/test data into AI models to predict quality inline, achieving (in two HVM fabs) a 90% cut in time-to-detect (4 days to 3 hours) and a 4x reduction in metrology/inspection sampling. The structural implication: AI virtual metrology is a headwind to the KLA/Onto/Nova sampling-capex growth story even as complexity rises.",
+   "rationale_zh": "量测/检测是纯开销——占地与周期却不推进晶圆——但不可或缺：2000 步工艺即使每步良率约 99.98%（约 194 ppm 缺陷，远达不到真正六西格玛的 3.4 DPMO / 累计约 99.3%），累计良率仍只有约 0.678（约三分之一芯片报废），且 2019 年一次未察觉的漂移让 TSMC 损失 5.5 亿美元。Lynceus 把工具 FDC/测试数据喂给 AI 模型，在线预测质量，（在两座量产厂）实现检测时间降 90%（4 天→3 小时）、量测/检测抽样降 4 倍。结构含义：AI 虚拟量测对 KLA/Onto/Nova 的\"抽样资本开支增长\"故事构成逆风，哪怕复杂度上升。",
    "figure": null,
    "quote": {
     "text": "The results are astounding with a 90% reduction in time to detect a defect from 4 days to 3 hours. Furthermore, they were able to achieve a 4x reduction in metrology and inspection sampling frequency.",

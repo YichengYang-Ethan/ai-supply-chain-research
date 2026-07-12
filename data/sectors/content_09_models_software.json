@@ -75,8 +75,8 @@
    "stage_en": "Environments & data foundries",
    "stage_zh": "环境与数据工厂",
    "players": "Surge, Mercor, Handshake, Scale AI (→Meta), Mechanize, Turing, Prime Intellect, HUD, Periodic Labs, Medra",
-   "role_en": "Sell the shovels of the RL boom: cloned UI 'gyms' (~$20k/site), dockerized sandbox tooling, and expert-authored tasks/rubrics. Surge ~$1B ARR, Scale did $1.4B in 2024 before Meta absorbed it (and the labs fled). Periodic/Medra push environments into physical wet-labs for RL-for-science.",
-   "role_zh": "卖 RL 热潮的铲子：克隆 UI「健身房」（约 2 万美元/站）、docker 化沙箱工具、专家撰写的任务/评分表。Surge 约 10 亿美元 ARR；Scale 2024 年做到 14 亿美元，随后被 Meta 吸收（实验室随即出走）。Periodic/Medra 把环境推进物理湿实验室，服务「RL 做科学」。"
+   "role_en": "Sell the shovels of the RL boom: cloned UI 'gyms' (~$20k/site), dockerized sandbox tooling, and expert-authored tasks/rubrics. Surge ~$1B ARR, Scale did ~$870M in 2024 (~$1.5B exit run-rate) before Meta absorbed it (and the labs fled). Periodic/Medra push environments into physical wet-labs for RL-for-science.",
+   "role_zh": "卖 RL 热潮的铲子：克隆 UI「健身房」（约 2 万美元/站）、docker 化沙箱工具、专家撰写的任务/评分表。Surge 约 10 亿美元 ARR；Scale 2024 年做到约 8.7 亿美元（退出时年化约 15 亿美元），随后被 Meta 吸收（实验室随即出走）。Periodic/Medra 把环境推进物理湿实验室，服务「RL 做科学」。"
   },
   {
    "stage_en": "Agents & coding assistants",
@@ -284,8 +284,8 @@
    "rationale_zh": "环境不再只是 docker 容器。Periodic Labs 和 Medra 正在造能产出实验验证奖励信号的机器人湿实验室；DeepMind 2026 年启动自动化材料实验室。经济学反转：一个编程任务可用零头成本尝试 64 次，而一个生物实验要花数百至数千美元、耗时数小时、奖励稀疏。OpenAI 瞄准早期药物发现（GPT-5 与机器人闭环）；Anthropic 推出 Claude for Life Sciences（Benchling、PubMed 连接器）服务开发/审批。",
    "figure": {
     "url": "https://substackcdn.com/image/fetch/$s_!szHY!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd48cf181-b0d4-4e01-af41-d3768ea66d19_1130x1100.png",
-    "shows_en": "OpenAI's GDPval finding: rising model capability augmented human experts (faster/cheaper) rather than automating them.",
-    "shows_zh": "OpenAI GDPval 的发现：能力上升是增强了人类专家（更快/更省），而非取代他们。"
+    "shows_en": "OpenAI's GDPval finding: models ran ~100x faster/cheaper, but experts kept the quality edge — augmentation, not automation.",
+    "shows_zh": "OpenAI GDPval 的发现：模型比专家快/便宜约 100 倍，但专家仍保有质量优势——是增强而非取代。"
    },
    "quote": {
     "text": "RL environments are spilling into the physical world. These environments are no longer just a docker container... It is an experiment that needs to be run by a human or a robot, with a real cost to materials, electricity, equipment, and lab space.",
@@ -352,8 +352,8 @@
    "metric_en": "GDPval win rate (GPT-5.2)",
    "metric_zh": "GDPval 胜率（GPT-5.2）",
    "value": "~71% tie-or-preferred vs human experts across 44 occupations",
-   "note_en": "OpenAI eval of real economically-valuable tasks; but experts were still faster/cheaper — augmentation, not automation.",
-   "note_zh": "OpenAI 对真实经济价值任务的评测；但专家仍更快/更省——是增强而非替代。"
+   "note_en": "OpenAI eval of real economically-valuable tasks; the models ran ~100x faster and ~100x cheaper, but experts kept the quality/reliability edge (best model lost-or-tied ~half its head-to-heads) — augmentation, not automation.",
+   "note_zh": "OpenAI 对真实经济价值任务的评测；模型运行快约 100 倍、便宜约 100 倍，但专家仍保有质量/可靠性优势（最强模型在约一半的两两对比中打平或落败）——是增强而非替代。"
   },
   {
    "metric_en": "MLA KV-cache reduction",
@@ -400,7 +400,7 @@
   {
    "metric_en": "Data-foundry revenue",
    "metric_zh": "数据工厂收入",
-   "value": "Surge ~$1B ARR; Scale AI ~$1.4B (2024) before Meta absorbed it",
+   "value": "Surge ~$1B ARR; Scale AI ~$870M (2024), ~$1.5B exit run-rate before Meta absorbed it",
    "note_en": "Mercor, Handshake, Aboda.ai fill the gap after labs fled Scale post-Meta acquisition.",
    "note_zh": "Meta 收购后实验室出走，Mercor、Handshake、Aboda.ai 补上缺口。"
   },
@@ -480,12 +480,12 @@
   {
    "article_title": "RL Environments and RL for Science: Data Foundries and Multi-Agent Architectures",
    "date": "2026-01-06",
-   "summary_en": "Maps the RL-environment industrial complex. 35+ startups sell UI-gyms (~$20k/site) and dockerized sandbox tooling (HUD wraps software + an MCP server per container); data foundries (Surge ~$1B ARR, Mercor, Handshake) recruit domain experts to author tasks and rubrics. Contrasts lab buying patterns (Anthropic = broadest vendor ecosystem + code/computer-use; OpenAI = fewer vendors but outspends + in-house Feather platform; Google = decentralized, owns the apps). Then extends to RL-for-science: Periodic Labs and Medra build robotic wet-labs, OpenAI targets drug discovery while Anthropic ships Claude for Life Sciences. Warns automation may be augmentation (GDPval: experts stayed faster/cheaper; radiology never got automated).",
-   "summary_zh": "绘制 RL 环境产业综合体。35+ 家初创卖 UI 健身房（约 2 万美元/站）和 docker 化沙箱工具（HUD 每容器封装软件+一个 MCP 服务器）；数据工厂（Surge 约 10 亿 ARR、Mercor、Handshake）招募领域专家撰写任务和评分表。对比实验室采购模式（Anthropic=最广供应商生态+代码/电脑使用；OpenAI=更少供应商但砸钱更多+自研 Feather 平台；Google=去中心化、拥有应用）。再延伸到 RL 做科学：Periodic Labs 和 Medra 造机器人湿实验室，OpenAI 瞄准药物发现、Anthropic 推 Claude for Life Sciences。警告自动化可能只是增强（GDPval：专家仍更快/更省；放射科从未被自动化）。",
+   "summary_en": "Maps the RL-environment industrial complex. 35+ startups sell UI-gyms (~$20k/site) and dockerized sandbox tooling (HUD wraps software + an MCP server per container); data foundries (Surge ~$1B ARR, Mercor, Handshake) recruit domain experts to author tasks and rubrics. Contrasts lab buying patterns (Anthropic = broadest vendor ecosystem + code/computer-use; OpenAI = fewer vendors but outspends + in-house Feather platform; Google = decentralized, owns the apps). Then extends to RL-for-science: Periodic Labs and Medra build robotic wet-labs, OpenAI targets drug discovery while Anthropic ships Claude for Life Sciences. Warns automation may be augmentation (GDPval: the models ran ~100x faster/cheaper but experts kept the quality edge; radiology never got automated).",
+   "summary_zh": "绘制 RL 环境产业综合体。35+ 家初创卖 UI 健身房（约 2 万美元/站）和 docker 化沙箱工具（HUD 每容器封装软件+一个 MCP 服务器）；数据工厂（Surge 约 10 亿 ARR、Mercor、Handshake）招募领域专家撰写任务和评分表。对比实验室采购模式（Anthropic=最广供应商生态+代码/电脑使用；OpenAI=更少供应商但砸钱更多+自研 Feather 平台；Google=去中心化、拥有应用）。再延伸到 RL 做科学：Periodic Labs 和 Medra 造机器人湿实验室，OpenAI 瞄准药物发现、Anthropic 推 Claude for Life Sciences。警告自动化可能只是增强（GDPval：模型比专家快/便宜约 100 倍，但专家仍保有质量优势；放射科从未被自动化）。",
    "figure": {
     "url": "https://substackcdn.com/image/fetch/$s_!h8nm!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F12f97061-879f-43b5-8d42-acc3af9930f3_1652x977.png",
-    "shows_en": "Scale AI revenue (~$1.4B in 2024) before Meta's acquisition sent the labs fleeing to Surge, Mercor and Handshake.",
-    "shows_zh": "Scale AI 收入（2024 年约 14 亿美元），此后 Meta 收购让实验室出走至 Surge、Mercor 和 Handshake。"
+    "shows_en": "Scale AI revenue (~$870M in 2024) before Meta's acquisition sent the labs fleeing to Surge, Mercor and Handshake.",
+    "shows_zh": "Scale AI 收入（2024 年约 8.7 亿美元），此后 Meta 收购让实验室出走至 Surge、Mercor 和 Handshake。"
    }
   },
   {
@@ -525,8 +525,8 @@
    },
    {
     "name": "Data foundries & RL-env startups (Surge, Mercor, Handshake, Prime Intellect, Mechanize)",
-    "why_en": "The picks-and-shovels of the RL boom. 'During an RL scaling boom, sell environments.' Surge ~$1B ARR, Scale did $1.4B before Meta absorbed it; demand for coding environments is so high defunct startups are bought just for private GitHub repos. Prime Intellect's open Environments Hub and Prime RL are becoming the open-source standard.",
-    "why_zh": "RL 热潮的镐与铲。「RL 缩放热潮中，卖环境。」Surge 约 10 亿 ARR，Scale 被 Meta 吸收前做到 14 亿；编程环境需求高到已倒闭的初创仅因私有 GitHub 仓库被收购。Prime Intellect 的开源 Environments Hub 和 Prime RL 正成为开源标准。"
+    "why_en": "The picks-and-shovels of the RL boom. 'During an RL scaling boom, sell environments.' Surge ~$1B ARR, Scale did ~$870M before Meta absorbed it; demand for coding environments is so high defunct startups are bought just for private GitHub repos. Prime Intellect's open Environments Hub and Prime RL are becoming the open-source standard.",
+    "why_zh": "RL 热潮的镐与铲。「RL 缩放热潮中，卖环境。」Surge 约 10 亿 ARR，Scale 被 Meta 吸收前做到约 8.7 亿；编程环境需求高到已倒闭的初创仅因私有 GitHub 仓库被收购。Prime Intellect 的开源 Environments Hub 和 Prime RL 正成为开源标准。"
    },
    {
     "name": "Google DeepMind",
@@ -572,12 +572,12 @@
     "zh": "奖励黑客与幻觉——模型钻奖励空子（Claude 3.7 改测试文件），且 o3 随 RL 算力扩大而更爱幻觉，因为它即便靠错误推理得到正确结果也会被奖励。"
    },
    {
-    "en": "Automation may be only augmentation — GDPval showed experts stayed faster/cheaper; radiology was never automated. Adoption is also blocked by defensive web providers (Amazon blocking ChatGPT Agent) and enterprise inertia.",
-    "zh": "自动化或许只是增强——GDPval 显示专家仍更快/更省；放射科从未被自动化。采用还受防御性网站方（Amazon 屏蔽 ChatGPT Agent）和企业惯性阻碍。"
+    "en": "Automation may be only augmentation — GDPval showed the models ran faster/cheaper but experts kept the quality edge; radiology was never automated. Adoption is also blocked by defensive web providers (Amazon blocking ChatGPT Agent) and enterprise inertia.",
+    "zh": "自动化或许只是增强——GDPval 显示模型比专家快/便宜、但专家仍保有质量优势；放射科从未被自动化。采用还受防御性网站方（Amazon 屏蔽 ChatGPT Agent）和企业惯性阻碍。"
    },
    {
-    "en": "Governance & partner conflict — OpenAI's board can declare AGI and void Microsoft's IP rights with no recourse; Microsoft is structurally torn between Azure growth and defending Office 365 that its own tenants (OpenAI, Anthropic) erode.",
-    "zh": "治理与伙伴冲突——OpenAI 董事会可宣布达到 AGI 并作废微软 IP 权利、微软毫无追索；微软在 Azure 增长与守卫被自己租户（OpenAI、Anthropic）侵蚀的 Office 365 之间结构性撕裂。"
+    "en": "Governance & partner conflict — the Oct-2025 restructuring removed OpenAI's unilateral AGI trigger (an AGI declaration now requires verification by an independent expert panel) and extended Microsoft's IP rights to ~2032; Microsoft is still structurally torn between Azure growth and defending Office 365 that its own tenants (OpenAI, Anthropic) erode.",
+    "zh": "治理与伙伴冲突——2025 年 10 月的重组取消了 OpenAI 单方面宣布达到 AGI 的触发权（如今 AGI 认定须经独立专家小组核实），并把微软的 IP 权利延长至约 2032 年；但微软仍在 Azure 增长与守卫被自己租户（OpenAI、Anthropic）侵蚀的 Office 365 之间结构性撕裂。"
    }
   ],
   "catalysts": [

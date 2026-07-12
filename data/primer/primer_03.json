@@ -75,7 +75,7 @@
   {
    "metric_en": "H100 training-efficiency (MFU) gain from software alone, 12 months",
    "metric_zh": "H100 训练效率（MFU）12 个月纯软件提升",
-   "value": "BF16 MFU 34% → 54% (+57% throughput), zero hardware change",
+   "value": "BF16 MFU 34% → 54% (+~59% throughput), zero hardware change",
    "source_name": "SemiAnalysis — H100 vs GB200 NVL72 Training Benchmarks: Power, TCO, and Reliability Analysis, Software Improvement Over Time",
    "source_url": "https://semianalysis.com/2025/08/20/h100-vs-gb200-nvl72-training-benchmarks/"
   },

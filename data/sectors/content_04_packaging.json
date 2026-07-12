@@ -10,8 +10,8 @@
   {
    "term_en": "Advanced packaging (the <100µm definition) & the pitch ladder",
    "term_zh": "先进封装（<100µm 定义）与间距阶梯",
-   "explain_en": "SemiAnalysis defines 'advanced' as any packaging with bump pitch below 100µm (tool vendors calling all flip chip 'advanced' are ignored). The ladder vs standard flip chip (150-200µm): fanout at 90-60µm ≈8x IO density, 2.5D at 55-50µm ≈16x, 36µm micro-bump 3D ≈31x, 17µm hybrid-bonded TSVs ≈138x, Sony's 6.3µm CIS ≈567x. Each rung is a step-function in interconnect density and energy-per-bit.",
-   "explain_zh": "SemiAnalysis 把「先进」定义为凸点间距小于 100µm 的封装（设备商把所有倒装都叫先进封装的说法不予采纳）。相对标准倒装（150-200µm）的阶梯：扇出 90-60µm 约 8 倍 IO 密度，2.5D 55-50µm 约 16 倍，36µm 微凸点 3D 约 31 倍，17µm 混合键合 TSV 约 138 倍，索尼 6.3µm 图像传感器约 567 倍。每上一级都是互连密度与每比特能耗的阶跃。"
+   "explain_en": "SemiAnalysis defines 'advanced' as any packaging with bump pitch below 100µm (tool vendors calling all flip chip 'advanced' are ignored). The ladder vs standard flip chip (150-200µm): fanout at 90-60µm ≈8x IO density, 2.5D at 55-50µm ≈16x, 36µm micro-bump 3D ≈31x, 17µm hybrid-bonded TSVs ≈138x, Sony's 6.3µm CIS ≈567x (multipliers are all relative to standard flip chip (150-200µm), but the baseline is not uniform across rungs). Each rung is a step-function in interconnect density and energy-per-bit.",
+   "explain_zh": "SemiAnalysis 把「先进」定义为凸点间距小于 100µm 的封装（设备商把所有倒装都叫先进封装的说法不予采纳）。相对标准倒装（150-200µm）的阶梯：扇出 90-60µm 约 8 倍 IO 密度，2.5D 55-50µm 约 16 倍，36µm 微凸点 3D 约 31 倍，17µm 混合键合 TSV 约 138 倍，索尼 6.3µm 图像传感器约 567 倍（这些倍数均相对标准倒装（150-200µm），但各级的基准并不统一）。每上一级都是互连密度与每比特能耗的阶跃。"
   },
   {
    "term_en": "Pad-limited design (the IO wall)",
@@ -22,8 +22,8 @@
   {
    "term_en": "Chiplets & Known Good Die (KGD)",
    "term_zh": "Chiplet 与已知良品裸片（KGD）",
-   "explain_en": "Splitting big chips beats defect math (a 2,000-step process at six-sigma per step still gives D0≈0.678 — semis are 'way better than six sigma'). AMD covers a huge market with 3 tape-outs vs Intel's 5. But chiplets add interface area, packaging yield risk, and power; the whole 3D-stacking economics question reduces to whether you can test and bond only known-good dies.",
-   "explain_zh": "把大芯片拆小是在跟缺陷数学作战（一个 2,000 步、每步六西格玛的工艺 D0 仍高达 0.678——半导体业「远好于六西格玛」）。AMD 用 3 个 tape-out 覆盖 Intel 需要 5 个的市场。但 chiplet 增加接口面积、封装良率风险与功耗；3D 堆叠经济学的全部关键，归结为你能否只测试并键合已知良品的 die。"
+   "explain_en": "Splitting big chips beats defect math (a 2,000-step process at only ~99.98% good per step (~194 ppm) already sags to a cumulative D0≈0.678 — true six-sigma (3.4 DPMO) would hold ~99.3%, so semiconductor steps run at or beyond six-sigma quality). AMD covers a huge market with 3 tape-outs vs Intel's 5. But chiplets add interface area, packaging yield risk, and power; the whole 3D-stacking economics question reduces to whether you can test and bond only known-good dies.",
+   "explain_zh": "把大芯片拆小是在跟缺陷数学作战（一个 2,000 步、每步仅约 99.98% 良率（约 194 ppm）的工艺，累积 D0 就已降到约 0.678——真正的六西格玛（3.4 DPMO）能保持约 99.3%，所以半导体各步实际上达到甚至超过六西格玛水平）。AMD 用 3 个 tape-out 覆盖 Intel 需要 5 个的市场。但 chiplet 增加接口面积、封装良率风险与功耗；3D 堆叠经济学的全部关键，归结为你能否只测试并键合已知良品的 die。"
   },
   {
    "term_en": "Hybrid bonding (bumpless Cu-Cu)",
@@ -110,8 +110,8 @@
   {
    "claim_en": "The root cause: IO scaling runs at half the pace of transistor scaling, so the industry hit a pad-limited wall that only packaging can fix.",
    "claim_zh": "根因：IO 微缩速度只有晶体管的一半，全行业撞上只有封装才能解决的 pad-limited 墙。",
-   "rationale_en": "Density of real chips grew ~2x/3yr against 2x/yr transistor density partly because IO, power delivery and SRAM stalled. Flip chip stayed ~150-200µm from 2000 to 2021; AMD's move to 130µm bought just 2.35x more IO against orders-of-magnitude more transistors. Designers first coped by bloating dies with cache (Infinity Cache cut a 384-bit GDDR6 bus to 256-bit) — but Nvidia and Intel have been at reticle limit for 5+ years. Packaging density is the only lever left.",
-   "rationale_zh": "真实芯片密度只有约每 3 年翻倍（对比每年翻倍的晶体管密度），部分原因就是 IO、供电与 SRAM 停滞。倒装从 2000 到 2021 年一直停在约 150-200µm；AMD 到 130µm 只换来 2.35 倍 IO，而晶体管涨了几个数量级。设计者先用塞缓存硬扛（Infinity Cache 把 384 位 GDDR6 总线砍到 256 位）——但英伟达和 Intel 已经贴着光罩极限走了 5 年多。封装密度是仅剩的杠杆。",
+   "rationale_en": "Density of real chips grew ~2x/3yr against 2x/2yr transistor density partly because IO, power delivery and SRAM stalled. Flip chip stayed ~150-200µm from 2000 to 2021; AMD's move to 130µm bought just 2.35x more IO against orders-of-magnitude more transistors. Designers first coped by bloating dies with cache (Infinity Cache cut a 384-bit GDDR6 bus to 256-bit) — but Nvidia and Intel have been at reticle limit for 5+ years. Packaging density is the only lever left.",
+   "rationale_zh": "真实芯片密度只有约每 3 年翻倍（对比每 2 年翻倍的晶体管密度），部分原因就是 IO、供电与 SRAM 停滞。倒装从 2000 到 2021 年一直停在约 150-200µm；AMD 到 130µm 只换来 2.35 倍 IO，而晶体管涨了几个数量级。设计者先用塞缓存硬扛（Infinity Cache 把 384 位 GDDR6 总线砍到 256 位）——但英伟达和 Intel 已经贴着光罩极限走了 5 年多。封装密度是仅剩的杠杆。",
    "figure": {
     "url": "https://substackcdn.com/image/fetch/$s_!UU0J!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fd52a255f-a15e-4ace-9a45-3a3b786ec61f_1024x554.png",
     "shows_en": "The decades-long divergence between transistor density (2x/2yr) and chip IO data rates (2x/4yr) that makes designs pad-limited.",
@@ -351,8 +351,8 @@
    "metric_en": "IO density ladder vs standard flip chip",
    "metric_zh": "对标准倒装的 IO 密度阶梯",
    "value": "Fanout (90-60µm) ~8x → 2.5D (55-50µm) ~16x → 3D µbump (36µm) 31x → HB V-Cache (17µm TSV) 138x → Sony CIS (6.3µm) 567x",
-   "note_en": "Each packaging generation is a step-function in interconnect density; hybrid bonding roadmap extends to 100s of nm.",
-   "note_zh": "每代封装都是互连密度的阶跃；混合键合路线图直指数百纳米。"
+   "note_en": "Each packaging generation is a step-function in interconnect density; hybrid bonding roadmap extends to 100s of nm. Multipliers are all relative to standard flip chip (150-200µm), with the baseline not uniform across rungs.",
+   "note_zh": "每代封装都是互连密度的阶跃；混合键合路线图直指数百纳米。倍数均相对标准倒装（150-200µm），且各级基准并不统一。"
   },
   {
    "metric_en": "Wafer prices, N7 vs N5",
@@ -486,8 +486,8 @@
   {
    "article_title": "Advanced Packaging Part 1 – Pad Limited Designs, Breakdown Of Economic Semiconductor Scaling, Heterogeneous Compute, and Chiplets",
    "date": "2021-12-15",
-   "summary_en": "The series manifesto. Chains the argument: real chip density lags transistor density (SRAM death, power, IO); flip-chip pitch stagnated for 20 years creating pad-limited designs (why Gelsinger's 'port automotive chips to Intel 16' fails); cost-per-transistor now rises (N7 $9.5k vs N5 $16k wafers); die sizes hit reticle limit; chiplets fix defect math (AMD's 3 tape-outs vs Intel's 5; a 2,000-step six-sigma process would still yield D0=0.678) but not IO. Conclusion: 'we are in the midst of the semiconductor design renaissance which is being pushed forward by advanced packaging.'",
-   "summary_zh": "系列纲领。论证链条：真实芯片密度落后于晶体管密度（SRAM 之死、功耗、IO）；倒装间距停滞 20 年造就 pad-limited 设计（Gelsinger「车规芯片搬 Intel 16」因此不成立）；每晶体管成本转升（N7 $9,500 对 N5 $16,000 晶圆）；die 尺寸顶到光罩极限；chiplet 能修缺陷数学（AMD 3 个 tape-out 打 Intel 5 个；2,000 步六西格玛工艺 D0 仍高达 0.678）却修不了 IO。结论：「我们正处于由先进封装推动的半导体设计文艺复兴之中。」",
+   "summary_en": "The series manifesto. Chains the argument: real chip density lags transistor density (SRAM death, power, IO); flip-chip pitch stagnated for 20 years creating pad-limited designs (why Gelsinger's 'port automotive chips to Intel 16' fails); cost-per-transistor now rises (N7 $9.5k vs N5 $16k wafers); die sizes hit reticle limit; chiplets fix defect math (AMD's 3 tape-outs vs Intel's 5; a 2,000-step process at only ~99.98% good per step (~194 ppm) already sags to a cumulative D0=0.678, while true six-sigma at 3.4 DPMO would hold ~99.3%, so real semiconductor steps run at or beyond six-sigma quality) but not IO. Conclusion: 'we are in the midst of the semiconductor design renaissance which is being pushed forward by advanced packaging.'",
+   "summary_zh": "系列纲领。论证链条：真实芯片密度落后于晶体管密度（SRAM 之死、功耗、IO）；倒装间距停滞 20 年造就 pad-limited 设计（Gelsinger「车规芯片搬 Intel 16」因此不成立）；每晶体管成本转升（N7 $9,500 对 N5 $16,000 晶圆）；die 尺寸顶到光罩极限；chiplet 能修缺陷数学（AMD 3 个 tape-out 打 Intel 5 个；2,000 步、每步仅约 99.98% 良率（约 194 ppm）的工艺累积 D0 就已降到约 0.678，而真正的六西格玛（3.4 DPMO）能保持约 99.3%，所以半导体各步实际上达到甚至超过六西格玛水平）却修不了 IO。结论：「我们正处于由先进封装推动的半导体设计文艺复兴之中。」",
    "figure": {
     "url": "https://substackcdn.com/image/fetch/$s_!6gvn!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F45b8546f-dd0c-45a1-a01a-25a93539f037_1024x542.png",
     "shows_en": "AMD chiplet vs Intel monolithic yield table: how splitting cores across 8 chiplets beats larger dies on cost per good CPU core.",

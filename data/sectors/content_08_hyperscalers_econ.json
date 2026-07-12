@@ -165,8 +165,8 @@
   {
    "claim_en": "Microsoft's 'Big Pause' handed Oracle ~$150B of OpenAI gross profit — a self-inflicted competitive gift.",
    "claim_zh": "微软的「大暂停」把约 1500 亿美元的 OpenAI 毛利拱手让给甲骨文——一份自伤式的竞争礼物。",
-   "rationale_en": "Microsoft drove >60% of all new leased turnkey capacity Q1'23-Q2'24, then froze — walking away from >2GW of non-binding LOIs and 1.5GW of near-term self-build. OpenAI diversified to Oracle, CoreWeave, Nscale, Amazon, Google. Oracle signed >$420B of OpenAI contract value (~$150B gross profit); at ~$30B/yr that would have lifted Microsoft's $194B FY25 gross profit by >18%. SemiAnalysis frames it as partly deliberate (OpenAI would be ~50% of Azure at worse ROIC) but mostly a fumble.",
-   "rationale_zh": "微软在 2023Q1-2024Q2 驱动了全市场超 60% 的新增交钥匙租赁产能，随后急冻——放弃了超 2GW 的非约束性意向书和 1.5GW 的近期自建。OpenAI 转投甲骨文、CoreWeave、Nscale、亚马逊、谷歌。甲骨文签下超 4200 亿美元的 OpenAI 合同额（约 1500 亿毛利）；按约 300 亿/年计，本可让微软 FY25 的 1940 亿毛利再增长 18% 以上。SemiAnalysis 认为这一半是刻意（OpenAI 将占 Azure 约 50% 且 ROIC 更差），但大半是失误。",
+   "rationale_en": "Microsoft drove >60% of all new leased turnkey capacity Q1'23-Q2'24, then froze — walking away from >2GW of non-binding LOIs and 1.5GW of near-term self-build. OpenAI diversified to Oracle, CoreWeave, Nscale, Amazon, Google. Oracle signed ~$300B of OpenAI contract value (~$150B gross profit; the >$420B figure is Oracle's total RPO across all customers, not the OpenAI deal alone); at ~$30B/yr that would have lifted Microsoft's $194B FY25 gross profit by ~15%. SemiAnalysis frames it as partly deliberate (OpenAI would be ~50% of Azure at worse ROIC) but mostly a fumble.",
+   "rationale_zh": "微软在 2023Q1-2024Q2 驱动了全市场超 60% 的新增交钥匙租赁产能，随后急冻——放弃了超 2GW 的非约束性意向书和 1.5GW 的近期自建。OpenAI 转投甲骨文、CoreWeave、Nscale、亚马逊、谷歌。甲骨文签下约 3000 亿美元的 OpenAI 合同额（约 1500 亿毛利；超 4200 亿是甲骨文面向所有客户的总 RPO，并非仅 OpenAI 这一单）；按约 300 亿/年计，本可让微软 FY25 的 1940 亿毛利再增长约 15%。SemiAnalysis 认为这一半是刻意（OpenAI 将占 Azure 约 50% 且 ROIC 更差），但大半是失误。",
    "figure": {
     "url": "https://substackcdn.com/image/fetch/$s_!ZwDg!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc0ec63c0-7eca-4789-b2d4-66c763b9d1ce_3318x1773.png",
     "shows_en": "Datacenter pre-leasing by hyperscaler: Microsoft's 2023-24 activity dwarfing all rivals combined before the freeze.",
@@ -343,9 +343,9 @@
   {
    "metric_en": "Oracle OpenAI contract value / gross profit",
    "metric_zh": "甲骨文 OpenAI 合同额 / 毛利",
-   "value": ">$420B contracts → ~$150B gross profit",
-   "note_en": "~$30B/yr would have lifted MSFT FY25 gross profit >18%.",
-   "note_zh": "约 300 亿/年本可让微软 FY25 毛利再增 18%+。"
+   "value": "~$300B OpenAI contract → ~$150B gross profit (>$420B = Oracle total RPO, all customers)",
+   "note_en": "~$30B/yr would have lifted MSFT FY25 gross profit ~15%.",
+   "note_zh": "约 300 亿/年本可让微软 FY25 毛利再增约 15%。"
   },
   {
    "metric_en": "AWS AI revenue mix & margin move",
@@ -521,8 +521,8 @@
    },
    {
     "name": "Oracle",
-    "why_en": "~20% structural CapEx advantage (networking + ODM + IG debt), >$420B OpenAI backlog, ByteDance/Johor engine. But ROIC ~20% (below MSFT 35-40%) and margins disappointed the market.",
-    "why_zh": "约 20% 的结构性 CapEx 优势（网络 + ODM + 投资级债务）、超 4200 亿的 OpenAI 积压、字节跳动/柔佛引擎。但 ROIC 约 20%（低于微软 35-40%），且利润率让市场失望。"
+    "why_en": "~20% structural CapEx advantage (networking + ODM + IG debt), ~$300B OpenAI backlog (>$420B = total RPO across all customers), ByteDance/Johor engine. But ROIC ~20% (below MSFT 35-40%) and margins disappointed the market.",
+    "why_zh": "约 20% 的结构性 CapEx 优势（网络 + ODM + 投资级债务）、约 3000 亿的 OpenAI 积压（超 4200 亿为面向所有客户的总 RPO）、字节跳动/柔佛引擎。但 ROIC 约 20%（低于微软 35-40%），且利润率让市场失望。"
    },
    {
     "name": "Gold-tier neoclouds (CoreWeave, Nebius, Crusoe, Fluidstack)",

@@ -4,14 +4,14 @@
  "sector_name_zh": "AI 加速器（GPU / ASIC）",
  "tagline_en": "Nvidia is still King of the Jungle, but for the first time three credible challengers — Google TPU, AWS Trainium, and AMD MI450X — have arrived at once, and the real battlefield has moved from chip specs to rack-scale systems, software, and performance-per-TCO.",
  "tagline_zh": "英伟达仍是丛林之王，但历史上首次同时出现三个可信的挑战者——谷歌 TPU、亚马逊 Trainium 与 AMD MI450X；真正的战场也从单颗芯片规格，转向机架级系统、软件生态与「每单位 TCO 性能」。",
- "overview_en": "SemiAnalysis's coverage frames the accelerator sector as a systems war, not a chip war. Its recurring thesis — 'systems matter more than microarchitecture' — explains why Nvidia's GB200/GB300 NVL72 rack (72-GPU NVLink scale-up domain) and its 4-million-developer CUDA moat let it keep ~75% gross margins even as Google's TPUv7 Ironwood, AWS Trainium3, and AMD's MI450X close the raw-silicon gap. The firm's edge is empirical: it runs its own benchmarks (InferenceX/InferenceMAX across ~1,000 GPUs, MI300X-vs-H100 training), rates every GPU cloud (ClusterMAX), models the full bill-of-materials and TCO, and tracks GPU rental prices and per-accelerator HBM supply. Three structural facts dominate. First, the CUDA moat is real but is being eroded on the ASIC flank: Gemini 3 was trained entirely on TPUs, Claude Opus 4.5 was trained on multiple hardware types including TPUs (the majority of Anthropic's training and inference infrastructure sits on Google TPUs and Amazon Trainium), Anthropic committed to ~1M TPUs (~$10B of Broadcom racks plus ~$42B of GCP RPO), and OpenAI cut ~30% off its Nvidia fleet cost merely by threatening to buy TPUs. Second, inference has fractured into prefill vs decode phases, spawning specialized silicon (Rubin CPX, the Groq LPU that Nvidia bought for $20B) and disaggregated serving. Third, the 2026 market is supply-constrained: H100 1-year rentals rose ~40% off their October-2025 low, and all rental capacity through ~September 2026 is booked. The winners are those who own the system — the rack, the scale-up fabric, the compiler, and the developer ecosystem — not just the die.",
- "overview_zh": "SemiAnalysis 对加速器板块的核心判断是：这是一场「系统战」，而非「芯片战」。其反复强调的命题——「系统比微架构更重要」——解释了为什么英伟达能靠 GB200/GB300 NVL72 机架（72 卡 NVLink scale-up 域）与 400 万开发者构筑的 CUDA 护城河，在对手逼近其硅片规格之际，仍守住约 75% 的毛利率。SemiAnalysis 的优势在于「亲自动手」：跑自研基准（InferenceX/InferenceMAX 跨约 1000 张 GPU、MI300X vs H100 训练对拉）、给每一家 GPU 云评级（ClusterMAX）、逐项建 BOM 与 TCO 模型、并追踪 GPU 租金与每颗加速器的 HBM 供给。三条结构性事实主导全局：其一，CUDA 护城河真实存在，但正被 ASIC 侧蚕食——Gemini 3 全程在 TPU 上训练，Claude Opus 4.5 则在包括 TPU 在内的多种硬件上训练（Anthropic 训练与推理基础设施的大头落在谷歌 TPU 与亚马逊 Trainium 上），Anthropic 锁定约 100 万颗 TPU（约 100 亿美元的博通机架 + 约 420 亿美元的 GCP 剩余履约义务），而 OpenAI 仅凭「威胁采购 TPU」就把英伟达机队成本砍了约 30%。其二，推理已裂解为 prefill 与 decode 两个阶段，催生专用硅片（Rubin CPX、被英伟达以 200 亿美元收编的 Groq LPU）与分离式服务。其三，2026 年是供给受限市场：H100 一年期租金较 2025 年 10 月低点上涨约 40%，且截至约 2026 年 9 月上线的所有租赁产能均已被订满。赢家是拥有整个「系统」的玩家——机架、scale-up 互连、编译器与开发者生态——而不仅仅是那颗裸片。",
+ "overview_en": "SemiAnalysis's coverage frames the accelerator sector as a systems war, not a chip war. Its recurring thesis — 'systems matter more than microarchitecture' — explains why Nvidia's GB200/GB300 NVL72 rack (72-GPU NVLink scale-up domain) and its 4-million-developer CUDA moat let it keep ~75% gross margins even as Google's TPUv7 Ironwood, AWS Trainium3, and AMD's MI450X close the raw-silicon gap. The firm's edge is empirical: it runs its own benchmarks (InferenceX/InferenceMAX across ~1,000 GPUs, MI300X-vs-H100 training), rates every GPU cloud (ClusterMAX), models the full bill-of-materials and TCO, and tracks GPU rental prices and per-accelerator HBM supply. Three structural facts dominate. First, the CUDA moat is real but is being eroded on the ASIC flank: Gemini 3 was trained entirely on TPUs, Claude Opus 4.5 was trained on multiple hardware types including TPUs (the majority of Anthropic's training and inference infrastructure sits on Google TPUs and Amazon Trainium), Anthropic committed to ~1M TPUs (~$10B of Broadcom racks plus ~$42B of GCP RPO), and OpenAI cut ~30% off its Nvidia fleet cost merely by threatening to buy TPUs. Second, inference has fractured into prefill vs decode phases, spawning specialized silicon (Rubin CPX, the Groq LPU that Nvidia licensed (a non-exclusive inference-tech + talent deal; Groq stayed independent; ~$20B reported)) and disaggregated serving. Third, the 2026 market is supply-constrained: H100 1-year rentals rose ~40% off their October-2025 low, and all rental capacity through ~September 2026 is booked. The winners are those who own the system — the rack, the scale-up fabric, the compiler, and the developer ecosystem — not just the die.",
+ "overview_zh": "SemiAnalysis 对加速器板块的核心判断是：这是一场「系统战」，而非「芯片战」。其反复强调的命题——「系统比微架构更重要」——解释了为什么英伟达能靠 GB200/GB300 NVL72 机架（72 卡 NVLink scale-up 域）与 400 万开发者构筑的 CUDA 护城河，在对手逼近其硅片规格之际，仍守住约 75% 的毛利率。SemiAnalysis 的优势在于「亲自动手」：跑自研基准（InferenceX/InferenceMAX 跨约 1000 张 GPU、MI300X vs H100 训练对拉）、给每一家 GPU 云评级（ClusterMAX）、逐项建 BOM 与 TCO 模型、并追踪 GPU 租金与每颗加速器的 HBM 供给。三条结构性事实主导全局：其一，CUDA 护城河真实存在，但正被 ASIC 侧蚕食——Gemini 3 全程在 TPU 上训练，Claude Opus 4.5 则在包括 TPU 在内的多种硬件上训练（Anthropic 训练与推理基础设施的大头落在谷歌 TPU 与亚马逊 Trainium 上），Anthropic 锁定约 100 万颗 TPU（约 100 亿美元的博通机架 + 约 420 亿美元的 GCP 剩余履约义务），而 OpenAI 仅凭「威胁采购 TPU」就把英伟达机队成本砍了约 30%。其二，推理已裂解为 prefill 与 decode 两个阶段，催生专用硅片（Rubin CPX、被英伟达授权（非独家推理技术 + 人才交易；Groq 保持独立；外部报道约 200 亿美元）的 Groq LPU）与分离式服务。其三，2026 年是供给受限市场：H100 一年期租金较 2025 年 10 月低点上涨约 40%，且截至约 2026 年 9 月上线的所有租赁产能均已被订满。赢家是拥有整个「系统」的玩家——机架、scale-up 互连、编译器与开发者生态——而不仅仅是那颗裸片。",
  "core_knowledge": [
   {
    "term_en": "Scale-up world size (NVLink / ICI / NeuronLink / UALink)",
    "term_zh": "Scale-up 世界规模（NVLink / ICI / NeuronLink / UALink）",
-   "explain_en": "The number of accelerators wired into one all-to-all, high-bandwidth coherent domain. It is the single most decisive competitive metric today. Nvidia's GB200 NVL72 = 72 GPUs; TPUv7 Ironwood scales via ICI to a 9,216-chip 3D-torus pod; AMD's MI355X is still stuck at 8, which is why SemiAnalysis says it cannot compete head-to-head with GB200 NVL72 on frontier MoE reasoning inference.",
-   "explain_zh": "指被连进单一「全互联、高带宽、缓存一致」域内的加速器数量，是当今最具决定性的竞争指标。英伟达 GB200 NVL72 = 72 卡；TPUv7 Ironwood 通过 ICI 可扩展到 9216 芯片的 3D 环面 pod；而 AMD MI355X 仍只有 8 卡——这正是 SemiAnalysis 判断它无法在前沿 MoE 推理上与 GB200 NVL72 正面硬刚的原因。"
+   "explain_en": "The number of accelerators participating in one high-bandwidth scale-up (collective) domain. It is the single most decisive competitive metric today. Nvidia's GB200 NVL72 = 72 GPUs; TPUv7 Ironwood scales via ICI to a 9,216-chip 3D-torus pod; AMD's MI355X is still stuck at 8, which is why SemiAnalysis says it cannot compete head-to-head with GB200 NVL72 on frontier MoE reasoning inference.",
+   "explain_zh": "指参与单一高带宽 scale-up（集合通信）域的加速器数量，是当今最具决定性的竞争指标。英伟达 GB200 NVL72 = 72 卡；TPUv7 Ironwood 通过 ICI 可扩展到 9216 芯片的 3D 环面 pod；而 AMD MI355X 仍只有 8 卡——这正是 SemiAnalysis 判断它无法在前沿 MoE 推理上与 GB200 NVL72 正面硬刚的原因。"
   },
   {
    "term_en": "Prefill vs Decode (disaggregated serving)",
@@ -261,12 +261,12 @@
   {
    "claim_en": "Nvidia's $20B Groq deal is really about building an SRAM 'fast-token' front for disaggregated decode.",
    "claim_zh": "英伟达 200 亿美元的 Groq 交易，本质是为分离式 decode 打造一条 SRAM「快 token」战线。",
-   "rationale_en": "Nvidia paid Groq $20B to license IP and hire the team (structured to dodge antitrust). Standalone, a Groq LPU is uneconomic at scale — its ~500MB SRAM saturates fast and leaves little for KV cache — but it serves tokens extremely fast, commanding a premium. Nvidia will fuse the LPU into Vera Rubin via Attention-FFN Disaggregation (AFD): latency-sensitive decode on the SRAM-heavy LPU, memory-hungry attention on GPUs. Bonus: the LPU runs on Samsung SF4, sidestepping constrained TSMC N3/HBM — 'true incremental revenue and capacity that no one else can access.'",
-   "rationale_zh": "英伟达付给 Groq 200 亿美元以授权 IP 并招走团队（交易结构刻意规避反垄断）。单独看，Groq LPU 在规模化时不经济——约 500MB SRAM 很快饱和，留给 KV cache 的空间寥寥——但它出 token 极快，可收取溢价。英伟达将通过「注意力-FFN 分离（AFD）」把 LPU 融进 Vera Rubin：延迟敏感的 decode 交给富 SRAM 的 LPU，吃内存的 attention 交给 GPU。附赠红利：LPU 跑在三星 SF4 上，避开受限的 TSMC N3/HBM——是「别人拿不到的真正增量收入与产能」。",
+   "rationale_en": "Nvidia paid Groq $20B to license IP and hire the team (structured to dodge antitrust). Standalone, a Groq LPU is uneconomic at scale — its ~500MB SRAM saturates fast and leaves little for KV cache — but it serves tokens extremely fast, commanding a premium. Nvidia will fuse the LPU into Vera Rubin via Attention-FFN Disaggregation (AFD): FFN on the SRAM-heavy LPU, memory-hungry attention on the HBM-rich GPUs. Bonus: the LPU runs on Samsung SF4, sidestepping constrained TSMC N3/HBM — 'true incremental revenue and capacity that no one else can access.'",
+   "rationale_zh": "英伟达付给 Groq 200 亿美元以授权 IP 并招走团队（交易结构刻意规避反垄断）。单独看，Groq LPU 在规模化时不经济——约 500MB SRAM 很快饱和，留给 KV cache 的空间寥寥——但它出 token 极快，可收取溢价。英伟达将通过「注意力-FFN 分离（AFD）」把 LPU 融进 Vera Rubin：FFN 交给富 SRAM 的 LPU，吃内存的 attention 交给富 HBM 的 GPU。附赠红利：LPU 跑在三星 SF4 上，避开受限的 TSMC N3/HBM——是「别人拿不到的真正增量收入与产能」。",
    "figure": {
     "url": "https://substackcdn.com/image/fetch/$s_!269y!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F05b555ed-9d4e-45db-ad03-cbc1cc261b17_3064x1497.jpeg",
-    "shows_en": "Attention-FFN Disaggregation (AFD): decode-latency work on Groq LPU, memory-heavy attention on GPU",
-    "shows_zh": "注意力-FFN 分离（AFD）：延迟敏感的 decode 交给 Groq LPU，吃内存的 attention 交给 GPU"
+    "shows_en": "Attention-FFN Disaggregation (AFD): FFN on the SRAM-heavy Groq LPU, memory-heavy attention on HBM-rich GPU",
+    "shows_zh": "注意力-FFN 分离（AFD）：FFN 交给富 SRAM 的 Groq LPU，吃内存的 attention 交给富 HBM 的 GPU"
    },
    "quote": {
     "text": "Nvidia paid Groq $20B to license their IP and hire most the team… if this transaction were structured as a full acquisition and were put to anti-trust review, such a transaction would likely not go through.",
@@ -336,15 +336,15 @@
    "metric_en": "Cost to train GPT-3 175B (FP8, H100)",
    "metric_zh": "训练 GPT-3 175B 成本（FP8, H100）",
    "value": "72¢→54.2¢ per 1M tokens (2024, software gains)",
-   "note_en": "= $218k→$162k for a 300B-token run, purely from CUDA-stack MFU improvements at ~$1.42/hr/GPU.",
-   "note_zh": "= 3000 亿 token 训练从 21.8 万降到 16.2 万美元，纯靠 CUDA 栈 MFU 优化（约 1.42 美元/时/GPU）。"
+   "note_en": "= $216k→~$163k for a 300B-token run, purely from CUDA-stack MFU improvements at ~$1.42/hr/GPU.",
+   "note_zh": "= 3000 亿 token 训练从 21.6 万降到约 16.3 万美元，纯靠 CUDA 栈 MFU 优化（约 1.42 美元/时/GPU）。"
   },
   {
    "metric_en": "H100 MFU improvement (software only)",
    "metric_zh": "H100 MFU 提升（纯软件）",
    "value": "BF16 34%→54%, FP8 29.5%→39.5% in 12 mo",
-   "note_en": "+57% BF16 throughput from cuDNN/cuBLAS/NCCL kernels alone — the CUDA moat compounding.",
-   "note_zh": "仅靠 cuDNN/cuBLAS/NCCL kernel 就带来 +57% BF16 吞吐——CUDA 护城河的复利效应。"
+   "note_en": "+~59% BF16 throughput from cuDNN/cuBLAS/NCCL kernels alone — the CUDA moat compounding.",
+   "note_zh": "仅靠 cuDNN/cuBLAS/NCCL kernel 就带来 +~59% BF16 吞吐——CUDA 护城河的复利效应。"
   },
   {
    "metric_en": "GB200 NVL72 vs H100 TCO",
@@ -398,9 +398,9 @@
   {
    "metric_en": "CoreWeave contract wins",
    "metric_zh": "CoreWeave 合同斩获",
-   "value": "$22.4B OpenAI + $14.2B/6yr Meta; $9B Core Scientific",
-   "note_en": "IPO'd on NASDAQ ($CRWV), stock +200% in 6 months; acquired Core Scientific for 1.3GW of DC.",
-   "note_zh": "纳斯达克上市（$CRWV），半年涨 200%；以 90 亿美元收购 Core Scientific 换 1.3GW 数据中心。"
+   "value": "$22.4B OpenAI + $14.2B/6yr Meta",
+   "note_en": "IPO'd on NASDAQ ($CRWV), stock +200% in 6 months. Its proposed ~$9B all-stock acquisition of Core Scientific (~1.3GW) was voted down by Core Scientific shareholders on 2025-10-30 and terminated; the two remain a customer relationship, not merged.",
+   "note_zh": "纳斯达克上市（$CRWV），半年涨 200%。其拟以约 90 亿美元全股票收购 Core Scientific（约 1.3GW）的交易，已于 2025 年 10 月 30 日被 Core Scientific 股东投票否决并终止；双方仍维持客户关系，并未合并。"
   },
   {
    "metric_en": "ClusterMAX top-cloud RPO booked",
